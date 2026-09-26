@@ -1,6 +1,6 @@
 {
   "generator": "git_it",
-  "capturedAt": "2026-09-26T22-22-32-065Z",
+  "capturedAt": "2026-09-26T22-31-59-033Z",
   "machine": "TIMC-BMAT-43P",
   "piVersion": "0.86.1",
   "scopes": [
@@ -106,8 +106,8 @@
     },
     {
       "path": "pi-agent/skills/github/SKILL.md",
-      "sha256": "ce2c0bceefc4b65fbedbce9e9588b92f47dbba81383450a5a6e3c82fff107645",
-      "size": 7794
+      "sha256": "42b9daedabcef20d2a469f460d72b2a1562b08ba7f4062a4af4dbd2058998ab4",
+      "size": 7926
     },
     {
       "path": "pi-agent/skills/github/okf/index.md",
@@ -195,16 +195,6 @@
       "size": 40449
     },
     {
-      "path": "pi-agent/backup-wsl-powershell-hook/README.md",
-      "sha256": "32bfad7e5caceb1c39abeabba140bbae8e8982a26eec3436554097215df7914d",
-      "size": 2569
-    },
-    {
-      "path": "pi-agent/backup-wsl-powershell-hook/settings.json.bak",
-      "sha256": "8065f722cf99c33a5241c65d2d885030abc59de818009577876fb753946d78be",
-      "size": 267
-    },
-    {
       "path": "pi-agent/agents/ANSYS.md",
       "sha256": "e3f4a35414fc6fc5c7e745650109187e4aa444959ebed3bf2b6a4f051173760b",
       "size": 7148
@@ -281,7 +271,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "cdd96b8c4f07f194961435f4cdc29ef9e1e32f310ab068b50bf8405be7115507",
+      "sha256": "19cf2493bbfc456b0e19da0bce3bb6417c50878680e9dce2865b944a77349114",
       "size": 5294
     }
   ]

@@ -25,6 +25,7 @@ backed up by verified command help or official docs, say so.
 - git 2.52.0.windows.1; user configured `Tithanium <nathanael.connesson@gmail.com>`.
 - Shell on this machine is PowerShell. The pi `bash` tool runs PowerShell
   syntax; GitHub CLI is a native exe and works as any other program.
+- a Command /git_it -GitHub Tithanium/pi_personal create/push a deterministic copy of the current harness to the folder in GitHub. 
 
 ## Research Rules
 
