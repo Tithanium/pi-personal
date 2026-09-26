@@ -1,11 +1,11 @@
-git_it run 2026-09-26T20-36-27-790Z  pi 0.86.1  machine TIMC-BMAT-43P
+git_it run 2026-09-26T20-36-28-932Z  pi 0.86.1  machine TIMC-BMAT-43P
 packages:           npm:pi-okf, npm:pi-tps-live@1.0.1
 capture scopes:      pi-agent
 packed:             55 files, 409423 bytes  (G5 pass)
 gates:              G1 secrets PASS  G2 containment PASS  G3 noise PASS  G4 pi-list==settings PASS  G5 size PASS  G6 drift PASS
 redacted:           pi-agent/models.json, pi-agent/models.json.example
 manifest:           C:\Users\connessn\pi-harness-backup\manifest.json  +  manifest.sha256  +  README.md
-commit:             c1fa46c git_it backup 2026-09-26T20-36-27-790Z files=55 sha=cc4dbdef
+commit:             2b92d7b git_it backup 2026-09-26T20-36-28-932Z files=55 sha=cc4dbdef
 
 /git_it NEVER pushes. To keep backups off-machine, add a PRIVATE remote once:
   git -C C:\Users\connessn\pi-harness-backup remote add private <private-repo-url>
