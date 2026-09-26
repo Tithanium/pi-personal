@@ -1045,7 +1045,7 @@ export default function (pi: ExtensionAPI) {
       const choice = parseGitHubChoice(typeof args === "string" ? args : "");
       if (choice.kind === "proposal" || choice.kind === "usage") {
         ctx.ui.notify(choice.reply, "info");
-        ctx.sendUserMessage(choice.reply, { deliverAs: "followUp", expandPromptTemplates: false });
+        pi.sendUserMessage(choice.reply, { deliverAs: "followUp", expandPromptTemplates: false });
         return choice.reply;
       }
       // [PIECE 1] off mode passes the repo-dir arg through verbatim (identical to
@@ -1063,7 +1063,7 @@ export default function (pi: ExtensionAPI) {
         "\nGates G1-G6 PASS. /git_it never pushes — README.md in the repo has the (a) commit+push, (b) fresh-machine, (c) restore + re-enter-provider-keys blocks." +
         (r.githubNote ? "\n" + r.githubNote : "");
       ctx.ui.notify(r.headline, "info");
-      ctx.sendUserMessage(reportText, { deliverAs: "followUp", expandPromptTemplates: false });
+      pi.sendUserMessage(reportText, { deliverAs: "followUp", expandPromptTemplates: false });
       return reportText;
     },
   });
