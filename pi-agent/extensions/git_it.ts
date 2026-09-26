@@ -1037,7 +1037,7 @@ export function githubSeam(desc: GitHubDescriptor, repoDir: string): { note: str
 export default function (pi: ExtensionAPI) {
   pi.registerCommand("git_it", {
     description:
-      "Deterministic pi-harness backup: capture ~/.pi/agent + reachable project .pi/ into the backup git repo (default: C:/Users/connessn/pi-harness-backup), enforce hygiene gates G1-G6 (secrets, containment, noise, reproducible fingerprint, size, drift), commit with a deterministic timestamped message, print install/restore instructions. No LLM, no push. Usage: /git_it [repoDir] | /git_it --github <owner>/<repo> (proposal-flow parse, piece 1) | /git_it --github new <name> (parse, piece 1; push lands in pieces 2-3)",
+      "Deterministic. /git_it --github Tithanium/pi_personal or /git_it path : pi-harness backup: capture ~/.pi/agent + reachable project .pi/ into the backup git repo (default: C:/Users/connessn/pi-harness-backup), enforce hygiene gates G1-G6 (secrets, containment, noise, reproducible fingerprint, size, drift), commit with a deterministic timestamped message, print install/restore instructions. No LLM, no push. Usage: /git_it [repoDir] | /git_it --github <owner>/<repo> (proposal-flow parse, piece 1) | /git_it --github new <name> (parse, piece 1; push lands in pieces 2-3)",
     handler: async (args, ctx) => {
       // [PIECE 1] deterministic arg gate: --github/--gh enters the proposal/choice
       // flow; proposal + usage replies are PURE TEXT answers (no capture, no push,
