@@ -1,6 +1,6 @@
 {
   "generator": "git_it",
-  "capturedAt": "2026-09-26T20-36-30-110Z",
+  "capturedAt": "2026-09-26T21-30-34-919Z",
   "machine": "TIMC-BMAT-43P",
   "piVersion": "0.86.1",
   "scopes": [
@@ -166,8 +166,8 @@
     },
     {
       "path": "pi-agent/extensions/git_it.ts",
-      "sha256": "ffafe8671e3c8a3ae0ed16e066e0c0ca3475490bce962a08e1e5944892262f7c",
-      "size": 46830
+      "sha256": "b709ae56025161f44a710906571de655db33f3214ac3160cf719fd0a1648dbbc",
+      "size": 69549
     },
     {
       "path": "pi-agent/extensions/token-rate.ts",
@@ -281,8 +281,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "58c1ae18ac501dc41b2311779bfabc2dedb48f4d8be0f408a2f5726bab119d93",
-      "size": 3732
+      "sha256": "e5fa738f9e82b2a0df65b1fb1d4832c6b73b12ef3880027d71763abe2e17114c",
+      "size": 5294
     }
   ]
 }
