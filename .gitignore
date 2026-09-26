@@ -1,0 +1,25 @@
+# =========================================================
+# pi personnel (~/.pi/agent) — .gitignore
+# Secrets, jetons et donnees vives ne doivent JAMAIS entrer
+# dans le depot (meme prive) :
+# =========================================================
+# Secrets / jetons : a un fichier de substitution sur
+# models.json.example (clé API MASQUEE)
+auth.json
+models-store.json
+models.json
+*.bak
+*.bak_*
+*.log
+# Donnees de session pi (volatiles, regenerables)
+sessions/
+# Paquets pi installes (npm:) — reinstalles via pi install
+npm/
+# Fichiers en cache / temporaires
+*.tmp
+
+# --- git_it additions (the capture ships models.json REDACTED and one allow-listed
+#     settings.json.bak under backup-wsl-powershell-hook/; negation keeps them tracked) ---
+!pi-agent/models.json
+!pi-agent/backup-wsl-powershell-hook/
+!pi-agent/backup-wsl-powershell-hook/settings.json.bak

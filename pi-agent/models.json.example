@@ -1,0 +1,17 @@
+{
+  "providers": {
+    "alan": {
+      "baseUrl": "https://alan.univ-grenoble-alpes.fr/api",
+      "api": "openai-completions",
+      "apiKey": "__GIT_IT_REDACTED__",
+      "models": [
+        {
+          "id": "ARES/DeepSeek-V4-Flash-0731",
+          "name": "ARES Qwen3.8-27B (Alan UGA)",
+          "contextWindow": 128000,
+          "maxTokens": 32768
+        }
+      ]
+    }
+  }
+}

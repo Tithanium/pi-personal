@@ -1,0 +1,10 @@
+{
+    "defaultProvider":  "alan",
+    "defaultModel":  "ARES/DeepSeek-V4-Flash-0731",
+    "lastChangelogVersion":  "0.86.1",
+    "theme":  "dark",
+    "packages":  [
+                     "npm:pi-okf",
+                     "npm:pi-tps-live@1.0.1"
+                 ]
+}
