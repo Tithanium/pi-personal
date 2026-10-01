@@ -35,6 +35,19 @@ npm --version
 git --version
 ```
 
+> **If `npm` works in `cmd` but not in PowerShell:** both shells see the same
+> PATH, but they resolve `npm` to different shims — `cmd` runs `npm.cmd`, while
+> PowerShell runs the `npm.ps1` script, which the default **Restricted**
+> execution policy blocks ("running scripts is disabled"). One-time fix, no
+> admin needed:
+>
+> ```powershell
+> Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+> ```
+>
+> (A terminal opened BEFORE the winget install also keeps the old PATH —
+> close it and reopen it.)
+
 ## Install — from the harness folder to a working session
 
 All commands below are PowerShell and use the FIXED path `C:\pi-personal` —
@@ -79,7 +92,12 @@ New-Item -ItemType Directory -Force $env:USERPROFILE\.pi | Out-Null
 Copy-Item -Recurse -Force C:\pi-personal\dot-pi\* $env:USERPROFILE\.pi\
 Test-Path $env:USERPROFILE\.pi\agent\settings.json    # expected: True (both cases)
 
-# ── 3) Start a working session ────────────────────────────────────────────────
+# ── 3) Install the pi-okf package ─────────────────────────────────────────────
+# (excluded from the save, so it is fetched from npm here; the footer tok/s
+#  needs NO package — it is the local extension token-rate.ts)
+pi install npm:pi-okf
+
+# ── 4) Start a working session ────────────────────────────────────────────────
 pi
 ```
 
@@ -94,7 +112,7 @@ Then, in the pi session:
 
 ## Verify the session is complete
 
-- Footer shows a live **tok/s** line (pi-tps-live package)
+- Footer shows a live **tok/s** line (local extension `token-rate.ts`)
 - `/` completion offers: `/okf-validate`, `/okf-inspect`, `/okf-diff`, `/okf-init`,
   `/okf-capture`, `/okf-update`, `/goal`, `/task`, `/clear`, `/ALAN_connector`, `/skill:<name>`
 - Skills available: `ALAN`, `ansys`, `fedoo`, `matplotlib`, `goal`, `task`
@@ -204,8 +222,10 @@ provenance only, its launch script is not part of this save) ·
 
 ### Pi npm packages
 
-`npm:pi-okf` (okf_* tools, /okf-* commands, okf skill) · `npm:pi-tps-live@1.0.1`
-(footer tok/s) — registered in `settings.json` (`packages` key), auto-loaded at startup.
+`npm:pi-okf` (okf_* tools, /okf-* commands, okf skill) — installed in step 3.
+`npm:pi-tps-live@1.0.1` is also registered in `settings.json` (`packages` key)
+but redundant here: the footer tok/s line is drawn by the local extension
+`token-rate.ts`.
 
 ## What was excluded, and why
 
@@ -215,7 +235,7 @@ provenance only, its launch script is not part of this save) ·
 | `auth.json`, `models-store.json` (×2) | Credential stores |
 | `models.json` apiKey, `alan-connector/config.local.ps1`, `alan-connector/probe_result.json` | API keys (masked/replaced by `sk-REMPLACEZ_PAR_VOTRE_CLE` in `models.json`; the other two are simply absent and git-ignored) |
 | `*.bak*`, `models_back.json`, `*.log` | Backups and logs |
-| `dot-pi/agent/npm/` (package cache) | Packages are fetched by pi at startup (the `packages` key in `settings.json`) |
+| `dot-pi/agent/npm/` (package cache) | Reinstalled via `pi install npm:pi-okf` (step 3) |
 | **Dev tools — skills:** `creating-pi-tools`, `github`, `okf-agent-workflow` | Harness/agent development workflows, not part of the working setup |
 | **Dev tools — agents:** `coder`, `reviewer`, `injection-screen`, `ps`, `shell`, `Storage_future_service/` | Code-implementation / code-review / security-scan / shell-glue subagents and a dev workbench |
 | **Dev tools — extension:** `git_it.ts` | Git-workflow extension under development |
