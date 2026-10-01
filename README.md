@@ -29,6 +29,10 @@ Install them (PowerShell, run as **normal user** — winget installs for the cur
 ```powershell
 winget install OpenJS.NodeJS.LTS
 winget install Git.Git
+# make PowerShell behave like cmd for npm/node: PS resolves `npm` to the npm.ps1
+# script shim (blocked by the default Restricted execution policy), cmd uses
+# npm.cmd. One-time, per-user, no admin needed:
+Set-ExecutionPolicy -Scope CurrentUser -Force RemoteSigned
 # close and reopen PowerShell so the new PATH (node, npm, git) is picked up, then check:
 node --version    # v24.x expected (any recent LTS works)
 npm --version
@@ -45,8 +49,10 @@ git --version
 > Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 > ```
 >
-> (A terminal opened BEFORE the winget install also keeps the old PATH —
-> close it and reopen it.)
+> Same result without changing the policy: type `npm.cmd` instead of `npm` in
+> PowerShell. If the error is instead "`npm` is not recognized", it is a stale
+> PATH, not a shim issue — the terminal was opened before the winget install;
+> close it and reopen it.
 
 ## Install — from the harness folder to a working session
 
