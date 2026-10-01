@@ -59,6 +59,10 @@ node .\dist\bundle\cli.js --version        # also expected: 0.86.1
 # ── 2) Restore the personal configuration into ~/.pi ──────────────────────────
 # (on a machine that already has a ~/.pi, this merges — dot-pi wins on conflicts;
 #  if you want a pristine start, do:  Remove-Item $env:USERPROFILE\.pi -Recurse -Force)
+# IMPORTANT: create ~/.pi FIRST. If the destination does not exist, Copy-Item
+# would rename the single copied folder (agent) TO .pi itself — the files would
+# land one level too high (settings.json in .pi\ instead of .pi\agent\).
+New-Item -ItemType Directory -Force $env:USERPROFILE\.pi | Out-Null
 Copy-Item -Recurse -Force C:\pi-personal\dot-pi\* $env:USERPROFILE\.pi\
 Test-Path $env:USERPROFILE\.pi\agent\settings.json    # expected: True
 
