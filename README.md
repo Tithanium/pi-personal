@@ -37,22 +37,23 @@ git --version
 
 ## Install — from the harness folder to a working session
 
-All commands below are PowerShell. Copy them verbatim; if the repo folder is
-not at `C:\pi-personal`, change `$save` in step 0 — nothing else needs changing.
+All commands below are PowerShell and use the FIXED path `C:\pi-personal` —
+no variables, so every command works in any window (even a freshly opened
+one). If the repo is not there, run the one-time move in step 0.
 
 ```powershell
 # ── 0) Get this folder ─────────────────────────────────────────────────────────
 # Option A — clone the repo (private repo: you need access + a git credential,
 # e.g. `gh auth login` first, or a personal access token):
 git clone https://github.com/Tithanium/pi-personal C:\pi-personal
-# Option B — you already have the folder (USB, sync, …) at another path.
-# Then point $save at your folder:
-$save = "C:\pi-personal"        # <- change ONLY if needed
+# Option B — you already have the folder (USB, sync, …) at another path:
+#            move it to C:\pi-personal ONCE (adapt the source path):
+#            Move-Item "C:\where\you\put\pi-personal" C:\pi-personal
 
 # ── 1) Install the EXACT same pi version from the saved harness ───────────────
 # (harness/ contains the full package incl. node_modules, so the installed copy
 #  is byte-identical to the source machine's — incl. the local patches)
-cd "$save\harness"
+cd C:\pi-personal\harness
 npm install -g .
 pi --version            # expected: 0.86.1
 # zero-install sanity check (the shipped bundle is self-contained):
@@ -75,7 +76,7 @@ node .\dist\bundle\cli.js --version        # also expected: 0.86.1
 #
 # The New-Item line is what makes case B safe; it is a no-op in case A.
 New-Item -ItemType Directory -Force $env:USERPROFILE\.pi | Out-Null
-Copy-Item -Recurse -Force "$save\dot-pi\*" $env:USERPROFILE\.pi\
+Copy-Item -Recurse -Force C:\pi-personal\dot-pi\* $env:USERPROFILE\.pi\
 Test-Path $env:USERPROFILE\.pi\agent\settings.json    # expected: True (both cases)
 
 # ── 3) Connect a model provider ───────────────────────────────────────────────
