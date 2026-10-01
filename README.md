@@ -79,36 +79,18 @@ New-Item -ItemType Directory -Force $env:USERPROFILE\.pi | Out-Null
 Copy-Item -Recurse -Force C:\pi-personal\dot-pi\* $env:USERPROFILE\.pi\
 Test-Path $env:USERPROFILE\.pi\agent\settings.json    # expected: True (both cases)
 
-# ── 3) Connect a model provider ───────────────────────────────────────────────
-# You need ONE working provider before pi can answer. Two routes:
-
-# Route A (recommended if you have access to the ALAN UGA service):
-#   let /ALAN_connector do it — it asks for the key ONLY if the service requires
-#   one, then SAVES EVERYTHING AUTOMATICALLY (provider + key + default model).
-#   Start pi and run:   /ALAN_connector
-#   (details in the ALAN section below)
-
-# Route B (any other provider — e.g. a built-in one via OAuth/login):
-pi login
-# then set the defaults in the settings file:
-notepad $env:USERPROFILE\.pi\agent\settings.json
-#   -> "defaultProvider" / "defaultModel" to a provider+model you now have
-
-# Route C (manual ALAN key entry, no pi session yet):
-notepad $env:USERPROFILE\.pi\agent\models.json
-#   -> replace "sk-REMPLACEZ_PAR_VOTRE_CLE" with your ALAN API key
-#   (the masked models.json is pre-wired to https://alan.univ-grenoble-alpes.fr/api)
-
-# ── 4) Reinstall the pi packages ──────────────────────────────────────────────
-# (excluded from the save; they auto-load at startup because settings.json
-#  carries the "packages" key — this step only fetches them onto disk)
-pi install npm:pi-okf
-pi install npm:pi-tps-live@1.0.1
-pi list                 # expected: npm:pi-okf + npm:pi-tps-live@1.0.1
-
-# ── 5) Start a working session ────────────────────────────────────────────────
+# ── 3) Start a working session ────────────────────────────────────────────────
 pi
 ```
+
+Then, in the pi session:
+
+```
+/ALAN_connector <your ALAN API key>   # connect the ALAN provider (key saved)
+/model                                 # pick a model
+```
+
+(details in the ALAN section below)
 
 ## Verify the session is complete
 
@@ -153,14 +135,16 @@ In a pi session:
      no restart needed).
 5. The key is never printed and never written to any log.
 
-So on a fresh install: start pi → `/ALAN_connector` → (paste key if asked) → pick
-a model → done. Rollback after a bad write: `/ALAN_connector` has no subcommands
+So on a fresh install: start pi → `/ALAN_connector <your ALAN API key>` →
+`/model` → pick a model → done. Rollback after a bad write: `/ALAN_connector` has no subcommands
 anymore — run the script directly:
 `pwsh "$env:USERPROFILE\.pi\agent\extensions\alan-connector\alan_config_writer.ps1" -Restore`
 
 If the ALAN service is NOT reachable from your machine (it is the source user's
-institutional service), skip it and use Route B/C above with any provider you
-have; the ALAN skill and extension remain inert but harmless.
+institutional service), skip it and set `defaultProvider`/`defaultModel` in
+`$env:USERPROFILE\.pi\agent\settings.json` to any provider you have (see the
+ALAN provider note in [Notes](#notes)); the ALAN skill and extension remain
+inert but harmless.
 
 ## Path conventions
 
@@ -218,10 +202,10 @@ provenance only, its launch script is not part of this save) ·
 `models.json.example` · `prompts/` (`goal.md`, `task.md`) ·
 `bin/` (`fd.exe`, `rg.exe` — used by pi's find/grep when present)
 
-### Pi npm packages (reinstalled in step 4)
+### Pi npm packages
 
 `npm:pi-okf` (okf_* tools, /okf-* commands, okf skill) · `npm:pi-tps-live@1.0.1`
-(footer tok/s)
+(footer tok/s) — registered in `settings.json` (`packages` key), auto-loaded at startup.
 
 ## What was excluded, and why
 
@@ -231,7 +215,7 @@ provenance only, its launch script is not part of this save) ·
 | `auth.json`, `models-store.json` (×2) | Credential stores |
 | `models.json` apiKey, `alan-connector/config.local.ps1`, `alan-connector/probe_result.json` | API keys (masked/replaced by `sk-REMPLACEZ_PAR_VOTRE_CLE` in `models.json`; the other two are simply absent and git-ignored) |
 | `*.bak*`, `models_back.json`, `*.log` | Backups and logs |
-| `dot-pi/agent/npm/` (package cache) | Reinstalled via `pi install` (step 4) |
+| `dot-pi/agent/npm/` (package cache) | Packages are fetched by pi at startup (the `packages` key in `settings.json`) |
 | **Dev tools — skills:** `creating-pi-tools`, `github`, `okf-agent-workflow` | Harness/agent development workflows, not part of the working setup |
 | **Dev tools — agents:** `coder`, `reviewer`, `injection-screen`, `ps`, `shell`, `Storage_future_service/` | Code-implementation / code-review / security-scan / shell-glue subagents and a dev workbench |
 | **Dev tools — extension:** `git_it.ts` | Git-workflow extension under development |
