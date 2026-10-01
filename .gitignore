@@ -5,7 +5,6 @@ models-store.json
 *.bak
 *.bak_*
 models_back.json
-node_modules/
 scratch/
 # live ALAN connector artifacts (recreated at runtime, may contain keys)
 config.local.ps1

@@ -5,7 +5,7 @@ from a Windows 11 machine (Node v24.12.0, PowerShell 5.1, git 2.52).
 
 | Folder | Content |
 |---|---|
-| `harness/` | The pi program itself — npm package `@earendil-works/pi-coding-agent` **v0.86.1**, including the locally patched runtime in `dist/bundle/` (see Notes) |
+| `harness/` | The pi program itself — npm package `@earendil-works/pi-coding-agent` **v0.86.1** + its **complete `node_modules` dependency tree** (14 379 files, 364 MB), including the `@earendil-works` scoped packages (`chord`, `pi-agent-core`, `pi-ai`, `pi-telemetry`, `pi-tui` — the latter carrying the local `/skill:` autocomplete patch) and the locally patched runtime in `dist/bundle/` (see Notes) |
 | `dot-pi/` | The personal configuration (a copy of `~/.pi/agent`): skills, agents, extensions, memory files, provider/model settings |
 
 **Portable by design**: no path in this project is hard-coded to the source user
@@ -14,8 +14,7 @@ pi config under `%USERPROFILE%\.pi\`, optional doc trees under `%USERPROFILE%\Da
 (see [Path conventions](#path-conventions)).
 
 **Excluded by design** (table at the bottom): session data, all API keys and
-credential stores, development tools, the npm package cache and
-`harness/node_modules` (fetched by `npm install`).
+credential stores, development tools, the pi package cache (`dot-pi/agent/npm/`).
 
 ---
 
@@ -49,6 +48,8 @@ git clone https://github.com/Tithanium/pi-personal C:\pi-personal
 # Option B — you already have the folder (USB, sync, …): just cd into it below.
 
 # ── 1) Install the EXACT same pi version from the saved harness ───────────────
+# (harness/ contains the full package incl. node_modules, so the installed copy
+#  is byte-identical to the source machine's — incl. the local patches)
 cd C:\pi-personal\harness
 npm install -g .
 pi --version            # expected: 0.86.1
@@ -206,7 +207,6 @@ provenance only, its launch script is not part of this save) ·
 | `models.json` apiKey, `alan-connector/config.local.ps1`, `alan-connector/probe_result.json` | API keys (masked/replaced by `sk-REMPLACEZ_PAR_VOTRE_CLE` in `models.json`; the other two are simply absent and git-ignored) |
 | `*.bak*`, `models_back.json`, `*.log` | Backups and logs |
 | `dot-pi/agent/npm/` (package cache) | Reinstalled via `pi install` (step 4) |
-| `harness/node_modules` (~364 MB) | Fetched by `npm install`; the patched runtime lives in `dist/bundle/` and IS kept |
 | **Dev tools — skills:** `creating-pi-tools`, `github`, `okf-agent-workflow` | Harness/agent development workflows, not part of the working setup |
 | **Dev tools — agents:** `coder`, `reviewer`, `injection-screen`, `ps`, `shell`, `Storage_future_service/` | Code-implementation / code-review / security-scan / shell-glue subagents and a dev workbench |
 | **Dev tools — extension:** `git_it.ts` | Git-workflow extension under development |
@@ -218,10 +218,14 @@ on the next pi start.
 
 ## Notes
 
-- **The saved harness carries a local fix**: the `/skill:` autocomplete fix lives in
-  `dist/bundle/chunks/chunk-CMRUVXTE.js`. Installing from the npm registry instead
-  (`npm install -g @earendil-works/pi-coding-agent@0.86.1`) gives the same version
-  but **loses that fix**.
+- **The saved harness carries a local fix in BOTH runtime copies**: the `/skill:`
+  autocomplete fix lives in `dist/bundle/chunks/chunk-CMRUVXTE.js` (the shipped
+  bundle) AND in `node_modules/@earendil-works/pi-tui/dist/autocomplete.js` (the
+  source dep). Both are included in this save. Installing from the npm registry
+  instead (`npm install -g @earendil-works/pi-coding-agent@0.86.1`) gives the same
+  version but **loses the fix**. Note: `harness/node_modules` also ships the
+  per-platform `@esbuild/*` binaries (needed by pi's toolchain; ~120 MB of the
+  364 MB — the win32-x64 one is the one actually used).
 - **ALAN provider**: `models.json` points at `https://alan.univ-grenoble-alpes.fr/api`
   — the source user's institutional OpenAI-compatible model service. If it is not
   reachable from your machine, set `defaultProvider`/`defaultModel` in
