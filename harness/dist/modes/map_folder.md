@@ -1,0 +1,14 @@
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/index.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/index.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/index.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/index.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/json-event.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/json-event.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/json-event.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/json-event.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/print-mode.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/print-mode.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/print-mode.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/print-mode.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/

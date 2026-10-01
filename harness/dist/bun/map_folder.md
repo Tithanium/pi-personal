@@ -1,0 +1,16 @@
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/cli.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/cli.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/cli.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/cli.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/restore-sandbox-env.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/restore-sandbox-env.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/restore-sandbox-env.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/restore-sandbox-env.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/runtime-setup.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/runtime-setup.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/runtime-setup.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/runtime-setup.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/sandbox-env-setup.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/sandbox-env-setup.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/sandbox-env-setup.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/bun/sandbox-env-setup.js.map

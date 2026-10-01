@@ -1,0 +1,12 @@
+# Defensive: secrets, credentials and session data must never re-enter this repo
+auth.json
+models-store.json
+*.log
+*.bak
+*.bak_*
+models_back.json
+node_modules/
+scratch/
+# live ALAN connector artifacts (recreated at runtime, may contain keys)
+config.local.ps1
+probe_result.json

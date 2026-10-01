@@ -1,0 +1,16 @@
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/jsonl.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/jsonl.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/jsonl.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/jsonl.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-client.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-client.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-client.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-client.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-mode.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-mode.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-mode.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-mode.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-types.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-types.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-types.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/rpc/rpc-types.js.map

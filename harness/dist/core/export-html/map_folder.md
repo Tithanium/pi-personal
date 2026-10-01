@@ -1,0 +1,16 @@
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/ansi-to-html.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/ansi-to-html.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/ansi-to-html.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/ansi-to-html.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/index.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/index.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/index.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/index.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/template.css
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/template.html
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/template.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/tool-renderer.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/tool-renderer.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/tool-renderer.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/tool-renderer.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/export-html/vendor/

@@ -1,0 +1,3 @@
+# ALAN extension folder — secrets / live artifacts that must never be committed:
+config.local.ps1          # API key (the probe dot-sources this)
+probe_result.json         # contains the API key (apiKey field)

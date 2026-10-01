@@ -1,0 +1,14 @@
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/01-minimal.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/02-custom-model.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/03-custom-prompt.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/04-skills.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/05-tools.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/06-extensions.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/07-context-files.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/08-prompt-templates.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/09-api-keys-and-oauth.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/10-settings.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/11-sessions.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/12-full-control.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/13-session-runtime.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/examples/sdk/README.md

@@ -1,0 +1,19 @@
+# =========================================================
+# pi personnel (~/.pi/agent) — .gitignore
+# Secrets, jetons et donnees vives ne doivent JAMAIS entrer
+# dans le depot (meme prive) :
+# =========================================================
+# Secrets / jetons : a un fichier de substitution sur
+# models.json.example (clé API MASQUEE)
+auth.json
+models-store.json
+models.json
+*.bak
+*.bak_*
+*.log
+# Donnees de session pi (volatiles, regenerables)
+sessions/
+# Paquets pi installes (npm:) — reinstalles via pi install
+npm/
+# Fichiers en cache / temporaires
+*.tmp

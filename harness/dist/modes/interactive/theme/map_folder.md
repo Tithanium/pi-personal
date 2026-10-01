@@ -1,0 +1,15 @@
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/dark.json
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/light.json
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-controller.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-controller.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-controller.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-controller.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-json.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-json.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-json.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-json.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme-schema.json
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/modes/interactive/theme/theme.js.map

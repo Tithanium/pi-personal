@@ -1,0 +1,16 @@
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/branch-summarization.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/branch-summarization.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/branch-summarization.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/branch-summarization.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/compaction.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/compaction.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/compaction.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/compaction.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/index.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/index.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/index.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/index.js.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/utils.d.ts
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/utils.d.ts.map
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/utils.js
+AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/core/compaction/utils.js.map
