@@ -37,34 +37,46 @@ git --version
 
 ## Install — from the harness folder to a working session
 
-All commands below are PowerShell. Copy them verbatim, changing only
-`C:\pi-personal` if you cloned/copied the repo elsewhere.
+All commands below are PowerShell. Copy them verbatim; if the repo folder is
+not at `C:\pi-personal`, change `$save` in step 0 — nothing else needs changing.
 
 ```powershell
 # ── 0) Get this folder ─────────────────────────────────────────────────────────
 # Option A — clone the repo (private repo: you need access + a git credential,
 # e.g. `gh auth login` first, or a personal access token):
 git clone https://github.com/Tithanium/pi-personal C:\pi-personal
-# Option B — you already have the folder (USB, sync, …): just cd into it below.
+# Option B — you already have the folder (USB, sync, …) at another path.
+# Then point $save at your folder:
+$save = "C:\pi-personal"        # <- change ONLY if needed
 
 # ── 1) Install the EXACT same pi version from the saved harness ───────────────
 # (harness/ contains the full package incl. node_modules, so the installed copy
 #  is byte-identical to the source machine's — incl. the local patches)
-cd C:\pi-personal\harness
+cd "$save\harness"
 npm install -g .
 pi --version            # expected: 0.86.1
 # zero-install sanity check (the shipped bundle is self-contained):
 node .\dist\bundle\cli.js --version        # also expected: 0.86.1
 
 # ── 2) Restore the personal configuration into ~/.pi ──────────────────────────
-# (on a machine that already has a ~/.pi, this merges — dot-pi wins on conflicts;
-#  if you want a pristine start, do:  Remove-Item $env:USERPROFILE\.pi -Recurse -Force)
-# IMPORTANT: create ~/.pi FIRST. If the destination does not exist, Copy-Item
-# would rename the single copied folder (agent) TO .pi itself — the files would
-# land one level too high (settings.json in .pi\ instead of .pi\agent\).
+# TWO CASES — the same three commands handle both:
+#
+#   CASE A — ~/.pi ALREADY EXISTS (pi was already used on this machine):
+#            the copy MERGES into the existing ~/.pi; on file conflicts the
+#            saved config (dot-pi) wins; your existing sessions stay untouched.
+#            For a PRISTINE start instead, delete the old config FIRST:
+#                Remove-Item $env:USERPROFILE\.pi -Recurse -Force
+#
+#   CASE B — ~/.pi DOES NOT EXIST (fresh machine):
+#            the folder MUST be created BEFORE the copy. If you copy into a
+#            non-existent destination, Copy-Item renames the single copied
+#            folder (agent) TO .pi itself — the files then land one level too
+#            high (.pi\settings.json instead of .pi\agent\settings.json).
+#
+# The New-Item line is what makes case B safe; it is a no-op in case A.
 New-Item -ItemType Directory -Force $env:USERPROFILE\.pi | Out-Null
-Copy-Item -Recurse -Force C:\pi-personal\dot-pi\* $env:USERPROFILE\.pi\
-Test-Path $env:USERPROFILE\.pi\agent\settings.json    # expected: True
+Copy-Item -Recurse -Force "$save\dot-pi\*" $env:USERPROFILE\.pi\
+Test-Path $env:USERPROFILE\.pi\agent\settings.json    # expected: True (both cases)
 
 # ── 3) Connect a model provider ───────────────────────────────────────────────
 # You need ONE working provider before pi can answer. Two routes:
@@ -105,6 +117,14 @@ pi
 - Skills available: `ALAN`, `ansys`, `fedoo`, `matplotlib`, `goal`, `task`
 - Subagents available: `ANSYS`, `FEDOO`, `researcher`, `sum`
 - The `bash` tool runs PowerShell commands (extension `bash-to-powershell.ts`)
+
+**Troubleshooting — `Test-Path` from step 2 returned `False`:**
+run `Get-ChildItem $env:USERPROFILE\.pi -Force -Name`. If the config files
+(`settings.json`, `agents`, `skills`, …) appear directly under `.pi` with no
+`agent` folder, the copy landed one level too high (case B trap). Redo step 2
+case B: `Remove-Item $env:USERPROFILE\.pi -Recurse -Force` (only if `.pi` holds
+nothing of your own) → `New-Item -ItemType Directory -Force $env:USERPROFILE\.pi | Out-Null`
+→ copy again → retest.
 
 ## ALAN provider — the /ALAN_connector flow (key auto-save)
 
