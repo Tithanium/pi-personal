@@ -1,4 +1,8 @@
-# AGENTS.md — pi memory (global, Windows machine, user connessn)
+# AGENTS.md — pi memory (global, Windows machine)
+
+> Portable save (2026-10-01): copied from a source machine whose user home was `C:\Users\connessn`;
+> on THIS machine the same layout lives under `%USERPROFILE%\.pi\agent\` — re-verify machine-specific
+> paths before use.
 
 > Read by EVERY pi session on this machine, any folder.
 

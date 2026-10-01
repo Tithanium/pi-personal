@@ -5,14 +5,17 @@ description: Operates the ALAN (UGA) OpenAI-compatible model service from pi —
 
 # ALAN (UGA) service — probe, pi wiring, connector, rollback
 
-Ground truth lives in the ALAN toolkit folder:
-`C:\Users\connessn\Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN`
-- `PROBE_RECIPE.md` — full deterministic probe recipe (extracted from the original launch scripts)
-- `PI_PROVIDER_WIRING.md` — pi custom-provider schema, verbatim from the pi docs
+Ground truth for the RUNNABLE toolkit is the pi extension folder (shipped with this save):
+`~/.pi/agent/extensions/alan-connector/`
 - `alan_probe.ps1` — deterministic probe (writes `probe_result.json`, never prints the API key)
 - `alan_config_writer.ps1` — surgical pi-config writer (`-DryRun`, `-Restore`, backup `.bak_yyyyMMdd_HHmmss`)
-- `config.ps1` + `config.local.ps1` — `$baseUrl`, `$apiKey` (placeholder overridden in `config.local.ps1`), `$preferredModelIds`
-- logs: `alan_connector_probe.log` and `alan_config_writer.log` (same folder as the scripts)
+- `config.ps1` + `config.local.ps1` — `$baseUrl`, `$apiKey` (placeholder in `config.ps1`, real key lives in `config.local.ps1`, created locally, git-ignored), `$preferredModelIds`
+- logs: `alan_connector_probe.log`, `alan_config_writer.log`, `alan_connector.log` (same folder)
+
+Documentation artifacts (`PROBE_RECIPE.md`, `PI_PROVIDER_WIRING.md`, the original `launch_Harness*.ps1`)
+lived in the SOURCE machine's dev folder `%USERPROFILE%\Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN`
+— that folder is NOT part of this pi save (dev tooling); every runnable behavior above is fully covered
+by the extension folder.
 
 Never print, log, or commit the API key (it lives in `config.local.ps1`, travels inside
 `probe_result.json` → `models.json`, and is git-ignored: `.gitignore` lists
@@ -122,16 +125,13 @@ Only two keys are touched (everything else — `packages`, `theme`, `defaultTool
 
 ## 3. The /ALAN_connector pi command
 
-Extension: **folder** `C:\Users\connessn\.pi\agent\extensions\alan-connector\` (`index.ts` + `alan_probe.ps1` + `alan_config_writer.ps1` + `config.ps1` + `config.local.ps1`; auto-discovered, apply with `/reload` or a pi restart). **Layout rule: the command references files ONLY inside this extension folder** — the ALAN toolkit copy at `Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN` is no longer used (probe_result.json, alan_connector_probe.log, alan_config_writer.log and the new connector log `alan_connector.log` all live in the extension folder). **Output rule: every trace of a run goes to `alan_connector.log`** in that folder; in TUI mode the session only shows a single bracketed comment line `[alan-connector] …` rendered **under the editor** via `ctx.ui.setWidget(placement:"belowEditor")` — never inside the message/prompt area (console.log / notify both land there); headless modes get it via console.log. Plus thrown errors. It is stand-alone deterministic (pure HTTP probe + file ops via the two local scripts), never requires an LLM connection, never touches skills/agents/extensions/auth.json, never prints the API key and never writes it to any log (relayed output is redacted). `probe_result.json` and `config.local.ps1` contain the API key → git-ignored by `extensions/alan-connector/.gitignore`. Errors always name the script paths involved.
+Extension: **folder** `~/.pi/agent/extensions/alan-connector/` (`index.ts` + `alan_probe.ps1` + `alan_config_writer.ps1` + `config.ps1` + `config.local.ps1`; auto-discovered, apply with `/reload` or a pi restart). **Layout rule: the command references files ONLY inside this extension folder** — the ALAN toolkit copy on the source machine is no longer used (probe_result.json, alan_connector_probe.log, alan_config_writer.log and the new connector log `alan_connector.log` all live in the extension folder). **Output rule: every trace of a run goes to `alan_connector.log`** in that folder; in TUI mode the session only shows a single bracketed comment line `[alan-connector] …` rendered **under the editor** via `ctx.ui.setWidget(placement:"belowEditor")` — never inside the message/prompt area (console.log / notify both land there); headless modes get it via console.log. Plus thrown errors. It is stand-alone deterministic (pure HTTP probe + file ops via the two local scripts), never requires an LLM connection, never touches skills/agents/extensions/auth.json, never prints the API key and never writes it to any log (relayed output is redacted). `probe_result.json` and `config.local.ps1` contain the API key → git-ignored by `extensions/alan-connector/.gitignore`. Errors always name the script paths involved.
 
 | Invocation | Behavior |
 |---|---|
-| `/ALAN_connector` | Probe (default selection) + real write: backup first, write models.json + settings.json (merge semantics, byte-preserving other keys), print selected model, backup SHA-256 hashes, summary, **then HOT-APPLIES to the running session: `ctx.modelRegistry.refresh()` + `pi.setModel()` (verified fix for "must restart pi")** — the live catalog reloads at runtime (pi only re-reads models.json on `/model` open) and the current session switches to the picked model immediately |
-| `/ALAN_connector --list` | Dry probe only: shows the models to choose from, nothing written |
-| `/ALAN_connector --model <id|N>` | Force that model (exact id, display name, or the `[N]` index from `--list`, 0-based) for probe + write; `--model <N>` / `--model=<id>` also accepted |
-| `/ALAN_connector --dry-run` | Probe + `alan_config_writer.ps1 -DryRun`: validation + textual diff, NO write, NO backup |
-| `/ALAN_connector --restore` | Restore the latest `.bak_yyyyMMdd_HHmmss` pair, SHA-256-verify each restored file equals its backup, error if no backup exists, touch nothing else |
-| `/ALAN_connector --help` | Usage + script paths |
+| `/ALAN_connector` | Interactive flow: probe (key read from `config.local.ps1`; the user is asked for the API key **only if** Alan actually requires one — HTTP 401/403), then a scrollable model picker below the prompt (↑/↓ navigate, Enter select, Esc cancel). On select: real write — backup first, merge `providers.alan` (INCLUDING the key) into `~/.pi/agent/models.json` + set `defaultProvider`/`defaultModel` in `settings.json` — then **HOT-APPLY to the running session** (`ctx.modelRegistry.refresh()` + `pi.setModel()` — no restart needed). The key is thus SAVED AUTOMATICALLY in `models.json`; it is never printed nor logged |
+| `/ALAN_connector <apiKey>` | EXACTLY ONE token: the raw API key, forwarded to the probe as `alan_probe.ps1 --apiKey <key>` (skips the interactive prompt); otherwise identical to the no-arg flow. Never printed nor logged. The only form usable headless |
+| anything else | Error: `no arguments accepted — /ALAN_connector [<apiKey>]`. There are NO subcommands (`--list/--model/--dry-run/--restore/--help` were deleted) — use the scripts directly (below) for dry-run / restore |
 
 Backup naming: `~/.pi/agent/models.json.bak_yyyyMMdd_HHmmss` and `~/.pi/agent/settings.json.bak_yyyyMMdd_HHmmss` (created before ANY write; backups are never deleted). Restore semantics: a backed-up file is copied back and verified; a file with no backup in the latest timestamp is removed if it exists (it did not exist before that write).
 
@@ -157,7 +157,7 @@ The connector touches NOTHING else — skills, agents, extensions, auth.json, se
 ### 4.2 Restore config after a bad write
 
 ```powershell
-pwsh C:\Users\connessn\Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN\alan_config_writer.ps1 -Restore
+pwsh "$env:USERPROFILE\.pi\agent\extensions\alan-connector\alan_config_writer.ps1" -Restore
 # or inside pi: /ALAN_connector --restore
 ```
 
@@ -166,7 +166,7 @@ prints `SHA256 backup` vs `SHA256 restored` per file, and fails (exit 1) on any 
 Verify hash-identical manually with:
 
 ```powershell
-Get-FileHash C:\Users\connessn\.pi\agent\models.json, C:\Users\connessn\.pi\agent\models.json.bak_* -Algorithm SHA256
+Get-FileHash ~/.pi\agent\models.json, ~/.pi\agent\models.json.bak_* -Algorithm SHA256
 ```
 
 If a file had no backup in that timestamp (it did not exist before that write) it is removed — the

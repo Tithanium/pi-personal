@@ -1,4 +1,7 @@
-# AGENTS.md — pi memory (global, Windows machine, user connessn)
+# AGENTS.md — pi memory (global, Windows machine)
+
+> Portable save (2026-10-01): copied from a source machine whose user home was `C:\Users\connessn`;
+> on THIS machine the same layout lives under `%USERPROFILE%\.pi\agent\`.
 
 > Read by EVERY pi session on this machine, any folder.
 > Priority: security rules + anti-waste below.
@@ -63,10 +66,10 @@ Flow:
 
 | Role | Path |
 |---|---|
-| Global pi config | `C:/Users/connessn/.pi/agent/` (subdirs `agents/`, `extensions/`, `skills/`, `auth.json`) |
-| Auto-detected extensions | `C:/Users/connessn/.pi/agent/extensions/` or `.pi/extensions/` (project) |
+| Global pi config | `~/.pi/agent/` (subdirs `agents/`, `extensions/`, `skills/`, `auth.json`) |
+| Auto-detected extensions | `~/.pi/agent/extensions/` or `.pi/extensions/` (project) |
 | Project AGENTS.md | read in the current working dir (e.g. `Harnesses_launch_GRICAD/AGENTS.md`) |
-| Verified facts (hypothesis checks) | `C:/Users/connessn/.pi/agent/VERIFIED_FACTS.md` — read before asserting, fed after each check; superseded facts archived to `VERIFIED_FACTS_HISTORY.md` (append-only, NOT a check target) |
+| Verified facts (hypothesis checks) | `~/.pi/agent/VERIFIED_FACTS.md` — read before asserting, fed after each check; superseded facts archived to `VERIFIED_FACTS_HISTORY.md` (append-only, NOT a check target) |
 
 ## ALREADY INSTALLED (reuse as-is — rebuilding wastes turns)
 

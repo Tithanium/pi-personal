@@ -2,6 +2,10 @@
 
 synthetized: false
 
+> **PORTABLE SAVE (2026-10-01)**: these facts describe the SOURCE machine (Windows user `connessn`,
+> home `C:\Users\connessn`). Absolute paths under that home are HISTORICAL — on THIS machine the same
+> layout resolves under `%USERPROFILE%`. Re-verify any machine-specific fact before asserting it here.
+
 > ONE single file for ACTIVE hypothesis checks. Read BEFORE asserting a fact,
 > fed AFTER each check (rule in `AGENTS.md`, section HYPOTHESIS → CHECK RULE).
 > Older superseded facts (beyond the latest `[OUT]` per section) are archived in

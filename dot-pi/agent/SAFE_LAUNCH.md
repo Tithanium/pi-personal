@@ -36,7 +36,7 @@ git tag "before_launch_$(Get-Date -Format yyyyMMdd_HHmmss)"
 ### Etape 2 — lancement durci (sortie vierge exigee)
 
 ```powershell
-cd "C:\Users\connessn\Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN"
+cd "%USERPROFILE%\Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN"
 .\launch_Harness.HARDENED.ps1        # choisir le modele AU MENU
 ```
 

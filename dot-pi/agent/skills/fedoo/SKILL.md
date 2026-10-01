@@ -16,10 +16,10 @@ You are a coding assistant with Fortran and python experience for over 30 years 
 You have access to
 
 1. The fedoo documentation set in
-   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo`:
+   `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo`:
 
    - Main documentation (Sphinx HTML, mirrored from `https://3mah.github.io/fedoo-docs/stable/`):
-     `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Main_documentation_fedoo`
+     `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Main_documentation_fedoo`
      (guide pages `index.html`, `quick_start.html`, `mesh.html`,
      `constitutive_law.html`, `weak_form.html`, `assembly.html`, `time.html`,
      `problem.html`, `boundary_conditions.html`, `post_processing.html`,
@@ -28,14 +28,14 @@ You have access to
      per class/function, e.g. `fedoo.weakform.StressEquilibrium.html`,
      `fedoo.problem.NonLinear.html`, `fedoo.mesh.box_mesh.html`).
    - The Sphinx `.rst` sources in
-     `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Documentation_technique`.
+     `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Documentation_technique`.
    - The fedoo source code v1.0.0 in
-     `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Code_source_fedoo`
+     `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Code_source_fedoo`
      (the Python docstrings in `Code_source_fedoo\fedoo\` are the authoritative
      API documentation source of truth; module docstrings describe each weak
      form, law, problem and their parameters).
 2. The library of working fedoo Python examples in
-   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Exemples_fedoo`
+   `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Exemples_fedoo`
    (01-simple, 02-constraints, 03-advanced, adaptive, contact, dynamique,
    FE2, heterogeneous, homogenization, models, PeriodicBoundaryConditions,
    plasticity, poromechanics, rigid_body, shell_elements, slider, thermal,
@@ -48,9 +48,9 @@ You have access to
 For every fedoo object (class, function, method, argument, keyword), you MUST
 get the exact signature and parameter meaning before answering. The starting
 research points are the API pages in
-`C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Main_documentation_fedoo\generated`,
+`%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Main_documentation_fedoo\generated`,
 the guide pages in `Main_documentation_fedoo`, and the source docstrings in
-`C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Code_source_fedoo\fedoo`,
+`%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Code_source_fedoo\fedoo`,
 using grep, etc.
 
 You must check in which module each function lives (`fd.mesh`, `fd.weakform`,
@@ -73,7 +73,7 @@ b. ONLY THEN, replace the parameters with concrete values for the user's case,
    'tri3').
 c. For numerical values and options, check thoroughly the documentation
    associated with the sought object in
-   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Main_documentation_fedoo`
+   `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Main_documentation_fedoo`
    or the source in `Code_source_fedoo\fedoo`.
 
 For example, the signature of the stress equilibrium weak form in the provided
@@ -96,7 +96,7 @@ If the prompt requires you to provide a full fedoo program:
 
 - Use a sub agent to identify the most relevant available example/s. If you
   identified examples of interest, study the associated files by analyzing the
-  associated folder in `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Exemples_fedoo`.
+  associated folder in `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\Exemples_fedoo`.
   These have the `.py` extension. Analyse the full script: imports, Modeling
   Space, mesh creation, weak forms, assemblies, problem, solver, boundary
   conditions, and result post-processing.
@@ -133,11 +133,11 @@ know, indicate the references you analyzed and propose potential documentation.
 This skill is linked to an Open Knowledge Format (OKF) bundle that indexes the
 fedoo documentation set you work on:
 
-- BUNDLE: `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\okf\`
+- BUNDLE: `%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\okf\`
   (root `index.md` and `log.md`, sections `documentation\index.md` and
   `examples\` with one concept per example group).
 - The OKF authoring skill (the "okf skill") lives at
-  `C:\Users\connessn\.pi\agent\npm\node_modules\pi-okf\skills\okf\SKILL.md` — read
+  `~/.pi\agent\npm\node_modules\pi-okf\skills\okf\SKILL.md` — read
   it to load the full workflow before the improvement pass.
 
 On EVERY call you MUST run the OKF improvement workflow, in this order:
@@ -175,6 +175,6 @@ On EVERY call you MUST run the OKF improvement workflow, in this order:
    the bundle stays aligned to the latest OKF v0.2 conventions.
 
 Always pass the ABSOLUTE bundle path
-`C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\okf` as the
+`%USERPROFILE%\Datas\02_RECHERCHE\00_Biblio\Doc_tech_fedoo\okf` as the
 `path` argument to `okf_capture` and `okf_validate`, and use absolute paths
 when creating or editing concept files with `write`/`edit`.
