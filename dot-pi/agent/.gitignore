@@ -3,15 +3,11 @@
 # Secrets, jetons et donnees vives ne doivent JAMAIS entrer
 # dans le depot (meme prive) :
 # =========================================================
-# Secrets / jetons : un fichier de substitution existe sur
+# Secrets / jetons : a un fichier de substitution sur
 # models.json.example (clé API MASQUEE)
 auth.json
 models-store.json
 models.json
-# ALAN connector runtime key (created next to the extension at
-# runtime, may contain the live key — NEVER commit)
-api_config.json
-# Backups / logs
 *.bak
 *.bak_*
 *.log
@@ -21,3 +17,6 @@ sessions/
 npm/
 # Fichiers en cache / temporaires
 *.tmp
+
+# subagent timing-log data (regenerable, do not track)
+extensions/subagent/usage-log.jsonl

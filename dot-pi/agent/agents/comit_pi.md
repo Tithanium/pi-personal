@@ -1,6 +1,6 @@
 ---
 name: comit_pi
-description: Save and push the current pi harness (the live pi npm package + the ~/.pi/agent config: extensions, skills, agents, prompts, memory) to the private GitHub repo Tithanium/pi-personal. Use when the user asks to "save/push/update the pi harness", "commit the pi setup", "sync pi-personal", "push my pi extensions", or run the pi-personal git save. It creates a backup branch, replaces harness/ with the live pi package, rebuilds dot-pi/agent/ from the live config with secret masking, checks hard safety gates (no live API key, correct pi version, no session/cache litter), then commits and pushes to origin/main.
+description: 'Save and push the current pi harness (the live pi npm package + the ~/.pi/agent config: extensions, skills, agents, prompts, memory) to the private GitHub repo Tithanium/pi-personal. Use when the user asks to "save/push/update the pi harness", "commit the pi setup", "sync pi-personal", "push my pi extensions", or run the pi-personal git save. It creates a backup branch, replaces harness/ with the live pi package, rebuilds dot-pi/agent/ from the live config with secret masking, checks hard safety gates (no live API key, correct pi version, no session/cache litter), then commits and pushes to origin/main.'
 tools: bash, read, write, edit, powershell
 ---
 

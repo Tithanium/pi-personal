@@ -7,3 +7,5 @@
 {"ts":"2026-10-14T09:00:15.192Z","agent":"fedoo-example-runner","model":"alan/qwen-3.8-27b","durationMs":2587044,"exitCode":0,"usage":{"input":389884,"output":83659,"cacheRead":6624016,"cacheWrite":0,"cost":0,"contextTokens":150558,"turns":91}}
 {"ts":"2026-10-14T09:38:18.612Z","agent":"rag-query","model":"alan/qwen-3.8-27b","durationMs":487352,"exitCode":0,"usage":{"input":8608,"output":6448,"cacheRead":1568,"cacheWrite":0,"cost":0,"contextTokens":14522,"turns":2}}
 {"ts":"2026-10-14T11:49:32.788Z","agent":"rag-query","model":"alan/qwen-3.8-27b","durationMs":252276,"exitCode":0,"usage":{"input":1587,"output":1237,"cacheRead":0,"cacheWrite":0,"cost":0,"contextTokens":2824,"turns":1}}
+{"ts":"2026-10-14T12:34:40.583Z","agent":"fedoo-report-writer","model":"alan/qwen-3.8-27b","durationMs":5357002,"exitCode":0,"usage":{"input":717272,"output":60006,"cacheRead":841232,"cacheWrite":0,"cost":0,"contextTokens":116084,"turns":20}}
+{"ts":"2026-10-14T13:07:18.030Z","agent":"fedoo-run-critic","model":"alan/qwen-3.8-27b","durationMs":1901108,"exitCode":0,"usage":{"input":401051,"output":46895,"cacheRead":333984,"cacheWrite":0,"cost":0,"contextTokens":77831,"turns":22}}
