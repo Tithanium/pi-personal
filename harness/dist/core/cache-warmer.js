@@ -135,7 +135,9 @@ export class CacheWarmer {
         this.run = {
             ...request,
             isCurrent,
+            ttlMs,
             delayMs,
+            refreshDeadlineAt: 0,
             startedAt: Date.now(),
             controller: new AbortController(),
             phase: "streaming",
@@ -186,6 +188,10 @@ export class CacheWarmer {
     schedule(run) {
         run.extensionOverride = false;
         run.nextWarmAt = Date.now() + run.delayMs;
+        // A timer can run late after sleep or event-loop blockage. Keep half of
+        // the planned pre-expiry margin for that delay and request dispatch; a
+        // late refresh is likely a full-price cache write, not a cache warm.
+        run.refreshDeadlineAt = run.nextWarmAt + Math.floor((run.ttlMs - run.delayMs) / 2);
         const deadline = run.startedAt + (run.phase === "idle" ? MAX_IDLE_WARMING_AGE_MS : MAX_WARMING_AGE_MS);
         if (run.nextWarmAt > deadline || Date.now() >= deadline) {
             this.stop(run.phase === "idle" ? "30-minute idle safety limit reached" : "one-hour safety limit reached");
@@ -197,6 +203,8 @@ export class CacheWarmer {
     async refresh(run) {
         run.timer = undefined;
         if (!this.validateRun(run))
+            return;
+        if (this.refreshDeadlineMissed(run))
             return;
         const decision = this.evaluate(run);
         const { warmCost, missCost, continuationProbability } = decision;
@@ -213,7 +221,7 @@ export class CacheWarmer {
         catch {
             // Extension failures fall back to pi's own decision.
         }
-        if (!this.validateRun(run))
+        if (!this.validateRun(run) || this.refreshDeadlineMissed(run))
             return;
         const extensionOverride = action !== decision.action;
         if (action === "stop") {
@@ -247,6 +255,12 @@ export class CacheWarmer {
         }
         if (this.run === run)
             this.schedule(run);
+    }
+    refreshDeadlineMissed(run) {
+        if (Date.now() <= run.refreshDeadlineAt)
+            return false;
+        this.stop("cache refresh deadline missed");
+        return true;
     }
     validateRun(run) {
         if (this.run !== run)

@@ -192,18 +192,11 @@ export class ScopedModelsSelectorComponent extends Container {
             const isSelected = i === this.selectedIndex;
             const prefix = isSelected ? theme.fg("accent", "→ ") : "  ";
             const id = item.model?.id ?? item.fullId;
-            const _cw = item.model?.contextWindow;
-            const _ctxStr = _cw ? (() => { const k = Math.round((_cw / 1024) * 10) / 10; return ` (${Number.isInteger(k) ? `${k}k` : `${k.toFixed(1)}k`})`; })() : "";
-            const _strip = (s) => s.replace(/\x1b\[[0-9;]*m/g, "");
-            const _termW = process.stdout.columns || 80;
-            const _fixedLen = 5 + _strip(item.model ? `[${item.model.provider}]` : "[unavailable]").length + _ctxStr.length;
-            const _maxId = Math.max(8, _termW - _fixedLen);
-            const _displayId = id.length > _maxId ? "…" + id.slice(-(_maxId - 1)) : id;
-            const styledId = item.model ? _displayId : theme.strikethrough(_displayId);
+            const styledId = item.model ? id : theme.strikethrough(id);
             const modelText = isSelected ? theme.fg("accent", styledId) : styledId;
             const providerBadge = theme.fg("muted", item.model ? ` [${item.model.provider}]` : " [unavailable]");
             const status = item.model && item.enabled ? theme.fg("accent", "✓ ") : "  ";
-            this.listContainer.addChild(new Text(`${prefix}${status}${modelText}${providerBadge}${_ctxStr}`, 0, 0));
+            this.listContainer.addChild(new Text(`${prefix}${status}${modelText}${providerBadge}`, 0, 0));
         }
         // Add scroll indicator if needed
         if (startIndex > 0 || endIndex < this.filteredItems.length) {
@@ -212,9 +205,7 @@ export class ScopedModelsSelectorComponent extends Container {
         if (this.filteredItems.length > 0) {
             const selected = this.filteredItems[this.selectedIndex];
             this.listContainer.addChild(new Spacer(1));
-            const _selCw = selected.model?.contextWindow;
-            const _selCtx = _selCw ? (() => { const k = Math.round((_selCw / 1024) * 10) / 10; return ` (${Number.isInteger(k) ? `${k}k` : `${k.toFixed(1)}k`})`; })() : "";
-            this.listContainer.addChild(new Text(theme.fg("muted", `  ${selected.model ? `Model Name: ${selected.model.name}${_selCtx}` : "Model unavailable"}`), 0, 0));
+            this.listContainer.addChild(new Text(theme.fg("muted", `  ${selected.model ? `Model Name: ${selected.model.name}` : "Model unavailable"}`), 0, 0));
         }
     }
     handleInput(data) {

@@ -36,10 +36,11 @@ import { SettingsManager } from "./core/settings-manager.js";
 import { printTimings, resetTimings, time } from "./core/timings.js";
 import { hasTrustRequiringProjectResources, ProjectTrustStore } from "./core/trust-manager.js";
 import { builtInExtensions } from "./extensions/index.js";
+import { loadMcpCommand } from "./extensions/mcp/cli.lazy.js";
 import { runMigrations, showDeprecationWarnings } from "./migrations.js";
 import { InteractiveMode, runPrintMode, runRpcMode } from "./modes/index.js";
 import { initTheme, setThemeJsonValidator, stopThemeWatcher } from "./modes/interactive/theme/theme.js";
-import { validateThemeJson } from "./modes/interactive/theme/theme-json.js";
+import { validateThemeJson } from "./modes/interactive/theme/theme-schema.js";
 import { cleanupManagedInstall, handleConfigCommand, handlePackageCommand } from "./package-manager-cli.js";
 import { isLocalPath, normalizePath, resolvePath } from "./utils/paths.js";
 import { cleanupWindowsSelfUpdateQuarantine } from "./utils/windows-self-update.js";
@@ -167,11 +168,12 @@ async function runAuthCommand(args) {
     }
     return true;
 }
-async function prepareInitialMessage(parsed, autoResizeImages, stdinContent) {
+async function prepareInitialMessage(parsed, stdinContent) {
     if (parsed.fileArgs.length === 0) {
         return buildInitialMessage({ parsed, stdinContent });
     }
-    const { text, images } = await processFileArguments(parsed.fileArgs, { autoResizeImages });
+    // AgentSession resizes these after extension hooks select the request model.
+    const { text, images } = await processFileArguments(parsed.fileArgs, { autoResizeImages: false });
     return buildInitialMessage({
         parsed,
         fileText: text,
@@ -355,6 +357,12 @@ function buildSessionOptions(parsed, scopedModels, hasExistingSession, modelRunt
     // Model from CLI
     // - supports --provider <name> --model <pattern>
     // - supports --model <provider>/<pattern>
+    if (parsed.provider && !parsed.model) {
+        diagnostics.push({
+            type: "error",
+            message: `--provider requires --model (for example: --provider ${parsed.provider} --model <pattern>)`,
+        });
+    }
     if (parsed.model) {
         const resolved = resolveCliModel({
             cliProvider: parsed.provider,
@@ -440,6 +448,8 @@ async function promptForMissingSessionCwd(issue, settingsManager) {
 }
 export async function main(args, options) {
     resetTimings();
+    // Commands and startup selectors can load user-authored themes before runtime creation.
+    setThemeJsonValidator(validateThemeJson);
     const extensionFactories = [...builtInExtensions, ...(options?.extensionFactories ?? [])];
     const offlineMode = args.includes("--offline") || isTruthyEnvFlag(process.env.PI_OFFLINE);
     if (offlineMode) {
@@ -471,6 +481,11 @@ export async function main(args, options) {
         return;
     }
     if (await handleConfigCommand(args, { extensionFactories })) {
+        return;
+    }
+    if (args[0] === "mcp") {
+        const { runMcpCommand } = await loadMcpCommand();
+        process.exitCode = await runMcpCommand(args.slice(1), { cwd, agentDir });
         return;
     }
     const parsed = parseArgs(args);
@@ -618,6 +633,7 @@ export async function main(args, options) {
                 additionalPromptTemplatePaths: resolvedPromptTemplatePaths,
                 additionalThemePaths: resolvedThemePaths,
                 noExtensions: parsed.noExtensions,
+                disabledBuiltinExtensions: parsed.noMcp ? ["mcp"] : undefined,
                 noSkills: parsed.noSkills,
                 noPromptTemplates: parsed.noPromptTemplates,
                 noThemes: parsed.noThemes,
@@ -635,6 +651,10 @@ export async function main(args, options) {
             ...resourceLoader.getExtensions().errors.map(({ path, error }) => ({
                 type: "error",
                 message: `Failed to load extension "${path}": ${error}`,
+            })),
+            ...(resourceLoader.getExtensions().warnings ?? []).map(({ path, warning }) => ({
+                type: "warning",
+                message: `Extension package "${path}": ${warning}`,
             })),
         ];
         const modelPatterns = parsed.models ?? settingsManager.getEnabledModels();
@@ -711,10 +731,8 @@ export async function main(args, options) {
         }
     }
     time("readPipedStdin");
-    const { initialMessage, initialImages } = await prepareInitialMessage(parsed, settingsManager.getImageAutoResize(), stdinContent);
+    const { initialMessage, initialImages } = await prepareInitialMessage(parsed, stdinContent);
     time("prepareInitialMessage");
-    // pi reads user-authored themes, so it opts into full validation before any theme loads.
-    setThemeJsonValidator(validateThemeJson);
     initTheme(settingsManager.getTheme(), appMode === "interactive");
     time("initTheme");
     // Show deprecation warnings in interactive mode

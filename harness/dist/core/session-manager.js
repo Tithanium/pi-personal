@@ -232,10 +232,55 @@ export function buildContextEntries(entries, leafId, byId) {
  * If leafId is provided, walks from that entry to root.
  * Handles compaction and branch summaries along the path.
  */
-export function buildSessionContext(entries, leafId, byId) {
+function projectContextEntry(entry, edit) {
+    const messages = sessionEntryToContextMessages(entry);
+    if (!edit)
+        return messages;
+    const replacement = edit.replacement;
+    if (replacement === null)
+        return [];
+    return messages.map((message) => {
+        if (message.role !== "user" &&
+            message.role !== "assistant" &&
+            message.role !== "toolResult" &&
+            message.role !== "custom") {
+            return message;
+        }
+        const content = (message.role === "assistant" || message.role === "toolResult") && typeof replacement.content === "string"
+            ? [{ type: "text", text: replacement.content }]
+            : replacement.content;
+        return { ...message, content };
+    });
+}
+/** Build provenance-preserving, compaction-aware model context. */
+export function buildSessionProjection(entries, leafId, byId) {
     const path = buildSessionPath(entries, leafId, byId);
     const { thinkingLevel, model } = getSessionContextSettings(path);
-    const messages = buildContextEntries(entries, leafId, byId).flatMap(sessionEntryToContextMessages);
+    const contextEntries = buildContextEntries(entries, leafId, byId);
+    const edits = new Map();
+    for (const entry of contextEntries) {
+        if (entry.type === "context_edit")
+            edits.set(entry.targetId, entry);
+    }
+    const projectedEntries = contextEntries.map((sourceEntry, index) => ({
+        sourceEntry,
+        // buildContextEntries() may retain an older compaction entry because its
+        // raw ID lies inside the newest retained range. Only the newest compaction
+        // at index zero contributes a checkpoint and summary.
+        messages: sourceEntry.type === "compaction" && index > 0
+            ? []
+            : projectContextEntry(sourceEntry, edits.get(sourceEntry.id)),
+    }));
+    return {
+        entries: projectedEntries,
+        messages: projectedEntries.flatMap((entry) => entry.messages),
+        thinkingLevel,
+        model,
+    };
+}
+/** Build the finalized model context from the canonical session projection. */
+export function buildSessionContext(entries, leafId, byId) {
+    const { messages, thinkingLevel, model } = buildSessionProjection(entries, leafId, byId);
     return { messages, thinkingLevel, model };
 }
 /**
@@ -737,21 +782,21 @@ export class SessionManager {
     getSessionFile() {
         return this.sessionFile;
     }
+    /**
+     * A new session file is created only once the session contains a user or assistant message.
+     * Setup entries alone (model, thinking level, system prompt) stay in memory so opening and
+     * closing pi without chatting leaves no file behind. Starting at the user message (not the
+     * first assistant reply) keeps the prompt on disk if the first turn never completes (#10000).
+     */
+    _hasConversation() {
+        return this.fileEntries.some((e) => e.type === "message" && (e.message.role === "user" || e.message.role === "assistant"));
+    }
     _persist(entry) {
         if (!this.persist || !this.sessionFile)
             return;
-        const hasAssistant = this.fileEntries.some((e) => e.type === "message" && e.message.role === "assistant");
-        if (!hasAssistant) {
-            if (this.flushed) {
-                appendFileSync(this.sessionFile, `${JSON.stringify(entry)}\n`);
-            }
-            else {
-                // Mark as not flushed so when assistant arrives, all entries get written
-                this.flushed = false;
-            }
-            return;
-        }
         if (!this.flushed) {
+            if (!this._hasConversation())
+                return;
             const fd = openSync(this.sessionFile, "wx");
             try {
                 for (const e of this.fileEntries) {
@@ -834,14 +879,15 @@ export class SessionManager {
     /** Append a compaction summary as child of current leaf, then advance leaf. Returns entry id. */
     appendCompaction(summary, firstKeptEntryId, tokensBefore, details, fromHook, usage) {
         const timestamp = new Date().toISOString();
-        const systemMessage = getCurrentSystemMessage(this.buildSessionContext().messages);
+        const systemMessage = getCurrentSystemMessage(this.buildSessionProjection().messages);
+        const id = generateId(this.byId);
         const entry = {
             type: "compaction",
-            id: generateId(this.byId),
+            id,
             parentId: this.leafId,
             timestamp,
             summary,
-            firstKeptEntryId,
+            firstKeptEntryId: firstKeptEntryId ?? id,
             tokensBefore,
             details,
             usage,
@@ -880,10 +926,10 @@ export class SessionManager {
     /** Get the current session name from the latest session_info entry, if any. */
     getSessionName() {
         // Walk entries in reverse to find the latest session_info entry.
-        // Empty names explicitly clear the session title.
-        const entries = this.getEntries();
-        for (let i = entries.length - 1; i >= 0; i--) {
-            const entry = entries[i];
+        // Empty names explicitly clear the session title. Reads fileEntries directly: the footer
+        // calls this on every frame, and getEntries() copies the whole session.
+        for (let i = this.fileEntries.length - 1; i >= 0; i--) {
+            const entry = this.fileEntries[i];
             if (entry.type === "session_info") {
                 return entry.name?.trim() || undefined;
             }
@@ -908,6 +954,44 @@ export class SessionManager {
             id: generateId(this.byId),
             parentId: this.leafId,
             timestamp: new Date().toISOString(),
+        };
+        this._appendEntry(entry);
+        return entry.id;
+    }
+    /** Append a branch-local edit to an earlier model-visible entry. */
+    appendContextEdit(targetId, replacement) {
+        if (replacement !== null &&
+            (typeof replacement !== "object" ||
+                !("content" in replacement) ||
+                (typeof replacement.content !== "string" && !Array.isArray(replacement.content)))) {
+            throw new Error("Context edit replacement must be null or contain string/array content");
+        }
+        const target = this.byId.get(targetId);
+        if (!target)
+            throw new Error(`Entry ${targetId} not found`);
+        if (!this.getBranch().some((entry) => entry.id === targetId)) {
+            throw new Error(`Entry ${targetId} is not on the active branch`);
+        }
+        const editable = target.type === "custom_message" ||
+            (target.type === "message" &&
+                (target.message.role === "user" ||
+                    target.message.role === "assistant" ||
+                    target.message.role === "toolResult"));
+        if (!editable)
+            throw new Error(`Entry ${targetId} does not contribute editable model content`);
+        const targetRole = target.type === "message" ? target.message.role : "custom";
+        const normalizedReplacement = replacement !== null &&
+            (targetRole === "assistant" || targetRole === "toolResult") &&
+            typeof replacement.content === "string"
+            ? { content: [{ type: "text", text: replacement.content }] }
+            : replacement;
+        const entry = {
+            type: "context_edit",
+            id: generateId(this.byId),
+            parentId: this.leafId,
+            timestamp: new Date().toISOString(),
+            targetId,
+            replacement: normalizedReplacement,
         };
         this._appendEntry(entry);
         return entry.id;
@@ -997,8 +1081,12 @@ export class SessionManager {
      * Build the session context (what gets sent to the LLM).
      * Uses tree traversal from current leaf.
      */
+    buildSessionProjection() {
+        return buildSessionProjection(this.getEntries(), this.leafId, this.byId);
+    }
     buildSessionContext() {
-        return buildSessionContext(this.getEntries(), this.leafId, this.byId);
+        const { messages, thinkingLevel, model } = this.buildSessionProjection();
+        return { messages, thinkingLevel, model };
     }
     /**
      * Get session header.
@@ -1006,6 +1094,10 @@ export class SessionManager {
     getHeader() {
         const h = this.fileEntries.find((e) => e.type === "session");
         return h ? h : null;
+    }
+    /** Number of session entries (excludes header), without copying them like `getEntries()`. */
+    getEntryCount() {
+        return this.byId.size;
     }
     /**
      * Get all session entries (excludes header). Returns a shallow copy.
@@ -1136,7 +1228,9 @@ export class SessionManager {
                 ? {
                     ...entry,
                     parentId: pathParentId,
-                    firstKeptEntryId: replacementByLabelId.get(entry.firstKeptEntryId) ?? entry.firstKeptEntryId,
+                    firstKeptEntryId: entry.firstKeptEntryId === entry.id
+                        ? entry.id
+                        : (replacementByLabelId.get(entry.firstKeptEntryId) ?? entry.firstKeptEntryId),
                 }
                 : { ...entry, parentId: pathParentId });
             pathParentId = entry.id;
@@ -1183,13 +1277,9 @@ export class SessionManager {
             this.sessionId = newSessionId;
             this.sessionFile = newSessionFile;
             this._buildIndex();
-            // Only write the file now if it contains an assistant message.
-            // Otherwise defer to _persist(), which creates the file on the
-            // first assistant response, matching the newSession() contract
-            // and avoiding the duplicate-header bug when _persist()'s
-            // no-assistant guard later resets flushed to false.
-            const hasAssistant = this.fileEntries.some((e) => e.type === "message" && e.message.role === "assistant");
-            if (hasAssistant) {
+            // Use the same rule as _persist(): write now if the branched path already
+            // has a conversation, otherwise let _persist() create the file later.
+            if (this._hasConversation()) {
                 this._rewriteFile();
                 this.flushed = true;
             }

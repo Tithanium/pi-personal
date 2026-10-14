@@ -1,5 +1,5 @@
 import type { AgentMessage } from "@earendil-works/pi-agent-core";
-import { type ImageContent, type Message, type SystemMessage, type TextContent, type Usage } from "@earendil-works/pi-ai";
+import { type AssistantMessage, type ImageContent, type Message, type SystemMessage, type TextContent, type ToolResultMessage, type Usage, type UserMessage } from "@earendil-works/pi-ai";
 import { type BashExecutionMessage, type CustomMessage } from "./messages.ts";
 export declare const CURRENT_SESSION_VERSION = 3;
 export interface SessionHeader {
@@ -113,8 +113,19 @@ export interface CustomMessageEntry<T = unknown> extends SessionEntryBase {
     details?: T;
     display: boolean;
 }
+/** Content that an append-only context edit may replace without changing message metadata. */
+export type ContextEditableContent = UserMessage["content"] | AssistantMessage["content"] | ToolResultMessage["content"] | CustomMessage["content"];
+/** Append-only change to one earlier entry's contribution to model context. */
+export interface ContextEditEntry extends SessionEntryBase {
+    type: "context_edit";
+    targetId: string;
+    /** Null omits the target from model context. A value replaces only its content. */
+    replacement: {
+        content: ContextEditableContent;
+    } | null;
+}
 /** Session entry - has id/parentId for tree structure (returned by "read" methods in SessionManager) */
-export type SessionEntry = SessionMessageEntry | ThinkingLevelChangeEntry | ModelChangeEntry | UsageEntry | CompactionEntry | BranchSummaryEntry | CustomEntry | CustomMessageEntry | LabelEntry | SessionInfoEntry;
+export type SessionEntry = SessionMessageEntry | ThinkingLevelChangeEntry | ModelChangeEntry | UsageEntry | CompactionEntry | BranchSummaryEntry | CustomEntry | CustomMessageEntry | ContextEditEntry | LabelEntry | SessionInfoEntry;
 /** Raw file entry (includes header) */
 export type FileEntry = SessionHeader | SessionEntry;
 /** Tree node for getTree() - defensive copy of session structure */
@@ -125,6 +136,21 @@ export interface SessionTreeNode {
     label?: string;
     /** Timestamp of the latest label change for this entry, if any */
     labelTimestamp?: string;
+}
+export interface ProjectedSessionEntry {
+    /** Raw append-only entry that owns this projected contribution. */
+    sourceEntry: SessionEntry;
+    /** Model-visible messages after context edits. Empty for state-only entries and omissions. */
+    messages: AgentMessage[];
+}
+export interface SessionProjection {
+    entries: ProjectedSessionEntry[];
+    messages: AgentMessage[];
+    thinkingLevel: string;
+    model: {
+        provider: string;
+        modelId: string;
+    } | null;
 }
 export interface SessionContext {
     messages: AgentMessage[];
@@ -149,7 +175,7 @@ export interface SessionInfo {
     firstMessage: string;
     allMessagesText: string;
 }
-export type ReadonlySessionManager = Pick<SessionManager, "getCwd" | "getSessionDir" | "getSessionId" | "getSessionFile" | "getLeafId" | "getLeafEntry" | "getEntry" | "getLabel" | "getBranch" | "buildContextEntries" | "getHeader" | "getEntries" | "getTree" | "getSessionName">;
+export type ReadonlySessionManager = Pick<SessionManager, "getCwd" | "getSessionDir" | "getSessionId" | "getSessionFile" | "getLeafId" | "getLeafEntry" | "getEntry" | "getLabel" | "getBranch" | "buildContextEntries" | "buildSessionProjection" | "getHeader" | "getEntries" | "getTree" | "getSessionName">;
 export declare function assertValidSessionId(id: string): void;
 /** Exported for testing */
 export declare function migrateSessionEntries(entries: FileEntry[]): void;
@@ -170,11 +196,9 @@ export declare function sessionEntryToContextMessages(entry: SessionEntry): Agen
  * compaction entry. Older summarized entries are omitted.
  */
 export declare function buildContextEntries(entries: SessionEntry[], leafId?: string | null, byId?: Map<string, SessionEntry>): SessionEntry[];
-/**
- * Build the session context from entries using tree traversal.
- * If leafId is provided, walks from that entry to root.
- * Handles compaction and branch summaries along the path.
- */
+/** Build provenance-preserving, compaction-aware model context. */
+export declare function buildSessionProjection(entries: SessionEntry[], leafId?: string | null, byId?: Map<string, SessionEntry>): SessionProjection;
+/** Build the finalized model context from the canonical session projection. */
 export declare function buildSessionContext(entries: SessionEntry[], leafId?: string | null, byId?: Map<string, SessionEntry>): SessionContext;
 export declare function getDefaultSessionDir(cwd: string, agentDir?: string): string;
 /** Exported for testing */
@@ -221,6 +245,13 @@ export declare class SessionManager {
     usesDefaultSessionDir(): boolean;
     getSessionId(): string;
     getSessionFile(): string | undefined;
+    /**
+     * A new session file is created only once the session contains a user or assistant message.
+     * Setup entries alone (model, thinking level, system prompt) stay in memory so opening and
+     * closing pi without chatting leaves no file behind. Starting at the user message (not the
+     * first assistant reply) keeps the prompt on disk if the first turn never completes (#10000).
+     */
+    private _hasConversation;
     _persist(entry: SessionEntry): void;
     private _appendEntry;
     /** Append a message as child of current leaf, then advance leaf. Returns entry id.
@@ -237,7 +268,7 @@ export declare class SessionManager {
     /** Append model-attributed usage that does not participate in LLM context. Returns the appended entry. */
     appendUsage(kind: string, provider: string, model: string, usage: Usage, note?: string): UsageEntry;
     /** Append a compaction summary as child of current leaf, then advance leaf. Returns entry id. */
-    appendCompaction<T = unknown>(summary: string, firstKeptEntryId: string, tokensBefore: number, details?: T, fromHook?: boolean, usage?: Usage): string;
+    appendCompaction<T = unknown>(summary: string, firstKeptEntryId: string | null, tokensBefore: number, details?: T, fromHook?: boolean, usage?: Usage): string;
     /** Append a custom entry (for extensions) as child of current leaf, then advance leaf. Returns entry id. */
     appendCustomEntry(customType: string, data?: unknown): string;
     /** Append a session info entry (e.g., display name). Returns entry id. */
@@ -253,6 +284,8 @@ export declare class SessionManager {
      * @returns Entry id
      */
     appendCustomMessageEntry<T = unknown>(customType: string, content: string | (TextContent | ImageContent)[], display: boolean, details?: T): string;
+    /** Append a branch-local edit to an earlier model-visible entry. */
+    appendContextEdit(targetId: string, replacement: ContextEditEntry["replacement"]): string;
     getLeafId(): string | null;
     getLeafEntry(): SessionEntry | undefined;
     getEntry(id: string): SessionEntry | undefined;
@@ -285,11 +318,14 @@ export declare class SessionManager {
      * Build the session context (what gets sent to the LLM).
      * Uses tree traversal from current leaf.
      */
+    buildSessionProjection(): SessionProjection;
     buildSessionContext(): SessionContext;
     /**
      * Get session header.
      */
     getHeader(): SessionHeader | null;
+    /** Number of session entries (excludes header), without copying them like `getEntries()`. */
+    getEntryCount(): number;
     /**
      * Get all session entries (excludes header). Returns a shallow copy.
      * The session is append-only: use appendXXX() to add entries, branch() to

@@ -1,8 +1,7 @@
 export function getModelSearchText(item) {
     const { id, provider } = item;
     const name = item.name ? ` ${item.name}` : "";
-    const ctx = item.contextWindow ? (() => { const k = Math.round((item.contextWindow / 1024) * 10) / 10; return ` ${Number.isInteger(k) ? `${k}k` : `${k.toFixed(1)}k`}`; })() : "";
-    return `${id} ${provider} ${provider}/${id} ${provider} ${id}${name}${ctx}`;
+    return `${id} ${provider} ${provider}/${id} ${provider} ${id}${name}`;
 }
 /**
  * The /model selector search should rank exact provider-prefixed queries before proxy-provider IDs
@@ -11,7 +10,6 @@ export function getModelSearchText(item) {
 export function getModelSelectorSearchText(item) {
     const { id, provider } = item;
     const name = item.name ? ` ${item.name}` : "";
-    const ctx = item.contextWindow ? (() => { const k = Math.round((item.contextWindow / 1024) * 10) / 10; return ` ${Number.isInteger(k) ? `${k}k` : `${k.toFixed(1)}k`}`; })() : "";
-    return `${provider} ${provider}/${id} ${provider} ${id}${name}${ctx}`;
+    return `${provider} ${provider}/${id} ${provider} ${id}${name}`;
 }
 //# sourceMappingURL=model-search.js.map

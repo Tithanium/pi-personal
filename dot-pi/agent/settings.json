@@ -1,12 +1,14 @@
 {
   "defaultProvider": "alan",
   "defaultModel": "qwen-3.8-27b",
-  "lastChangelogVersion": "0.86.1",
+  "lastChangelogVersion": "1.2.0",
   "theme": "dark",
   "packages": [
     "npm:pi-okf",
-    "npm:pi-tps-live@1.0.1"
+    "npm:pi-tps-live@1.0.1",
+    "npm:pi-observational-memory"
   ],
+  "fullscreenWheelScrollLines": 1,
   "defaultTools": [
     "read",
     "bash",
@@ -14,5 +16,8 @@
     "edit",
     "write"
   ],
-  "enableSkillCommands": true
+  "enableSkillCommands": true,
+  "extensions": [
+    "-extensions/pi-local-rag/index.ts"
+  ]
 }

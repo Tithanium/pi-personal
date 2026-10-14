@@ -42,6 +42,22 @@ function formatTokens(count: number): string {
 	return `${(count / 1000000).toFixed(1)}M`;
 }
 
+const USAGE_LOG_PATH = path.join(getAgentDir(), "extensions", "subagent", "usage-log.jsonl");
+function logSubagentRun(entry: {
+	ts: string;
+	agent: string;
+	model?: string;
+	durationMs: number;
+	exitCode: number;
+	usage: { input: number; output: number; cacheRead: number; cacheWrite: number; cost: number; contextTokens: number; turns: number };
+}): void {
+	try {
+		fs.appendFileSync(USAGE_LOG_PATH, JSON.stringify(entry) + "\n");
+	} catch {
+		/* never let logging break the subagent */
+	}
+}
+
 function formatUsageStats(
 	usage: {
 		input: number;
@@ -350,6 +366,7 @@ async function runSingleAgent(
 
 		args.push(`Task: ${task}`);
 		let wasAborted = false;
+		const t0 = Date.now();
 
 		const exitCode = await new Promise<number>((resolve) => {
 			const invocation = getPiInvocation(args);
@@ -431,6 +448,18 @@ async function runSingleAgent(
 		});
 
 		currentResult.exitCode = exitCode;
+		try {
+			logSubagentRun({
+				ts: new Date().toISOString(),
+				agent: agentName,
+				model: currentResult.model ?? undefined,
+				durationMs: Date.now() - t0,
+				exitCode,
+				usage: currentResult.usage,
+			});
+		} catch {
+			/* ignore */
+		}
 		if (wasAborted) throw new Error("Subagent was aborted");
 		return currentResult;
 	} finally {

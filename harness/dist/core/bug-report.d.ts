@@ -74,7 +74,15 @@ export declare function collectBugReportMetadata(options: CollectBugReportMetada
         maxTokens: number;
         samplingParams: unknown;
         compat: unknown;
-        thinkingLevelMap: Partial<Record<import("@earendil-works/pi-ai").ModelThinkingLevel, string | null>> | null;
+        thinkingLevelMap: {
+            high?: string | null | undefined;
+            low?: string | null | undefined;
+            max?: string | null | undefined;
+            medium?: string | null | undefined;
+            minimal?: string | null | undefined;
+            off?: string | null | undefined;
+            xhigh?: string | null | undefined;
+        } | null;
         headerNames: string[];
     } | null;
     provider: {
@@ -124,7 +132,7 @@ export declare function collectBugReportDiagnostics(sessionManager: ReadonlySess
     crashes: {
         timestamp: string;
         version: string;
-        kind: "fatal_error" | "uncaught_exception";
+        kind: "uncaught_exception" | "fatal_error";
         message: string;
         stack: string | null;
         sessionFile: string | null;

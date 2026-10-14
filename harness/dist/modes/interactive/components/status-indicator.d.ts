@@ -18,7 +18,7 @@ export declare class RetryStatusIndicator extends StatusIndicator {
 }
 export type CompactionStatusReason = "manual" | "threshold" | "overflow";
 export declare class CompactionStatusIndicator extends StatusIndicator {
-    constructor(ui: TUI, reason: CompactionStatusReason);
+    constructor(ui: TUI, reason: CompactionStatusReason, colorFn?: (text: string) => string);
 }
 export declare class BranchSummaryStatusIndicator extends StatusIndicator {
     constructor(ui: TUI);

@@ -4,8 +4,8 @@
 import type { ThinkingLevel } from "@earendil-works/pi-agent-core";
 import { type Api, type AuthOperationOptions, type KnownProvider, type Model } from "@earendil-works/pi-ai";
 import type { ModelRuntime } from "./model-runtime.ts";
-/** Default model IDs for each known provider */
-export declare const defaultModelPerProvider: Record<KnownProvider, string>;
+/** Default chat model IDs for providers with built-in chat models. */
+export declare const defaultModelPerProvider: Partial<Record<KnownProvider, string>>;
 export interface ScopedModel {
     model: Model<Api>;
     /** Thinking level if explicitly specified in pattern (e.g., "model:high"), undefined otherwise */

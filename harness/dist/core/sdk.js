@@ -7,15 +7,17 @@ import { AgentSession } from "./agent-session.js";
 import { formatNoModelsAvailableMessage } from "./auth-guidance.js";
 import { CacheWarmer } from "./cache-warmer.js";
 import { DEFAULT_THINKING_LEVEL } from "./defaults.js";
+import { createToolNameMatcher } from "./mcp-servers.js";
 import { convertToLlm } from "./messages.js";
 import { findInitialModel } from "./model-resolver.js";
 import { ModelRuntime } from "./model-runtime.js";
 import { mergeProviderAttributionHeaders } from "./provider-attribution.js";
 import { DefaultResourceLoader } from "./resource-loader.js";
 import { getDefaultSessionDir, SessionManager } from "./session-manager.js";
-import { SettingsManager } from "./settings-manager.js";
+import { applyToolModifiers, DEFAULT_TOOL_NAMES, getToolListError, isToolModifier, SettingsManager, } from "./settings-manager.js";
 import { time } from "./timings.js";
 import { createBashTool, createCodingTools, createEditTool, createFindTool, createGrepTool, createLsTool, createPowerShellTool, createReadOnlyTools, createReadTool, createWriteTool, withFileMutationQueue, } from "./tools/index.js";
+import { getBranchSelection } from "./virtual-models.js";
 // Preserve the pre-0.81 fallback for extensions that construct Agent instances
 // or invoke low-level agent loops without supplying streamFn. Agent core remains
 // provider-agnostic and does not import pi-ai/compat itself.
@@ -84,14 +86,17 @@ export async function createAgentSession(options = {}) {
     const hasThinkingEntry = sessionManager.getBranch().some((entry) => entry.type === "thinking_level_change");
     let model = options.model;
     let modelFallbackMessage;
+    // Assistant messages name the physical model that answered, so a virtual selection is only in
+    // model_change entries.
+    const sessionModel = getBranchSelection(sessionManager.getBranch(), (provider, modelId) => modelRuntime.getModel(provider, modelId));
     // If session has data, try to restore model from it
-    if (!model && hasExistingSession && existingSession.model) {
-        const restoredModel = modelRuntime.getModel(existingSession.model.provider, existingSession.model.modelId);
+    if (!model && hasExistingSession && sessionModel) {
+        const restoredModel = modelRuntime.getModel(sessionModel.provider, sessionModel.modelId);
         if (restoredModel && modelRuntime.hasConfiguredAuth(restoredModel.provider)) {
             model = restoredModel;
         }
         if (!model) {
-            modelFallbackMessage = `Could not restore model ${existingSession.model.provider}/${existingSession.model.modelId}`;
+            modelFallbackMessage = `Could not restore model ${sessionModel.provider}/${sessionModel.modelId}`;
         }
     }
     // If still no model, use findInitialModel (checks settings default, then provider defaults)
@@ -137,13 +142,22 @@ export async function createAgentSession(options = {}) {
     else {
         thinkingLevel = clampThinkingLevel(model, thinkingLevel);
     }
-    const defaultActiveToolNames = ["read", "bash", "edit", "write"];
-    const configuredDefaultToolNames = settingsManager.getDefaultTools();
-    const allowedToolNames = options.tools ?? (options.noTools === "all" ? [] : undefined);
+    const toolListError = options.tools ? getToolListError(options.tools) : undefined;
+    if (toolListError)
+        throw new Error(`Invalid tools option: ${toolListError}`);
+    const defaultToolNames = options.noTools ? [] : (settingsManager.getDefaultTools() ?? DEFAULT_TOOL_NAMES);
+    // A `tools` list of only `+name`/`-name` entries changes the default selection instead of
+    // replacing it, like the `defaultTools` setting.
+    const toolModifiers = options.tools?.some(isToolModifier) ? options.tools : undefined;
+    const selectedToolNames = toolModifiers ? applyToolModifiers(defaultToolNames, toolModifiers) : options.tools;
+    const allowedToolNames = toolModifiers
+        ? options.noTools === "all"
+            ? selectedToolNames
+            : undefined
+        : (options.tools ?? (options.noTools === "all" ? [] : undefined));
     const excludedToolNames = options.excludeTools;
-    const excludedToolNameSet = excludedToolNames ? new Set(excludedToolNames) : undefined;
-    const initialActiveToolNames = (options.tools ?? (options.noTools ? [] : (configuredDefaultToolNames ?? defaultActiveToolNames))).filter((name) => !excludedToolNameSet?.has(name));
-    let agent;
+    const isExcludedTool = excludedToolNames ? createToolNameMatcher(excludedToolNames) : undefined;
+    const initialActiveToolNames = (selectedToolNames ?? defaultToolNames).filter((name) => !isExcludedTool?.(name));
     // Create convertToLlm wrapper that filters images if blockImages is enabled (defense-in-depth)
     const convertToLlmWithBlockImages = (messages) => {
         const converted = convertToLlm(messages);
@@ -195,6 +209,8 @@ export async function createAgentSession(options = {}) {
             },
         };
     };
+    // Warm only requests for the selected model. Requests a virtual selection routed, or that an
+    // extension redirected, may not be repeated by the next request, so warming them could be wasted.
     const cacheContextIsCurrent = (requestModel) => {
         const messages = agent.state.messages;
         return () => {
@@ -222,12 +238,25 @@ export async function createAgentSession(options = {}) {
             headers: response.headers,
         });
     };
-    agent = new Agent({
+    const handleProviderStreamEvent = async (data, model) => {
+        const runner = extensionRunnerRef.current;
+        if (!runner?.hasHandlers("provider_stream_event"))
+            return;
+        await runner.emit({
+            data,
+            type: "provider_stream_event",
+            provider: model.provider,
+            api: model.api,
+            model: model.id,
+        });
+    };
+    const agent = new Agent({
         initialState: {
             systemPrompt: "",
             model,
             thinkingLevel,
             tools: [],
+            messages: existingSession.messages,
         },
         convertToLlm: convertToLlmWithBlockImages,
         streamFn: async (model, context, options) => {
@@ -244,6 +273,7 @@ export async function createAgentSession(options = {}) {
         },
         onPayload: transformProviderPayload,
         onResponse: handleProviderResponse,
+        onProviderStreamEvent: handleProviderStreamEvent,
         sessionId: sessionManager.getSessionId(),
         transformContext: async (messages) => {
             const runner = extensionRunnerRef.current;
@@ -257,9 +287,8 @@ export async function createAgentSession(options = {}) {
         thinkingBudgets: settingsManager.getThinkingBudgets(),
         maxRetryDelayMs: settingsManager.getProviderRetrySettings().maxRetryDelayMs,
     });
-    // Restore messages if session has existing data
+    // Restore missing settings metadata for older sessions.
     if (hasExistingSession) {
-        agent.state.messages = existingSession.messages;
         if (!hasThinkingEntry) {
             sessionManager.appendThinkingLevelChange(thinkingLevel);
         }
@@ -282,6 +311,8 @@ export async function createAgentSession(options = {}) {
         modelRuntime,
         cacheWarmer,
         initialActiveToolNames,
+        usesDefaultTools: (options.tools === undefined || toolModifiers !== undefined) && !options.noTools,
+        defaultToolModifiers: toolModifiers,
         allowedToolNames,
         excludedToolNames,
         extensionRunnerRef,

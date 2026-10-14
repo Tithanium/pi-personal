@@ -10,6 +10,7 @@ import { SessionManager } from "../../core/session-manager.ts";
 import type { FullscreenExitOutput, TuiMode } from "../../core/settings-manager.ts";
 import { type LatestPiRelease } from "../../utils/version-check.ts";
 export { createInteractiveTui, createInteractiveTuiReference } from "./tui-renderer.ts";
+export declare function formatCrashExtensionHint(extensionMatches: readonly string[] | undefined): string | undefined;
 export declare function formatResumeCommand(sessionManager: SessionManager): string | undefined;
 /**
  * Options for InteractiveMode initialization.
@@ -83,8 +84,10 @@ export declare class InteractiveMode {
     private anthropicSubscriptionWarningShown;
     private lastStatusSpacer;
     private lastStatusText;
+    private lastStatusMessage;
     private managedToolStatusStarted;
     private streamingComponent;
+    private readonly entriesRenderedByBoundaryCompaction;
     private streamingMessage;
     private pendingTools;
     private toolOutputExpanded;
@@ -101,8 +104,11 @@ export declare class InteractiveMode {
     private retryEscapeHandler?;
     private compactionQueuedMessages;
     private shutdownRequested;
+    /** Reports working, blocked, done, and error states to terminals that support OSC 7501. */
+    private readonly programStatus;
     /** The `/bug` hint is shown at most once per session so error output stays readable. */
     private bugReportHintShown;
+    private installChangeWarningShown;
     private extensionSelector;
     private extensionInput;
     private extensionEditor;
@@ -156,6 +162,10 @@ export declare class InteractiveMode {
     private formatExtensionDisplayPath;
     private formatContextPath;
     private getStartupExpansionState;
+    /** Startup header (logo, version, key hints). Hidden only by quietStartup: true. */
+    private shouldShowStartupHeader;
+    /** Startup details (model scope, loaded resources). Hidden by quietStartup: true or "header". */
+    private shouldShowStartupDetails;
     /**
      * Get a short path relative to the package root for display.
      */
@@ -175,16 +185,28 @@ export declare class InteractiveMode {
     private formatPathWithSource;
     private formatDiagnostics;
     private showLoadedResources;
+    /**
+     * Initialize the extension system with TUI-based UI context.
+     */
     private bindCurrentSessionExtensions;
     private applyFullscreenScrollbarSetting;
+    /** Lets extension images use the PNG transcoder; tool results register it themselves. */
+    private ensurePngTranscoder;
     private applyRuntimeSettings;
     private rebindCurrentSession;
     private handleFatalRuntimeError;
+    private getCrashExtensionHint;
     /** Persist a crash so the next start can point the user at `/bug`. Returns false when nothing was written. */
     private recordCrash;
     private crashReportInstructions;
     private suggestBugReport;
     private maybeSuggestBugReport;
+    /**
+     * After an error, check whether an update replaced or removed this install while the session ran.
+     * Code loaded on demand then fails with missing modules until restart (#10439). Returns true when
+     * the install changed.
+     */
+    private maybeShowInstallChangeWarning;
     private renderCurrentSessionState;
     /**
      * Get a registered tool definition by name (for custom rendering).
@@ -246,6 +268,9 @@ export declare class InteractiveMode {
      * Hide the extension selector.
      */
     private hideExtensionSelector;
+    /**
+     * Show a confirmation dialog for extensions.
+     */
     private showExtensionConfirm;
     private promptForMissingSessionCwd;
     /**
@@ -273,6 +298,7 @@ export declare class InteractiveMode {
      * Show a notification for extensions.
      */
     private showExtensionNotify;
+    /** Show a custom component with keyboard focus. Overlay mode renders on top of existing content. */
     private showExtensionCustom;
     /**
      * Show an extension error in the UI.
@@ -347,6 +373,9 @@ export declare class InteractiveMode {
      * paste / Kitty / modifyOtherKeys sequences.
      */
     private uncaughtCrash;
+    /**
+     * Check if shutdown was requested and perform shutdown if so.
+     */
     private checkShutdownRequested;
     private registerSignalHandlers;
     private unregisterSignalHandlers;
@@ -412,6 +441,7 @@ export declare class InteractiveMode {
     private getLogoutProviderOptions;
     private findLoginProviderOptions;
     private handleLoginCommand;
+    /** `onBack` reopens the selector the login was started from when the user cancels it. */
     private startProviderLogin;
     private showLoginAuthTypeSelector;
     private showLoginProviderSelector;
@@ -424,6 +454,11 @@ export declare class InteractiveMode {
     private notifyAuthDialog;
     private loginProvider;
     private showLoginDialog;
+    /**
+     * Offer to point the Radius MCP server in the global mcp.json at the Radius login, adding the server
+     * when missing. Nothing is asked when a global server already uses this login.
+     */
+    private offerRadiusMcpServer;
     private handleReloadCommand;
     private handleExportCommand;
     private getPathCommandArgument;
@@ -447,8 +482,6 @@ export declare class InteractiveMode {
     private handleDebugCommand;
     private handleArminSaysHi;
     private handleDementedDelves;
-    private handleDaxnuts;
-    private checkDaxnutsEasterEgg;
     private handleBashCommand;
     private handleCompactCommand;
     stop(fullscreenExitOutput?: FullscreenExitOutput): void;

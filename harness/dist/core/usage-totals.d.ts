@@ -9,6 +9,8 @@ export interface UsageTotals {
 }
 export declare function createUsageTotals(): UsageTotals;
 export declare function addUsageToTotals(totals: UsageTotals, usage: Usage): void;
+/** Sum of two usages, keeping the optional token splits when either side reports them. */
+export declare function combineUsage(first: Usage, second: Usage): Usage;
 export interface UsageCostBreakdownEntry {
     key: string;
     cost: number;

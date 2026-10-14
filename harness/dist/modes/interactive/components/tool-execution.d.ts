@@ -1,22 +1,11 @@
-import type { AgentToolResult } from "@earendil-works/pi-agent-core";
-import { type Component, Container, type TUI, type TuiMouseEvent } from "@earendil-works/pi-tui";
-import type { ToolDefinition, ToolRenderContext, ToolRenderResultOptions } from "../../../core/extensions/types.ts";
-import type { Theme } from "../theme/theme.ts";
-/**
- * What this component needs from a tool: how to draw it. It neither executes tools nor reads their
- * parameter schemas, so a definition and a bare renderer pair are equally acceptable.
- *
- * The renderer parameters are `any` on purpose: a `ToolDefinition` types them from its schema, and
- * narrowing them here would make those definitions unassignable.
- */
-export interface ToolRenderers {
-    renderShell?: "default" | "self";
-    renderCall?: (args: any, theme: Theme, context: ToolRenderContext<any, any>) => Component;
-    renderResult?: (result: AgentToolResult<any>, options: ToolRenderResultOptions, theme: Theme, context: ToolRenderContext<any, any>) => Component;
-}
+import { Container, type TUI, type TuiMouseEvent } from "@earendil-works/pi-tui";
+import type { ToolDefinition, ToolRenderers } from "../../../core/extensions/types.ts";
+/** What this component needs from a tool: how to draw it, without executing it. */
+export type { ToolRenderers };
 export interface ToolExecutionOptions {
     showImages?: boolean;
     imageWidthCells?: number;
+    outputPad?: number;
 }
 export declare class ToolExecutionComponent extends Container {
     private contentBox;
@@ -28,6 +17,8 @@ export declare class ToolExecutionComponent extends Container {
     private resultRendererComponent?;
     private rendererState;
     private imageComponents;
+    /** Inputs of imageComponents, so updateDisplay can reuse images and keep their converted PNG data. */
+    private imageSources;
     private imageSpacers;
     private toolName;
     private toolCallId;
@@ -35,6 +26,7 @@ export declare class ToolExecutionComponent extends Container {
     private expanded;
     private showImages;
     private imageWidthCells;
+    private outputPad;
     private isPartial;
     private toolDefinition?;
     private ui;
@@ -42,7 +34,6 @@ export declare class ToolExecutionComponent extends Container {
     private executionStarted;
     private argsComplete;
     private result?;
-    private convertedImages;
     private hideComponent;
     constructor(toolName: string, toolCallId: string, args: any, options: ToolExecutionOptions | undefined, toolDefinition: ToolRenderers | ToolDefinition<any, any, any> | undefined, ui: TUI, cwd: string);
     private getCallRenderer;
@@ -65,9 +56,11 @@ export declare class ToolExecutionComponent extends Container {
         }>;
         details?: any;
         isError: boolean;
+        /** Execution time of a final result. */
+        durationMs?: number;
     }, isPartial?: boolean): void;
-    private maybeConvertImagesForKitty;
     setExpanded(expanded: boolean): void;
+    setOutputPad(outputPad: number): void;
     setShowImages(show: boolean): void;
     setImageWidthCells(width: number): void;
     invalidate(): void;

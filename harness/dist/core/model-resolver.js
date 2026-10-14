@@ -6,23 +6,23 @@ import chalk from "chalk";
 import { minimatch } from "minimatch";
 import { isValidThinkingLevel } from "../cli/args.js";
 import { DEFAULT_THINKING_LEVEL } from "./defaults.js";
-/** Default model IDs for each known provider */
+/** Default chat model IDs for providers with built-in chat models. */
 export const defaultModelPerProvider = {
     "amazon-bedrock": "us.anthropic.claude-opus-4-6-v1",
     "ant-ling": "Ring-2.6-1T",
     anthropic: "claude-opus-4-8",
     openai: "gpt-5.5",
-    "azure-openai-responses": "gpt-5.4",
-    "openai-codex": "gpt-5.5",
+    azure: "gpt-5.4",
+    "openai-codex": "gpt-6.1-sol",
     radius: "balanced",
-    nvidia: "nvidia/nemotron-3-super-120b-a12b",
+    nvidia: "nvidia/nemotron-3-ultra-550b-a55b",
     deepseek: "deepseek-v4-pro",
     google: "gemini-3.1-pro-preview",
     "google-vertex": "gemini-3.1-pro-preview",
     "github-copilot": "gpt-5.4",
     openrouter: "moonshotai/kimi-k2.6",
     "vercel-ai-gateway": "zai/glm-5.1",
-    xai: "grok-4.6",
+    xai: "grok-4.7",
     groq: "openai/gpt-oss-120b",
     cerebras: "gpt-oss-120b",
     zai: "glm-5.3",
@@ -33,11 +33,11 @@ export const defaultModelPerProvider = {
     moonshotai: "kimi-k2.6",
     "moonshotai-cn": "kimi-k2.6",
     huggingface: "moonshotai/Kimi-K2.6",
-    fireworks: "accounts/fireworks/models/kimi-k2p6",
-    together: "moonshotai/Kimi-K2.6",
+    fireworks: "accounts/fireworks/models/kimi-k3",
+    together: "moonshotai/Kimi-K3",
     baseten: "zai-org/GLM-5.2",
     opencode: "kimi-k2.6",
-    "opencode-go": "kimi-k2.6",
+    "opencode-go": "kimi-k3",
     "kimi-coding": "kimi-for-coding",
     meta: "muse-spark-1.3",
     "cloudflare-workers-ai": "@cf/moonshotai/kimi-k2.6",

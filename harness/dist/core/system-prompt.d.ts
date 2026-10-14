@@ -9,6 +9,11 @@ export interface BuildSystemPromptOptions {
     forceSystemPrompt?: string;
     /** Tools to include in prompt. Default: [read, bash, edit, write]. */
     selectedTools?: string[];
+    /**
+     * Selected tools whose declarations requests leave out (`prepareLoadout` hidden declarations).
+     * They are reachable only through another tool, so the tool list and rules leave them out too.
+     */
+    hiddenTools?: string[];
     /** Optional one-line tool snippets keyed by tool name. */
     toolSnippets?: Record<string, string>;
     /** Guideline bullets contributed by each tool, keyed by tool name. */
@@ -31,6 +36,7 @@ export interface BuildSystemPromptOptions {
 }
 export type NormalizedBuildSystemPromptOptions = BuildSystemPromptOptions & {
     selectedTools: string[];
+    hiddenTools: string[];
     toolSnippets: Record<string, string>;
     toolGuidelines: Record<string, string[]>;
     promptGuidelines: string[];

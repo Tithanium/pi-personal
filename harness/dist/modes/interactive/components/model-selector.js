@@ -228,7 +228,7 @@ export class ModelSelectorComponent extends Container {
         if (query) {
             const filtered = fuzzyFilter(this.activeModels, query, (item) => {
                 const defaultText = this.isDefaultModel(item.model) ? " default" : "";
-                return `${getModelSelectorSearchText({ id: item.id, provider: item.provider, name: item.model.name, contextWindow: item.model.contextWindow })}${defaultText}`;
+                return `${getModelSelectorSearchText({ id: item.id, provider: item.provider, name: item.model.name })}${defaultText}`;
             });
             if (this.isDefaultSearch(query)) {
                 const defaultItems = this.activeModels.filter((item) => this.isDefaultModel(item.model));
@@ -267,18 +267,9 @@ export class ModelSelectorComponent extends Container {
             const defaultBadge = isDefault ? theme.fg("muted", " · default") : "";
             const cursor = isSelected ? theme.fg("accent", "→ ") : "  ";
             const currentMarker = isCurrent ? theme.fg("accent", "✓ ") : "  ";
-            // Context window badge (same format as ALAN connector)
-            const _cw = item.model.contextWindow;
-            const _ctxStr = _cw ? (() => { const k = Math.round((_cw / 1024) * 10) / 10; return ` (${Number.isInteger(k) ? `${k}k` : `${k.toFixed(1)}k`})`; })() : "";
-            // Trim model id to fit terminal width
-            const _strip = (s) => s.replace(/\x1b\[[0-9;]*m/g, "");
-            const _termW = process.stdout.columns || 80;
-            const _fixedLen = 5 + _strip(`[${item.provider}]`).length + _ctxStr.length + _strip(defaultBadge).length;
-            const _maxId = Math.max(8, _termW - _fixedLen);
-            const _displayId = item.id.length > _maxId ? "…" + item.id.slice(-( _maxId - 1)) : item.id;
-            const modelText = isSelected ? theme.fg("accent", _displayId) : _displayId;
+            const modelText = isSelected ? theme.fg("accent", item.id) : item.id;
             const providerBadge = theme.fg("muted", `[${item.provider}]`);
-            const line = `${cursor}${currentMarker}${modelText} ${providerBadge}${_ctxStr}${defaultBadge}`;
+            const line = `${cursor}${currentMarker}${modelText} ${providerBadge}${defaultBadge}`;
             this.listContainer.addChild(new Text(line, 0, 0));
         }
         // Add scroll indicator if needed
@@ -300,9 +291,7 @@ export class ModelSelectorComponent extends Container {
         else {
             const selected = this.filteredModels[this.selectedIndex];
             this.listContainer.addChild(new Spacer(1));
-            const _selCw = selected.model.contextWindow;
-            const _selCtx = _selCw ? (() => { const k = Math.round((_selCw / 1024) * 10) / 10; return ` (${Number.isInteger(k) ? `${k}k` : `${k.toFixed(1)}k`})`; })() : "";
-            this.listContainer.addChild(new Text(theme.fg("muted", `  Model Name: ${selected.model.name}${_selCtx}`), 0, 0));
+            this.listContainer.addChild(new Text(theme.fg("muted", `  Model Name: ${selected.model.name}`), 0, 0));
         }
         if (this.refreshStatusMessage) {
             this.listContainer.addChild(new Spacer(1));

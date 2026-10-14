@@ -7,7 +7,7 @@
 import type { AgentMessage, StreamFn, ThinkingLevel } from "@earendil-works/pi-agent-core";
 import { type RetryCallbacks, type RetryPolicy } from "@earendil-works/pi-ai";
 import type { AssistantMessage, Model, SimpleStreamOptions, TranscriptContext, Usage } from "@earendil-works/pi-ai/compat";
-import { type SessionEntry } from "../session-manager.ts";
+import { type SessionEntry, type SessionProjection } from "../session-manager.ts";
 import { type FileOperations } from "./utils.ts";
 /** Details stored in CompactionEntry.details for file tracking */
 export interface CompactionDetails {
@@ -51,6 +51,8 @@ export interface ContextUsageEstimate {
  * If there are messages after the last usage, estimate their tokens with estimateTokens.
  */
 export declare function estimateContextTokens(messages: AgentMessage[]): ContextUsageEstimate;
+/** Estimate projected context without trusting usage captured before a later edit or compaction. */
+export declare function estimateProjectedContextTokens(projection: SessionProjection, branchEntries: SessionEntry[]): ContextUsageEstimate;
 /**
  * Check if compaction should trigger based on context usage.
  */

@@ -1,4 +1,4 @@
-import type { Terminal } from "@earendil-works/pi-tui";
+import type { Terminal, WheelScrollLines } from "@earendil-works/pi-tui";
 import { type TUI, TuiAltScreen, TuiMainScreen } from "@earendil-works/pi-tui";
 export interface InteractiveTuiOptions {
     readonly tuiMode: "regular" | "fullscreen";
@@ -7,6 +7,7 @@ export interface InteractiveTuiOptions {
     readonly terminal?: Terminal;
     readonly onRightClickPaste?: () => void;
     readonly fullscreenCopyOnSelect?: boolean;
+    readonly fullscreenWheelScrollLines?: WheelScrollLines;
 }
 /** Composition root shared by coding-agent presentations. */
 export declare function createInteractiveTui(options: InteractiveTuiOptions & {

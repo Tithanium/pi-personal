@@ -1,6 +1,6 @@
 import { Box, Container, getCapabilities, Image, MouseRegion, Spacer, Text, } from "@earendil-works/pi-tui";
-import { getTextOutput as getRenderedTextOutput } from "../../../core/tools/render-utils.js";
-import { convertToPng } from "../../../utils/image-convert.js";
+import { formatToolCallWithArgs, getTextOutput as getRenderedTextOutput } from "../../../core/tools/render-utils.js";
+import { ensurePngTranscoder } from "../../../utils/image-convert.js";
 import { theme } from "../theme/theme.js";
 import { keyHint } from "./keybinding-hints.js";
 const FALLBACK_PREVIEW_LINES = 10;
@@ -14,6 +14,8 @@ export class ToolExecutionComponent extends Container {
     resultRendererComponent;
     rendererState = {};
     imageComponents = [];
+    /** Inputs of imageComponents, so updateDisplay can reuse images and keep their converted PNG data. */
+    imageSources = [];
     imageSpacers = [];
     toolName;
     toolCallId;
@@ -21,6 +23,7 @@ export class ToolExecutionComponent extends Container {
     expanded = false;
     showImages;
     imageWidthCells;
+    outputPad;
     isPartial = true;
     toolDefinition;
     ui;
@@ -28,7 +31,6 @@ export class ToolExecutionComponent extends Container {
     executionStarted = false;
     argsComplete = false;
     result;
-    convertedImages = new Map();
     hideComponent = false;
     constructor(toolName, toolCallId, args, options = {}, toolDefinition, ui, cwd) {
         super();
@@ -38,6 +40,7 @@ export class ToolExecutionComponent extends Container {
         this.toolDefinition = toolDefinition;
         this.showImages = options.showImages ?? true;
         this.imageWidthCells = options.imageWidthCells ?? 60;
+        this.outputPad = options.outputPad ?? 1;
         this.ui = ui;
         this.cwd = cwd;
         this.addChild(new Spacer(1));
@@ -85,10 +88,12 @@ export class ToolExecutionComponent extends Container {
             expanded: this.expanded,
             showImages: this.showImages,
             isError: this.result?.isError ?? false,
+            durationMs: this.isPartial ? undefined : this.result?.durationMs,
+            outputPad: this.outputPad,
         };
     }
     createCallFallback() {
-        return new Text(theme.fg("toolTitle", theme.bold(this.toolName)), 0, 0);
+        return new Text(formatToolCallWithArgs(this.toolName, this.args, theme, this.expanded), 0, 0);
     }
     createResultFallback() {
         const output = this.getTextOutput();
@@ -130,43 +135,13 @@ export class ToolExecutionComponent extends Container {
         this.result = result;
         this.isPartial = isPartial;
         this.updateDisplay();
-        this.maybeConvertImagesForKitty();
-    }
-    maybeConvertImagesForKitty() {
-        const caps = getCapabilities();
-        if (caps.images !== "kitty")
-            return;
-        if (!this.result)
-            return;
-        const imageBlocks = this.result.content.filter((c) => c.type === "image");
-        for (let i = 0; i < imageBlocks.length; i++) {
-            const img = imageBlocks[i];
-            if (!img.data || !img.mimeType)
-                continue;
-            const sourceData = img.data;
-            const sourceMimeType = img.mimeType;
-            if (sourceMimeType === "image/png")
-                continue;
-            const cached = this.convertedImages.get(i);
-            if (cached?.sourceData === sourceData && cached.sourceMimeType === sourceMimeType)
-                continue;
-            const index = i;
-            convertToPng(sourceData, sourceMimeType).then((converted) => {
-                const currentImage = this.result?.content.filter((content) => content.type === "image")[index];
-                if (!converted || currentImage?.data !== sourceData || currentImage.mimeType !== sourceMimeType)
-                    return;
-                this.convertedImages.set(index, {
-                    sourceData,
-                    sourceMimeType,
-                    ...converted,
-                });
-                this.updateDisplay();
-                this.ui.requestRender();
-            });
-        }
     }
     setExpanded(expanded) {
         this.expanded = expanded;
+        this.updateDisplay();
+    }
+    setOutputPad(outputPad) {
+        this.outputPad = outputPad;
         this.updateDisplay();
     }
     setShowImages(show) {
@@ -233,6 +208,7 @@ export class ToolExecutionComponent extends Container {
             const renderContainer = this.getRenderShell() === "self" ? this.selfRenderContainer : this.contentBox;
             if (renderContainer instanceof Box) {
                 renderContainer.setBgFn(bgFn);
+                renderContainer.setPaddingX(this.outputPad);
             }
             renderContainer.clear();
             const callRenderer = this.getCallRenderer();
@@ -282,13 +258,17 @@ export class ToolExecutionComponent extends Container {
         }
         else {
             this.contentText.setCustomBgFn(bgFn);
+            this.contentText.setPaddingX(this.outputPad);
             this.contentText.setText(this.formatToolExecution());
             hasContent = true;
         }
+        const previousImages = this.imageComponents;
+        const previousSources = this.imageSources;
         for (const img of this.imageComponents) {
             this.removeChild(img);
         }
         this.imageComponents = [];
+        this.imageSources = [];
         for (const spacer of this.imageSpacers) {
             this.removeChild(spacer);
         }
@@ -296,20 +276,27 @@ export class ToolExecutionComponent extends Container {
         if (this.result) {
             const imageBlocks = this.result.content.filter((c) => c.type === "image");
             const caps = getCapabilities();
-            for (let i = 0; i < imageBlocks.length; i++) {
-                const img = imageBlocks[i];
+            for (const img of imageBlocks) {
                 if (caps.images && this.showImages && img.data && img.mimeType) {
-                    const cached = this.convertedImages.get(i);
-                    const converted = cached?.sourceData === img.data && cached.sourceMimeType === img.mimeType ? cached : undefined;
-                    const imageData = converted?.data ?? img.data;
-                    const imageMimeType = converted?.mimeType ?? img.mimeType;
-                    if (caps.images === "kitty" && imageMimeType !== "image/png")
-                        continue;
                     const spacer = new Spacer(1);
                     this.addChild(spacer);
                     this.imageSpacers.push(spacer);
-                    const imageComponent = new Image(imageData, imageMimeType, { fallbackColor: (s) => theme.fg("toolOutput", s) }, { maxWidthCells: this.imageWidthCells });
+                    const source = { data: img.data, mimeType: img.mimeType, widthCells: this.imageWidthCells };
+                    const index = this.imageComponents.length;
+                    const previous = previousSources[index];
+                    const imageComponent = previous?.data === source.data &&
+                        previous.mimeType === source.mimeType &&
+                        previous.widthCells === source.widthCells
+                        ? previousImages[index]
+                        : new Image(source.data, source.mimeType, { fallbackColor: (s) => theme.fg("toolOutput", s) }, { maxWidthCells: source.widthCells });
+                    if (source.mimeType !== "image/png") {
+                        ensurePngTranscoder(() => {
+                            this.invalidate();
+                            this.ui.requestRender();
+                        });
+                    }
                     this.imageComponents.push(imageComponent);
+                    this.imageSources.push(source);
                     this.addChild(imageComponent);
                 }
             }

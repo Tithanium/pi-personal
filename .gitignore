@@ -9,3 +9,4 @@ scratch/
 # live ALAN connector artifacts (recreated at runtime, may contain keys)
 config.local.ps1
 probe_result.json
+api_config.json

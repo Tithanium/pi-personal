@@ -2,7 +2,7 @@
  * Extension runner - executes extensions and manages their lifecycle.
  */
 import type { AgentMessage } from "@earendil-works/pi-agent-core";
-import type { ImageContent, Provider, ProviderHeaders } from "@earendil-works/pi-ai";
+import { type ImageContent, type Provider, type ProviderHeaders } from "@earendil-works/pi-ai";
 import type { KeyId } from "@earendil-works/pi-tui";
 import type { CacheWarmingAction } from "../cache-warmer.ts";
 import type { ResourceDiagnostic } from "../diagnostics.ts";
@@ -10,7 +10,10 @@ import type { KeybindingsConfig } from "../keybindings.ts";
 import type { ModelRegistry } from "../model-registry.ts";
 import type { SessionManager } from "../session-manager.ts";
 import { type BuildSystemPromptOptions, type NormalizedBuildSystemPromptOptions } from "../system-prompt.ts";
-import type { BeforeAgentStartEvent, BeforeAgentStartEventResult, BeforeProviderHeadersEvent, BeforeProviderRequestEvent, CacheWarmingDecisionEvent, ContextEvent, EntryRenderer, Extension, ExtensionActions, ExtensionCommandContext, ExtensionCommandContextActions, ExtensionContext, ExtensionContextActions, ExtensionError, ExtensionEvent, ExtensionFlag, ExtensionMode, ExtensionRuntime, ExtensionShortcut, ExtensionUIContext, InputEvent, InputEventResult, InputSource, LoadExtensionsResult, MarkdownTransformer, MessageEndEvent, MessageRenderer, ProjectTrustContext, ProjectTrustEvent, ProjectTrustEventResult, ProviderConfig, RegisteredTool, ReplacedSessionContext, ResolvedCommand, ResourcesDiscoverEvent, SessionBeforeCompactResult, SessionBeforeForkResult, SessionBeforeSwitchResult, SessionBeforeTreeResult, SessionShutdownEvent, ToolCallEvent, ToolCallEventResult, ToolResultEvent, ToolResultEventResult, UserBashEvent, UserBashEventResult } from "./types.ts";
+import type { VirtualModelDefinition } from "../virtual-models.ts";
+import type { AgentBeforeSettleEvent, BeforeAgentStartCustomEvent, BeforeAgentStartEvent, BeforeAgentStartEventResult, BeforeAgentStartUserEvent, BeforeProviderHeadersEvent, BeforeProviderRequestEvent, BoundaryContextPreview, CacheWarmingDecisionEvent, ContextEvent, ContextWithSystemEvent, EntryRenderer, Extension, ExtensionActions, ExtensionCommandContext, ExtensionCommandContextActions, ExtensionContext, ExtensionContextActions, ExtensionError, ExtensionEvent, ExtensionFlag, ExtensionMode, ExtensionRuntime, ExtensionShortcut, ExtensionToolContext, ExtensionUIContext, InputEvent, InputEventResult, InputSource, LoadExtensionsResult, MarkdownTransformer, MessageEndEvent, MessageRenderer, ProjectTrustContext, ProjectTrustEvent, ProjectTrustEventResult, ProviderConfig, RegisteredTool, ReplacedSessionContext, ResolvedCommand, ResourcesDiscoverEvent, SessionBeforeCompactResult, SessionBeforeForkResult, SessionBeforeSwitchResult, SessionBeforeTreeResult, SessionBoundaryDraft, SessionShutdownEvent, ToolCallEvent, ToolCallEventResult, ToolRenderers, ToolResultEvent, ToolResultEventResult, TurnEndEvent, UserBashEvent, UserBashEventResult } from "./types.ts";
+/** The message that starts a run: the before_agent_start event without its prompt fields. */
+export type BeforeAgentStartTrigger = Pick<BeforeAgentStartUserEvent, "messageType" | "prompt" | "images"> | Pick<BeforeAgentStartCustomEvent, "messageType" | "message">;
 /** Combined result from all before_agent_start handlers. */
 interface BeforeAgentStartCombinedResult {
     messages: NonNullable<BeforeAgentStartEventResult["message"]>[];
@@ -20,7 +23,7 @@ interface BeforeAgentStartCombinedResult {
  * Events handled by the generic emit() method.
  * Events with dedicated emitXxx() methods are excluded for stronger type safety.
  */
-type RunnerEmitEvent = Exclude<ExtensionEvent, ToolCallEvent | ProjectTrustEvent | ToolResultEvent | UserBashEvent | ContextEvent | CacheWarmingDecisionEvent | BeforeProviderRequestEvent | BeforeProviderHeadersEvent | BeforeAgentStartEvent | MessageEndEvent | ResourcesDiscoverEvent | InputEvent>;
+type RunnerEmitEvent = Exclude<ExtensionEvent, ToolCallEvent | ProjectTrustEvent | ToolResultEvent | UserBashEvent | ContextEvent | ContextWithSystemEvent | CacheWarmingDecisionEvent | BeforeProviderRequestEvent | BeforeProviderHeadersEvent | BeforeAgentStartEvent | MessageEndEvent | ResourcesDiscoverEvent | InputEvent | TurnEndEvent | AgentBeforeSettleEvent>;
 type RunnerEmitResult<TEvent extends RunnerEmitEvent> = TEvent extends {
     type: "session_before_switch";
 } ? SessionBeforeSwitchResult | undefined : TEvent extends {
@@ -31,6 +34,13 @@ type RunnerEmitResult<TEvent extends RunnerEmitEvent> = TEvent extends {
     type: "session_before_tree";
 } ? SessionBeforeTreeResult | undefined : undefined;
 export type ExtensionErrorListener = (error: ExtensionError) => void;
+type BoundaryBaseEvent = Omit<TurnEndEvent, "entries" | "continue" | "context"> | Omit<AgentBeforeSettleEvent, "entries" | "continue" | "context">;
+interface BoundaryDispatchResult {
+    entries: SessionBoundaryDraft[];
+    continue: boolean;
+    context: BoundaryContextPreview;
+    valid: boolean;
+}
 export type NewSessionHandler = (options?: {
     parentSession?: string;
     setup?: (sessionManager: SessionManager) => Promise<void>;
@@ -89,6 +99,10 @@ export declare class ExtensionRunner {
     private compactFn;
     private getSystemPromptFn;
     private getSystemPromptOptionsFn;
+    private executeToolFn;
+    private getCallableToolsFn;
+    /** Registered MCP servers already reported as unhandled. */
+    private readonly reportedMcpServers;
     private newSessionHandler;
     private forkHandler;
     private navigateTreeHandler;
@@ -105,6 +119,8 @@ export declare class ExtensionRunner {
         registerProvider?: (name: string, config: ProviderConfig) => void;
         registerNativeProvider?: (provider: Provider) => void;
         unregisterProvider?: (name: string) => void;
+        registerVirtualModel?: (definition: VirtualModelDefinition) => void;
+        unregisterVirtualModel?: (provider: string, id: string) => void;
     }): void;
     bindCommandContext(actions?: ExtensionCommandContextActions): void;
     setUIContext(uiContext?: ExtensionUIContext, mode?: ExtensionMode): void;
@@ -127,9 +143,16 @@ export declare class ExtensionRunner {
     private assertActive;
     onError(listener: ExtensionErrorListener): () => void;
     emitError(error: ExtensionError): void;
+    /**
+     * Report registered MCP servers when no extension handles `mcp_servers_change`, which means
+     * nothing connects them (for example when another MCP extension replaced the built-in one).
+     */
+    reportUnhandledMcpServers(): void;
     hasHandlers(eventType: string): boolean;
     getMessageRenderer(customType: string): MessageRenderer | undefined;
     getMarkdownTransformers(): MarkdownTransformer[];
+    /** Renderers of calls to `toolName`: extension resolvers in load order, then `base`. */
+    resolveToolRenderers(toolName: string, base: () => ToolRenderers | undefined): ToolRenderers | undefined;
     getEntryRenderer(customType: string): EntryRenderer | undefined;
     private resolveRegisteredCommands;
     getModelRegistry(): ModelRegistry;
@@ -147,7 +170,13 @@ export declare class ExtensionRunner {
      * Context values are resolved at call time, so changes via bindCore/bindUI are reflected.
      */
     createContext(): ExtensionContext;
+    /**
+     * Create the context for executing the tool call `toolCallId`: the extension context plus
+     * `tools` and `executeTool()`. `signal` is the default signal of nested calls.
+     */
+    createToolContext(toolCallId: string, signal: AbortSignal | undefined): ExtensionToolContext;
     createCommandContext(): ExtensionCommandContext;
+    emitBoundary(baseEvent: BoundaryBaseEvent, buildContext: (entries: SessionBoundaryDraft[]) => BoundaryContextPreview | Promise<BoundaryContextPreview>): Promise<BoundaryDispatchResult>;
     private isSessionBeforeEvent;
     emit<TEvent extends RunnerEmitEvent>(event: TEvent): Promise<RunnerEmitResult<TEvent>>;
     /** Returns the event's own action unless a handler overrides it; the last override wins. */
@@ -156,10 +185,15 @@ export declare class ExtensionRunner {
     emitToolResult(event: ToolResultEvent): Promise<ToolResultEventResult | undefined>;
     emitToolCall(event: ToolCallEvent): Promise<ToolCallEventResult | undefined>;
     emitUserBash(event: UserBashEvent): Promise<UserBashEventResult | undefined>;
+    /**
+     * Run the request-time transforms in two phases. `context` handlers see the conversation
+     * only and Pi restores the prompt and tool state after each; `context_with_system`
+     * handlers then see the full transcript and their output is used as returned.
+     */
     emitContext(messages: AgentMessage[]): Promise<AgentMessage[]>;
     emitBeforeProviderRequest(payload: unknown): Promise<unknown>;
     emitBeforeProviderHeaders(headers: ProviderHeaders): Promise<ProviderHeaders>;
-    emitBeforeAgentStart(prompt: string, images: ImageContent[] | undefined, systemPromptOptions: BuildSystemPromptOptions): Promise<BeforeAgentStartCombinedResult>;
+    emitBeforeAgentStart(trigger: BeforeAgentStartTrigger, systemPromptOptions: BuildSystemPromptOptions): Promise<BeforeAgentStartCombinedResult>;
     emitResourcesDiscover(cwd: string, reason: ResourcesDiscoverEvent["reason"]): Promise<{
         skillPaths: Array<{
             path: string;

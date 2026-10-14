@@ -91,6 +91,7 @@ export declare class CacheWarmer {
     private stop;
     private schedule;
     private refresh;
+    private refreshDeadlineMissed;
     private validateRun;
     private getModeStopReason;
     private evaluate;

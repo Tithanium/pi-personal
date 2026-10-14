@@ -19,6 +19,10 @@ export async function reportBug(context, initialHint) {
         context.showStatus("Bug report cancelled");
         return;
     }
+    if (options.delivery === "upload" && process.env.PI_OFFLINE) {
+        context.showError("Uploading bug reports requires online mode. Use Export as Zip instead.");
+        return;
+    }
     let summary;
     if (options.includeSummary) {
         const loader = showLoader(context, `Writing summary with ${context.session.model?.name ?? "the current model"}...`);

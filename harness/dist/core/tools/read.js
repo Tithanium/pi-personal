@@ -16,11 +16,27 @@ export const readToolSystemPromptContribution = {
     snippet: "Read file contents",
     guidelines: ["Use read to examine files instead of cat or sed."],
 };
+/**
+ * Result for programmatic callers such as codemode scripts: the text for text files, and an image
+ * block for images that codemode's `image()` accepts. `note` is the text that goes with the image,
+ * such as resize hints. Property descriptions are left out so the type stays on one line in tool
+ * descriptions.
+ */
+const readOutputSchema = Type.Union([
+    Type.String(),
+    Type.Object({ type: Type.Literal("image"), data: Type.String(), mimeType: Type.String(), note: Type.String() }),
+]);
 const defaultReadOperations = {
     readFile: (path) => fsReadFile(path),
     access: (path) => fsAccess(path, constants.R_OK),
     detectImageMimeType: detectSupportedImageMimeTypeFromFile,
 };
+/** The image block and its note, or the text for text files and images that could not be processed. */
+function toReadOutput(content) {
+    const text = content.find((block) => block.type === "text")?.text ?? "";
+    const image = content.find((block) => block.type === "image");
+    return image ? { type: "image", data: image.data, mimeType: image.mimeType, note: text } : text;
+}
 function getNonVisionImageNote(model) {
     if (!model || model.input.includes("image")) {
         return undefined;
@@ -29,6 +45,7 @@ function getNonVisionImageNote(model) {
 }
 export function createReadToolDefinition(cwd, options) {
     const autoResizeImages = options?.autoResizeImages ?? true;
+    const fallbackResizeOptions = options?.resizeOptions;
     const ops = options?.operations ?? defaultReadOperations;
     return {
         name: "read",
@@ -37,6 +54,7 @@ export function createReadToolDefinition(cwd, options) {
         promptSnippet: readToolSystemPromptContribution.snippet,
         promptGuidelines: [...readToolSystemPromptContribution.guidelines],
         parameters: readSchema,
+        outputSchema: readOutputSchema,
         constrainedSampling: { type: "json_schema", strict: "prefer" },
         async execute(_toolCallId, { path, offset, limit }, signal, _onUpdate, ctx) {
             return new Promise((resolve, reject) => {
@@ -66,7 +84,10 @@ export function createReadToolDefinition(cwd, options) {
                         if (mimeType) {
                             // Read image as binary.
                             const buffer = await ops.readFile(absolutePath);
-                            const processed = await processImage(buffer, mimeType, { autoResizeImages });
+                            const processed = await processImage(buffer, mimeType, {
+                                autoResizeImages,
+                                resizeOptions: ctx?.model?.inputLimits?.images?.resize ?? fallbackResizeOptions,
+                            });
                             if (!processed.ok) {
                                 let textNote = `Read image file [${mimeType}]\n${processed.message}`;
                                 if (nonVisionImageNote)
@@ -154,7 +175,7 @@ export function createReadToolDefinition(cwd, options) {
                             reject(error);
                     }
                 })();
-            });
+            }).then((result) => ({ ...result, structuredContent: toReadOutput(result.content) }));
         },
         ...readRenderers,
     };

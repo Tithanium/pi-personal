@@ -5,7 +5,7 @@
  * typebox parameter schemas. Importing this instead of `core/tools/index.ts` keeps ~17 MB of module
  * graph out of a process that only renders.
  */
-import type { ToolDefinition } from "../../extensions/types.ts";
+import type { ToolRenderers } from "../../extensions/types.ts";
 import type { ToolName } from "../index.ts";
 import { createShellRenderers } from "./bash.ts";
 import { editRenderers } from "./edit.ts";
@@ -14,7 +14,7 @@ import { grepRenderers } from "./grep.ts";
 import { lsRenderers } from "./ls.ts";
 import { readRenderers } from "./read.ts";
 import { writeRenderers } from "./write.ts";
-export type ToolRenderers = Pick<ToolDefinition<any, any>, "renderCall" | "renderResult">;
+export type { ToolRenderers };
 export { createShellRenderers, editRenderers, findRenderers, grepRenderers, lsRenderers, readRenderers, writeRenderers, };
 /** Renderers for every built-in tool, keyed by tool name. */
 export declare function createAllToolRenderers(): Record<ToolName, ToolRenderers>;
