@@ -1,0 +1,24 @@
+{
+  "id": "unrelated_quantum",
+  "source": "reused-phase1",
+  "wallMs": 130271,
+  "tokensIn": 25968,
+  "tokensOut": 4093,
+  "wallIsCap": false,
+  "capHit": false,
+  "answerBytes": 5438,
+  "factsCount": 0,
+  "verifyPassRate": 0,
+  "verify": {
+    "pass": 0,
+    "fix": 0,
+    "drop": 0,
+    "notFound": 0
+  },
+  "extractionWallMs": 153667,
+  "extractionTokensIn": 24055,
+  "extractionTokensOut": 3482,
+  "extractionOk": true,
+  "note": "answer copied from baseline-A; extraction ok (0 facts; extractedJson=true); unrelated-control: 13 raw extracted entries discarded (extract-raw.json) per spec (list must be empty)",
+  "done": true
+}

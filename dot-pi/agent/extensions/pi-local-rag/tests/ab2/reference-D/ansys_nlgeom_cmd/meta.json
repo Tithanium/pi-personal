@@ -1,0 +1,23 @@
+{
+  "id": "ansys_nlgeom_cmd",
+  "source": "fresh-D",
+  "wallMs": 268168,
+  "tokensIn": 54911,
+  "tokensOut": 7244,
+  "capHit": false,
+  "answerBytes": 4098,
+  "factsCount": 33,
+  "verifyPassRate": 0.9091,
+  "verify": {
+    "pass": 30,
+    "fix": 2,
+    "drop": 1,
+    "notFound": 0
+  },
+  "ok": true,
+  "agentEnd": true,
+  "timedOut": false,
+  "stopReason": "stop",
+  "note": "ok; facts=33",
+  "done": true
+}

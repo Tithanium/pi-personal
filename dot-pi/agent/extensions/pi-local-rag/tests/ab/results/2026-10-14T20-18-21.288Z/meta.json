@@ -1,0 +1,10 @@
+[
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 14144,
+    "tokensIn": 4928,
+    "tokensOut": 123,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang); empty-injection (relevance gate or failure)"
+  }
+]

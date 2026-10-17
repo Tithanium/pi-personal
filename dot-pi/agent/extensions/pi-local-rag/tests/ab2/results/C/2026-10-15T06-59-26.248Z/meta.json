@@ -1,0 +1,581 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 2692,
+    "tokensIn": 1753,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 4740,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 0 hits deleted → 4653 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885,
+      "folderAffinity": "Doc_tech_fedoo=0.585/16",
+      "fanoutTerms": [
+        "rectangular",
+        "mesh",
+        "fedoo",
+        "rectangle_mesh",
+        "hole_plate_mesh",
+        "disk_mesh",
+        "hollow_disk_mesh",
+        "structured_mesh"
+      ],
+      "dominantFolder": "Doc_tech_fedoo",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 3,
+      "crossFolderFiles": [
+        "ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "ANSYS_Mechanical_APDL_Modeling_and_Meshing_Guide.txt",
+        "ANSYS_Mechanical_APDL_Theory_Reference.txt"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 1,
+      "corpusFolders": [
+        "Doc_tech_fedoo=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/mesh/structured_mesh.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/mesh/__init__.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 2,
+      "anyChildFallback": 0,
+      "forceKept": []
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 2126,
+    "tokensIn": 1152,
+    "tokensOut": 6,
+    "ok": true,
+    "payloadBytes": 2941,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 0 hits deleted, 1 force-kept [003:H01(raw 0.492)] → 2853 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "folderAffinity": "Doc_tech_fedoo=0.582/16",
+      "fanoutTerms": [
+        "StressEquilibrium",
+        "weak",
+        "nlgeom",
+        "parameter",
+        "StressEquilibriumMixed",
+        "StressEquilibriumRI",
+        "get_weak_equation",
+        "stress_equilibrium"
+      ],
+      "dominantFolder": "Doc_tech_fedoo",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 1,
+      "crossFolderFiles": [
+        "Ansys_Mechanical_APDL_Command_Reference.txt"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 2,
+      "corpusFolders": [
+        "Doc_tech_fedoo=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/weakform/inertia.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/weakform/stress_equilibrium_mixed.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.weakform.StressEquilibrium.incompressibility.html"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 2,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "003:H01(raw 0.492)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 3085,
+    "tokensIn": 6055,
+    "tokensOut": 18,
+    "ok": true,
+    "payloadBytes": 9431,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 2 hits deleted, 1 force-kept [002:H01(raw 0.468)] → 9343 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 2,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "folderAffinity": "Doc_tech_ANSYS=0.473/16",
+      "fanoutTerms": [
+        "NLGEOM",
+        "command",
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "GUI",
+        "SESSION",
+        "PREP7"
+      ],
+      "dominantFolder": "Doc_tech_ANSYS",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 2,
+      "crossFolderFiles": [
+        "simple_cantilever_beam_3D_model_nlgeom.py",
+        "simple_cantilever_beam_3D_model_nlgeom.py"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 3,
+      "corpusFolders": [
+        "Doc_tech_ANSYS=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 1,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "002:H01(raw 0.468)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 4794,
+    "tokensIn": 4192,
+    "tokensOut": 18,
+    "ok": true,
+    "payloadBytes": 8712,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 1 hits deleted, 1 force-kept [002:H01(top2 raw 0.446)] → 8624 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 1,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "folderAffinity": "Doc_tech_ANSYS=0.532/16",
+      "fanoutTerms": [
+        "FKN",
+        "real",
+        "constant",
+        "penalty",
+        "contact",
+        "ANSYS",
+        "Mechanical",
+        "APDL"
+      ],
+      "dominantFolder": "Doc_tech_ANSYS",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 2,
+      "crossFolderFiles": [
+        "disk_rectangle.py",
+        "disk_rectangle.py"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 6,
+      "corpusFolders": [
+        "Doc_tech_ANSYS=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 1,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "002:H01(top2 raw 0.446)"
+      ]
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 2228,
+    "tokensIn": 1075,
+    "tokensOut": 6,
+    "ok": true,
+    "payloadBytes": 3088,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 0 hits deleted → 3000 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5897679987344571,
+      "folderAffinity": "Doc_tech_fedoo=0.517/15 Doc_tech_ANSYS=0.460/1",
+      "fanoutTerms": [
+        "ModelingSpace",
+        "plane",
+        "problems",
+        "fedoo",
+        "hex8",
+        "associated_assembly_sum",
+        "build_simple_mesh",
+        "my_mesh"
+      ],
+      "dominantFolder": "Doc_tech_fedoo",
+      "ramifiedGated": 2,
+      "crossFolderDropped": 2,
+      "crossFolderFiles": [
+        "Hot_Rolling_Model.rst",
+        "ANSYS_Mechanical_APDL_Element_Reference.txt"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 2,
+      "corpusFolders": [
+        "Doc_tech_fedoo=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/core/assembly_sum.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.Mesh.html"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 2,
+      "anyChildFallback": 0,
+      "forceKept": []
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 3103,
+    "tokensIn": 11603,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 23729,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 3 hits deleted, 2 force-kept [001:H01(raw 0.662), 002:H01(top2 raw 0.422)] → 23641 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 3,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "folderAffinity": "Doc_tech_ANSYS=0.538/15 Doc_tech_fedoo=0.518/1",
+      "fanoutTerms": [
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "nonlinear",
+        "large",
+        "deflection",
+        "static",
+        "structural"
+      ],
+      "dominantFolder": "Doc_tech_ANSYS",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 0,
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 4,
+      "corpusFolders": [
+        "Doc_tech_ANSYS=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 0,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "001:H01(raw 0.662)",
+        "002:H01(top2 raw 0.422)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 5461,
+    "tokensIn": 11250,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 24198,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 1 hits deleted, 2 force-kept [001:H01(raw 0.662), 002:H02(raw 0.462)] → 24110 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 1,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "folderAffinity": "Doc_tech_ANSYS=0.581/16",
+      "fanoutTerms": [
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "surface",
+        "contact",
+        "between",
+        "two",
+        "bodies"
+      ],
+      "dominantFolder": "Doc_tech_ANSYS",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 1,
+      "crossFolderFiles": [
+        "__init__.py"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 7,
+      "corpusFolders": [
+        "Doc_tech_ANSYS=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 0,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "001:H01(raw 0.662)",
+        "002:H02(raw 0.462)"
+      ]
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 4810,
+    "tokensIn": 2261,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 6197,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 0 hits deleted, 1 force-kept [002:H01(raw 0.497)] → 6109 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "folderAffinity": "Doc_tech_fedoo=0.603/4 Doc_tech_ANSYS=0.599/12",
+      "fanoutTerms": [
+        "model",
+        "isotropic",
+        "von",
+        "Mises",
+        "plasticity",
+        "hardening",
+        "fedoo",
+        "Python"
+      ],
+      "dominantFolder": "Doc_tech_fedoo",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 6,
+      "crossFolderFiles": [
+        "ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "Hot_Rolling_Model.rst",
+        "springcoil.dat",
+        "ANSYS_Mechanical_APDL_Material_Reference.txt",
+        "ANSYS_Mechanical_APDL_Modeling_and_Meshing_Guide.txt"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 2,
+      "corpusFolders": [
+        "Doc_tech_fedoo=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/constraint/periodic_bc.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.constitutivelaw.ElastoPlasticity.hardening_function_derivative.html"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 1,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "002:H01(raw 0.497)"
+      ]
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 2202,
+    "tokensIn": 2012,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 5480,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 0 hits deleted, 1 force-kept [002:H01(raw 0.497)] → 5393 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657,
+      "folderAffinity": "Doc_tech_fedoo=0.617/16",
+      "fanoutTerms": [
+        "fedoo",
+        "Python",
+        "library",
+        "define",
+        "weak",
+        "mechanical",
+        "equilibrium",
+        "solids"
+      ],
+      "dominantFolder": "Doc_tech_fedoo",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 3,
+      "crossFolderFiles": [
+        "ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "Ansys_Mechanical_APDL_Command_Reference.txt"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 1,
+      "corpusFolders": [
+        "Doc_tech_fedoo=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/constraint/periodic_bc.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/weakform/stress_equilibrium_ri.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 1,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "002:H01(raw 0.497)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 4939,
+    "tokensIn": 5938,
+    "tokensOut": 18,
+    "ok": true,
+    "payloadBytes": 10141,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": false,
+    "note": "ok (8 terms → 3 files → 3 children, 2 hits deleted, 1 force-kept [002:H01(top2 raw 0.422)] → 10053 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 3,
+      "nChildren": 3,
+      "nTimeouts": 0,
+      "nDeleted": 2,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.633426553035191,
+      "folderAffinity": "Doc_tech_ANSYS=0.563/16",
+      "fanoutTerms": [
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "nonlinear",
+        "full",
+        "transient",
+        "dynamic",
+        "analysis"
+      ],
+      "dominantFolder": "Doc_tech_ANSYS",
+      "ramifiedGated": 0,
+      "crossFolderDropped": 3,
+      "crossFolderFiles": [
+        "shell.py",
+        "test_transient_prediction_tangent.py",
+        "test_transient_prediction_tangent.py"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 5,
+      "corpusFolders": [
+        "Doc_tech_ANSYS=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 1,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "002:H01(top2 raw 0.422)"
+      ]
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 152,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": true,
+    "note": "EARLY EMPTY: verdict=empty (topRaw 0.3660 < rawMin 0.47) → no fan-out, no swarm",
+    "internals": {
+      "nTerms": 0,
+      "nFiles": 0,
+      "nChildren": 0,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 134,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T06-59-26.248Z",
+    "empty": true,
+    "note": "EARLY EMPTY: verdict=empty (topRaw 0.3457 < rawMin 0.47) → no fan-out, no swarm",
+    "internals": {
+      "nTerms": 0,
+      "nFiles": 0,
+      "nChildren": 0,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083
+    }
+  }
+]

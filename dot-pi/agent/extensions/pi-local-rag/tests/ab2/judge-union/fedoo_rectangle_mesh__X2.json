@@ -1,0 +1,41 @@
+{
+  "id": "fedoo_rectangle_mesh",
+  "label": "X2",
+  "denomTotal": 27,
+  "results": [
+    { "n": "G1", "hit": false },
+    { "n": "G2", "hit": false },
+    { "n": "G3", "hit": false },
+    { "n": "G4", "hit": false },
+    { "n": "D3", "hit": false },
+    { "n": "D4", "hit": false },
+    { "n": "D5", "hit": false },
+    { "n": "D6", "hit": false },
+    { "n": "D7", "hit": false },
+    { "n": "D10", "hit": false },
+    { "n": "D11", "hit": false },
+    { "n": "D12", "hit": false },
+    { "n": "D13", "hit": false },
+    { "n": "D14", "hit": false },
+    { "n": "D15", "hit": false },
+    { "n": "D16", "hit": false },
+    { "n": "D17", "hit": false },
+    { "n": "D18", "hit": false },
+    { "n": "D19", "hit": false },
+    { "n": "D20", "hit": false },
+    { "n": "D21", "hit": false },
+    { "n": "D22", "hit": false },
+    { "n": "D23", "hit": false },
+    { "n": "D24", "hit": false },
+    { "n": "D25", "hit": false },
+    { "n": "D26", "hit": false },
+    { "n": "D27", "hit": false }
+  ],
+  "fpr": {
+    "totalBytes": 2138,
+    "offTopicBytes": 1362,
+    "fprPct": 63.7,
+    "notes": "Single source = fedoo/mesh/__init__.py (module index + import plumbing); names rectangle_mesh in the 'Mesh Creation Functions' autosummary (~393 B on-topic) but has no call/signature/params/example, so all facts miss. Worst offenders: (1) ~1515-2124 (609 B) import-statement block - source plumbing, not about building a rectangular mesh; (2) ~538-915 (377 B) 'Mesh manipulation functions' + 'Import/Export' autosummaries - other function families, nav/index noise; (3) ~1308-1515 (207 B) commented-out pkgutil code - dead boilerplate. Remaining off-topic: 'Class Mesh' block (~155 B) and RAG header/tag boilerplate (~87 B)."
+  },
+  "empty": false
+}

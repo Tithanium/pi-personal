@@ -345,7 +345,10 @@ export function wslToPowerShell(command: string): Translation {
     return { ok: true, powershell: payload.trim(), exactSyntax: true, untranslated: [] };
   }
   const t = translatePayload(payload);
-  if (!t.ok) return { ...t, reason: t.reason };
+  // BUGFIX: translatePayload's success returns are {powershell, untranslated} (NO ok field);
+  // only fail() sets ok:false. The old `if (!t.ok)` therefore treated EVERY success as a
+  // refusal (reason: undefined). Match the explicit fail shape instead.
+  if (t.ok === false) return t;
   if (t.untranslated.length) {
     return { ok: false, exactSyntax: false, untranslated: t.untranslated, reason: `syntax check failed / unverified tokens: ${t.untranslated.join(" ")}` };
   }

@@ -1,0 +1,116 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 5105,
+    "tokensIn": 7096,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-14T23-58-34.373Z",
+    "empty": true,
+    "note": "swarm pruned all (6 children over 6 files, 6 deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 2705,
+    "tokensIn": 5087,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-14T23-58-34.373Z",
+    "empty": true,
+    "note": "swarm pruned all (6 children over 6 files, 6 deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 2995,
+    "tokensIn": 10946,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-14T23-58-34.373Z",
+    "empty": true,
+    "note": "swarm pruned all (6 children over 6 files, 6 deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 10385,
+    "tokensIn": 13363,
+    "tokensOut": 197,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-14T23-58-34.373Z",
+    "empty": true,
+    "note": "swarm pruned all (6 children over 6 files, 6 deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 2876,
+    "tokensIn": 6197,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-14T23-58-34.373Z",
+    "empty": true,
+    "note": "swarm pruned all (6 children over 6 files, 6 deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 5376,
+    "tokensIn": 13829,
+    "tokensOut": 12,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-14T23-58-34.373Z",
+    "empty": true,
+    "note": "swarm pruned all (6 children over 6 files, 6 deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "anyChildFallback": 0
+    }
+  }
+]

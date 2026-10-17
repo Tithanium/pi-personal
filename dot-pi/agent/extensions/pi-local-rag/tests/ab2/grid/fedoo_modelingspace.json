@@ -1,0 +1,603 @@
+{
+  "id": "fedoo_modelingspace",
+  "generatedAt": "2026-10-15T21:55:37Z",
+  "grid": [
+    {
+      "n": 1,
+      "statement": "fd.ModelingSpace(dimension, name='Main') creates the space in which coordinates and variables (functions over coordinates) are defined; a modeling space is required to be able to define weak equations",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 9,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 2,
+      "statement": "dimension must be one of '2D', '3D', '2Dplane', '2Dstress', '2Daxi'; the string '2D' is mapped to '2Dplane'",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 33,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 3,
+      "statement": "'2D'/'2Dplane' = general 2D problems with default coordinates 'X' and 'Y' and plane strain assumption (ndim=2); '3D' = 3D problems with coordinates 'X', 'Y', 'Z' (ndim=3); '2Dstress' = same as 2D but with plane stress assumption; '2Daxi' = same as 2D but with axisymmetric assumption",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 16,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 4,
+      "statement": "A newly created ModelingSpace automatically becomes the active space and is stored in the class dictionary under its name (retrievable as fd.ModelingSpace['Main']); the active space can be changed with make_active() or set_active(name) and read with get_active()",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 46,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    }
+  ],
+  "dFacts": [
+    {
+      "dn": 1,
+      "statement": "ModelingSpace is created with the signature `ModelingSpace(dimension, name=\"Main\")`, where dimension must be a string: '2D', '3D', '2Dplane', '2Dstress' or '2Daxi'.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 9,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Same signature claim as G1 (def __init__(self, dimension, name=\"Main\") verified at L9); the allowed-string list overlaps G2 (assert verified L33-43). Adds nothing beyond G1+G2."
+    },
+    {
+      "dn": 2,
+      "statement": "The docstring documents '2D' or '2Dplane' as general 2D problems with default coordinates 'X' and 'Y' and plane strain assumption.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 18,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G3 already states '2D'/'2Dplane' = general 2D problems, default X/Y, plane strain. Docstring bullet verified exactly at L18."
+    },
+    {
+      "dn": 3,
+      "statement": "The docstring documents '3D' for 3D problems with default coordinates 'X', 'Y' and 'Z'.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 19,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G3 already states '3D' = 3D problems with default X/Y/Z (ndim=3). Docstring bullet verified exactly at L19."
+    },
+    {
+      "dn": 4,
+      "statement": "The docstring documents '2Dstress' as the same as '2D' but using plane stress assumption for mechanical problems.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 20,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G3 already states '2Dstress' = same as 2D with plane stress assumption. Docstring bullet verified exactly at L20."
+    },
+    {
+      "dn": 5,
+      "statement": "The docstring documents '2Daxi' as the same as '2D' but using axisymmetric assumption for mechanical problems.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 21,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G3 already states '2Daxi' = same as 2D with axisymmetric assumption. Docstring bullet verified exactly at L21."
+    },
+    {
+      "dn": 6,
+      "statement": "The docstring example shows `fd.ModelingSpace('2Dstress')` to create an empty 2D modeling space with plane stress assumption.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 29,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: L27 'Create a new empty 2D modeling space with plane stress assumption', L28 '>>> import fedoo as fd', L29 '>>> fd.ModelingSpace('2Dstress')' (cited line exact)."
+    },
+    {
+      "dn": 7,
+      "statement": "The constructor converts the string \"2D\" into \"2Dplane\" internally, so the two are identical.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 37,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G2 already states 'the string 2D is mapped to 2Dplane'. Mapping verified: 'if dimension == \"2D\":' L36, 'dimension = \"2Dplane\"' L37 (cited line exact)."
+    },
+    {
+      "dn": 8,
+      "statement": "The constructor asserts that dimension must be one of '3D', '2Dplane', '2Dstress' or '2Daxi' (after the 2D->2Dplane mapping).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 43,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G2 already states the allowed dimension set. Post-mapping assert verified at L38-43 ('Dimension must be '2D', '3D', 2Dplane', '2Dstress' or '2Daxi'' message at L43)."
+    },
+    {
+      "dn": 9,
+      "statement": "Every new ModelingSpace becomes the active space: `ModelingSpace._active = self` and it is stored in `ModelingSpace.__dic[name]`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 52,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G4 already states a new space becomes active and is stored in the class dictionary under its name. Actual lines: L46 'ModelingSpace._active = self', L47 'ModelingSpace.__dic[name] = self' (cited L52 is off, true lines 46-47)."
+    },
+    {
+      "dn": 10,
+      "statement": "A 2D modeling space (2Dplane/2Dstress/2Daxi) is given ndim = 2 and only the coordinates 'X' and 'Y' (plus 'Z' only for 3D).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 72,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G3 already states 2D (ndim=2) with X/Y and 3D (ndim=3) with X/Y/Z. Setup verified: new_coordinate X/Y L66-67, 3D ndim=3 + Z L69-71, 2D family ndim=2 L72-73."
+    },
+    {
+      "dn": 11,
+      "statement": "`get_dimension()` returns a string describing the space: '2Dplane', '3D', '2Dstress' (and '2Daxi'), i.e. the normalized dimension.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 78,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: def get_dimension at L78, docstring L79-84 ('Return an str that define the dimension...'), 'return self._dimension' L85."
+    },
+    {
+      "dn": 12,
+      "statement": "The `is_axisymmetric` property is True only when the space is '2Daxi'.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 90,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: @property L87, def is_axisymmetric L88, 'return self._dimension == \"2Daxi\"' exactly at L90."
+    },
+    {
+      "dn": 13,
+      "statement": "`make_active()` defines the space as the active ModelingSpace.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 94,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G4 already states the active space can be changed with make_active(). Verified: def make_active L92, docstring L93, 'ModelingSpace._active = self' L94 (cited line exact)."
+    },
+    {
+      "dn": 14,
+      "statement": "The static method `ModelingSpace.set_active(name)` defines the active space from its name (accepts a space object or a registered name).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 98,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G4 already states the active space can be changed with set_active(name). Verified: @staticmethod L96, def set_active L97, body accepts ModelingSpace instance or registered dict name (L102-107), NameError otherwise."
+    },
+    {
+      "dn": 15,
+      "statement": "`ModelingSpace.get_active()` returns the active space and asserts that one must be defined: 'You must define a ModelingSpace for your problem.'",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 110,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G4 already states the active space can be read with get_active(). Verified: def get_active L110, assert message 'You must define a ModelingSpace for your problem.' at L114, 'return ModelingSpace._active' L115."
+    },
+    {
+      "dn": 16,
+      "statement": "`ModelingSpace.get_all()` returns a dict containing all the defined ModelingSpaces.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 118,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: @staticmethod L117, def get_all L118, docstring L119, 'return ModelingSpace.__dic' L120."
+    },
+    {
+      "dn": 17,
+      "statement": "Spaces are also accessible via class item syntax, e.g. `ModelingSpace[\"my space\"]` / `fd.ModelingSpace['Main']`, through `__class_getitem__`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 124,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G4 already states the space is 'retrievable as fd.ModelingSpace['Main']'. Cited L124 does NOT support (ndim docstring); __class_getitem__ actually at L75-76 ('return cls.__dic[item]'), also used in docstring L30 and __main__ L441 - would be lineFixed 75 if not a duplicate."
+    },
+    {
+      "dn": 18,
+      "statement": "The `ndim` property returns the number of dimensions (2 or 3).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 123,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: @property L122, def ndim L123, docstring 'Return the number of dimensions.' L124, 'return self.__ndim' L125. Kept (not a duplicate): G3 annotates ndim values but does not claim the ndim property's existence/return; this is the API-surface fact."
+    },
+    {
+      "dn": 19,
+      "statement": "`new_variable(name)` creates a new variable in the space (required before defining weak equations with it).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 167,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: def new_variable at L167 (cited line exact), docstring 'Create a new variable with the given name.'; weak-equation requirement per class docstring L11."
+    },
+    {
+      "dn": 20,
+      "statement": "`new_coordinate(name)` creates an additional coordinate beyond the default X/Y(/Z).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 135,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: def new_coordinate at L135 (cited line exact), docstring 'Create a new coordinate with the given name.'; defaults X/Y set in __init__ L66-67, Z for 3D L71."
+    },
+    {
+      "dn": 21,
+      "statement": "`derivative(u, x=0, ordre=1, decentrement=0, vir=0)` builds a differential operator on the space's variables/coordinates.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 230,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: def derivative(self, u, x=0, ordre=1, decentrement=0, vir=0) exactly at L230; returns 'a simple DiffOp containing only a derivative' built from variable/coordinate ranks."
+    },
+    {
+      "dn": 22,
+      "statement": "The `__main__` demo shows creating multiple named spaces: `ModelingSpace(\"3D\", name=\"my space\")` and `ModelingSpace(\"2Dplane\")`, and switching the active one.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 436,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'if __name__ == \"__main__\":' L435, 'space = ModelingSpace(\"3D\", name=\"my space\")' L436 (cited exact), 'another_space = ModelingSpace(\"2Dplane\")' L438; get_active()/get_all() printed L437-440, ModelingSpace[\"my space\"] L441."
+    },
+    {
+      "dn": 23,
+      "statement": "ModelingSpace is exported at the top level of the fedoo package (`fd.ModelingSpace`).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/__init__.py",
+      "line": 23,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'ModelingSpace,' listed in 'from .core import (...)' exactly at L23 of fedoo/__init__.py (grep-anchored)."
+    },
+    {
+      "dn": 24,
+      "statement": "The Quick Start says most fedoo objects are associated to a modeling space, which is the space in which variables and coordinates are created.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/Quick_Start.rst",
+      "line": 32,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified exactly at L32 (grep-anchored): 'In fedoo, most of objects are associated to a modeling space. The modeling space is a space in which the variables and coordinates are created.' Kept: the 'most of objects are associated' clause is not in any original G fact."
+    },
+    {
+      "dn": 25,
+      "statement": "The Quick Start states the dimension can be '3D' or '2D' (for planar problem), and may also be '2Dstress' for a planar problem based on the plane stress assumption.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/Quick_Start.rst",
+      "line": 33,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified exactly at L33 (grep-anchored): 'The dimension of the modeling space car be '3D' or '2D' (for planar problem). The dimension of the space may also be set to '2Dstress' for planar problem based on the plane stress assumption.' (source typo 'car be'). Distinct from G2: claim about the Quick Start's narrower documented list."
+    },
+    {
+      "dn": 26,
+      "statement": "The Quick Start gives `fd.ModelingSpace(\"3D\")` as the minimal modeling-space creation step of the 8-step workflow.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/Quick_Start.rst",
+      "line": 37,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'fd.ModelingSpace(\"3D\")' exactly at L37 inside 'Create the modeling space' section (heading L29, = workflow step 2); 8-step list confirmed at L9-16 ('The main steps to define a problem are:' items 1-8)."
+    },
+    {
+      "dn": 27,
+      "statement": "The user-problems guide shows a 2D modeling space used for a custom Poisson weak form: `space = fd.ModelingSpace(\"2D\"); space.new_variable(\"U\")` followed by `space.derivative(\"U\", \"X\")`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/user_problems.rst",
+      "line": 37,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'space = fd.ModelingSpace(\"2D\")' exactly at L37, 'space.new_variable(\"U\")' L38, 'dU_dX = space.derivative(\"U\", \"X\")' L40 in the Poisson-equation weak-form example."
+    },
+    {
+      "dn": 28,
+      "statement": "The user-problems guide states a modeling space owns the unknown fields and creates their differential operators, with `.virtual` selecting the test-function side.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/user_problems.rst",
+      "line": 22,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified exactly at L22-23: 'A modeling space owns the unknown fields and creates their differential operators. The ``virtual`` property selects the test-function side of a weak term.'"
+    },
+    {
+      "dn": 29,
+      "statement": "The user-problems guide says to declare scalar unknowns with `new_variable` and group components with `ModelingSpace.new_vector` when useful.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/user_problems.rst",
+      "line": 55,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified at L54-56: 'Declare every scalar unknown with :meth:`fedoo.ModelingSpace.new_variable`, group components with :meth:`fedoo.ModelingSpace.new_vector` when useful, and add the weak terms.' (cited L55 inside the sentence)."
+    },
+    {
+      "dn": 30,
+      "statement": "The boundary_conditions guide uses `fd.ModelingSpace(\"2D\")` for the 2D disk-rectangle contact examples and `fd.ModelingSpace(\"3D\")` for the 3D gyroid example.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/boundary_conditions.rst",
+      "line": 422,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): L422 'fd.ModelingSpace(\"2D\")' in the square/disk penalty contact example ('a contact between a square and a disk', L414); also L528; L575 'fd.ModelingSpace(\"3D\")' with 'mesh = fd.Mesh.read(\"gyroid.vtk\")' at L577."
+    },
+    {
+      "dn": 31,
+      "statement": "The heterogeneous guide uses `fd.ModelingSpace(\"2Dstress\")` with the comment '2D problem with plane stress assumption' for a 2D heterogeneous plate.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Documentation_technique/heterogeneous.rst",
+      "line": 164,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified exactly at L163-164: comment '#Define the Modeling Space - Here 2D problem with plane stress assumption.' + 'fd.ModelingSpace(\"2Dstress\")'; heterogeneous plate with matrix+inclusion (ElasticIsotrop materials L166-168)."
+    },
+    {
+      "dn": 32,
+      "statement": "The example poison_eq.py creates a 2D space with `space = fd.ModelingSpace(\"2D\")` and notes a 2D problem includes by default the coordinates X and Y.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/poison_eq.py",
+      "line": 13,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified exactly at L13 'space = fd.ModelingSpace(\"2D\")' with comment L12: '# A \"2D\" problem include by default the coordinates \"X\" and \"Y\".'"
+    },
+    {
+      "dn": 33,
+      "statement": "poison_eq.py then declares the field with `U = space.new_variable(\"U\")` and builds the weak form from `space.derivative(\"U\", \"X\")` / `(\"U\", \"Y\")`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/poison_eq.py",
+      "line": 14,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'U = space.new_variable(\"U\")' exactly at L14; 'dU_dX = space.derivative(\"U\", \"X\")' L23, 'dU_dY = space.derivative(\"U\", \"Y\")' L24, combined into fd.WeakForm L26."
+    },
+    {
+      "dn": 34,
+      "statement": "The 3D cantilever example creates the space with `fd.ModelingSpace(\"3D\")` after building a box_mesh of hex8 elements.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/simple_cantilever_beam_3D_model.py",
+      "line": 26,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): 'mesh = fd.mesh.box_mesh(' at L12 with elm_type=\"hex8\" at L22; 'fd.ModelingSpace(\"3D\")' exactly at L26."
+    },
+    {
+      "dn": 35,
+      "statement": "Plate_with_hole_in_tension.py defines a 2D modeling space with `fd.ModelingSpace(\"2Dstress\")` using the plane stress assumption.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/Plate_with_hole_in_tension.py",
+      "line": 12,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified exactly at L12 'fd.ModelingSpace(\"2Dstress\")' with comment L11 '# Define 2d modeling space using plane stress assumption'; module docstring L5 confirms '2D plane stress assumption'."
+    },
+    {
+      "dn": 36,
+      "statement": "spherical_shell_compression.py creates a 3D modeling space because plate/shell elements require a 3D space: `fd.ModelingSpace(\"3D\")`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/spherical_shell_compression.py",
+      "line": 36,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): comment L34 '# For plate elements, we first need to create a 3D modeling space'; 'fd.ModelingSpace(\"3D\")' exactly at L36; plate/shell example per docstring L5."
+    },
+    {
+      "dn": 37,
+      "statement": "lattice_beam.py switches on a configuration variable: `fd.ModelingSpace(\"2D\")` when ndim==2 and `fd.ModelingSpace(\"3D\")` otherwise.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/lattice_beam.py",
+      "line": 16,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'ndim = 3' L14, 'if ndim == 2:' L15, 'fd.ModelingSpace(\"2D\")' exactly at L16, 'else:' L17, 'fd.ModelingSpace(\"3D\")' L18."
+    },
+    {
+      "dn": 38,
+      "statement": "2DplasticBending.py uses `fd.ModelingSpace(\"2Dplane\")` for a 2D finite-strain plastic bending problem.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/plasticity/2DplasticBending.py",
+      "line": 9,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified exactly at L9 'fd.ModelingSpace(\"2Dplane\")'; finite-strain via 'NLGEOM = True' L11; plastic bending problem (typeBending, material definition follow)."
+    },
+    {
+      "dn": 39,
+      "statement": "FE2.py creates two named modeling spaces in one script: `fd.ModelingSpace(\"2Dplane\", \"macro_space\")` and `fd.ModelingSpace(\"3D\", \"micro_space\")`, demonstrating the name argument and multiple coexisting spaces.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/FE2/FE2.py",
+      "line": 6,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'fd.ModelingSpace(\"2Dplane\", \"macro_space\")' exactly at L6, 'fd.ModelingSpace(\"3D\", \"micro_space\")' L7 (both in one script, named)."
+    },
+    {
+      "dn": 40,
+      "statement": "thick_cylinder_inflation_axi.py uses `fd.ModelingSpace(\"2Daxi\")` for a 2D axisymmetric thick-cylinder problem (r = X, z = Y convention).",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/models/axisymmetric/thick_cylinder_inflation_axi.py",
+      "line": 31,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): 'fd.ModelingSpace(\"2Daxi\")' exactly at L31; convention comment L27 '# r in [A, B], z in [0, H]. The symmetry axis is Y in 2D (i.e. r = X column).'; thick annulus mesh L32."
+    },
+    {
+      "dn": 41,
+      "statement": "hertz_axisymmetric.py uses `fd.ModelingSpace(\"2Daxi\")` for the 2D axisymmetric Hertz contact benchmark.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/contact/benchmark/hertz_axisymmetric.py",
+      "line": 79,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): 'fd.ModelingSpace(\"2Daxi\")' exactly at L79 under the '# Mesh' section; Hertz benchmark (analytic F/a/p0 functions above, E* comparison)."
+    },
+    {
+      "dn": 42,
+      "statement": "tube_compression.py uses `fd.ModelingSpace(\"2Daxi\")  # 2D axisymmetric space` for tube compression with self-contact.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/tube_compression.py",
+      "line": 19,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): 'fd.ModelingSpace(\"2Daxi\")  # 2D axisymmetric space' exactly at L19 (inline comment verbatim); self-contact confirmed L5 'This model uses self-contact...' and L47/L52."
+    },
+    {
+      "dn": 43,
+      "statement": "pressurized_pipe.py uses `fd.ModelingSpace(\"2D\")  # plane strain assumption` for a hollow-disk pressure problem.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/02-constraints/pressurized_pipe.py",
+      "line": 18,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): 'fd.ModelingSpace(\"2D\")  # plane strain assumption' exactly at L18 (inline comment verbatim); 'mesh = fd.mesh.hollow_disk_mesh(...)' L19 with internal/external pressure L13-14."
+    },
+    {
+      "dn": 44,
+      "statement": "periodic_homogenization.py switches spaces by dimension: `fd.ModelingSpace(\"2Dplane\")` for the 2D branch and `fd.ModelingSpace(\"3D\")` for the 3D branch.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/homogenization/periodic_homogenization.py",
+      "line": 12,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: 'dim = 3' L7, 'if dim == 2:' L12 (cited exact), 'fd.ModelingSpace(\"2Dplane\")' L13, 'else:' L14, 'fd.ModelingSpace(\"3D\")' L15."
+    },
+    {
+      "dn": 45,
+      "statement": "The okf user-weakform concept table lists the verified signatures: `fd.ModelingSpace` -> `ModelingSpace(dimension, name='Main')`, `new_variable(name)`, `derivative(u, x=0, ordre=1, decentrement=0, vir=0)`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/okf/concepts/user-weakform.md",
+      "line": 26,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): '# Verified signatures (fedoo 1.0.1)' L22, table row '| `fd.ModelingSpace` | `ModelingSpace(dimension, name='Main')` |' exactly at L26, new_variable row L27, derivative row L28."
+    },
+    {
+      "dn": 46,
+      "statement": "The okf user-weakform concept notes a 2D space carries the coordinates X, Y by default.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/okf/concepts/user-weakform.md",
+      "line": 31,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G3 already states '2D'/'2Dplane' default coordinates 'X' and 'Y'. Okf line verified exactly at L31-32 (grep-anchored): 'a 2D space carries the coordinates X, Y by default.' - same semantic claim, different source page."
+    },
+    {
+      "dn": 47,
+      "statement": "The okf nonlinear-problem concept shows `fd.ModelingSpace(\"2Dplane\")  # or \"2Dstress\" for plane stress` as the modeling-space step.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/okf/concepts/nonlinear-problem.md",
+      "line": 85,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): 'fd.ModelingSpace(\"2Dplane\")                    # or \"2Dstress\" for plane stress' exactly at L85, inside the 2DplasticBending snippet (L76-80 context)."
+    },
+    {
+      "dn": 48,
+      "statement": "The okf FE2 example page records that FE2 uses two ModelingSpaces: `fd.ModelingSpace(\"2Dplane\", \"macro_space\")` and `(\"3D\", \"micro_space\")`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/okf/examples/FE2.md",
+      "line": 16,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): 'Uses two ModelingSpaces (`fd.ModelingSpace(\"2Dplane\", \"macro_space\")` and `(\"3D\", \"micro_space\")`)' exactly at L16 in the Overview section."
+    },
+    {
+      "dn": 49,
+      "statement": "The okf tube-compression page records `fd.ModelingSpace(\"2Daxi\")` as the 2D axisymmetric space and that in 2Daxi \"YY\" is the hoop (sigma_theta_theta) component and \"XX\" is radial.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/okf/examples/tube-compression.md",
+      "line": 118,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): L118 'In 2Daxi the \"YY\" stress component is σ_θθ (hoop) and \"XX\" is radial.' (cited exact, under '# Notes'); L27 records 'fd.ModelingSpace(\"2Daxi\") — 2D axisymmetric space.'"
+    },
+    {
+      "dn": 50,
+      "statement": "The okf hertz-axisymmetric page records `fd.ModelingSpace(\"2Daxi\")` as the 2D axisymmetric space for the benchmark.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/okf/examples/hertz-axisymmetric.md",
+      "line": 26,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): '* `fd.ModelingSpace(\"2Daxi\")` — 2D axisymmetric space.' exactly at L26 under '# API used (fedoo 1.0.1)'; Hertz benchmark context (E* = 1098.9, analytic comparison)."
+    },
+    {
+      "dn": 51,
+      "statement": "The fedoo API index lists `fd.ModelingSpace` in the public API surface of `fedoo/__init__.py` and places the ModelingSpace class in `fedoo/core/`.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/okf/documentation/index.md",
+      "line": 78,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): L78 'fedoo/__init__.py - public API surface (... `fd.ModelingSpace` ...)' (cited exact); L79 'fedoo/core/ - base classes (ModelingSpace, ...)'. Consistent with the actual __init__.py L23 / core/modelingspace.py."
+    },
+    {
+      "dn": 52,
+      "statement": "The quick_start.html (rendered docs) repeats: the modeling space dimension can be '3D' or '2D' (for planar problem), and '2Dstress' for plane stress, with `fd.ModelingSpace(\"3D\")` as the example.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/quick_start.html",
+      "line": 143,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified (grep-anchored): L143 'The dimension of the modeling space car be '3D' or '2D' (for planar problem)... may also be set to '2Dstress' for planar problem based on the plane stress assumption.' (cited exact); L144 fd.ModelingSpace(\"3D\") code example."
+    },
+    {
+      "dn": 53,
+      "statement": "op_strain notes that in 2D plane strain / plane stress the out-of-plane strain slot is treated specially, and for 2Dstress the symbolic slot 2 is 0 with a nonzero out-of-plane eps_zz when enforcing plane stress.",
+      "file": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/core/modelingspace.py",
+      "line": 302,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Verified: op_strain docstring L294-309; 'In 2D plane strain / plane stress slot 2 stays 0.' L302-303 (cited L302 inside); 'Note for plane stress (2Dstress): the symbolic slot 2 is 0 (kinematic zero), but the constitutive law may compute a nonzero out-of-plane ε_zz when enforcing the plane-stress condition σ_zz = 0.' L305-308."
+    }
+  ],
+  "excludedFromDenominator": [
+    {
+      "dn": 1,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G1: constructor signature ModelingSpace(dimension, name='Main') (verified at modelingspace.py L9); the allowed-string list portion overlaps G2 (assert L33-43)."
+    },
+    {
+      "dn": 2,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G3: '2D'/'2Dplane' = general 2D problems, default coordinates X/Y, plane strain (docstring bullet verified at modelingspace.py L18)."
+    },
+    {
+      "dn": 3,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G3: '3D' = 3D problems with default X/Y/Z (docstring bullet verified at modelingspace.py L19)."
+    },
+    {
+      "dn": 4,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G3: '2Dstress' = same as 2D with plane stress assumption (docstring bullet verified at modelingspace.py L20)."
+    },
+    {
+      "dn": 5,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G3: '2Daxi' = same as 2D with axisymmetric assumption (docstring bullet verified at modelingspace.py L21)."
+    },
+    {
+      "dn": 7,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G2: 'the string 2D is mapped to 2Dplane' (mapping verified at modelingspace.py L36-37)."
+    },
+    {
+      "dn": 8,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G2: allowed dimension set (post-mapping assert verified at modelingspace.py L38-43)."
+    },
+    {
+      "dn": 9,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G4: new space becomes active and is stored in the class dict (actual lines L46-47; cited L52 off)."
+    },
+    {
+      "dn": 10,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G3: 2D spaces ndim=2 with X/Y, Z only for 3D (setup verified at modelingspace.py L66-73)."
+    },
+    {
+      "dn": 13,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G4: 'active space can be changed with make_active()' (verified at modelingspace.py L92-94)."
+    },
+    {
+      "dn": 14,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G4: 'active space can be changed with set_active(name)' (verified at modelingspace.py L96-107)."
+    },
+    {
+      "dn": 15,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G4: 'active space can be ... read with get_active()' (verified at modelingspace.py L110-115, assert message L114)."
+    },
+    {
+      "dn": 17,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G4: 'retrievable as fd.ModelingSpace['Main']' via class item syntax; __class_getitem__ at modelingspace.py L75-76 (cited L124 does not support - would be lineFixed 75 if kept)."
+    },
+    {
+      "dn": 46,
+      "reason": "duplicate-of-original",
+      "detail": "Duplicate of G3: 2D space carries default coordinates X/Y (okf user-weakform.md L31-32 states the same claim as G3, which cites modelingspace.py)."
+    }
+  ],
+  "stats": {
+    "originalCount": 4,
+    "dTotal": 53,
+    "dPass": 39,
+    "dFix": 0,
+    "dDrop": 0,
+    "dDefect": 0,
+    "dDuplicate": 14,
+    "denominator": 43
+  }
+}

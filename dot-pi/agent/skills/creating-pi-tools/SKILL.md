@@ -59,7 +59,7 @@ Facts you can rely on (validated):
 
 ### 2a. Locate the donor folder (Windows)
 
-bash is dead on this machine (WSL broken) → run this PowerShell one-liner with the
+bash is dead on this machine (WSL broken) → run this powershell one-liner with the
 `powershell` tool:
 
 ```powershell
@@ -67,10 +67,9 @@ Get-ChildItem $HOME, C:\Users\connessn\Datas -Recurse -Depth 3 -ErrorAction Sile
   Where-Object { $_.Name -match '^(omp|oh-my)' } | Select-Object -ExpandProperty FullName
 ```
 
-**omp location on this box: ⚠️ NOT YET PINNED** — probe (2026-07-17) ruled out npm global
+**omp location on this box: ⚠️ PINNED 2026-10-17 -> \C:/Users/connessn/.omp\** (subdirs: agent logs natives plugins run; marketplace cache: \plugins/cache/marketplaces/claude-plugins-official/\) — probe (2026-07-17) ruled out npm global
 (`AppData\Roaming\npm\node_modules\omp`), `~\omp`, `~\.omp`, `~\Documents\omp`,
-`~\Tools\omp`, `AppData\Local\Programs\omp`, scoop shims. When the path is confirmed,
-edit this line and re-validate Step 3 against one real omp feature.
+`~\Tools\omp`, `AppData\Local\Programs\omp`, scoop shims. CORRECTION: the 2026-07-17 probe wrongly ruled out \~/.omp\ - the folder EXISTS and is the donor root. VALIDATED 2026-10-17 against one real omp feature: the \skill-creator\ plugin cached + enabled in omp (skills/skill-creator/SKILL.md byte-identical to anthropics/skills after EOL normalization).
 
 ### 2b. What to look for in the donor folder
 

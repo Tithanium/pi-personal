@@ -1,0 +1,98 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 25192,
+    "tokensIn": 1360,
+    "tokensOut": 847,
+    "ok": true,
+    "payloadBytes": 3338,
+    "provenance": "new B:single run 2026-10-14T23-51-12.420Z",
+    "empty": false,
+    "note": "ok (single: 6 candidate sections → 3249 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single"
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 1274,
+    "tokensIn": 866,
+    "tokensOut": 1,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-14T23-51-12.420Z",
+    "empty": true,
+    "note": "single: child pruned the whole candidate set → empty payload",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single"
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 3744,
+    "tokensIn": 2803,
+    "tokensOut": 150,
+    "ok": true,
+    "payloadBytes": 659,
+    "provenance": "new B:single run 2026-10-14T23-51-12.420Z",
+    "empty": false,
+    "note": "ok (single: 1 candidate sections → 571 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single"
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 57039,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": false,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-14T23-51-12.420Z",
+    "empty": true,
+    "note": "child timeout 56920ms",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 4,
+      "variant": "single"
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 57043,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": false,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-14T23-51-12.420Z",
+    "empty": true,
+    "note": "child timeout 56943ms",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single"
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 2764,
+    "tokensIn": 3264,
+    "tokensOut": 81,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-14T23-51-12.420Z",
+    "empty": true,
+    "note": "single: child pruned the whole candidate set → empty payload",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single"
+    }
+  }
+]

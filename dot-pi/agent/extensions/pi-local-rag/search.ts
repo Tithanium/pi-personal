@@ -1,12 +1,23 @@
 import Database from "better-sqlite3";
 import { embed } from "./embed.ts";
 import { float32ToBuffer } from "./db.ts";
-import { IndexMeta, Chunk } from "./db.ts";
+// `import type` (not value import): IndexMeta/Chunk are interfaces. A value
+// import breaks under plain `node x.mjs` type-stripping ("does not provide an
+// export named 'Chunk'" — the interfaces are erased from db.ts at runtime),
+// which the phase-2 3-way harness (tests/ab2/run-all.mjs) would hit when it
+// imports this module transitively. pi's esbuild loader erases both forms.
+import type { IndexMeta, Chunk } from "./db.ts";
 
 export interface ScoredChunk {
   chunk: Chunk;
   bm25: number;
   vector: number;
+  /** Raw vector cosine similarity (before min-max normalization, P2-R4). */
+  rawCosine: number;
+  /** Raw FTS5 bm25() score (before min-max normalization, P2-R7). Negative
+   *  values; MORE NEGATIVE = better match (the index is ordered ASC). Null
+   *  when the chunk matched only via the vector arm (no FTS hit). */
+  rawBm25: number | null;
   hybrid: number;
 }
 
@@ -28,6 +39,50 @@ export function normalize(scores: number[]): number[] {
   const range = max - min;
   if (range === 0) return scores.map(() => 0);
   return scores.map(s => (s - min) / range);
+}
+
+function medianOf(values: number[]): number {
+  if (values.length === 0) return 0;
+  const s = [...values].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 === 1 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+/**
+ * Pure relevance gate over `hybridSearch` results — replaces the legacy inline
+ * filter `results.filter(r => r.hybrid >= ragScoreThreshold)`.
+ *
+ * Per-chunk: keep if `hybrid >= ragScoreThreshold` AND
+ *   (rawFloor disabled  OR `rawCosine >= ragRelevanceRawMin`).
+ * Whole-set: if rawFloor enabled (`ragRelevanceRawMin > 0`) and
+ *   `topRaw < ragRelevanceRawMin` → reject the whole set; if spread enabled
+ *   (`ragRelevanceSpreadMin > 0`) and `(topRaw - medianRaw) < ragRelevanceSpreadMin`
+ *   → reject the whole set. A 0 threshold disables its gate.
+ *
+ * This closes the min-max-normalization hole: an unrelated prompt still scores a
+ * top `hybrid` ≈ 1.0 (≥ any low threshold) but its `rawCosine` top stays low, so
+ * the raw floor rejects it. Results already arrive hybrid-desc from hybridSearch.
+ */
+export function selectRelevant(
+  results: ScoredChunk[],
+  config: { ragScoreThreshold: number; ragRelevanceRawMin: number; ragRelevanceSpreadMin: number },
+): ScoredChunk[] {
+  if (!Array.isArray(results) || results.length === 0) return [];
+  const { ragScoreThreshold, ragRelevanceRawMin, ragRelevanceSpreadMin } = config;
+  const rawFloorOn = ragRelevanceRawMin > 0;
+  const spreadOn = ragRelevanceSpreadMin > 0;
+
+  if (rawFloorOn || spreadOn) {
+    const raws = results.map(r => r.rawCosine ?? 0);
+    const topRaw = Math.max(...raws);
+    const medRaw = medianOf(raws);
+    if (rawFloorOn && topRaw < ragRelevanceRawMin) return [];
+    if (spreadOn && topRaw - medRaw < ragRelevanceSpreadMin) return [];
+  }
+
+  return results.filter(
+    r => r.hybrid >= ragScoreThreshold && (!rawFloorOn || (r.rawCosine ?? 0) >= ragRelevanceRawMin),
+  );
 }
 
 function l2ToCosine(l2Dist: number): number {
@@ -124,9 +179,12 @@ export async function hybridSearch(
 
     // Normalize distances → cosine → min-max
     const vecNormMap = new Map<number, number>();
+    const rawCosineMap = new Map<number, number>();
     if (hasVectors) {
       for (const r of vecResults as any[]) {
-        vecNormMap.set(r.rowid, l2ToCosine(r.distance));
+        const rawCos = l2ToCosine(r.distance);
+        rawCosineMap.set(r.rowid, rawCos);
+        vecNormMap.set(r.rowid, rawCos);
       }
       const cosines = Array.from(vecNormMap.values());
       const cosMax = Math.max(...cosines);
@@ -154,6 +212,7 @@ export async function hybridSearch(
 
       const bm25Norm = bm25NormMap.get(rowid) ?? 0;
       const vecNorm = vecNormMap.get(rowid) ?? 0;
+      const rawCos = rawCosineMap.get(rowid) ?? 0;
 
       let bm25Final = bm25Norm;
       if (c.file_path.toLowerCase().includes(terms[0] ?? "")) {
@@ -170,7 +229,8 @@ export async function hybridSearch(
           lineStart: c.line_start, lineEnd: c.line_end,
           hash: c.chunk_hash, indexed: c.indexed_at, tokens: c.tokens,
         },
-        bm25: bm25Final, vector: vecNorm, hybrid,
+        bm25: bm25Final, vector: vecNorm, rawCosine: rawCos,
+        rawBm25: bm25Map.get(rowid) ?? null, hybrid,
       });
     }
 

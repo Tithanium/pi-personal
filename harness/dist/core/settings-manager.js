@@ -618,6 +618,17 @@ export class SettingsManager {
         this.markModified("transport");
         this.save();
     }
+    getSessionShareDestination() {
+        const destination = this.settings.sessionShareDestination;
+        return destination === "gist" || destination === "radius"
+            ? destination
+            : SETTINGS_DEFAULTS.sessionShareDestination;
+    }
+    setSessionShareDestination(destination) {
+        this.globalSettings.sessionShareDestination = destination;
+        this.markModified("sessionShareDestination");
+        this.save();
+    }
     getCompactionEnabled() {
         return this.settings.compaction?.enabled ?? SETTINGS_DEFAULTS.compaction.enabled;
     }

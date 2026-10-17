@@ -20,7 +20,7 @@ export default function (pi: ExtensionAPI) {
 		name: "bash",
 		label: "Bash (rerouted to PowerShell)",
 		description:
-			"Execute a command in PowerShell (on this machine the bash tool is rerouted to powershell.exe — WSL/bash is unavailable; write commands in PowerShell syntax). Optional timeout in seconds. Output truncated to 2000 lines / 50KB, full output saved to a temp file when truncated.",
-		promptSnippet: "Execute PowerShell commands (bash tool rerouted to PowerShell on this machine)",
+			"Execute a command in powershell (on this machine the bash tool is rerouted to powershell.exe — WSL/bash is unavailable; write commands in powershell syntax). Optional timeout in seconds. Output truncated to 2000 lines / 50KB, full output saved to a temp file when truncated.",
+		promptSnippet: "Execute powershell commands (bash tool rerouted to powershell on this machine)",
 	});
 }

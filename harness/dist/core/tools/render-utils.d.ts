@@ -4,6 +4,8 @@ import type { ToolRenderContext } from "../extensions/types.ts";
 export declare function shortenPath(path: unknown): string;
 export declare function linkPath(styledText: string, rawPath: string, cwd: string): string;
 export declare function str(value: unknown): string | null;
+/** Format finite numbers or numeric strings as a read line range, omitting malformed ranges. */
+export declare function formatReadLineRange(offset: unknown, limit: unknown): string;
 export declare function replaceTabs(text: string): string;
 export declare function normalizeDisplayText(text: string): string;
 export declare function getTextOutput(result: {

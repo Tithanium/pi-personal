@@ -1,0 +1,41 @@
+{
+  "id": "fedoo_rectangle_mesh",
+  "label": "EF",
+  "denomTotal": 27,
+  "results": [
+    { "n": "G1", "hit": false },
+    { "n": "G2", "hit": false },
+    { "n": "G3", "hit": false },
+    { "n": "G4", "hit": true },
+    { "n": "D3", "hit": false },
+    { "n": "D4", "hit": false },
+    { "n": "D5", "hit": false },
+    { "n": "D6", "hit": false },
+    { "n": "D7", "hit": false },
+    { "n": "D10", "hit": false },
+    { "n": "D11", "hit": false },
+    { "n": "D12", "hit": false },
+    { "n": "D13", "hit": false },
+    { "n": "D14", "hit": false },
+    { "n": "D15", "hit": false },
+    { "n": "D16", "hit": false },
+    { "n": "D17", "hit": false },
+    { "n": "D18", "hit": false },
+    { "n": "D19", "hit": false },
+    { "n": "D20", "hit": false },
+    { "n": "D21", "hit": false },
+    { "n": "D22", "hit": false },
+    { "n": "D23", "hit": false },
+    { "n": "D24", "hit": false },
+    { "n": "D25", "hit": false },
+    { "n": "D26", "hit": false },
+    { "n": "D27", "hit": false }
+  ],
+  "fpr": {
+    "totalBytes": 3017,
+    "offTopicBytes": 2274,
+    "fprPct": 75.4,
+    "notes": "Payload contains no rectangle_mesh signature, default call, or docstring content. Worst offenders: (1) source 003 structured_mesh.py lines 442-452 - ellipse-radius fragment of hole_plate_mesh/disk_mesh, wrong function entirely (463 B); (2) source 002 01-simple/README.rst - boilerplate section intro, no content (411 B); (3) source 001 mesh/__init__.py - mostly autosummary index list + import block, names rectangle_mesh but carries no callable signature (est. 1400 B off-topic of 2068 B)."
+  },
+  "empty": false
+}

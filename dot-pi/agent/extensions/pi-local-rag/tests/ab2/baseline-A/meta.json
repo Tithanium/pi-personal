@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 48803,
+    "wallIsCap": false,
+    "tokensIn": 34049,
+    "tokensOut": 1461,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "new A run 2026-10-14T22-17-14.175Z (600 s cap, not hit)"
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 78308,
+    "wallIsCap": false,
+    "tokensIn": 40018,
+    "tokensOut": 3080,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "new A run 2026-10-14T22-18-07.403Z (600 s cap, not hit)"
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 61288,
+    "wallIsCap": false,
+    "tokensIn": 30902,
+    "tokensOut": 1682,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "new A run 2026-10-14T22-19-32.436Z (600 s cap, not hit)"
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 90787,
+    "wallIsCap": false,
+    "tokensIn": 55716,
+    "tokensOut": 4001,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "new A run 2026-10-14T22-20-40.172Z (600 s cap, not hit)"
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 85914,
+    "wallIsCap": false,
+    "tokensIn": 38148,
+    "tokensOut": 2360,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "new A run 2026-10-14T22-22-17.623Z (600 s cap, not hit)"
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 128411,
+    "wallIsCap": false,
+    "tokensIn": 80288,
+    "tokensOut": 5221,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "reused R4 runDir 2026-10-14T21-31-36.027Z"
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 207522,
+    "wallIsCap": false,
+    "tokensIn": 100804,
+    "tokensOut": 9676,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "reused R4 runDir 2026-10-14T21-34-11.228Z"
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 355588,
+    "wallIsCap": false,
+    "tokensIn": 104211,
+    "tokensOut": 9797,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "reused R4 runDir 2026-10-14T21-38-50.287Z"
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 216590,
+    "wallIsCap": false,
+    "tokensIn": 83927,
+    "tokensOut": 5514,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "reused R4 runDir 2026-10-14T21-45-42.861Z"
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 340163,
+    "wallIsCap": false,
+    "tokensIn": 124806,
+    "tokensOut": 10423,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "new A run 2026-10-14T22-23-48.604Z (600 s cap, not hit)"
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 11975,
+    "wallIsCap": false,
+    "tokensIn": 7908,
+    "tokensOut": 97,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "reused R2 runDir 2026-10-14T20-18-02.007Z (empty injection via relevance gate)"
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 14144,
+    "wallIsCap": false,
+    "tokensIn": 4928,
+    "tokensOut": 123,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "provenance": "reused R2 runDir 2026-10-14T20-18-21.288Z (empty injection via relevance gate)"
+  }
+]

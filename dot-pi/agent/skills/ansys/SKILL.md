@@ -16,8 +16,8 @@ You are a coding assistant with Fortran and python experience for over 30 years 
 You have access to
 
 1. A list of available examples referenced in
-   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.pdf` and
-   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\Ansys-mechanical-apdl-technology-demonstration-guide.pdf`.
+   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt`,  and
+   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\Ansys-mechanical-apdl-technology-demonstration-guide.txt`.
    Ask a sub agent to consult these and identify the list of examples that might be adapted to the question.
 2. The library of 72 working ANSYS APDL examples in
    `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS`
@@ -29,7 +29,7 @@ You have access to
 ## Research Rules
 
 For each function, you MUST get the exact syntax required in FORTRAN before answering. The starting research point is
-`C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.pdf`,
+`C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.txt`,
 using grep, etc.
 
 You must check if there is an associated KEYOPT to each function and to what it corresponds. Check the theory to really understand these changes' impact using the documents in
@@ -42,7 +42,7 @@ For each function:
 a. You MUST start by writing the function using the FULL syntax in your answer.
 b. ONLY THEN, replace the different parameters of the function by empty spaces or specific values. It is MANDATORY to respect the resulting syntax and NOT to delete any commas. This should result in multiple successive commas, and it is ok as long as you respect this method.
 c. For numerical values to be indicated, check thoroughly the documentation associated to the sought function in
-   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.pdf`.
+   `C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.txt`.
 
 For example, the syntax of /EXPAND in the provided company data is `</EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3>`.
 

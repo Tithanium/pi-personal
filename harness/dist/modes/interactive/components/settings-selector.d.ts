@@ -1,7 +1,7 @@
 import type { ThinkingLevel } from "@earendil-works/pi-agent-core";
 import { type Model, type Transport } from "@earendil-works/pi-ai";
 import { Container, type ScrollViewScrollbar, SettingsList, type WheelScrollLines } from "@earendil-works/pi-tui";
-import { type CacheWarmingMode, type DefaultProjectTrust, type FullscreenExitOutput, type MermaidRenderingMode, type QuietStartup, type TuiMode, type WarningSettings } from "../../../core/settings-manager.ts";
+import { type CacheWarmingMode, type DefaultProjectTrust, type FullscreenExitOutput, type MermaidRenderingMode, type QuietStartup, type SessionShareDestination, type TuiMode, type WarningSettings } from "../../../core/settings-manager.ts";
 import { type TerminalTheme } from "../theme/theme.ts";
 export interface SettingsConfig {
     autoCompact: boolean;
@@ -16,6 +16,7 @@ export interface SettingsConfig {
     steeringMode: "all" | "one-at-a-time";
     followUpMode: "all" | "one-at-a-time";
     transport: Transport;
+    sessionShareDestination: SessionShareDestination;
     httpIdleTimeoutMs: number;
     cacheWarmingMode: CacheWarmingMode;
     thinkingLevel: ThinkingLevel;
@@ -56,6 +57,7 @@ export interface SettingsCallbacks {
     onSteeringModeChange: (mode: "all" | "one-at-a-time") => void;
     onFollowUpModeChange: (mode: "all" | "one-at-a-time") => void;
     onTransportChange: (transport: Transport) => void;
+    onSessionShareDestinationChange: (destination: SessionShareDestination) => void;
     onHttpIdleTimeoutMsChange: (timeoutMs: number) => void;
     onCacheWarmingModeChange: (mode: CacheWarmingMode) => void;
     onModelThinkingLevelChange: (provider: string, modelId: string, level: ThinkingLevel) => void;

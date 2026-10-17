@@ -1,0 +1,43 @@
+{
+  "id": "ansys_nlgeom_cmd",
+  "label": "X4",
+  "denomTotal": 29,
+  "results": [
+    {"n": "G1", "hit": false},
+    {"n": "G2", "hit": false},
+    {"n": "G3", "hit": false},
+    {"n": "G4", "hit": false},
+    {"n": "D2", "hit": false},
+    {"n": "D3", "hit": false},
+    {"n": "D10", "hit": false},
+    {"n": "D11", "hit": false},
+    {"n": "D12", "hit": false},
+    {"n": "D14", "hit": false},
+    {"n": "D15", "hit": false},
+    {"n": "D16", "hit": false},
+    {"n": "D17", "hit": false},
+    {"n": "D18", "hit": false},
+    {"n": "D19", "hit": false},
+    {"n": "D20", "hit": false},
+    {"n": "D21", "hit": false},
+    {"n": "D22", "hit": false},
+    {"n": "D23", "hit": false},
+    {"n": "D24", "hit": false},
+    {"n": "D25", "hit": false},
+    {"n": "D26", "hit": false},
+    {"n": "D27", "hit": false},
+    {"n": "D28", "hit": false},
+    {"n": "D29", "hit": false},
+    {"n": "D30", "hit": false},
+    {"n": "D31", "hit": false},
+    {"n": "D32", "hit": false},
+    {"n": "D33", "hit": false}
+  ],
+  "fpr": {
+    "totalBytes": 26571,
+    "offTopicBytes": 26498,
+    "fprPct": 99.7,
+    "notes": "Payload contains no occurrence of 'NLGEOM' or 'large-deflection' at all; all three chunks are off-topic Command Reference sections: (1) ~73-10316: /MAP pressure-mapping table + command-dictionary boilerplate (SAMPLECMD auto time-stepping example, CAT5IN) - its 'Command Default'/'valid in PREP7' lines refer to the SAMPLECMD example, not NLGEOM; (2) ~10316-18818: /GFORMAT, /GLINE, GMARKER, GMATRIX, GMFACE, *GO, /GO, /GOLIST entries; (3) ~18818-26571: DESOL, DETAB, /DEVICE (graphics device options) entries. Only the ~73-byte rag-context header is non-off-topic."
+  },
+  "empty": false
+}

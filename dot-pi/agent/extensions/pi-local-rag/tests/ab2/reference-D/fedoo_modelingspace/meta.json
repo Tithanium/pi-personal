@@ -1,0 +1,23 @@
+{
+  "id": "fedoo_modelingspace",
+  "source": "fresh-D",
+  "wallMs": 1113600,
+  "tokensIn": 228212,
+  "tokensOut": 9465,
+  "capHit": false,
+  "answerBytes": 5363,
+  "factsCount": 53,
+  "verifyPassRate": 0.6226,
+  "verify": {
+    "pass": 33,
+    "fix": 16,
+    "drop": 4,
+    "notFound": 0
+  },
+  "ok": true,
+  "agentEnd": true,
+  "timedOut": false,
+  "stopReason": "stop",
+  "note": "ok; facts=53",
+  "done": true
+}

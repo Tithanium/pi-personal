@@ -1,0 +1,230 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 529,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 23493,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6640; 6 sections, 23408 B)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 6,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 191,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 23055,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6124; 12 sections, 22968 B)",
+    "internals": {
+      "nChunks": 39,
+      "nSections": 12,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 285,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 21941,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.5622; 3 sections, 21855 B)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 3,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 290,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 25112,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.7032; 3 sections, 25026 B)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 3,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 272,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 20300,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.5898; 3 sections, 20214 B)",
+    "internals": {
+      "nChunks": 46,
+      "nSections": 3,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5897679987344571,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 327,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 21198,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.5728; 3 sections, 21112 B)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 3,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 251,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 23332,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6825; 3 sections, 23246 B)",
+    "internals": {
+      "nChunks": 43,
+      "nSections": 3,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 288,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 24739,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6286; 8 sections, 24653 B)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 8,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 195,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 24525,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6600; 8 sections, 24440 B)",
+    "internals": {
+      "nChunks": 39,
+      "nSections": 8,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 2463,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 18516,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6334; 2 sections, 18429 B)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 2,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.633426553035191,
+      "nVariants": 3
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 144,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": true,
+    "note": "none: verdict=empty (topRaw 0.3660 < rawMin 0.47) → empty payload, no child (P2-R6 multi-query pre-fetch gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "none",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076,
+      "nVariants": 1
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 144,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:none run 2026-10-15T02-56-59.007Z",
+    "empty": true,
+    "note": "none: verdict=empty (topRaw 0.3457 < rawMin 0.47) → empty payload, no child (P2-R6 multi-query pre-fetch gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "none",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083,
+      "nVariants": 1
+    }
+  }
+]

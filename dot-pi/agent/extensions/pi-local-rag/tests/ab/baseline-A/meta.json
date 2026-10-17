@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 900000,
+    "wallIsCap": true,
+    "tokensIn": 315388,
+    "tokensOut": 25236,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "note": "recovered from attempt 1: complete final answer in stream (agent_end, stopReason=stop); node shutdown hang after agent_end, process killed at 15-min cap"
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 900000,
+    "wallIsCap": true,
+    "tokensIn": 318818,
+    "tokensOut": 29329,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "note": "meta rebuilt from raw stream (original Save-Meta crashed on single-entry array); wall from first/last event timestamps"
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 628957,
+    "wallIsCap": false,
+    "tokensIn": 211725,
+    "tokensOut": 23236,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "note": "ok first attempt"
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 900050,
+    "wallIsCap": true,
+    "tokensIn": 170252,
+    "tokensOut": 24987,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "note": "ok: full final answer in stream; node shutdown hang after agent_end, process killed at 15-min cap"
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 148475,
+    "wallIsCap": false,
+    "tokensIn": 20135,
+    "tokensOut": 5156,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "note": "ok first attempt"
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 130271,
+    "wallIsCap": false,
+    "tokensIn": 25968,
+    "tokensOut": 4093,
+    "model": "qwen-3.8-27b",
+    "ok": true,
+    "note": "ok first attempt"
+  }
+]

@@ -1,0 +1,429 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 778,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 3017,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=strong fFired=false eReranked=true → 3 sections, 2932 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": true,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6576976918503004,
+      "nVariants": 3,
+      "shellSkipped": 9,
+      "eRerankMs": 61,
+      "eCeScores": [
+        0.474,
+        0.071,
+        0
+      ],
+      "defNeighbors": 0,
+      "nChunks": 40,
+      "nSections": 3
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 1977,
+    "tokensIn": 286,
+    "tokensOut": 18,
+    "ok": true,
+    "payloadBytes": 1883,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=weak fFired=true eReranked=true → 1 sections, 1797 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": true,
+      "eReranked": true,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "nVariants": 3,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "fSearchMs": 91,
+      "fQueries": [
+        "StressEquilibrium weak form nlgeom parameter",
+        "nlgeom parameter stress equilibrium finite element"
+      ],
+      "nFChunks": 16,
+      "shellSkipped": 11,
+      "eRerankMs": 29,
+      "eCeScores": [
+        0.979
+      ],
+      "defNeighbors": 0,
+      "nChunks": 54,
+      "nSections": 1
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 791,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 31421,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=strong fFired=false eReranked=true → 5 sections, 31335 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": true,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "eRerankMs": 400,
+      "eCeScores": [
+        0.372,
+        0.329,
+        0.104,
+        0.055,
+        0.046,
+        0.023,
+        0.001,
+        0.001,
+        0
+      ],
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#2->Ansys_Mechanical_APDL_Command_Reference.txt L1160-1309 (4 terms, 5298 B)",
+        "#2->Ansys_Mechanical_APDL_Command_Reference.txt L4511-4521 (2 terms, 402 B)"
+      ],
+      "nChunks": 45,
+      "nSections": 5
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 826,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 35383,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=strong fFired=false eReranked=true → 6 sections, 35297 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": true,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "eRerankMs": 429,
+      "eCeScores": [
+        0.428,
+        0.105,
+        0.021,
+        0.009,
+        0.007,
+        0.006,
+        0.002,
+        0.001,
+        0,
+        0
+      ],
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L3152-3210 (6 terms, 4653 B)",
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L2767-2780 (4 terms, 1095 B)"
+      ],
+      "nChunks": 45,
+      "nSections": 6
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 581,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 30080,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=strong fFired=false eReranked=true → 6 sections, 29995 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": true,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5870772418610883,
+      "nVariants": 3,
+      "shellSkipped": 4,
+      "eRerankMs": 308,
+      "eCeScores": [
+        0.999,
+        0.998,
+        0.37,
+        0.012,
+        0,
+        0,
+        0,
+        0
+      ],
+      "defNeighbors": 0,
+      "nChunks": 48,
+      "nSections": 6
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 7880,
+    "tokensIn": 329,
+    "tokensOut": 41,
+    "ok": true,
+    "payloadBytes": 26611,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=weak fFired=true eReranked=true → 6 sections, 26524 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": true,
+      "eReranked": true,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "nVariants": 3,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "fSearchMs": 149,
+      "fQueries": [
+        "NLGEOM, NROPT, LSWT, DELIM, PRED, ETIMINT",
+        "AUTOTIME, NEWSOL, CNTOL, CONVERGENCE criteria APDL"
+      ],
+      "nFChunks": 16,
+      "shellSkipped": 1,
+      "eRerankMs": 367,
+      "eCeScores": [
+        0.928,
+        0.655,
+        0.184,
+        0.162,
+        0.035,
+        0.033,
+        0.003,
+        0.002,
+        0,
+        0,
+        0
+      ],
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#6->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L3752-3807 (10 terms, 2209 B)",
+        "#6->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L4124-4176 (7 terms, 3060 B)",
+        "#6->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L2971-2976 (4 terms, 464 B)"
+      ],
+      "nChunks": 60,
+      "nSections": 6
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 760,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 25809,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=strong fFired=false eReranked=true → 5 sections, 25723 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": true,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "eRerankMs": 383,
+      "eCeScores": [
+        0.913,
+        0.509,
+        0.078,
+        0.017,
+        0.017,
+        0,
+        0,
+        0,
+        0
+      ],
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#2->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L3152-3210 (11 terms, 4653 B)",
+        "#2->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L4722-4742 (6 terms, 1311 B)"
+      ],
+      "nChunks": 43,
+      "nSections": 5
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 2776,
+    "tokensIn": 337,
+    "tokensOut": 22,
+    "ok": true,
+    "payloadBytes": 28430,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=weak fFired=true eReranked=true → 10 sections, 28342 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": true,
+      "eReranked": true,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "nVariants": 3,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "fSearchMs": 83,
+      "fQueries": [
+        "von Mises plasticity hardening constitutive law",
+        "plastic bending Newton-Raphson solver plane strain"
+      ],
+      "nFChunks": 16,
+      "shellSkipped": 0,
+      "eRerankMs": 388,
+      "eCeScores": [
+        0.993,
+        0.22,
+        0.074,
+        0.07,
+        0.041,
+        0.001,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#9->ANSYS_Mechanical_APDL_Material_Reference.txt L27325-27358 (8 terms, 1270 B)",
+        "#9->ANSYS_Mechanical_APDL_Material_Reference.txt L26796-26813 (8 terms, 839 B)",
+        "#9->ANSYS_Mechanical_APDL_Material_Reference.txt L27393-27415 (8 terms, 850 B)"
+      ],
+      "nChunks": 60,
+      "nSections": 10
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 369,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 16889,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=strong fFired=false eReranked=true → 7 sections, 16804 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": true,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.659955552761657,
+      "nVariants": 3,
+      "shellSkipped": 7,
+      "eRerankMs": 171,
+      "eCeScores": [
+        0.958,
+        0.907,
+        0.872,
+        0.842,
+        0.178
+      ],
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->stress_equilibrium.py L985-1019 (3 terms, 1410 B)",
+        "#5->incompressibility_comparison.py L100-187 (3 terms, 2759 B)"
+      ],
+      "nChunks": 39,
+      "nSections": 7
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 5391,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 32723,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": false,
+    "note": "EF: verdict=strong fFired=false eReranked=true → 5 sections, 32636 B payload",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": true,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.633426553035191,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "eRerankMs": 455,
+      "eCeScores": [
+        0.931,
+        0.881,
+        0.338,
+        0.275,
+        0.215,
+        0.144,
+        0.005,
+        0.001,
+        0,
+        0
+      ],
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#3->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15059-15114 (13 terms, 3743 B)",
+        "#3->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15233-15252 (11 terms, 1555 B)",
+        "#3->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L13036-13042 (7 terms, 558 B)"
+      ],
+      "nChunks": 44,
+      "nSections": 5
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 137,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": true,
+    "note": "EF: verdict=empty (topRaw 0.3766 < rawMin 0.47) → empty payload, no E/F work",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": false,
+      "relevanceVerdict": "empty",
+      "topRaw": 0.37659326076748556,
+      "nVariants": 1
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 130,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new EF run 2026-10-16T01-57-19.875Z",
+    "empty": true,
+    "note": "EF: verdict=empty (topRaw 0.3457 < rawMin 0.47) → empty payload, no E/F work",
+    "internals": {
+      "variant": "EF",
+      "fFired": false,
+      "eReranked": false,
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083,
+      "nVariants": 1
+    }
+  }
+]

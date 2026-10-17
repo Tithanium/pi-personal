@@ -1,0 +1,845 @@
+{
+  "id": "fedoo_plasticity",
+  "generatedAt": "2026-10-16T01:15:19+02:00",
+  "grid": [
+    {
+      "n": 1,
+      "statement": "fedoo.constitutivelaw.ElastoPlasticity(young_modulus, poisson_ratio, yield_stress, name='') is a J2 elasto-plastic constitutive law with isotropic hardening (local return mapping, n_statev=7, statev = [P, EP(6)]); hardening is defined via set_hardening_function(function_type, **kwargs)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 10,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 2,
+      "statement": "ElastoPlasticity does NOT implement the plane-stress ('2Dstress') return mapping; for plane-stress models use a Simcoon plasticity law, e.g. fedoo.constitutivelaw.Simcoon(\"EPICP\", props)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 105,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 3,
+      "statement": "fedoo.constitutivelaw.Simcoon(\"EPICP\", props) with props = np.array([E, nu, alpha, Re, k, m]) gives isotropic plasticity with power law hardening sigma = k*eps_p**m",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py",
+      "line": 31,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 4,
+      "statement": "Standard workflow: fd.ModelingSpace(\"2Dplane\"); mesh = fd.mesh.rectangle_mesh(nx=41, ny=21, x_min=0, x_max=L, y_min=0, y_max=h, elm_type=\"quad4\", name=\"Domain\"); wf = fd.weakform.StressEquilibrium(\"ConstitutiveLaw\", nlgeom=False); fd.Assembly.create(wf, \"Domain\", \"quad4\", name=\"Assembling\"); pb = fd.problem.NonLinear(\"Assembling\")",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py",
+      "line": 21,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 5,
+      "statement": "The incremental nonlinear solve is driven by pb.nlsolve(dt=0.05, tmax=1, update_dt=False, tol_nr=0.05, interval_output=0.05), or by a manual Newton-Raphson loop: pb.assembly.set_start(pb), pb.apply_boundary_conditions(t_fact, t_fact_old), pb.set_A(pb.assembly.get_global_matrix()), pb.set_D(pb.assembly.get_global_vector()), pb.solve(), then pb.assembly.update(pb) in sub-iterations until norm_res < tol_nr",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py",
+      "line": 82,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 6,
+      "statement": "Boundary conditions: pb.bc.add(\"Dirichlet\", nodes, \"Disp\", 0) / pb.bc.add(\"Dirichlet\", nodes, \"DispY\", uimp); outputs: pb.add_output(path, \"Assembling\", [\"Disp\", \"Stress\", \"Strain\", \"Statev\", \"Wm\"], output_type=\"Node\", file_format=\"vtk\")",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py",
+      "line": 64,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    }
+  ],
+  "dFacts": [
+    {
+      "dn": 1,
+      "statement": "The 2D plastic bending example 2DplasticBending.py uses a 2D plane-strain modeling space (fd.ModelingSpace(\"2Dplane\")) with NLGEOM = True and default typeBending = \"3nodes\".",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 9,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 9 = fd.ModelingSpace(\"2Dplane\"); line 11 NLGEOM = True; line 12 typeBending = \"3nodes\" - all in cited window."
+    },
+    {
+      "dn": 2,
+      "statement": "2DplasticBending.py defines the plate with E = 200e3 MPa, L = 16 mm, h = 2 mm, nu = 0.3 and imposed top displacement uimp = -5.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 17,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 17 = E = 200e3; h=2 (14), L=16 (16), nu=0.3 (18), uimp=-5 (20), units \"N, mm, MPa\" comment (13) - all in cited window."
+    },
+    {
+      "dn": 3,
+      "statement": "In 2DplasticBending.py the mat=0 branch creates an elastic material with the (typo) name \"Constitu1tiveLaw\", while mat=1 uses Simcoon EPICP with power-law hardening (Re = 300, k = 1000, m = 0.25).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 37,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 37 = ElasticIsotrop(E, nu, name=\"Constitu1tiveLaw\"); Re=300/k=1000/m=0.25 at lines 40-42 and Simcoon EPICP at line 44 - all in cited window."
+    },
+    {
+      "dn": 4,
+      "statement": "2DplasticBending.py solves step 1 with pb.nlsolve(dt=0.05, tmax=1, update_dt=True, tol_nr=0.05, interval_output=0.05).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 116,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 116 exact match: pb.nlsolve(dt=0.05, tmax=1, update_dt=True, tol_nr=0.05, interval_output=0.05) under the step-1 block."
+    },
+    {
+      "dn": 5,
+      "statement": "In step 2 of 2DplasticBending.py the top Dirichlet BC is removed, replaced by a zero Neumann force started at the previous external force (relaxation), and the NR criterion is set to \"Force\" with adaptive_stiffness=True plus add_line_search().",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 124,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 124 = Neumann top_center DispY 0 start_value=F; pb.bc.remove(\"disp\") at 120, F=pb.get_ext_forces at 121, set_nr_criterion(\"Force\", adaptive_stiffness=True) at 127, pb.add_line_search() at 129 - all in cited window."
+    },
+    {
+      "dn": 6,
+      "statement": "The from-scratch variant uses a hand-coded manual Newton-Raphson loop (not pb.nlsolve) with 20 time increments, tol_nr = 0.05 and max_subiter = 5, on the same 2Dplane/nlgeom=False model.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py",
+      "line": 96,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 96 = n_iter = 20; tol_nr=0.05 (97), max_subiter=5 (98); the only pb.nlsolve call is commented out (line 93) and the while-loop NR loop runs from ~line 109. Referential '2Dplane/nlgeom=False model' defined at lines 11 and 40 (same file, outside window)."
+    },
+    {
+      "dn": 7,
+      "statement": "The from-scratch variant builds the weak form with StressEquilibrium(\"ConstitutiveLaw\", nlgeom=False).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py",
+      "line": 40,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Line 40 verified verbatim, but this is a strict subset of original grid fact G4 which states 'wf = fd.weakform.StressEquilibrium(\"ConstitutiveLaw\", nlgeom=False)' as part of the standard workflow."
+    },
+    {
+      "dn": 8,
+      "statement": "The 3D plastic bending example uses a 3D box_mesh (21x7x7 nodes, hex8), imposed top displacement uimp = -8, and StressEquilibrium with NLGEOM (\"UL\") and incompressibility=\"fbar\".",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\plastic_bending_3D.py",
+      "line": 29,
+      "lineFixed": 66,
+      "status": "fix",
+      "note": "Cited window (14-59) covers uimp=-8 (29), box_mesh nx=21/ny=7/nz=7 hex8 (31-43), NLGEOM=\"UL\" (19), but the StressEquilibrium(nlgeom=NLGEOM, incompressibility=\"fbar\") conjunct is at lines 66-68, outside the cited window."
+    },
+    {
+      "dn": 9,
+      "statement": "In plastic_bending_3D.py the mat==2 branch uses native fedoo ElastoPlasticity with a power hardening function (set_hardening_function(\"power\", h=k, beta=m), k=1000, m=0.3).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\plastic_bending_3D.py",
+      "line": 62,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 62 = material.set_hardening_function(\"power\", h=k, beta=m); elif mat==2 (58), ElastoPlasticity(E, nu, Re) (59-61), k=1000 (53), m=0.3 (54) - all in cited window."
+    },
+    {
+      "dn": 10,
+      "statement": "plastic_bending_3D.py sets the NR criterion to \"Force\" (tol=5e-3, max_subiter=16) and solves with nlsolve(dt=0.025, tmax=1).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\plastic_bending_3D.py",
+      "line": 93,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 93 = pb.set_nr_criterion(\"Force\", tol=5e-3, max_subiter=16); line 115 = pb.nlsolve(dt=0.025, tmax=1, update_dt=True, print_info=1, interval_output=0.05) - in cited window (extra kwargs not contradicted)."
+    },
+    {
+      "dn": 11,
+      "statement": "The elasto_plasticity.py module is documented as J2 plasticity with isotropic hardening, additive on the strain measure.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 1,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 1 = module docstring: \"J2 plasticity with isotropic hardening, additive on the strain measure.\""
+    },
+    {
+      "dn": 12,
+      "statement": "ElastoPlasticity is a subclass of MechanicalUMAT whose stress integration uses a vectorized radial-return algorithm for the von Mises yield criterion.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 10,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 10 = class ElastoPlasticity(MechanicalUMAT); docstring lines 13-14 = 'vectorized radial-return algorithm for the von Mises yield criterion'."
+    },
+    {
+      "dn": 13,
+      "statement": "The ElastoPlasticity constructor registers n_statev=7 with statev labels {\"P\": 0, \"EP\": slice(1,7)} (scalar accumulated plastic strain P and 6-component plastic-strain tensor EP).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 67,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Line 67 n_statev=7 and line 73 statev_label verified, but original grid fact G1 already states 'n_statev=7, statev = [P, EP(6)]' for ElastoPlasticity - same claim."
+    },
+    {
+      "dn": 14,
+      "statement": "ElastoPlasticity.get_elastic_matrix raises NotImplementedError for the plane-stress \"2Dstress\" dimension, directing users to a Simcoon plasticity law such as Simcoon(\"EPICP\").",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 104,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Code verified (if dimension==\"2Dstress\" at 103, raise NotImplementedError with Simcoon(\"EPICP\") guidance at 104-110), but original grid fact G2 already asserts the 2Dstress non-implementation + Simcoon EPICP direction, citing the same get_elastic_matrix location."
+    },
+    {
+      "dn": 15,
+      "statement": "ElastoPlasticity.set_hardening_function defines isotropic hardening; function_type=\"power\" gives R(p) = h * p**beta.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 134,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 134 = def set_hardening_function; docstring 'function_type=\"power\" defines R(p) = h * p**beta' at line 138 in cited window."
+    },
+    {
+      "dn": 16,
+      "statement": "ElastoPlasticity.yield_function evaluates the von Mises yield function as von Mises stress minus the yield stress minus the hardening function of the plasticity.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 199,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "def yield_function at line 198; body at 200-202 returns stress.von_mises() - self.yield_stress - self.hardening_function(plasticity) - matches exactly."
+    },
+    {
+      "dn": 17,
+      "statement": "In geometrically nonlinear analysis ElastoPlasticity returns the Kirchhoff stress and hands the Cauchy stress tau/J to the assembly, so its response matches Simcoon's EPICP UMAT.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+      "line": 25,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 19-27 of class docstring: Kirchhoff stress tau conjugate to log strain, 'tau/J is handed to the assembly, so that the response is the one of Simcoon's EPICP UMAT'."
+    },
+    {
+      "dn": 18,
+      "statement": "The Simcoon class is the Fedoo adapter for Simcoon constitutive laws and is associated with fedoo.weakform.StressEquilibrium.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+      "line": 24,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "class Simcoon(MechanicalUMAT) at 21; docstring lines 22-25: 'Constitutive laws from the simcoon library... should be associated with fedoo.weakform.StressEquilibrium'."
+    },
+    {
+      "dn": 19,
+      "statement": "Simcoon's _ISOTROPIC_UMATS set includes the J2 plasticity laws EPICP, EPKCP and EPCHA among others.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+      "line": 90,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 90 = _ISOTROPIC_UMATS set; EPICP/EPKCP/EPCHA listed at 92-94 among 13 UMATs; EPICP labelled 'J2 plasticity' at line 58 (EPKCP/EPCHA are the kinematic/J2-family plasticity laws in the same isotropic set)."
+    },
+    {
+      "dn": 20,
+      "statement": "The Simcoon EPICP UMAT is registered with n_statev = 8, props {E, nu, alpha, sigmaY, k, m} for the power law sigma_e = sigmaY + k*eps_p^m and statev {T:0, P:1, EP:slice(2,8)}.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+      "line": 425,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 425-435: elif umat_name == \"EPICP\": n_statev=8, props_label {E:0, nu:1, alpha:2, sigmaY:3, k:4, m:5} with comment 'powerlaw sigma_e = sigmaY + k * eps_p^m', statev_label {T:0, P:1, EP:slice(2,8)}."
+    },
+    {
+      "dn": 21,
+      "statement": "Simcoon.from_modular builds a MODUL UMAT from a simcoon.modular.ModularMaterial (elasticity block + VonMisesYield + PowerLaw/LinearIsotropic/Voce hardening or Prager/ArmstrongFrederick/Chaboche kinematic terms).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+      "line": 107,
+      "lineFixed": 247,
+      "status": "fix",
+      "note": "Cited window (92-137) supports 'MODUL UMAT from ModularMaterial' (docstring: 'elasticity block and zero or more inelastic mechanisms', 'dispatched through Simcoon's MODUL UMAT'), but the mechanism names are in _get_modular_labels at lines 247-298 (VonMisesYield 247, LinearIsotropicHardening 272, PowerLawHardening 274, VoceHardening 276, PragerHardening 294, ArmstrongFrederickHardening 296, ChabocheHardening 298)."
+    },
+    {
+      "dn": 22,
+      "statement": "Under finite strain a Simcoon modular material requires corate=\"log_r\" (or \"log_r_inc\") in the stress-equilibrium weak form.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+      "line": 127,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 127 = from_modular docstring 'Under finite strain, use corate=\"log_R\" (or \"log_R_inc\")'; code at line 157 sets material.required_corate = (\"log_r\", \"log_r_inc\") - in cited window."
+    },
+    {
+      "dn": 23,
+      "statement": "MechanicalUMAT is the base class for corotational user-material functions and owns the Fedoo-side constitutive lifecycle (state allocation, the UMAT call, stress/tangent conversion).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mechanical3d.py",
+      "line": 376,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 376 = class MechanicalUMAT(Mechanical3D); docstring 377-383: 'Base class for corotational user-material functions' ... 'owns the Fedoo-side constitutive lifecycle: allocation of state and work variables, ... the UMAT call, and conversion of stress and tangent outputs'."
+    },
+    {
+      "dn": 24,
+      "statement": "MechanicalUMAT has parameters use_elastic_tangent (default True, restores the initialization tangent at the start of every increment) and tangent_mode (default 1).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mechanical3d.py",
+      "line": 411,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 411 = 'use_elastic_tangent : bool, default=True' with description at 412, tangent_mode default=1 at 413; also in __init__ signature (use_elastic_tangent=True, tangent_mode=1 at 457-458)."
+    },
+    {
+      "dn": 25,
+      "statement": "In finite strain the weak form owns and updates the deformation-gradient field, which MechanicalUMAT consumes as F0 and F1 and never overwrites.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mechanical3d.py",
+      "line": 431,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 430-432 of Notes: 'In finite strain, the weak form owns and updates the deformation-gradient field. MechanicalUMAT consumes that field as F0 and F1 and never initializes or overwrites it.'"
+    },
+    {
+      "dn": 26,
+      "statement": "MechanicalUMAT initial state variables can be assigned to an assembly before problem initialization via set_initial_statev.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mechanical3d.py",
+      "line": 439,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Notes lines 438-440: 'Initial values can be assigned to a particular assembly before problem initialization with set_initial_statev'; method defined at line 587."
+    },
+    {
+      "dn": 27,
+      "statement": "The StressEquilibrium weak form can be used for 3D solids or with a 2D plane assumption (plane strain or plane stress) and accepts geometric nonlinearities via nlgeom in {True,'UL','TL'}.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 17,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 17 = class StressEquilibrium; docstring 21-22 (solid in 3D or 2D plane assumption, plane strain or plane stress) and 25-26 (nlgeom should be in {True, 'UL', 'TL'}) in cited window."
+    },
+    {
+      "dn": 28,
+      "statement": "The StressEquilibrium weak form default corate is \"log_r\" (logarithmic strain with the exact polar frame increment DR = R1 R0^T).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 102,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 102 = self.corate = \"log_r\"; comment lines 103-105: 'log_r (default): logarithmic strain with the exact polar frame increment DR = R1 R0^T'."
+    },
+    {
+      "dn": 29,
+      "statement": "The incompressibility option \"fbar\" evaluates the volume change at the element center with a consistent non-symmetric tangent for quad4/hex8 (not available for 2Daxi or the total lagrangian method).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 775,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "fbar doc bullet spans lines 775-778: 'F-bar method where the volume change is evaluated at the element center. The consistent non symmetric tangent matrix is used for quad4 and hex8 elements (not available for 2Daxi and with the total lagrangian method)'. Cited line is the bullet start."
+    },
+    {
+      "dn": 30,
+      "statement": "HourglassStiffness is the weak form that controls hourglass modes for reduced integration, based on Flanagan and Belytschko (1981), and is used with hex8/quad4 at one Gauss point.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_ri.py",
+      "line": 10,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 10 = class HourglassStiffness; docstring 13-24: controls hourglass deformation modes of reduced integration, 'used only for hex8 or quad4 elements with one integration point', 'based on the classical method proposed by Flanagan and Belytschko in 1981'."
+    },
+    {
+      "dn": 31,
+      "statement": "The default hourglass_stiffness coefficient is 0.01, a compromise between suppressing hourglass modes and avoiding extra flexural stiffness.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_ri.py",
+      "line": 57,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 57 = def __init__(self, stiffness_coef=0.01, ...); docstring 29-32: 'stiffness_coef: float, default: 0.01 ... compromise between a sufficient stiffness to suppress hourglass modes and a not too high stiffness to avoid additionnal flexural stiffness'."
+    },
+    {
+      "dn": 32,
+      "statement": "StressEquilibriumRI combines StressEquilibrium with HourglassStiffness, uses one Gauss point by default and should only be used with hex8 or quad4 elements.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_ri.py",
+      "line": 229,
+      "lineFixed": 230,
+      "status": "pass",
+      "note": "Cited line 229 is blank; class StressEquilibriumRI at line 230 with docstring 231-240 fully in the cited window: combines StressEquilibrium with HourglassStiffness, 'should only be used with hex8 or quad4 elements', 'uses one Gauss point by default'."
+    },
+    {
+      "dn": 33,
+      "statement": "The NonLinear problem's nr_parameters default criterion is \"Force\" with tol=5e-3 and max_subiter=16.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 33,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "self.nr_parameters dict at lines 31-43: 'criterion': 'Force' (33), 'tol': 5e-3 (34), 'max_subiter': 16 (35) - exact."
+    },
+    {
+      "dn": 34,
+      "statement": "The set_nr_criterion method signature has default criterion=\"Force\", accepting criterion in ['Displacement','Force','Work'].",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 703,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 703 = def set_nr_criterion(self, criterion=\"Force\", **kargs); docstring line 710 'criterion: str in [\"Displacement\", \"Force\", \"Work\"]' and check at line 759."
+    },
+    {
+      "dn": 35,
+      "statement": "The set_nr_criterion docstring claims default = \"Displacement\", which is a documentation/code mismatch with the actual \"Force\" default.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 711,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 711 of the docstring = 'default = \"Displacement\".' while the signature default is criterion=\"Force\" (line 703) and nr_parameters default is \"Force\" (line 33) - genuine doc/code mismatch, verified."
+    },
+    {
+      "dn": 36,
+      "statement": "For the \"Displacement\" NR criterion, when err0 is None it is computed from the current increment norm (plus 0.01*total displacement norm) so the criterion does not get progressively looser.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 545,
+      "lineFixed": 638,
+      "status": "fix",
+      "note": "Cited line 545 falls in the add_line_search docstring (lines ~458-572); the actual logic is in compute_nr_error: Displacement branch at lines 638-656 ('if self._err0 is None: ... err0 = np.linalg.norm(self._dU, norm_type); ... err0 += 0.01 * np.linalg.norm(self._U, norm_type)' with comment 'so the criterion does not become progressively looser')."
+    },
+    {
+      "dn": 37,
+      "statement": "The nlsolve method solves the nonlinear problem with Newton-Raphson, supporting adaptive dt increase (x1.25) and decrease (x0.25) and a minimal time increment dt_min.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 1121,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 1121 = def nlsolve; docstring 'Solve the non linear problem using the newton-raphson algorithm', update_dt decrease/increase doc and dt_min=1e-6 'Minimal time increment' in cited window. Exact factors verified in code: 'dt *= 1.25' at line 1319, 'dt *= 0.25' at line 1331 (docstring 'multiplied by 1.25' at 1171)."
+    },
+    {
+      "dn": 38,
+      "statement": "The to_start method restores the state of the last converged increment when the NR algorithm fails to converge, resetting the displacement increment and re-assembling the tangent at the restored state.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 220,
+      "lineFixed": 361,
+      "status": "fix",
+      "note": "Cited line 220 is inside set_time_integrators code ('if integrator_evolution != evolution:'), unrelated. Actual def to_start at line 361 with docstring 'Restore the state of the last converged increment. Called when the Newton-Raphson algorithm fails to converge: the displacement increment, ... are reset ... The tangent matrix is re-assembled at the restored state' and body self._dU = 0 etc."
+    },
+    {
+      "dn": 39,
+      "statement": "add_line_search adds a line-search (step-size alpha) for the NR solver with methods Armijo/Residual/Energy/Quadratic (default Quadratic) and modes natural/minimize/safeguard.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 290,
+      "lineFixed": 458,
+      "status": "fix",
+      "note": "Cited window (275-320) is the time-integrator storage/dissipation warning code, unrelated. Actual def add_line_search at line 458: method='Quadratic' default with {'Armijo','Residual','Energy','Quadratic'}, mode='natural' default with {'natural','minimize','safeguard'}, 'scaling the displacement increment dX by a step size alpha in (0, 1]'."
+    },
+    {
+      "dn": 40,
+      "statement": "NonLinearNewmark is a convenience factory (beta=0.25, gamma=0.5) that creates a nonlinear Newmark problem; the mass is now derived from material density (set_density) or weakform.set_inertia.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+      "line": 1377,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 1377 = def NonLinearNewmark(assembly, beta=0.25, gamma=0.5, ...); docstring 'convenience factory around NonLinear' and note 'the mass is now derived from the material density (material.set_density(rho)) or weakform.set_inertia(...)' - all in cited window."
+    },
+    {
+      "dn": 41,
+      "statement": "Problem.add_output registers an output (file_format one of fdh5/fdz/vtk/msh/npz/csv/xlsx, output_type Node/Element/GaussPoint) for automatic saving by the solve methods.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\problem.py",
+      "line": 173,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 173 = def add_output; docstring 'Register an output for automatic saving managed by solve methods' in cited window; the value lists are in the same docstring just outside the window: output_type 'Node'/'Element'/'GaussPoint' at line 208, file_format \"fdh5\",\"fdz\",\"vtk\",\"msh\",\"npz\",\"csv\",\"xlsx\" at line 212."
+    },
+    {
+      "dn": 42,
+      "statement": "Problem.save_results writes the current state to every registered output; in user-managed (manual) solution loops it must be called manually.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\problem.py",
+      "line": 287,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 287 = def save_results; docstring 288-292: 'Write the current state to every registered output. This method is called automatically when the problem is solved. In case of user-managed solution loops, it must be called manually.'"
+    },
+    {
+      "dn": 43,
+      "statement": "Problem.solve solves the linear system A X = B+D on the free dofs (via the backend set by set_solver).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\problem.py",
+      "line": 408,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 408 = def solve; body in cited window builds rhs = MatCB.T @ (B + D - A @ Xbc) and solves on self._dof_free via _solve_reduced; solver backend is defined by set_solver in core/base.py (see D47)."
+    },
+    {
+      "dn": 44,
+      "statement": "Problem.apply_boundary_conditions(t_fact, t_fact_old) fills the Dirichlet increment vector, the Neumann force vector and builds the MPC elimination matrix and free-dof set.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\problem.py",
+      "line": 487,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 487 = def apply_boundary_conditions(self, t_fact=1, t_fact_old=None); in cited window: self._Xbc init (Dirichlet vector, filled at 502), F force vector (491), build_mpc flag (493), dof_blocked/dof_slave sets (494-495); MPC matrix + dof_free assembled in the continuation (to line 582: self._dof_free = dof_free)."
+    },
+    {
+      "dn": 45,
+      "statement": "Problem.init_bc_start_value is used only for incremental problems to set each BC's start value from the current displacement/force so the load ramps from the current state.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\problem.py",
+      "line": 589,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "def at line 588; line 589 = '### is used only for incremental problems'; Dirichlet start from U (line 600) and Neumann start from F (line 604) - in cited window."
+    },
+    {
+      "dn": 46,
+      "statement": "Problem.get_ext_forces returns the sum of external (Neumann), node reaction (Dirichlet) and inertia forces; for NonLinear it returns the latest evaluated residual balance.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\problem.py",
+      "line": 619,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 619 = '- External forces (associated to Neumann boundary conditions)'; docstring 618-621 lists the three summed terms. NonLinear clause verified in the same docstring Notes at line 653: 'NonLinear returns the latest evaluated residual balance'."
+    },
+    {
+      "dn": 47,
+      "statement": "Problem.set_solver supports 'direct' (pypardiso / python-mumps / petsc mumps / scipy spsolve), iterative methods (cg, bicg, gmres, ...) and explicit backends ('pardiso','mumps','direct_scipy','petsc') or a user function.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\base.py",
+      "line": 481,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 481 = def set_solver; docstring in cited window lists exactly: 'direct' fallback chain pypardiso -> python-mumps -> petsc mumps -> scipy spsolve, iterative 'cg','bicg','bicgstab','minres','gmres','lgmres','gcrotmk', explicit 'pardiso','mumps','direct_scipy','petsc', and user function res = solver(A,B,**kargs)."
+    },
+    {
+      "dn": 48,
+      "statement": "The official quick-start workflow is: import fedoo, define the modeling space, create/import the mesh, define weak formulations, create the Assembly, define the Problem and solver, solve, then analyse/export results.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\docs\\quick_start.rst",
+      "line": 16,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "The 8-step list spans lines 9-16 ('1. Import the fedoo library' ... '8. Analyse and export results'); cited line 16 is the last item, whole list in cited window."
+    },
+    {
+      "dn": 49,
+      "statement": "The modeling space dimension can be '3D' or '2D' (plane), and may also be '2Dstress' for the plane-stress assumption.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\docs\\quick_start.rst",
+      "line": 33,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 33 verbatim: \"The dimension of the modeling space car be '3D' or '2D' (for planar problem). The dimension of the space may also be set to '2Dstress' for planar problem based on the plane stress assumption.\""
+    },
+    {
+      "dn": 50,
+      "statement": "For a direct solver the quick-start strongly recommends installing pypardiso (Intel), python-mumps (cross-platform) or petsc4py for better performance.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\docs\\quick_start.rst",
+      "line": 111,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 111-114 verbatim: 'For direct solver, it is strongly recommended to install one of pypardiso (Intel CPUs), python-mumps (cross-platform, ...) or petsc4py for drastically improved computation performance.'"
+    },
+    {
+      "dn": 51,
+      "statement": "The test test_radial_return_matches_simcoon_simple_shear_reference feeds 20 proportional shear increments (gamma 0->0.02) and checks the final von Mises shear stress against the Simcoon EPICP reference value 314.581143696 MPa.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_elasto_plasticity.py",
+      "line": 66,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 66 = assert_allclose(stress[3], [314.581143696], rtol=1e-9); loop 'for gamma in np.linspace(0.0, 0.02, 21)[1:]' (line 53, i.e. 20 increments) and comment 'Reference values produced by Simcoon's EPICP law for the same 20 proportional shear increments' (64-65) in cited window. Note: stress[3] is the shear component; 'MPa' unit is implicit in the test (not stated in file)."
+    },
+    {
+      "dn": 52,
+      "statement": "The same test asserts the final accumulated plasticity equals the Simcoon EPICP reference value 0.00918589977986.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_elasto_plasticity.py",
+      "line": 67,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 67 = assert_allclose(material.get_plasticity(), [0.00918589977986], rtol=1e-9)."
+    },
+    {
+      "dn": 53,
+      "statement": "The test uses material constants E = 200e3, NU = 0.3, SIGMA_Y = 300, H = 1000, BETA = 0.3 with a power hardening function.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_elasto_plasticity.py",
+      "line": 13,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 13-17 = E = 200e3, NU = 0.3, SIGMA_Y = 300.0, H = 1000.0, BETA = 0.3; make_material (20-23) uses set_hardening_function(\"power\", h=H, beta=BETA) - all in cited window."
+    },
+    {
+      "dn": 54,
+      "statement": "test_finite_element_state_uses_mechanical_umat_labels_only verifies ElastoPlasticity exposes only MechanicalUMAT labels: props_label {young_modulus:0, poisson_ratio:1, yield_stress:2} and statev_label {P:0, EP:slice(1,7)}.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_elasto_plasticity.py",
+      "line": 117,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "def at line 117; asserts in cited window: props_label dict (125-129), statev_label {\"P\": 0, \"EP\": slice(1, 7)} (130), and 'P'/'EP' not in assembly.sv (134-135)."
+    },
+    {
+      "dn": 55,
+      "statement": "test_mechanical_umat_update_restarts_from_committed_state verifies a new trial re-integrates from the committed state (Newton rollback support at the material level).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_elasto_plasticity.py",
+      "line": 138,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "def at line 138; in cited window: first trial (0.02) then second trial (0.01) after sv_start commit, second state compared against a fresh reference material integrating only the second increment, and assert not array_equal(first_state, ...) - consistent with re-integration from committed state."
+    },
+    {
+      "dn": 56,
+      "statement": "test_corotational_update_transports_plastic_strain_with_dr verifies the EP plastic-strain history is transported by the corotational rotation DR under nlgeom=\"UL\".",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_elasto_plasticity.py",
+      "line": 165,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "def at line 165; in cited window: make_assembly(nlgeom=\"UL\"), pi/3 rotation matrix, expected = SimRotation.from_matrix(rotation).apply_strain(plastic_strain), assembly.sv[\"DR\"] set, then assert_allclose(Statev[1:7], expected)."
+    },
+    {
+      "dn": 57,
+      "statement": "The verified 2DplasticBending.py run (fedoo 1.0.1) reports step-1 max von Mises 1121.06 MPa, final max von Mises 1144.60 MPa and springback 0.219 mm.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 30,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 30 = 'Key numbers: step 1 max vm 1121.06 MPa, final max vm'; line 31 '1144.60 MPa, springback 0.219 mm'; 'fedoo 1.0.1' at line 28 - all in cited window."
+    },
+    {
+      "dn": 58,
+      "statement": "The Force criterion during the bending springback is stuck at a dt-independent normalized-error floor of 0.76755, so \"Displacement\" must be used (final state within 2.2e-4 mm of the exact zero-load equilibrium).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 36,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 33-38: Force criterion normalizes by ||F_ext||, during force-relaxation-to-zero 'the normalized error is stuck at a dt-independent floor 0.76755 -> dt_min error. \"Displacement\" converges; final state within 2.2e-4 mm of the exact zero-load equilibrium'."
+    },
+    {
+      "dn": 59,
+      "statement": "For the 4-node typeBending switch the verified 2D bending max von Mises is 1351.73 MPa, and the mat=0 linear-elastic switch gives Uy -> -0.0471.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 42,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 42 = 'Switches: typeBending 4-node plate -> max vm 1351.73 MPa'; line 43 = 'mat=0 (linear elastic) -> Uy -> -0.0471' (in the 2DplasticBending.py verified-run section)."
+    },
+    {
+      "dn": 60,
+      "statement": "The from-scratch model has 861 nodes / 800 quad4 (rectangle_mesh nx=41, ny=21, 16x2 mm, 2Dplane) and the bottom-right roller leaves Ux free = 1.605 mm at the end of loading.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 58,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 58 = 'Ux free = 1.605 mm at end of loading'; model line 52 = '861 nodes / 800 quad4 (rectangle_mesh nx=41, ny=21, 16x2 mm, 2Dplane)' - both in cited window."
+    },
+    {
+      "dn": 61,
+      "statement": "At end of loading in the from-scratch run, the max accumulated plasticity P (EPICP statev[1], nodal) is 0.347769 at node 20 (8.0, 0.0).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 71,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 70-71: 'end of loading: Uy_tip = -5.000000 (prescribed); max P (EPICP statev[1], nodal) = 0.347769 at node 20 (8.0, 0.0)'."
+    },
+    {
+      "dn": 62,
+      "statement": "The from-scratch run peak von Mises at end of loading is GP max 1057.4522 MPa and Node max 1061.2347 MPa.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 74,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 73-77: 'peak von Mises end of loading: GP max 1057.4522 MPa at gp=1, el=19 ... Node max 1061.2347 MPa at node 20 (8.0, 0.0)'."
+    },
+    {
+      "dn": 63,
+      "statement": "After elastic release the from-scratch run has a permanent set (springback) of 0.2960 mm (Uy_tip -5.0 -> -4.704038).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 86,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 85-86: 'residual (after elastic release): Uy_tip = -4.704038 -> permanent set 0.2960 mm (springback 0.296 mm)'; the start value Uy_tip = -5.000000 is stated at line ~69-70 (just above the window)."
+    },
+    {
+      "dn": 64,
+      "statement": "The from-scratch final residual-stress peak is vm Node max 1067.7754 MPa.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 90,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 90 = 'final residual-stress peak: vm Node max 1067.7754 MPa, vm GP max 1017.9343 MPa' - exact."
+    },
+    {
+      "dn": 65,
+      "statement": "The verified plastic_bending_3D.py run (fedoo 1.0.1) took 129.7 s with 40 NR increments at fixed dt=0.025.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 139,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 139 = 'Result: PASS, exit 0, wall time 129.7 s (in-script 125.40 s). 40'; line 140 'NR increments (t 0->1, fixed dt=0.025, ...)'; 'fedoo 1.0.1' at line 138 - all in cited window."
+    },
+    {
+      "dn": 66,
+      "statement": "The 3D bending model is a 16x2x10 mm box with 1029 nodes / 720 hex8, using NLGEOM=\"UL\" and f-bar incompressibility.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 142,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 142 = 'Model: 1029 nodes / 720 hex8 box 16x2x10 mm (box_mesh 21x7x7 nodes)'; line 143 'NLGEOM=\"UL\", f-bar incompressibility' - exact."
+    },
+    {
+      "dn": 67,
+      "statement": "The 3D bending peak von Mises is GP max 1242.7544 MPa and Node max 1332.8916 MPa.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 152,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 152 = 'peak von Mises (fedoo's own vm reduction): GP max 1242.7544 MPa'; line 153 'Node max 1332.8916 MPa' - exact."
+    },
+    {
+      "dn": 68,
+      "statement": "The 3D bending end rotation at the simply-supported end is -0.7521 rad (-43.1 deg), consistent with a plastic-hinge state.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 162,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 161-163: 'end rotation at the simply-supported end ... -0.7521 rad (-43.1 deg) - consistent with a plastic-hinge state (M_p = Re.w.h^2/4 = 3000 N.mm ...)'."
+    },
+    {
+      "dn": 69,
+      "statement": "The 3D bending switches mat=0 (ELISO), mat=2 (ElastoPlasticity) and typeBending=4nodes were all construct-checked (not full-solve re-run) on fedoo 1.0.1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plastic-bending.md",
+      "line": 185,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 183-186: 'Switches: mat=0 (Simcoon ELISO), mat=2 (ElastoPlasticity + set_hardening_function(...)) and typeBending=\"4nodes\" (14-node np.hstack) all construct-checked on 1.0.1 (scratch); only the default mat=1 / 3nodes path was full-solve re-run this round.'"
+    },
+    {
+      "dn": 70,
+      "statement": "The set_nr_criterion default in fedoo 1.0.1 is \"Force\" (nr_parameters[\"criterion\"]=\"Force\"), while the docstring claims default \"Displacement\" - a documented doc/code mismatch.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-nr-criterion.md",
+      "line": 22,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 22 = 'The default is Force - nr_parameters[criterion] = Force (fedoo/problem/non_linear.py:33) and set_nr_criterion(criterion=\"Force\", ...) (line 703)'; line 26 'Docstring claims default = Displacement - doc/code mismatch (verified 2026-10-07 against the installed fedoo 1.0.1)'."
+    },
+    {
+      "dn": 71,
+      "statement": "The Force criterion fails on kinematically-driven problems where ||F_ext|| ~ 0 (e.g. ~1.36e-11 on rotation_test.py) and the normalized error is stuck ~0.68-1.1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-nr-criterion.md",
+      "line": 36,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 35-38: 'Kinematically-driven problems (pure displacement/rotation loads with ||F_ext|| ~ 0): the normalized error is stuck ... (e.g. ~0.68-1.1 on plasticity/rotation_test.py, ||F_ext|| ~ 1.36e-11) -> dt collapses to dt_min and nlsolve raises'."
+    },
+    {
+      "dn": 72,
+      "statement": "The Force criterion also fails on force-relaxation-to-zero (springback), where the normalized residual has a dt-independent floor (0.76755 in the bending springback).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-nr-criterion.md",
+      "line": 40,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 39-42: 'Force relaxation to zero (load ramped up then removed, e.g. the springback step of plasticity/2DplasticBending.py): once F_ext -> 0 the normalized residual has a dt-independent floor (0.76755 in the bending springback) -> dt_min error'."
+    },
+    {
+      "dn": 73,
+      "statement": "The \"Displacement\" criterion is verified for the bending springback (15 s PASS, final state within 2.2e-4 mm of the exact zero-load equilibrium).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-nr-criterion.md",
+      "line": 45,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 44-47: 'Use Displacement for both cases - verified 2026-10-07 on plasticity/rotation_test.py (66 s PASS) and plasticity/2DplasticBending.py (15 s PASS, final state within 2.2e-4 mm of the exact zero-load equilibrium)'."
+    },
+    {
+      "dn": 74,
+      "statement": "Conversely the \"Displacement\" criterion stalls on some stiff force-driven contacts (Err ~ 0.04) where \"Force\" is the working choice.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-nr-criterion.md",
+      "line": 49,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 49-51: 'Conversely, the \"Displacement\" criterion stalls on some stiff force-driven contacts (Err ~ 0.04 -> dt_min); \"Force\" is the working choice there (see the punch-indentation and OGC examples)'."
+    },
+    {
+      "dn": 75,
+      "statement": "The rotation_test.py validation (90 deg rigid 3D cube rotation) gives max |Disp| = 1.0 mm and max vm = 2.57e-10 MPa (rigid, zero strain).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plasticity-tests.md",
+      "line": 34,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 34 = 'max |Disp| = 1.0 mm, max vm = 2.57e-10 MPa (rigid, zero strain)'; '3D cube rigid rotation (90 deg)' at line 26 in cited window."
+    },
+    {
+      "dn": 76,
+      "statement": "The rotation_test fix required set_nr_criterion -> \"Displacement\" because the default \"Force\" fails (purely kinematically driven, ||F_ext|| ~ 1.36e-11).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plasticity-tests.md",
+      "line": 29,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 28-30: '1. set_nr_criterion -> \"Displacement\" - the default \"Force\" fails (purely kinematically driven, ||F_ext|| ~ 1.36e-11, NR error stuck ~0.68-1.1 -> dt_min)'."
+    },
+    {
+      "dn": 77,
+      "statement": "The shear_test.py validation (1331 nodes hex8 simple shear) gives vm_max = 1295.31 MPa (GP), EP max = 1.40056, and mat=2 ElastoPlasticity cross-validates at 1295.309 MPa.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plasticity-tests.md",
+      "line": 41,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 40 = '1331 nodes hex8, simple shear'; line 41 = 'vm_max = 1295.31 MPa (GP), EP max = 1.40056'; lines 42-43 'mat=2 (ElastoPlasticity) cross validates at vm 1295.309 MPa' - all in cited window."
+    },
+    {
+      "dn": 78,
+      "statement": "The torsion_test.py validation (180 deg torsion about X) gives mat=1 (EPICP) and mat=2 (ElastoPlasticity) vm_max = 1339.8 MPa (agreeing).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\plasticity-tests.md",
+      "line": 51,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 49 = '1331 nodes hex8, 180 deg torsion about X (RigidRotX = pi)'; lines 50-51 = 'mat=0 vm_max = 286892.93 MPa; mat=1 (EPICP) and mat=2 (ElastoPlasticity) vm_max = 1339.8 MPa (agree)'."
+    },
+    {
+      "dn": 79,
+      "statement": "All 4 scripts in the plasticity/ folder (2DplasticBending, from-scratch, plastic_bending_3D and the rotation/shear/torsion validation tests) are verified PASS on fedoo 1.0.1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\index.md",
+      "line": 67,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 67-69: 'All 4 scripts in plasticity/ verified PASS on fedoo 1.0.1 (2026-10-07 wave, headless; pre-solve _init.png figures added)'. The D-fact's parenthetical enumeration of the 4 scripts is an interpretation (the file names the four entries in the plasticity section below)."
+    },
+    {
+      "dn": 80,
+      "statement": "The Main_documentation_fedoo/generated folder mirrors the autodoc API pages, covering 1,823 pages (one HTML page per class, function and member).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\documentation\\index.md",
+      "line": 44,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 42-45: 'The Main_documentation_fedoo/generated/ folder mirrors the autodoc API pages (one HTML page per class, function and member, ...). 1,823 pages covering (full member-level autodoc, synced from the online genindex.html on 2026-09-24)'."
+    },
+    {
+      "dn": 81,
+      "statement": "The documented fedoo.problem.* API classes include Linear, NonLinear, NonLinearNewmark, LinearNewmark, Modal, LinearBuckling, ExplicitDynamic, ProblemBase and Problem.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\documentation\\index.md",
+      "line": 48,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 48 verbatim: 'fedoo.problem.* - Linear, NonLinear, NonLinearNewmark, LinearNewmark, Modal, LinearBuckling, ExplicitDynamic, ProblemBase, Problem.'"
+    },
+    {
+      "dn": 82,
+      "statement": "The documented fedoo.constitutivelaw.* classes include ElasticIsotrop, ElastoPlasticity, FE2 and Simcoon (among others).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\documentation\\index.md",
+      "line": 50,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 50: 'fedoo.constitutivelaw.* - ElasticIsotrop, ElasticOrthotropic, ElasticAnisotropic, CompositeUD, ElastoPlasticity, FE2, Simcoon, Heterogeneous, ...' - all four named classes present."
+    },
+    {
+      "dn": 83,
+      "statement": "The fedoo Python source docstrings are the authoritative API documentation source.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\documentation\\index.md",
+      "line": 75,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 74-76: 'The fedoo package source in Code_source_fedoo/fedoo/ (the docstrings are the authoritative API documentation source; ...)'."
+    },
+    {
+      "dn": 84,
+      "statement": "The current fedoo source version is 1.0.1, released 2026-10-01 per the CHANGELOG.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\CHANGELOG.md",
+      "line": 9,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 9 = '## [1.0.1] - 2026-10-01' - the top released section under an empty [Unreleased], i.e. the current release."
+    }
+  ],
+  "excludedFromDenominator": [
+    {
+      "dn": 7,
+      "reason": "duplicate-of-original",
+      "detail": "Semantically the same claim as original grid fact G4: 'wf = fd.weakform.StressEquilibrium(\"ConstitutiveLaw\", nlgeom=False)' appears verbatim in G4's standard-workflow statement (verified at 2DplasticBending_from_scratch.py line 40, but fully covered by G4)."
+    },
+    {
+      "dn": 13,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as original grid fact G1, which already states for ElastoPlasticity 'n_statev=7, statev = [P, EP(6)]' (code verified at elasto_plasticity.py lines 67 and 73, but no new information beyond G1)."
+    },
+    {
+      "dn": 14,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as original grid fact G2: ElastoPlasticity does not implement the 2Dstress return mapping and users are directed to Simcoon('EPICP') (code verified at elasto_plasticity.py lines 103-110; G2 cites the same get_elastic_matrix location). D14 only adds the mechanism 'raises NotImplementedError', which is what G2's 'does NOT implement' asserts."
+    }
+  ],
+  "stats": {
+    "originalCount": 6,
+    "dTotal": 84,
+    "dPass": 76,
+    "dFix": 5,
+    "dDrop": 0,
+    "dDefect": 0,
+    "dDuplicate": 3,
+    "denominator": 87
+  }
+}

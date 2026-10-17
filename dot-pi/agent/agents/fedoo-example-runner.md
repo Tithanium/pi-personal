@@ -65,7 +65,7 @@ into the knowledge base. You are given the example's relative path inside
 
 ## Environment (verified — do not re-discover)
 
-- Python 3.13 (Anaconda), fedoo **1.0.1** from site-packages. bash tool = PowerShell.
+- Python 3.13 (Anaconda), fedoo **1.0.1** from site-packages. bash tool = powershell.
 - Before running: `$env:MPLBACKEND='Agg'; $env:PYVISTA_OFF_SCREEN='true'`.
 - Extra headless toggle used by some examples:
   `fd.get_config()["USE_PYVISTA_QT"] = False`.

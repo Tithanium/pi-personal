@@ -368,6 +368,7 @@ function buildSessionOptions(parsed, scopedModels, hasExistingSession, modelRunt
             cliProvider: parsed.provider,
             cliModel: parsed.model,
             cliThinking: parsed.thinking,
+            inlineApiKey: Boolean(parsed.apiKey),
             modelRuntime,
         });
         if (resolved.warning) {

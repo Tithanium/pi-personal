@@ -1,0 +1,116 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 2690,
+    "tokensIn": 3434,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 2154,
+    "provenance": "new B:single run 2026-10-15T01-18-14.228Z",
+    "empty": false,
+    "note": "ok (single selection: 1/6 candidate sections kept → 2068 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6576976918503004,
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 16532,
+    "tokensIn": 3225,
+    "tokensOut": 879,
+    "ok": true,
+    "payloadBytes": 5431,
+    "provenance": "new B:single run 2026-10-15T01-18-14.228Z",
+    "empty": false,
+    "note": "ok (single selection: 3/6 candidate sections kept → 5343 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "rescue": false
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 1712,
+    "tokensIn": 2863,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 10329,
+    "provenance": "new B:single run 2026-10-15T01-18-14.228Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=strong, topRaw=0.5622 ≥ rawMin=0.47) → top-1 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 4637,
+    "tokensIn": 2854,
+    "tokensOut": 107,
+    "ok": true,
+    "payloadBytes": 9117,
+    "provenance": "new B:single run 2026-10-15T01-18-14.228Z",
+    "empty": false,
+    "note": "ok (single selection: 1/1 candidate sections kept → 9030 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 3252,
+    "tokensIn": 3298,
+    "tokensOut": 11,
+    "ok": true,
+    "payloadBytes": 8078,
+    "provenance": "new B:single run 2026-10-15T01-18-14.228Z",
+    "empty": false,
+    "note": "ok (single selection: 2/4 candidate sections kept → 7992 B payload)",
+    "internals": {
+      "nChunks": 5,
+      "nSections": 4,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5870772418610883,
+      "rescue": false
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 1693,
+    "tokensIn": 3324,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-15T01-18-14.228Z",
+    "empty": true,
+    "note": "single: child selected EMPTY (verdict=empty, topRaw=0.3766) → empty payload",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.37659326076748556,
+      "rescue": false
+    }
+  }
+]

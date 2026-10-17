@@ -1,0 +1,1059 @@
+{
+  "id": "ansys_contact",
+  "generatedAt": "2026-10-15T23:15:36.523Z",
+  "grid": [
+    {
+      "n": 1,
+      "statement": "KEYOPT(2) on the contact element selects the contact algorithm: 1 = penalty method, 0 = augmented Lagrangian (default), 3 = Lagrange multiplier on contact normal + penalty on tangent, 4 = pure Lagrange multiplier, 2 = internal multipoint constraint (MPC)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3053,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 2,
+      "statement": "The penalty method uses a contact spring whose stiffness is the contact stiffness; it uses real constants FKN (normal contact stiffness factor) and FKT (tangent contact stiffness factor), plus FTOLN and SLTO if KEYOPT(10) = 0 or 2",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3060,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 3,
+      "statement": "The augmented Lagrangian method (default) is an iterative series of penalty methods; contact tractions are augmented during equilibrium iterations so final penetration is smaller than the allowable tolerance (FTOLN); it leads to better conditioning and is less sensitive to contact stiffness magnitude but may need more iterations with distorted meshes",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3063,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 4,
+      "statement": "The pure Lagrange multiplier method enforces zero penetration when closed and zero slip when sticking; it does not require FKN/FKT but requires chattering control parameters FTOLN and TNOP; it adds contact tractions as additional DOFs and often increases computational cost",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3071,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 5,
+      "statement": "FTOLN is the thickness-based factor used to calculate allowable penetration; SLTO controls maximum sliding distance when MU (friction coefficient) is nonzero; PZER defines pressure at zero penetration; CZER defines initial clearance",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2127,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 6,
+      "statement": "Lagrange multiplier methods (KEYOPT(2) = 3, 4) introduce zero diagonal terms in the stiffness matrix, so iterative solvers (e.g. PCG) encounter a preconditioning matrix singularity - switch to the sparse solver; also not compatible with Gauss point detection (KEYOPT(4) = 0)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3103,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    }
+  ],
+  "dFacts": [
+    {
+      "dn": 1,
+      "statement": "For surface-to-surface contact, the target surface is modeled with either TARGE169 or TARGE170 (2D and 3D respectively) and the contact surface with elements CONTA172 or CONTA174.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1108,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1108-1109 state exactly: target = TARGE169/TARGE170 (2D/3D), contact = CONTA172/CONTA174."
+    },
+    {
+      "dn": 2,
+      "statement": "To create a contact pair, assign the same real constant number to both the target and contact elements.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1110,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 1110 exact: \"To create a contact pair, assign the same real constant number to both the target and contact elements.\""
+    },
+    {
+      "dn": 3,
+      "statement": "Use TARGE169 with CONTA172 or CONTA175 to define a 2D contact pair; for 3D contact pairs, use TARGE170 with CONTA174, CONTA175, or CONTA177, each identified via the same real constant number.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1380,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1380-1382 exact: TARGE169+CONTA172/175 (2D), TARGE170+CONTA174/175/177 (3D), same real constant number."
+    },
+    {
+      "dn": 4,
+      "statement": "CONTA172 is a 2D, 3-node, higher order parabolic element that can be located on the surfaces of 2D solid or beam elements with or without midside nodes (e.g., SHELL208, PLANE183).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1815,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1815-1816 exact (CONTA172 2D 3-node higher order parabolic, SHELL208/PLANE183)."
+    },
+    {
+      "dn": 5,
+      "statement": "CONTA174 is a 3D, 8-node, higher order quadrilateral element that can be located on the surfaces of 3D solid or shell elements with or without midside nodes (e.g., SHELL181, SHELL281) and can be degenerated to 3- to 7-node shapes.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1818,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1817-1819 exact (CONTA174 3D 8-node higher order quadrilateral, SHELL181/SHELL281, degenerates to 3-7 node)."
+    },
+    {
+      "dn": 6,
+      "statement": "CONTA174 is used to represent contact and sliding between 3D target surfaces and a deformable surface defined by this element, is applicable to 3D structural and coupled-field contact analyses, and can be used for both pair-based and general contact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34084,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34084-34086 exact: contact/sliding between 3D target and deformable surface; 3D structural and coupled-field; pair-based and general contact."
+    },
+    {
+      "dn": 7,
+      "statement": "In a pair-based contact definition the program looks for contact interaction only between surfaces with the same real constant set ID (greater than zero), and the material ID associated with the contact element is used to specify interaction properties (such as friction coefficient) defined by MP or TB commands.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34156,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34156-34160 exact: same real constant set ID (>0) search; material ID on contact element specifies MP/TB interaction properties."
+    },
+    {
+      "dn": 8,
+      "statement": "TARGE170 is used to represent various 3D target surfaces for the associated contact elements CONTA174, CONTA175, and CONTA177; for rigid targets these elements model complex shapes and for flexible targets they overlay the solid, shell, or line elements describing the deformable body boundary.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 31464,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 31464-31474 exact: TARGE170 represents 3D target surfaces for CONTA174/175/177; rigid=complex shapes, flexible=overlay solid/shell/line."
+    },
+    {
+      "dn": 9,
+      "statement": "TARGE170 3D segment types are defined by TSHAPE codes: TRIA, QUAD, TRI6, QUA8, LINE, PARA, CYLI, CONE, SPHE, PILO, and POINT.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 31586,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Table 7.170.1 (lines 31586-31675) lists all 11 TSHAPE codes TRIA, QUAD, TRI6, QUA8, LINE, PARA, CYLI, CONE, SPHE, PILO, POINT; \"eleven 3D segment types\" at 31579."
+    },
+    {
+      "dn": 10,
+      "statement": "Surface-to-surface contact elements only support general static and transient analyses, buckling, harmonic, modal or spectrum analyses, or substructure analyses.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1137,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1137-1138 exact: static/transient, buckling, harmonic, modal or spectrum, substructure."
+    },
+    {
+      "dn": 11,
+      "statement": "Surface-to-surface contact elements are not well-suited for point-to-point, point-to-surface, edge-to-surface, or 3D line-to-line contact applications such as pipe whip or snap-fit assemblies; node-to-surface, node-to-node, or line-to-line elements should be used in these cases.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1131,
+      "lineFixed": 1132,
+      "status": "pass",
+      "note": "Statement at lines 1132-1136 (cited line 1131 is the preceding sentence); pipe whip/snap-fit, use node-to-surface/node-to-node/line-to-line."
+    },
+    {
+      "dn": 12,
+      "statement": "Asymmetric contact is defined as having all contact elements on one surface and all target elements on the other (one-pass contact) and is usually the most efficient; symmetric (two-pass) contact designates each surface as both target and contact and is used e.g. when the distinction is not clear or both surfaces have very coarse meshes.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1485,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1485-1500 exact: one-pass usually most efficient; two-pass used when distinction unclear or both surfaces very coarse."
+    },
+    {
+      "dn": 13,
+      "statement": "For each symmetric contact definition there are two contact pairs (base and companion); by default KEYOPT(8)=0 activates both pairs, KEYOPT(8)=1 activates both with the same averaged characteristics, and KEYOPT(8)=2/3 let the program internally select which asymmetric pair to activate.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34488,
+      "lineFixed": 34501,
+      "status": "pass",
+      "note": "KEYOPT(8) list at lines 34501-34514: 0=both pairs active, 1=both active same characteristics, 2/3=program selects asymmetric pair. Note: ERef says \"symmetric pairs\"/\"companion pair\" (KSYM, line 35014); \"base pair\" wording and \"averaged\" qualifier come from CTG SS3.5.1.2 (line 1503) and are not stated in ERef."
+    },
+    {
+      "dn": 14,
+      "statement": "For surface-to-surface contact elements the available algorithms are: Penalty (KEYOPT(2)=1), Augmented Lagrangian (default, KEYOPT(2)=0), Lagrange multiplier on contact normal and penalty on tangent (KEYOPT(2)=3), Pure Lagrange multiplier (KEYOPT(2)=4), and Internal MPC (KEYOPT(2)=2).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3056,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Same claim as G1 (KEYOPT(2) value-to-algorithm mapping incl. defaults); verified at CTG 3060-3064 but excluded as duplicate of original grid fact G1."
+    },
+    {
+      "dn": 15,
+      "statement": "The penalty method uses a contact spring (contact stiffness) and uses real constants FKN and FKT for all values of KEYOPT(10), plus FTOLN and SLTO if KEYOPT(10)=0 or 2.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3063,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Same claim as G2 (penalty uses contact spring, FKN/FKT for all KEYOPT(10), +FTOLN/SLTO if KEYOPT(10)=0 or 2); verified at CTG 3065-3067 but excluded as duplicate of G2."
+    },
+    {
+      "dn": 16,
+      "statement": "The augmented Lagrangian method (default) is an iterative series of penalty methods that augments contact tractions so final penetration is smaller than the allowable tolerance (FTOLN); it usually leads to better conditioning and is less sensitive to contact stiffness magnitude but may require additional iterations if the mesh becomes too distorted.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3068,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Same claim as G3 (AugLag iterative penalty series, tractions augmented, final penetration < FTOLN, better conditioning, less stiffness-sensitive, more iterations with distorted mesh); verified at CTG 3068-3074 but excluded as duplicate of G3."
+    },
+    {
+      "dn": 17,
+      "statement": "The pure Lagrange multiplier method enforces zero penetration when contact is closed and zero slip when sticking, does not require FKN and FKT but requires chattering control parameters FTOLN and TNOP, adds contact traction as additional DOF, and often increases computational cost.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3075,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Same claim as G4 (pure LM: zero penetration/zero slip, no FKN/FKT, needs FTOLN+TNOP, extra DOF, higher cost); verified at CTG 3075-3080 but excluded as duplicate of G4."
+    },
+    {
+      "dn": 18,
+      "statement": "The Lagrange multiplier on contact normal / penalty on tangent algorithm enforces zero penetration and allows a small amount of slip for sticking; it requires chattering control parameters FTOLN and TNOP as well as the maximum allowable elastic slip parameter SLTO.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3085,
+      "lineFixed": 3081,
+      "status": "pass",
+      "note": "Statement at lines 3081-3084 (cited line 3085 is the following MPC sentence): LM on normal + penalty on tangent, zero penetration, small slip, needs FTOLN+TNOP+SLTO."
+    },
+    {
+      "dn": 19,
+      "statement": "The internal multipoint constraint (MPC) algorithm is used in conjunction with bonded contact (KEYOPT(12)=5 or 6) and no separation contact (KEYOPT(12)=4) to model several types of contact assemblies and kinematic constraints.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3093,
+      "lineFixed": 3085,
+      "status": "pass",
+      "note": "Statement at lines 3085-3088 (cited line 3093 is the following LM-considerations item): MPC with bonded (KEYOPT(12)=5 or 6) and no separation (KEYOPT(12)=4)."
+    },
+    {
+      "dn": 20,
+      "statement": "The Lagrange multiplier methods (KEYOPT(2)=3,4) do not support the Gauss point detection option (KEYOPT(4)=0) for surface-to-surface contact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3091,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G6 already states \"also not compatible with Gauss point detection (KEYOPT(4) = 0)\"; verified at CTG 3091-3092 but excluded as duplicate of G6."
+    },
+    {
+      "dn": 21,
+      "statement": "The Lagrange multiplier methods introduce more degrees of freedom which may result in spurious modes for modal and linear eigenvalue buckling analyses, so the augmented Lagrangian method (KEYOPT(2)=0) is a better choice for these analysis types.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3103,
+      "lineFixed": 3112,
+      "status": "pass",
+      "note": "Statement at lines 3112-3114 (cited line 3103 is off): extra DOF -> spurious modes for modal/linear eigenvalue buckling; AugLag (KEYOPT(2)=0) better choice."
+    },
+    {
+      "dn": 22,
+      "statement": "The Lagrange multiplier methods introduce zero diagonal terms in the stiffness matrix, so iterative solvers (e.g., PCG) encounter a preconditioning matrix singularity; switch to the sparse solver.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3110,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "G6 already states zero diagonal terms -> PCG preconditioning singularity -> sparse solver; verified at CTG 3115-3117 but excluded as duplicate of G6."
+    },
+    {
+      "dn": 23,
+      "statement": "Four different contact algorithms are implemented in CONTA174 (selected by KEYOPT(2)): pure penalty, augmented Lagrangian (Simo and Laursen), pure Lagrange multiplier (Bathe), and Lagrange multiplier on contact normal and penalty on frictional direction.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+      "line": 21991,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 21991-21995 exact: four algorithms selected by KEYOPT(2) (pure penalty, AugLag Simo & Laursen, pure LM Bathe, LM on normal + penalty on frictional direction). Distinct from G1 (which lists the 5 KEYOPT(2) options incl. MPC)."
+    },
+    {
+      "dn": 24,
+      "statement": "The pure penalty method requires both contact normal and tangential stiffness; the main drawback is that the amount of penetration depends on this stiffness, and higher stiffness values decrease penetration but can lead to ill-conditioning of the global stiffness matrix and convergence difficulties.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+      "line": 21998,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 21997-22000 exact: penalty requires normal+tangential stiffness; penetration depends on stiffness; high stiffness -> ill-conditioning/convergence difficulties."
+    },
+    {
+      "dn": 25,
+      "statement": "The contact pressure for the pure penalty method is P = Kn*un (Equation 13.240), where Kn is the contact normal stiffness and un is the contact gap size; the frictional stress for isotropic friction is obtained by Coulomb's law (Equation 13.241) where Ks is the tangential contact stiffness (input as FKT on the R command) and μiso is the coefficient of friction.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+      "line": 22020,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 22014-22027: Eq 13.240 contact pressure with Kn=contact normal stiffness, un=contact gap; Eq 13.241 Coulomb friction with Ks=FKT (R command), mu_iso. Equation bodies missing in PDF extraction (image equations) but variable definitions fully support the claim."
+    },
+    {
+      "dn": 26,
+      "statement": "The augmented Lagrangian method is an iterative series of penalty updates to find the Lagrange multipliers (contact tractions); compared to the penalty method it usually leads to better conditioning and is less sensitive to the magnitude of the contact stiffness, but may require additional iterations especially if the deformed mesh becomes excessively distorted.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+      "line": 22057,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Same claim as G3 (AugLag iterative penalty updates, better conditioning, less sensitive to stiffness, extra iterations with distorted mesh); verified at TR 22057-22061 but excluded as duplicate of G3."
+    },
+    {
+      "dn": 27,
+      "statement": "CONTA174 KEYOPT(1) selects degrees of freedom: 0=UX,UY,UZ; 1=UX,UY,UZ,TEMP; 2=TEMP; 3=UX,UY,UZ,TEMP,VOLT; 8=UX,UY,UZ,PRES; 9=UX,UY,UZ,PRES,TEMP; 13=UX,UY,UZ,CONC.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34324,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34324-34357 exact: 0=UX,UY,UZ; 1=UX,UY,UZ,TEMP; 2=TEMP (or TBOT/TTOP/TEMP combo per KEYOPT(13)); 3=UX,UY,UZ,TEMP,VOLT; 8=UX,UY,UZ,PRES; 9=UX,UY,UZ,PRES,TEMP; 13=UX,UY,UZ,CONC."
+    },
+    {
+      "dn": 28,
+      "statement": "CONTA174 KEYOPT(2) contact algorithm: 0=Augmented Lagrangian (default), 1=Penalty function, 2=Multipoint constraint (MPC), 3=Lagrange multiplier on contact normal and penalty on tangent, 4=Pure Lagrange multiplier on contact normal and tangent.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34380,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Same claim as G1 (KEYOPT(2) value-to-algorithm mapping, same five values); verified at ERef 34373-34389 but excluded as duplicate of G1."
+    },
+    {
+      "dn": 29,
+      "statement": "CONTA174 KEYOPT(3) units of normal contact stiffness: 0=FORCE/LENGTH3 (default); 1=FORCE/LENGTH, valid only when a penalty-based algorithm (KEYOPT(2)=0 or 1) is used and the absolute normal contact stiffness is explicitly specified (negative FKN).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34393,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34393-34402 exact: 0=FORCE/LENGTH3 (default); 1=FORCE/LENGTH only with penalty-based KEYOPT(2)=0 or 1 and explicit absolute (negative FKN) stiffness."
+    },
+    {
+      "dn": 30,
+      "statement": "CONTA174 KEYOPT(4) location of contact detection point: 0=On Gauss point (for general cases), 1=On nodal point - normal from contact surface, 2=On nodal point - normal to target surface, 3=standard projection-based, 4=dual shape function projection-based, 5=unified approach.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34407,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34407-34427 exact: 0=Gauss point; 1=nodal normal from contact; 2=nodal normal to target; 3=standard projection-based; 4=dual shape function projection-based; 5=unified approach."
+    },
+    {
+      "dn": 31,
+      "statement": "CONTA174 KEYOPT(5) CNOF automated adjustment: 0=No automated adjustment, 1=Close gap with auto CNOF, 2=Reduce penetration with auto CNOF, 3=Close gap/reduce penetration with auto CNOF.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34462,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34460-34469 exact: CNOF automated adjustment 0-3 (no adjustment / close gap / reduce penetration / both)."
+    },
+    {
+      "dn": 32,
+      "statement": "CONTA174 KEYOPT(6) normal contact stiffness variation: 0=Use default range, 1=nominal refinement, 2=aggressive refinement, 3=use an exponential pressure-penetration relationship.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34470,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34470-34479 exact: 0=default range; 1=nominal refinement; 2=aggressive refinement; 3=exponential pressure-penetration."
+    },
+    {
+      "dn": 33,
+      "statement": "CONTA174 KEYOPT(7) element level time incrementation control / impact constraints: 0=No control, 1=Automatic bisection of increment, 2=reasonable time/load increment, 3=minimum time/load increment, 4=Use impact constraints for standard or rough contact in a transient dynamic analysis.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34477,
+      "lineFixed": 34480,
+      "status": "pass",
+      "note": "KEYOPT(7) list at lines 34480-34498 (cited line 34477 is inside KEYOPT(6)): 0=no control; 1=automatic bisection; 2=reasonable time/load increment; 3=minimum time/load increment; 4=impact constraints in transient dynamic with automatic time increment adjustment."
+    },
+    {
+      "dn": 34,
+      "statement": "CONTA174 KEYOPT(9) effect of initial penetration or gap: 0=include both penetration/gap and offset, 1=exclude both, 2=include both with ramped effects, 3=include offset only, 4=include offset only with ramped effects, 5=include offset only regardless of initial status, 6=include offset only with ramped effects regardless of status.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34525,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34525-34542 exact: all seven KEYOPT(9) values 0-6 match (include/exclude penetration/gap and offset, ramped and regardless-of-status variants)."
+    },
+    {
+      "dn": 35,
+      "statement": "CONTA174 KEYOPT(12) behavior of contact surface: 0=Standard, 1=Rough, 2=No separation when touch, 3=Bond when touch, 4=No separation when inside pinball region, 5=Bond when inside pinball region, 6=Bonded initial.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34589,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34584-34603 exact: 0=Standard; 1=Rough; 2=No separation when touch; 3=Bond when touch; 4=No separation inside pinball; 5=Bond inside pinball; 6=Bonded initial."
+    },
+    {
+      "dn": 36,
+      "statement": "CONTA174 KEYOPT(13) for frictional contact: 0=Use the default range for stiffness updating; 1=Make an aggressive refinement to the allowable stiffness range.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34614,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34614-34620 exact: frictional contact tangential stiffness variation 0=default range; 1=aggressive refinement."
+    },
+    {
+      "dn": 37,
+      "statement": "CONTA174 KEYOPT(15) effect of contact stabilization damping: 0=activated only in the first load step (default), 1=Deactivate automatic damping, 2=activated for all load steps, 3=activated at all times regardless of contact status.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34685,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34684-34698 exact: 0=first load step (default); 1=deactivate automatic damping; 2=all load steps; 3=at all times regardless of contact status."
+    },
+    {
+      "dn": 38,
+      "statement": "CONTA174 KEYOPT(16) squeal damping controls for interpretation of FDMD and FDMS: 0=scaling factors (default), 1=FDMD is a constant friction-sliding velocity gradient, 2=FDMD and FDMS are the destabilizing and stabilization damping coefficients.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34691,
+      "lineFixed": 34709,
+      "status": "pass",
+      "note": "KEYOPT(16) list at lines 34709-34716 (cited line 34691 is off): 0=scaling factors (default); 1=FDMD constant friction-sliding velocity gradient; 2=FDMD/FDMS destabilizing/stabilization coefficients."
+    },
+    {
+      "dn": 39,
+      "statement": "CONTA174 KEYOPT(18) sliding behavior: 0=Finite sliding (default), 1=Small sliding, 2=Adaptive small sliding.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34721,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34719-34734 exact: 0=Finite sliding (default); 1=Small sliding; 2=Adaptive small sliding."
+    },
+    {
+      "dn": 40,
+      "statement": "KEYOPT(6)=3 with the exponential pressure-penetration relationship does not support the Augmented Lagrange method (KEYOPT(2)=0); if these settings are used together, the program switches to the penalty method (KEYOPT(2)=1) internally.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3427,
+      "lineFixed": 3428,
+      "status": "pass",
+      "note": "Statement at lines 3428-3430 (cited line 3427 is a blank line): KEYOPT(6)=3 does not support AugLag; program switches internally to penalty (KEYOPT(2)=1)."
+    },
+    {
+      "dn": 41,
+      "statement": "For the no separation (KEYOPT(12)=4), bonded when inside pinball (KEYOPT(12)=5), and bonded initial (KEYOPT(12)=6) options, the default for PINB is 0.25 (25% of the contact depth).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4678,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 4675-4679 exact: for KEYOPT(12)=4,5,6 the default PINB is 0.25 (25% of contact depth)."
+    },
+    {
+      "dn": 42,
+      "statement": "When a value is input for real constant CNOF and the default PINB value is less than the absolute value of CNOF, the default for PINB is set to the absolute value of (1.1*CNOF).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4598,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 4596-4598 exact: if CNOF input and default PINB < |CNOF|, default PINB set to |1.1*CNOF|."
+    },
+    {
+      "dn": 43,
+      "statement": "For real constants FKN, FTOLN, PINB, PZER, CZER, FKOP, FKT, SLTO, TNOP, FDMN, and FDMT, the program interprets a positive value as a scaling factor and a negative value as the absolute value; the depth of the underlying element is the reference for FTOLN, PINB, and CZER.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2509,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 2509-2513 exact: FKN, FTOLN, PINB, PZER, CZER, FKOP, FKT, SLTO, TNOP, FDMN, FDMT positive=scaling factor, negative=absolute; underlying element depth is reference for FTOLN, PINB, CZER."
+    },
+    {
+      "dn": 44,
+      "statement": "FKN = 10 for bonded; for all other contact behaviors FKN = 1.0, but if bonded and other contact behavior exist, FKN = 1 for all.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2491,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 2491-2492 exact: FKN=10 for bonded; 1.0 otherwise; if bonded and other behavior exist, FKN=1 for all."
+    },
+    {
+      "dn": 45,
+      "statement": "Use a positive value of FDMN to specify a damping scaling factor in the normal direction (FDMN defaults to 1.0), and a positive value of FDMT for the tangential direction (FDMT defaults to 1.e-3); a negative value inputs an absolute tangential damping coefficient.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4958,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 4958-4963: positive FDMN = normal damping scaling factor (default 1.0); positive FDMT = tangential scaling factor (default 1.e-3); negative FDMT = absolute tangential damping coefficient. All sub-claims supported."
+    },
+    {
+      "dn": 46,
+      "statement": "By setting the double-sided target surface option (KEYOPT(8)=1 of the TARGE170 target element), you can model double-sided contact pairs with only one set of the target surface; this option is only valid for 3D models with surface-to-surface (CONTA174) and node-to-surface (CONTA175) contacts.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1758,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1758-1769 exact: TARGE170 KEYOPT(8)=1 double-sided target; only valid for 3D S-S (CONTA174) and node-to-surface (CONTA175)."
+    },
+    {
+      "dn": 47,
+      "statement": "You must use a pilot node in certain situations to control the boundary conditions and motion of the entire target surface, such as when the target is subjected to applied forces or rotations, is connected to other elements, or when modeling surface-based constraints or a rigid body.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 6042,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 6042-6048 exact: pilot node required for applied forces, rotations, connection to other elements, surface-based constraints/rigid body."
+    },
+    {
+      "dn": 48,
+      "statement": "By default KEYOPT(2)=0 for the target element and the program checks boundary conditions, treating target nodes along a DOF as fixed when there are no explicit BCs/prescribed forces, the nodes are not connected to other elements, and no CE/CP equations are used; KEYOPT(2)=1 lets you control the target node constraint conditions.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 6055,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 6055-6066 exact: target KEYOPT(2)=0 default checks BCs (no explicit BCs/forces, no connected elements, no CE/CP -> treated fixed); KEYOPT(2)=1 user control."
+    },
+    {
+      "dn": 49,
+      "statement": "For CONTA174 (also CONTA175 and CONTA177), real constant R1 is the radius if the target shape (TARGE170) is a cylinder, cone, or sphere, and R2 is the radius of a cone at the second node.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1603,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1601-1604 exact: R1 = radius if TARGE170 cylinder/cone/sphere; R2 = radius of cone at second node (CONTA174/175/177)."
+    },
+    {
+      "dn": 50,
+      "statement": "If the target surface is flat (or nearly flat) you may select low-order target elements; if the target surface is curved you should select high-order target elements (set KEYOPT(1)=1 in the target element definition).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1700,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1700-1703 exact: flat -> low-order target; curved -> high-order target (KEYOPT(1)=1)."
+    },
+    {
+      "dn": 51,
+      "statement": "In the basic Coulomb friction model, two contacting surfaces can carry shear stresses up to a certain magnitude (sticking); sliding begins when the equivalent shear stress τ = µp + COHE is exceeded, where µ is the friction coefficient and COHE specifies cohesion sliding resistance.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3489,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3489-3495 exact: Coulomb model, sticking up to equivalent shear stress tau = mu*p + COHE."
+    },
+    {
+      "dn": 52,
+      "statement": "For frictionless, rough, and bonded contact the contact element stiffness matrices are symmetric, but contact problems involving friction produce unsymmetric stiffnesses; the program uses a symmetrization algorithm, and you can choose NROPT,UNSYM to improve convergence when frictional stresses are highly solution dependent.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3499,
+      "lineFixed": 3500,
+      "status": "pass",
+      "note": "Statement at lines 3500-3507 (cited line 3499 is the preceding USERINTER sentence): symmetric stiffness for frictionless/rough/bonded, unsymmetric with friction, symmetrization algorithm, NROPT,UNSYM."
+    },
+    {
+      "dn": 53,
+      "statement": "Isotropic friction (TB,FRIC,,,ISO) is available for 2D and 3D contact elements based on a single coefficient MU (TB command recommended or MP command); orthotropic friction is available only for the 3D contact elements (CONTA174, CONTA175, CONTA176, CONTA177) and uses two coefficients MU1 and MU2 with TB,FRIC,,,ORTHO / FORTHO / EORTHO options.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3533,
+      "lineFixed": 3534,
+      "status": "pass",
+      "note": "Lines 3533-3560: isotropic (TB,FRIC,,,ISO) 2D/3D single MU (TB recommended or MP); orthotropic only 3D (CONTA174/175/176/177) with MU1/MU2 and ORTHO/FORTHO/EORTHO options."
+    },
+    {
+      "dn": 54,
+      "statement": "CONTA174 supports isotropic and orthotropic Coulomb friction; for isotropic friction specify a single MU using TB (recommended) or MP, and for orthotropic friction specify two coefficients MU1 and MU2 in two principal directions using TB command input.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34208,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34208-34211 exact: CONTA174 isotropic (single MU, TB recommended or MP) and orthotropic (MU1, MU2, TB) Coulomb friction."
+    },
+    {
+      "dn": 55,
+      "statement": "TAUMAX is maximum contact friction with units of stress; regardless of the magnitude of normal contact pressure, sliding occurs if the friction stress reaches this value (used when contact pressure is very large such as in bulk metal forming); TAUMAX defaults to 1.0e20 and its value may be close to the yield stress σy of the material being deformed.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3606,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3602-3609: TAUMAX max contact friction (stress units), sliding when friction stress reaches it, bulk metal forming use, default 1.0e20. Note: the formula after \"close to\" is missing in the extraction (blank at 3607); the sigma_y yield-stress relationship is supported by surrounding text."
+    },
+    {
+      "dn": 56,
+      "statement": "Another real constant used for the friction law is the cohesion, COHE (default COHE=0), which has units of stress and provides sliding resistance even with zero normal pressure.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3619,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3619-3621 exact: COHE default 0, stress units, sliding resistance with zero normal pressure."
+    },
+    {
+      "dn": 57,
+      "statement": "FACT is the ratio of static to dynamic coefficients of friction and defaults to a minimum value of 1.0; DC is the decay coefficient (units time/length) and defaults to zero, in which case µ=MU for sliding and µ=FACT*MU for sticking.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3635,
+      "lineFixed": 3637,
+      "status": "pass",
+      "note": "Statement at lines 3637-3641 (cited line 3635 is off): FACT ratio static/dynamic default min 1.0; DC decay coefficient time/length default 0; mu=MU sliding, mu=FACT*MU sticking."
+    },
+    {
+      "dn": 58,
+      "statement": "Arctangent friction is designed to improve convergence by providing smoothly-varying frictional stress with respect to sliding velocity; unlike the Coulomb model it is viscous and its stiffness matrix is always unsymmetric, so you should activate the unsymmetric solver via NROPT,UNSYM; it is highly dependent on the reference slip rate v0.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3728,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3728-3754: arctangent friction improves convergence, smoothly varying with sliding velocity, viscous, stiffness always unsymmetric -> NROPT,UNSYM, highly dependent on reference slip rate v0."
+    },
+    {
+      "dn": 59,
+      "statement": "In a static analysis you can model steady-state frictional sliding between two flexible bodies (or a flexible and rigid body) with different predefined velocities via the CMROTATE command; this feature is applicable to 3D contact (CONTA174, CONTA175) and is primarily used for generating sliding contact at frictional interfaces in a brake squeal analysis.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3655,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3655-3667 exact: steady-state frictional sliding via CMROTATE in static analysis; 3D contact CONTA174/CONTA175; brake squeal use."
+    },
+    {
+      "dn": 60,
+      "statement": "Velocities defined by CMROTATE are ignored for frictionless contact, rough contact (KEYOPT(12)=1), bonded contact (KEYOPT(12)=3,5,6), and MPC contact (KEYOPT(2)=2).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3674,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3672-3676 exact: CMROTATE velocities ignored for frictionless, rough (KEYOPT(12)=1), bonded (KEYOPT(12)=3,5,6), MPC (KEYOPT(2)=2)."
+    },
+    {
+      "dn": 61,
+      "statement": "Use real constant PINB to specify a scaling factor or absolute value for the pinball region; by default the program defines the pinball region as a circle for 2D or a sphere for 3D of radius 2*depth (rigid-to-flexible) or 1*depth (flexible-to-flexible) of the underlying element.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4586,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 4582-4587 exact: PINB scaling factor/absolute value; default circle(2D)/sphere(3D) radius 2*depth rigid-to-flexible, 1*depth flexible-to-flexible."
+    },
+    {
+      "dn": 62,
+      "statement": "The nodal detection algorithms require the smoothing of the contact surface (KEYOPT(4)=1) or the smoothing of the target surface (KEYOPT(4)=2), which is time consuming and should be used only to deal with corner, point-to-surface, or edge-to-surface contact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3785,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3785-3787 exact: nodal detection requires smoothing (KEYOPT(4)=1 contact or =2 target), time consuming, only for corner/point-to-surface/edge-to-surface."
+    },
+    {
+      "dn": 63,
+      "statement": "The dual shape function option is recommended for Lagrange multiplier contact (KEYOPT(2)=3 or 4), MPC bonded contact (KEYOPT(2)=2), and small sliding behavior (KEYOPT(18)=1 or 2).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3885,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3885-3886 exact: dual shape function recommended for LM (KEYOPT(2)=3 or 4), MPC bonded (KEYOPT(2)=2), small sliding (KEYOPT(18)=1 or 2)."
+    },
+    {
+      "dn": 64,
+      "statement": "For Normal Lagrange formulation (KEYOPT(2)=3,4), with 3D higher-order contact elements (with midside nodes), use of surface projection-based contacts (KEYOPT(4)=3,4) is strongly recommended.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3108,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3107-3109 exact: Normal Lagrange (KEYOPT(2)=3,4) + 3D higher-order (midside nodes) -> surface projection-based (KEYOPT(4)=3,4) strongly recommended."
+    },
+    {
+      "dn": 65,
+      "statement": "The finite-sliding option is used by default (KEYOPT(18)=0) and allows arbitrary separation, sliding, and rotation; the small-sliding option (KEYOPT(18)=1) is appropriate when sliding motion is less than 20% of the contact length, and the adaptive small-sliding option (KEYOPT(18)=2) uses small sliding during a substep if the contact is closed at its beginning.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3971,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3958-3998: finite sliding default KEYOPT(18)=0 (arbitrary separation/sliding/rotation); small sliding KEYOPT(18)=1 (<20% of contact length); adaptive KEYOPT(18)=2 (small sliding in substep if contact closed at its beginning)."
+    },
+    {
+      "dn": 66,
+      "statement": "CNCHECK,ADJUST physically moves contact nodes toward the target surface while leaving the rest of the model untouched; CNCHECK,MORPH moves contact nodes toward the target surface and also morphs the underlying solid element mesh to improve quality; CNCHECK,TADJUST moves the entire target body to engage the contact surface.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4279,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "ADJUST/MORPH exact at cited lines 4279-4283; TADJUST clause verified at line 4448 (SS3.9.11: \"CNCHECK,TADJUST option moves the entire target body to engage with the contact surface\"), outside the cited window but in the same guide."
+    },
+    {
+      "dn": 67,
+      "statement": "Use real constant CNOF to specify a contact surface offset (positive toward the target, negative away), and set KEYOPT(5) as 1 (close gap), 2 (reduce initial penetration), or 3 (either).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4238,
+      "lineFixed": 4060,
+      "status": "fix",
+      "note": "Cited line 4238 is in the STRM/TEND ramping text and does not support this. CNOF sign meaning exact at lines 4060-4062 (positive toward target, negative away); KEYOPT(5)=1 close gap / 2 reduce penetration / 3 either at lines 4076-4078 (SS3.9.8). True location: 4060."
+    },
+    {
+      "dn": 68,
+      "statement": "You should always issue the CNCHECK command before starting the solution to verify the initial contact status.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4238,
+      "lineFixed": 4042,
+      "status": "fix",
+      "note": "Cited line 4238 does not support this. Exact at lines 4042-4048: \"you should always issue the CNCHECK command before starting the solution to verify the initial contact status.\" True location: 4042."
+    },
+    {
+      "dn": 69,
+      "statement": "For standard contact (KEYOPT(12)=0) or rough contact (KEYOPT(12)=1), you can use real constants FDMN and FDMT to define contact damping scaling factors along contact normal and tangential directions; contact stabilization damping is deactivated by default and can be activated by setting KEYOPT(15)=2 or 3.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4919,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 4918-4922 (FDMN/FDMT for standard/rough), 4945 (deactivated by default), 4955-4956 (manually activate with KEYOPT(15)=2 or 3). All in cited window."
+    },
+    {
+      "dn": 70,
+      "statement": "You can account for the thickness of shells (2D and 3D) and beams using KEYOPT(11); by default the program does not account for the element thickness, and beams/shells are discretized at their mid-surface in which penetration distance is calculated from the mid-surface.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 11440,
+      "lineFixed": 5065,
+      "status": "fix",
+      "note": "Cited line 11440 is in the node-to-node solution-options section (no KEYOPT(11)). Exact at lines 5064-5071 (SS3.9.20.1): KEYOPT(11) thickness for shells (2D/3D) and beams; default no thickness, mid-surface discretization, penetration from mid-surface. True location: 5065."
+    },
+    {
+      "dn": 71,
+      "statement": "Use KEYOPT(7)=0,1,2, or 3 to control time stepping, where KEYOPT(7)=0 provides no control (the default) and KEYOPT(7)=3 provides the most control; KEYOPT(7)=4 activates impact constraints in a transient dynamic analysis with automatic adjustment of the time increment.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 5118,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 5118-5132 exact: KEYOPT(7)=0 no control (default), 3 most control, 4 impact constraints in transient dynamic with automatic time increment adjustment."
+    },
+    {
+      "dn": 72,
+      "statement": "The time step size must be small enough to capture the proper contact zone; a reliable way to set an accurate time step size is to turn automatic time stepping on (AUTOTS,ON), and you should use NROPT,FULL,,OFF and not adaptive descent; set NROPT,UNSYM when frictional sliding dominates; use NEQIT (defaults 15-26) and LNSRCH.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 6408,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 6408-6430 exact: time step small enough for contact zone; AUTOTS,ON; NROPT,FULL,,OFF, no adaptive descent; NROPT,UNSYM when frictional sliding dominates; NEQIT default 15-26; LNSRCH."
+    },
+    {
+      "dn": 73,
+      "statement": "You should avoid midside-noded elements for 3D contact surfaces when using the node-to-surface element CONTA175.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1410,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1409-1411 exact: avoid midside-noded elements for 3D contact surfaces with CONTA175."
+    },
+    {
+      "dn": 74,
+      "statement": "In general, if the underlying solid element has material properties defined by both TB and MP commands, the properties defined by TB take precedence over the properties defined by MP in the calculation of initial contact stiffness.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4238,
+      "lineFixed": 3293,
+      "status": "fix",
+      "note": "Cited line 4238 does not support this. Exact at lines 3293-3295 (SS3.9.4.4): TB properties take precedence over MP in initial contact stiffness calculation. True location: 3293."
+    },
+    {
+      "dn": 75,
+      "statement": "Ansys recommends using automatic generation (ESURF) for contact elements; this approach is simpler and more reliable.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1856,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1854-1856: Ansys recommends automatic generation, simpler and more reliable; step 2 at line 1862 names the ESURF command."
+    },
+    {
+      "dn": 76,
+      "statement": "You can check the direction of the outward normals for the contact elements with the /PSYMB,ESYS command; if the contact surface's outward normal does not point toward the target surface, reverse the node number order with ESURF,,REVE or reorient the element normals with ENORM.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1890,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1873-1891: /PSYMB,ESYS check of outward normals; normal should point toward target; otherwise ESURF,,REVE or ENORM. Cited line 1890 inside the passage."
+    },
+    {
+      "dn": 77,
+      "statement": "The pair-based contact definition is usually more efficient and more robust than the general contact definition; it supports more options and specific contact features.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34153,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34153-34154 exact: pair-based usually more efficient and robust, supports more options and specific features."
+    },
+    {
+      "dn": 78,
+      "statement": "Most contact models can employ either the pair-based contact method or the general contact method; the choice is a trade-off between ease of defining contact and solution robustness and performance, and general contact is mainly useful for models in which determining contact pairs between many parts is difficult or impossible.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 792,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 791-801 exact: either method possible; trade-off between ease of definition and robustness/performance; general contact mainly for many-part models where pairs are hard/impossible."
+    },
+    {
+      "dn": 79,
+      "statement": "Features not supported by general contact include: Debonding and cohesive contact behavior (TB,CZM), Contact surface wear (TB,WEAR), Impact constraints (KEYOPT(7)=4), Brake squeal analysis (CMROTATE), and Fluid pressure penetration loading.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 845,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 845-850: list of features not available in general contact includes TB,CZM, TB,WEAR, impact constraints (KEYOPT(7)=4), brake squeal (CMROTATE), fluid pressure penetration (plus 4 more items not in the statement)."
+    },
+    {
+      "dn": 80,
+      "statement": "The general contact surfaces are formed automatically (GCGEN command) based on physical parts and geometric shapes; general contact fully identifies all possible contact (including self-contact) and minimizes user intervention.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 769,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 769-771 exact: general contact surfaces formed automatically (GCGEN) from parts/shapes; identifies all possible contact incl. self-contact; minimizes user intervention."
+    },
+    {
+      "dn": 81,
+      "statement": "In a 3D general contact definition, the surface-to-surface contact formulation (CONTA174) may be combined with the 3D edge-to-surface formulation (CONTA177) and the 3D vertex-to-surface formulation CONTA175; CONTA174 is used as the primary contact constraint and CONTA177 and CONTA175 as supplemental constraints.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 783,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 782-785 exact: 3D general contact combines CONTA174 (primary) with CONTA177 and CONTA175 (supplemental)."
+    },
+    {
+      "dn": 82,
+      "statement": "The material ID and real constant ID input on GCDEF identify interface properties (defined by MP or TB commands) and contact control parameters (defined by the R command) for a specific contact interaction.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34193,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 34193-34195 exact: GCDEF material/real constant IDs identify MP/TB interface properties and R command control parameters."
+    },
+    {
+      "dn": 83,
+      "statement": "For general contact, the GCGEN command automatically sets KEYOPT(2)=1 (penalty function).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 34389,
+      "lineFixed": 34390,
+      "status": "pass",
+      "note": "Note at lines 34390-34392 (cited line 34389 is the preceding KEYOPT(2)=4 line): GCGEN automatically sets KEYOPT(2)=1 (penalty) for general contact."
+    },
+    {
+      "dn": 84,
+      "statement": "The default contact algorithm for pair-based APDL is Aug. Lagr. (Augmented Lagrangian); for general contact (GCGEN) it is Penalty.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2841,
+      "lineFixed": 820,
+      "status": "fix",
+      "note": "Cited line 2841 is a garbled multi-column table (columns Contact Wizard/Ansys Mechanical/APDL) in which the Aug. Lagr./Penalty values cannot be reliably attributed. The claim is clearly supported by the SS1.2.2 Difference in Default Settings table, lines 811-822: General Contact Default = Penalty method, Pair-Based Contact Default = Augmented Lagrange method. True location: 820."
+    },
+    {
+      "dn": 85,
+      "statement": "Use real constant CNOF to specify a contact surface offset; set a positive value to offset the entire contact surface toward the target surface and a negative value away from it.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4238,
+      "lineFixed": 4060,
+      "status": "fix",
+      "note": "Cited line 4238 does not support this. Exact at lines 4060-4062: positive CNOF offsets toward target, negative away. True location: 4060."
+    },
+    {
+      "dn": 86,
+      "statement": "Mechanical APDL offers approaches to solve large initial penetrations gradually, including contact surface offset (CNOF) as a function of time via tabular input, ramping the penetration (KEYOPT(9)=2 or 4), and ramping the contact stiffness (KEYOPT(9)=2 or 4 with STRM/TEND); the initial interference fit is usually solved under frictionless conditions before applying all external loads.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4238,
+      "lineFixed": 4178,
+      "status": "pass",
+      "note": "SS3.9.9 (lines 4178-4254) supports all sub-claims: method 1 CNOF vs time via tabular input (4179-4187); method 2 ramp penetration KEYOPT(9)=2 or 4 (4188-4189, 4251); method 3 stiffness ramping STRM/TEND (4223-4238, cited line inside); interference fit solved frictionless before external loads (4244-4245). Full list starts at 4178."
+    },
+    {
+      "dn": 87,
+      "statement": "It is highly recommended that you apply the contact surface to the bolt and the target surface to the bolt hole, and symmetric contact should not be used for bolt thread modeling.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2030,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 2029-2033 exact: contact surface on bolt / target on bolt hole highly recommended; symmetric contact should not be used for bolt thread modeling."
+    },
+    {
+      "dn": 88,
+      "statement": "Contact elements CONTA172, CONTA174, and CONTA177 support contact pair-splitting.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 6475,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 6475 exact: CONTA172, CONTA174, CONTA177 support contact pair-splitting."
+    },
+    {
+      "dn": 89,
+      "statement": "Geometry correction for contact/target surfaces is applied via SECTYPE,SECID,CONTACT,CIRCLE / SPHERE / CYLINDER with SECDATA and a section ID.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 1919,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1908-1935: SECTYPE,SECID,CONTACT,CIRCLE/SPHERE/CYLINDER with SECDATA; applied via section ID (SECNUM/EMODIF)."
+    },
+    {
+      "dn": 90,
+      "statement": "Debonding refers to separation of bonded contact (KEYOPT(12)=2,3,4,5 or 6), is activated by associating a cohesive zone material model (TB,CZM) with contact elements, and is available only for pure penalty and augmented Lagrangian methods (KEYOPT(2)=0,1) with contact elements CONTA172, CONTA174, CONTA175, and CONTA177.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+      "line": 22204,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 22203-22206 exact: debonding = separation of bonded (KEYOPT(12)=2..6), TB,CZM, only penalty/AugLag (KEYOPT(2)=0,1), CONTA172/174/175/177."
+    },
+    {
+      "dn": 91,
+      "statement": "Impact constraints can be selected by setting KEYOPT(7)=4 for any of the 2D or 3D contact elements and are valid for all types of contact interactions (flexible-to-flexible, flexible-to-rigid, and rigid-to-rigid) with and without friction; an automatic time stepping scheme is used to predict the time of impact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+      "line": 22134,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 22133-22137 exact: KEYOPT(7)=4 for any 2D/3D contact element; all interaction types with/without friction; automatic time stepping predicts time of impact."
+    },
+    {
+      "dn": 92,
+      "statement": "The contact damping coefficient is specified as a function of the opening gap based on upinb (pinball radius, real constant PINB), dn0 (normal contact damping coefficient, real constant FDMN), and dt0 (tangential contact damping coefficient, real constant FDMT).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+      "line": 21866,
+      "lineFixed": 22108,
+      "status": "fix",
+      "note": "Cited line 21866 is in the friction-integration text and does not support this. Exact at lines 22108-22119 (SS13.174.5 Viscous Damping): damping coefficient specified as function of opening gap; upinb=PINB, dn0=FDMN, dt0=FDMT. True location: 22108."
+    },
+    {
+      "dn": 93,
+      "statement": "The augmented Lagrange algorithm is used for the frictional contact pairs (brake squeal), as the pressure and frictional stresses are augmented during equilibrium iterations so penetration is reduced gradually; it requires fewer computational resources than the standard Lagrange multiplier algorithm and is well suited for general frictional contact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 4991,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 4991-4996 exact (brake squeal chapter): AugLag for frictional pairs, augmented during equilibrium iterations, fewer computational resources than standard LM, well suited for general frictional contact. Distinct from G3 (application + LM comparison claim)."
+    },
+    {
+      "dn": 94,
+      "statement": "An internal multipoint constraint (MPC) contact algorithm is used for bonded contact because it ties the contact and target surfaces together efficiently for solid-solid assembly, building equations internally based on contact kinematics and not requiring the DOF of the contact surface nodes; a contact detection point is made on the Gauss point for frictional pairs and on the nodal point (normal-to-target surface) for MPC bonded pairs.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 4999,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 4997-5002 exact: MPC for bonded contact, ties surfaces efficiently, internal equations from contact kinematics, no contact-node DOF needed; Gauss-point detection for frictional pairs, nodal (normal-to-target) for MPC bonded."
+    },
+    {
+      "dn": 95,
+      "statement": "The CMROTATE command defines constant rotational velocities on the contact/target nodes to generate a sliding frictional force in the brake squeal analysis (e.g., CMROTATE, E_ROTOR, , , 2).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 5007,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 5007-5018: CMROTATE defines constant rotational velocities on contact/target nodes; E_ROTOR component specified in CMROTATE to generate sliding frictional force. Literal command \"CMROTATE, E_ROTOR, , , 2\" verified at line 5090 (same section)."
+    },
+    {
+      "dn": 96,
+      "statement": "A standard surface-to-surface contact pair using the augmented Lagrangian algorithm is defined between the cam and valve ball; CONTA174 and TARGE170 elements are used in that pair and its status changes during analysis.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 2769,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 2759-2771 exact: standard S-S pair with augmented Lagrangian between cam and valve ball; CONTA174 + TARGE170; status changes during analysis."
+    },
+    {
+      "dn": 97,
+      "statement": "In the camshaft demo, bonded contact pairs with the MPC algorithm are defined using CONTA175 (ET,1,175) and TARGE170 (ET,2,170) with KEYOPT,1,12,5 (bonded contact) and KEYOPT,1,2,2 (MPC style contact).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 2730,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 2723-2736 exact: bonded MPC pairs (shaft-cams, valve ball-valve); ET,1,175 / ET,2,170 / KEYOPT,1,12,5 / KEYOPT,1,2,2."
+    },
+    {
+      "dn": 98,
+      "statement": "In the hot-rolling demo, the contact pair uses CONTA174 (ET,2,CONTA174) with KEYOPT,2,10,2 (stiffness update each iteration) and TARGE170 (ET,3,TARGE170); the rigid top roller is a cylinder primitive (tshap,cyli) with radius 1 (r,3,1) and a pilot node (tshap,pilot).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 15753,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 15751-15773 exact: et,2,CONTA174 + KEYOPT,2,10,2 (stiffness update each iteration) + et,3,TARGE170; tshap,cyli roller, r,3,1 radius 1; tshap,pilot node."
+    },
+    {
+      "dn": 99,
+      "statement": "In the FSW demo, the tool-workpiece contact pair uses TARGE170 (ET,4) and CONTA174 (ET,5) with keyopt,5,1,1 (displacement & temp DOF), keyopt,5,5,3 (close gap/reduce penetration), keyopt,5,9,1 (exclude initial penetration/gap), and rmodif,5,9,500e6 (TAUMAX, max friction stress).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 16283,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 16283-16289 exact: et,4,TARGE170 / et,5,CONTA174; keyopt,5,1,1 (disp+temp DOF); keyopt,5,5,3 (close gap/reduce penetration); keyopt,5,9,1 (exclude initial penetration/gap); rmodif,5,9,500e6. Real constant 9 = TAUMAX \"Maximum friction stress\" per ERef Table 7.174.1 (line 34788)."
+    },
+    {
+      "dn": 100,
+      "statement": "The FSW tool-workpiece friction coefficient is defined as a function of temperature using TB,FRIC with TBTEMP and TBDATA (variable coefficient of friction 0.4 to 0.2).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 16270,
+      "lineFixed": 16280,
+      "status": "pass",
+      "note": "Statement at lines 16280-16281 (cited line 16270 is off): variable coefficient of friction (0.4 to 0.2) via TB,FRIC with TBTEMP and TBDATA."
+    },
+    {
+      "dn": 101,
+      "statement": "For the FSW plate-plate bonding pair, a high thermal contact conductance (TCC) of 2E06 W/m2 °C is specified and the bonding temperature is specified using real constant TBND for CONTA174; when the contact surface temperature for closed contact exceeds the bonding temperature the contact type changes to bonded.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 16233,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 16233-16249 exact: TCC 2E06 W/m2 C (code rmodif,6,14,2e06; R14=TCC per ERef); TBND bonding temperature (rmodif,6,35,1000; R35=TBND); closed contact above bonding temperature -> contact type changes to bonded."
+    },
+    {
+      "dn": 102,
+      "statement": "In the FSW rigid surface constraint: KEYOPT(2)=2 (MPC contact algorithm), KEYOPT(4)=2 (rigid surface constraint), and KEYOPT(12)=5 (bonded always) are used for the CONTA174 elements.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 16304,
+      "lineFixed": 16307,
+      "status": "pass",
+      "note": "Statement at lines 16306-16309 (cited line 16304 is off): CONTA174 rigid surface constraint uses KEYOPT(2)=2 (MPC), KEYOPT(4)=2 (rigid surface constraint), KEYOPT(12)=5 (bonded always)."
+    },
+    {
+      "dn": 103,
+      "statement": "In the FSW input file fsw.dat, the maximum friction stress is specified with real constant TAUMAX via rmodif,5,9,500e6.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-28\\fsw.dat",
+      "line": 228,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "fsw.dat line 228 exact: \"rmodif,5,9,500e6 !Max.friction stress\"; real constant 9 = TAUMAX per ERef Table 7.174.1 (line 34788)."
+    },
+    {
+      "dn": 104,
+      "statement": "CONTA174 element output (Table 7.174.2) includes contact status (CONT:STAT), penetration (CONT:PENE), gap (CONT:GAP), normal contact pressure (CONT:PRES), tangential contact stresses (TAUR/TAUS), current normal contact stiffness (KN), current tangent contact stiffness (KT), friction coefficient (MU), and stabilization energy (AENE).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 35066,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Table 7.174.2 (lines 35066-35528) verified: CONT:STAT (35106), CONT:PENE (35130), CONT:GAP (35134), CONT:PRES (35158), TAUR/TAUS (35162), KN (35166), KT (35170), MU (35174). Caveat: AENE is NOT listed in Table 7.174.2 in this document version (whole-table scan; \"stabilization energy\" 0 hits in ERef); AENE is confirmed as the ETABLE label for contact stabilization energy at CTG line 5010."
+    },
+    {
+      "dn": 105,
+      "statement": "The Showcase example includes CONTA174/TARGE170 element definitions (et,2,CONTA174 with KEYOPT,2,10,2 and et,3,TARGE170) in the hot-rolling (Ch. 27) and FSW (Ch. 28/30) contact modeling sections.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+      "line": 16889,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Showcase line 16889-16891 (Ch. 27 hot-rolling, Example 27.1): et,2,CONTA174 + KEYOPT,2,10,2 + et,3,TARGE170; Ch. 28 FSW section has et,6,TARGE170/et,7,CONTA174 (17412-17413) and et,4,TARGE170/et,5,CONTA174 (17444-17445)."
+    }
+  ],
+  "excludedFromDenominator": [
+    {
+      "dn": 14,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G1 (KEYOPT(2) value-to-algorithm mapping incl. defaults); verified at CTG 3060-3064 but excluded as duplicate of original grid fact G1."
+    },
+    {
+      "dn": 15,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G2 (penalty uses contact spring, FKN/FKT for all KEYOPT(10), +FTOLN/SLTO if KEYOPT(10)=0 or 2); verified at CTG 3065-3067 but excluded as duplicate of G2."
+    },
+    {
+      "dn": 16,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G3 (AugLag iterative penalty series, tractions augmented, final penetration < FTOLN, better conditioning, less stiffness-sensitive, more iterations with distorted mesh); verified at CTG 3068-3074 but excluded as duplicate of G3."
+    },
+    {
+      "dn": 17,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G4 (pure LM: zero penetration/zero slip, no FKN/FKT, needs FTOLN+TNOP, extra DOF, higher cost); verified at CTG 3075-3080 but excluded as duplicate of G4."
+    },
+    {
+      "dn": 20,
+      "reason": "duplicate-of-original",
+      "detail": "G6 already states \"also not compatible with Gauss point detection (KEYOPT(4) = 0)\"; verified at CTG 3091-3092 but excluded as duplicate of G6."
+    },
+    {
+      "dn": 22,
+      "reason": "duplicate-of-original",
+      "detail": "G6 already states zero diagonal terms -> PCG preconditioning singularity -> sparse solver; verified at CTG 3115-3117 but excluded as duplicate of G6."
+    },
+    {
+      "dn": 26,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G3 (AugLag iterative penalty updates, better conditioning, less sensitive to stiffness, extra iterations with distorted mesh); verified at TR 22057-22061 but excluded as duplicate of G3."
+    },
+    {
+      "dn": 28,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G1 (KEYOPT(2) value-to-algorithm mapping, same five values); verified at ERef 34373-34389 but excluded as duplicate of G1."
+    }
+  ],
+  "stats": {
+    "originalCount": 6,
+    "dTotal": 105,
+    "dPass": 90,
+    "dFix": 7,
+    "dDrop": 0,
+    "dDefect": 0,
+    "dDuplicate": 8,
+    "denominator": 103
+  }
+}

@@ -44,7 +44,7 @@ Flow:
      `write` creates parents); copy = `read`(source) → `write`(dest) + partial re-read
    - dir listing: `read` a candidate path (`ENOENT` = free existence test);
      listing via `bash` → just `Get-ChildItem`
-   - last resort: deliver a **copyable PowerShell** block + expected output,
+   - last resort: deliver a **copyable powershell** block + expected output,
      exploit pasted output (only if `bash` tool fails)
 3. **Zero wasted turn**: one attempt per tool per error mode — on failure,
    move to the next priority option; reuse `VERIFIED_FACTS.md`.

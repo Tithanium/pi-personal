@@ -22,7 +22,7 @@ ecriture.
 - **Jamais touche** : `extensions/`, `skills/`, `AGENTS.md`, `auth.json`,
   `sessions/`, `npm/`.
 
-## Procedure (3 etapes, PowerShell)
+## Procedure (3 etapes, powershell)
 
 ### Etape 1 — snapshot AVANT le lancement
 

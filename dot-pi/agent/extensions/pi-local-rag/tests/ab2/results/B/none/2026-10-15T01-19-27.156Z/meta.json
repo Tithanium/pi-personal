@@ -1,0 +1,110 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 519,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 7558,
+    "provenance": "new B:none run 2026-10-15T01-19-27.156Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6577; 6 sections, 7473 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6576976918503004
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 75,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 8986,
+    "provenance": "new B:none run 2026-10-15T01-19-27.156Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6124; 6 sections, 8902 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 121,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 10328,
+    "provenance": "new B:none run 2026-10-15T01-19-27.156Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.5622; 1 sections, 10242 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 105,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 9116,
+    "provenance": "new B:none run 2026-10-15T01-19-27.156Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.7032; 1 sections, 9030 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 70,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 11212,
+    "provenance": "new B:none run 2026-10-15T01-19-27.156Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.5871; 4 sections, 11128 B)",
+    "internals": {
+      "nChunks": 5,
+      "nSections": 4,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5870772418610883
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 69,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:none run 2026-10-15T01-19-27.156Z",
+    "empty": true,
+    "note": "none: verdict=empty (topRaw 0.3766 < rawMin 0.47) → empty payload (P2-R4 raw relevance gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "none",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.37659326076748556
+    }
+  }
+]

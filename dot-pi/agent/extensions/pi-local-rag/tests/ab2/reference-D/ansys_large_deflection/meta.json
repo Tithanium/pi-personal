@@ -1,0 +1,24 @@
+{
+  "id": "ansys_large_deflection",
+  "source": "reused-phase1",
+  "wallMs": 900000,
+  "tokensIn": 315388,
+  "tokensOut": 25236,
+  "wallIsCap": true,
+  "capHit": false,
+  "answerBytes": 43789,
+  "factsCount": 121,
+  "verifyPassRate": 0.7521,
+  "verify": {
+    "pass": 91,
+    "fix": 30,
+    "drop": 0,
+    "notFound": 0
+  },
+  "extractionWallMs": 1362989,
+  "extractionTokensIn": 560540,
+  "extractionTokensOut": 23762,
+  "extractionOk": true,
+  "note": "answer copied from baseline-A; extraction ok (121 facts; extractedJson=true)",
+  "done": true
+}

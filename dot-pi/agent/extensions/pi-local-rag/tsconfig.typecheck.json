@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "target": "es2022",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@earendil-works/pi-coding-agent": ["C:/Users/connessn/AppData/Roaming/npm/node_modules/@earendil-works/pi-coding-agent/dist/index.d.ts"]
+    }
+  },
+  "include": ["*.ts"]
+}

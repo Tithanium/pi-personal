@@ -1,0 +1,22 @@
+[
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 1581,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": false,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-15T01-39-15.919Z",
+    "empty": true,
+    "note": "child error: 400 {\"detail\":\"Model not found\"}",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "cappedModel": "alan/ragcap-alan-qwen-3-8-27b",
+      "rescue": false
+    }
+  }
+]

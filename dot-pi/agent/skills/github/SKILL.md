@@ -23,7 +23,7 @@ backed up by verified command help or official docs, say so.
   `read:org`, `repo`). Re-verify with `gh auth status` when a call fails with
   an auth error.
 - git 2.52.0.windows.1; user configured `Tithanium <nathanael.connesson@gmail.com>`.
-- Shell on this machine is PowerShell. The pi `bash` tool runs PowerShell
+- Shell on this machine is powershell. The pi `bash` tool runs powershell
   syntax; GitHub CLI is a native exe and works as any other program.
 - a Command /git_it -GitHub Tithanium/pi_personal create/push a deterministic copy of the current harness to the folder in GitHub. 
 
@@ -70,7 +70,7 @@ BEFORE answering:
 - Follow the project's commit conventions (see `CONTRIBUTING.md`).
   Conventional Commits is a good default: `type(scope): subject`.
 - Keep commits atomic; the message explains the WHY. On this Windows setup the
-  pi shell is PowerShell — quote arguments accordingly.
+  pi shell is powershell — quote arguments accordingly.
 
 ### 3. Pull requests
 

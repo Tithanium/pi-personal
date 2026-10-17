@@ -80,6 +80,7 @@ export declare const SettingsSchema: Type.TObject<{
     defaultThinkingLevel: Type.TOptional<Type.TEnum<["off", "minimal", "low", "medium", "high", "xhigh", "max"]>>;
     modelThinkingLevels: Type.TOptional<Type.TRecord<"^.*$", Type.TEnum<["off", "minimal", "low", "medium", "high", "xhigh", "max"]>>>;
     transport: Type.TOptional<Type.TUnion<[Type.TLiteral<"auto">, Type.TLiteral<"sse">, Type.TLiteral<"websocket">, Type.TLiteral<"websocket-cached">]>>;
+    sessionShareDestination: Type.TOptional<Type.TUnion<[Type.TLiteral<"auto">, Type.TLiteral<"gist">, Type.TLiteral<"radius">]>>;
     steeringMode: Type.TOptional<Type.TUnion<[Type.TLiteral<"all">, Type.TLiteral<"one-at-a-time">]>>;
     followUpMode: Type.TOptional<Type.TUnion<[Type.TLiteral<"all">, Type.TLiteral<"one-at-a-time">]>>;
     theme: Type.TOptional<Type.TString>;
@@ -216,6 +217,7 @@ export interface CodemodeSettings extends Static<typeof CodemodeSettingsSchema> 
 export type DefaultProjectTrust = NonNullable<SettingsInput["defaultProjectTrust"]>;
 export type QuietStartup = NonNullable<SettingsInput["quietStartup"]>;
 export type TransportSetting = NonNullable<SettingsInput["transport"]>;
+export type SessionShareDestination = NonNullable<SettingsInput["sessionShareDestination"]>;
 export type PackageSource = Static<typeof PackageSourceSchema>;
 export type FullscreenExitOutput = NonNullable<SettingsInput["fullscreenExitOutput"]>;
 export type TuiMode = NonNullable<SettingsInput["tuiMode"]>;

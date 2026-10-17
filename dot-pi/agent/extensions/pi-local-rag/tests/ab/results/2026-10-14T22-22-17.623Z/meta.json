@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 85914,
+    "tokensIn": 38148,
+    "tokensOut": 2360,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

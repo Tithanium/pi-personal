@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, renameSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { join } from "node:path";
 import { homedir } from "node:os";
 
 // Legacy lens→rag rename target. Overridable via env for tests.
@@ -9,40 +9,19 @@ export const LEGACY_DIR = process.env.PI_RAG_LEGACY_DIR ?? join(homedir(), ".pi"
 export const GLOBAL_RAG_DIR = () => join(homedir(), ".pi", "rag");
 
 /**
- * Resolve the active RAG store directory for the current cwd.
+ * Resolve the active RAG store directory.
  *
- * 1. `$PI_RAG_DIR` — explicit override, wins over everything.
- * 2. Walk upward from `process.cwd()` looking for an existing `.pi/rag/`,
- *    stopping before `homedir()` so the global store at `~/.pi/rag/` is only
- *    reached as an explicit fallback (not via walk-up).
- * 3. With `createIfMissing`, create `${cwd}/.pi/rag/`.
- * 4. Otherwise, fall back to `${homedir()}/.pi/rag/`.
+ * Contract: the store is ALWAYS the global dir `${homedir()}/.pi/rag/`
+ * (created if missing, with lens→rag migration handled by ensureDir),
+ * UNLESS `$PI_RAG_DIR` is set, in which case that path wins (created if
+ * missing). There is no cwd walk-up and no per-cwd store creation, ever.
  */
-export function getRagDir(opts: { createIfMissing?: boolean } = {}): string {
+export function getRagDir(): string {
   const override = process.env.PI_RAG_DIR;
   if (override) {
     if (!existsSync(override)) mkdirSync(override, { recursive: true });
     return override;
   }
-  const home = homedir();
-  let dir = process.cwd();
-  // Walk-up search, stopping before $HOME so we don't accidentally pick up
-  // ~/.pi/rag via the walk (that path is reached only as the explicit
-  // fallback below).
-  while (true) {
-    if (dir === home) break;
-    const candidate = join(dir, ".pi", "rag");
-    if (existsSync(candidate)) return candidate;
-    const parent = dirname(dir);
-    if (parent === dir) break; // reached filesystem root
-    dir = parent;
-  }
-  if (opts.createIfMissing) {
-    const local = join(process.cwd(), ".pi", "rag");
-    mkdirSync(local, { recursive: true });
-    return local;
-  }
-  // Fallback: home-dir global. ensureDir handles creation + lens→rag migration.
   const global = GLOBAL_RAG_DIR();
   ensureDir(global);
   return global;

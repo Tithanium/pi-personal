@@ -20,3 +20,4 @@ npm/
 
 # subagent timing-log data (regenerable, do not track)
 extensions/subagent/usage-log.jsonl
+models.json.ragcap-bak

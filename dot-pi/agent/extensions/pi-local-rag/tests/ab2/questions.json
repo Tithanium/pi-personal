@@ -1,0 +1,309 @@
+{
+  "suite": "pi-local-rag PHASE 2 — 12-question suite (5 simple + 5 complex + 2 unrelated; keyFacts verified in the corpus)",
+  "corpora": {
+    "ansys": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS",
+    "fedoo": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo"
+  },
+  "questions": [
+    {
+      "id": "fedoo_rectangle_mesh",
+      "corpus": "fedoo",
+      "complexity": "simple",
+      "text": "How do I build a rectangular mesh in fedoo? Give the exact function call.",
+      "keyFacts": [
+        {
+          "fact": "fd.mesh.rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type='quad4', ndim=None, name='') creates a rectangular Mesh; nx, ny are the numbers of nodes in the x and y axes (default 11) and x_min/x_max/y_min/y_max the boundary of the rectangle (default 0, 1, 0, 1)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py, def rectangle_mesh, signature lines 24-34 and docstring Parameters lines 38-43"
+        },
+        {
+          "fact": "elm_type accepts 'tri3', 'tri6', 'quad4', 'quad8', 'quad9' (default 'quad4'); for 'quad9' and 'tri6' the function forces nx and ny to odd values (nx = nx // 2 * 2 + 1, same for ny)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py, def rectangle_mesh, docstring elm_type lines 44-51 and odd-node fix lines 67-69"
+        },
+        {
+          "fact": "The function returns the generated geometry as a fedoo Mesh object (class fedoo.core.mesh.Mesh)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py, def rectangle_mesh, docstring Returns lines 53-56; import line 3"
+        },
+        {
+          "fact": "Related mesh builders in the same module: line_mesh (1D line mesh, def at line 330), box_mesh (3D volume mesh, def at line 478), grid_mesh_cylindric and line_mesh_cylindric (cylindrical), as listed in the docstring 'See Also'",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py, docstring See Also lines 58-64; def line_mesh line 330, def box_mesh line 478"
+        }
+      ]
+    },
+    {
+      "id": "fedoo_stresseq_nlgeom",
+      "corpus": "fedoo",
+      "complexity": "simple",
+      "text": "What is the StressEquilibrium weak form for, and what does the nlgeom parameter do?",
+      "keyFacts": [
+        {
+          "fact": "fd.weakform.StressEquilibrium(constitutivelaw, incompressibility=None, convert_tangent=True, name='', nlgeom=None, space=None) is the mechanical equilibrium equation for solids, usable for a solid in 3D or using a 2D plane assumption (plane strain or plane stress)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, class StressEquilibrium, docstring lines 18-22 and signature lines 64-72"
+        },
+        {
+          "fact": "nlgeom: set to False if geometric nonlinearities are ignored; True or 'UL' activates geometric nonlinearities based on the updated Lagrangian method (update the mesh); 'TL' uses the total Lagrangian method (based on the initial mesh with initial displacement effect); if not defined, the problem.nlgeom parameter is used instead (used in the context of NonLinearStatic or NonLinearNewmark problems)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, docstring 'nlgeom' parameter lines 50-58 and attribute docstring lines 93-100"
+        },
+        {
+          "fact": "The weak form accepts geometric nonlinearities only if simcoon is installed (nlgeom in {True, 'UL', 'TL'}); in that case the initial displacement is also considered and several corotational formulations may be used by setting the corate attribute (default 'log_r', other options 'log', 'jaumann', 'green_naghdi'/'gn', ...)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, docstring lines 25-28 and corate attribute lines 102-107"
+        },
+        {
+          "fact": "For nearly incompressible materials, the incompressibility attribute selects a method to avoid the volumetric locking; by default (None) the standard displacement formulation is used",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, docstring lines 29-30 and 'incompressibility' parameter lines 39-42"
+        }
+      ]
+    },
+    {
+      "id": "ansys_nlgeom_cmd",
+      "corpus": "ansys",
+      "complexity": "simple",
+      "text": "What does the NLGEOM,ON command do in ANSYS Mechanical APDL?",
+      "keyFacts": [
+        {
+          "fact": "NLGEOM,Key 'includes large-deflection effects in a static or full transient analysis'; Key=OFF ignores large-deflection effects (a small-deflection analysis is specified) and Key=ON includes large-deflection (large rotation) effects or large strain effects, according to the element type",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt, command NLGEOM, lines 51992-52008"
+        },
+        {
+          "fact": "Command default: large-deflection effects are ignored (NLGEOM,OFF is the default)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt, command NLGEOM, 'Command Default' lines 52009-52010"
+        },
+        {
+          "fact": "When large-deflection effects are included (NLGEOM,ON), stress stiffening effects are also included automatically",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt, command NLGEOM, Notes lines 52011-52015"
+        },
+        {
+          "fact": "If used during the solution (/SOLU), the command is valid only within the first load step; it is also valid in PREP7",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt, command NLGEOM, Notes lines 52016-52024"
+        }
+      ]
+    },
+    {
+      "id": "ansys_fkn_contact",
+      "corpus": "ansys",
+      "complexity": "simple",
+      "text": "What is the FKN real constant in penalty contact in ANSYS Mechanical APDL, and what is its default value?",
+      "keyFacts": [
+        {
+          "fact": "FKN is real constant R3, the 'normal penalty stiffness factor'; the penalty method (KEYOPT(2) = 1) uses the real constants FKN and FKT for all values of KEYOPT(10), plus FTOLN and SLTO if KEYOPT(10) = 0 or 2",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.1 Real Constants, FKN row (R3) lines 2236-2243, and Section 3.9.3 Selecting a Contact Algorithm, lines 3065-3067"
+        },
+        {
+          "fact": "FKN defines a normal contact stiffness factor; the usual factor range is from 0.1 to 10.0, with a default of 1.0 (Section 3.9.4.2); a negative value for FKN defines an absolute normal contact stiffness",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.4.2 Using FKN and FTOLN, lines 3152-3156"
+        },
+        {
+          "fact": "FKN APDL default is 1 (range 0.1–10.0, §3.9.4.2)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.4.2 Using FKN and FTOLN, lines 3152–3156 (\"The usual factor range is from 0.1 - 10.0, with a default of 1.0.\"). Note: Table 3.1's FKN row (lines 2238–2244) is a PDF-conversion column-bleed artifact — its garbled 0.1/0.1 values do not state the APDL default; §3.9.4.2 is the authoritative statement."
+        },
+        {
+          "fact": "For FKN (and FTOLN, PINB, PZER, CZER, FKOP, FKT, SLTO, TNOP, FDMN, FDMT) the program interprets a positive value as a scaling factor and a negative value as the absolute value; contact-related settings (FTOLN, PINB, FKN, FKT, SLTO) are always averaged across all contact elements in a contact pair",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.1.1 Positive and Negative Real Constant Values, lines 2508-2516"
+        }
+      ]
+    },
+    {
+      "id": "fedoo_modelingspace",
+      "corpus": "fedoo",
+      "complexity": "simple",
+      "text": "How do I create a ModelingSpace for 2D plane and 3D problems in fedoo?",
+      "keyFacts": [
+        {
+          "fact": "fd.ModelingSpace(dimension, name='Main') creates the space in which coordinates and variables (functions over coordinates) are defined; a modeling space is required to be able to define weak equations",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\modelingspace.py, class ModelingSpace, __init__ docstring lines 9-31"
+        },
+        {
+          "fact": "dimension must be one of '2D', '3D', '2Dplane', '2Dstress', '2Daxi'; the string '2D' is mapped to '2Dplane'",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\modelingspace.py, __init__ dimension mapping and assert lines 33-43"
+        },
+        {
+          "fact": "'2D'/'2Dplane' = general 2D problems with default coordinates 'X' and 'Y' and plane strain assumption (ndim=2); '3D' = 3D problems with coordinates 'X', 'Y', 'Z' (ndim=3); '2Dstress' = same as 2D but with plane stress assumption; '2Daxi' = same as 2D but with axisymmetric assumption",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\modelingspace.py, __init__ docstring lines 16-21 and coordinate/ndim setup lines 62-73"
+        },
+        {
+          "fact": "A newly created ModelingSpace automatically becomes the active space and is stored in the class dictionary under its name (retrievable as fd.ModelingSpace['Main']); the active space can be changed with make_active() or set_active(name) and read with get_active()",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\modelingspace.py, active/dict setup lines 46-47, __class_getitem__ lines 75-76, make_active line 92, set_active line 97, get_active line 110"
+        }
+      ]
+    },
+    {
+      "id": "ansys_large_deflection",
+      "corpus": "ansys",
+      "complexity": "complex",
+      "reuse": "ansys_large_deflection",
+      "text": "In ANSYS Mechanical APDL, how do I set up a nonlinear large-deflection static structural analysis (e.g. a thin plate or a long slender bar in bending)? Which solution control commands should I set for robust convergence - automatic time stepping, line search, Newton-Raphson option, convergence criteria?",
+      "keyFacts": [
+        {
+          "fact": "NLGEOM,ON activates large-deflection effects; select Large Displacement Static when large deflections are expected (e.g. a long, slender bar under bending)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Section 2.2.2.2 Basic Tab options, ~line 1614"
+        },
+        {
+          "fact": "LNSRCH activates the line search option (listed in the Nonlinear tab options of Solution Controls)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Table 2.3 Nonlinear Tab Options, ~line 1666"
+        },
+        {
+          "fact": "PRED activates a predictor on the degree-of-freedom solution; NEQIT specifies the maximum number of equilibrium iterations allowed per substep",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Table 2.3 Nonlinear Tab Options, ~line 1672"
+        },
+        {
+          "fact": "CNVTOL sets the convergence criteria; CUTCONTROL controls bisections (cutback criteria)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Table 2.3 Nonlinear Tab Options, ~line 1680"
+        },
+        {
+          "fact": "NROPT (Newton-Raphson option) is used only in a nonlinear analysis and specifies how often the tangent matrix is updated: Program-chosen (default), Full, Modified, Initial stiffness, Full with unsymmetric matrix",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Section 2.2.3.2 Newton-Raphson Option, ~line 1718"
+        },
+        {
+          "fact": "AUTOTS enables automatic time stepping; DELTIM and NSUBST control the time step size / number of substeps (TIME sets time at end of load step)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Table 2.1 Basic Tab Options, ~line 1601"
+        }
+      ]
+    },
+    {
+      "id": "ansys_contact",
+      "corpus": "ansys",
+      "complexity": "complex",
+      "reuse": "ansys_contact",
+      "text": "In ANSYS Mechanical APDL, how do I set up surface-to-surface contact between two bodies? Which contact algorithm should I use (penalty, augmented Lagrangian, Lagrange multiplier) and what are the tradeoffs? How do I control the contact stiffness and friction?",
+      "keyFacts": [
+        {
+          "fact": "KEYOPT(2) on the contact element selects the contact algorithm: 1 = penalty method, 0 = augmented Lagrangian (default), 3 = Lagrange multiplier on contact normal + penalty on tangent, 4 = pure Lagrange multiplier, 2 = internal multipoint constraint (MPC)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.3 Selecting a Contact Algorithm (KEYOPT(2)), ~line 3053"
+        },
+        {
+          "fact": "The penalty method uses a contact spring whose stiffness is the contact stiffness; it uses real constants FKN (normal contact stiffness factor) and FKT (tangent contact stiffness factor), plus FTOLN and SLTO if KEYOPT(10) = 0 or 2",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.3, ~line 3060 and Section 3.9.1 Real Constants, ~line 2127"
+        },
+        {
+          "fact": "The augmented Lagrangian method (default) is an iterative series of penalty methods; contact tractions are augmented during equilibrium iterations so final penetration is smaller than the allowable tolerance (FTOLN); it leads to better conditioning and is less sensitive to contact stiffness magnitude but may need more iterations with distorted meshes",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.3, ~line 3063"
+        },
+        {
+          "fact": "The pure Lagrange multiplier method enforces zero penetration when closed and zero slip when sticking; it does not require FKN/FKT but requires chattering control parameters FTOLN and TNOP; it adds contact tractions as additional DOFs and often increases computational cost",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.3, ~line 3071"
+        },
+        {
+          "fact": "FTOLN is the thickness-based factor used to calculate allowable penetration; SLTO controls maximum sliding distance when MU (friction coefficient) is nonzero; PZER defines pressure at zero penetration; CZER defines initial clearance",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.1 Real Constants, ~lines 2127-2141"
+        },
+        {
+          "fact": "Lagrange multiplier methods (KEYOPT(2) = 3, 4) introduce zero diagonal terms in the stiffness matrix, so iterative solvers (e.g. PCG) encounter a preconditioning matrix singularity - switch to the sparse solver; also not compatible with Gauss point detection (KEYOPT(4) = 0)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt, Section 3.9.3.1 Lagrange Multiplier Method Considerations, ~lines 3103-3111"
+        }
+      ]
+    },
+    {
+      "id": "fedoo_plasticity",
+      "corpus": "fedoo",
+      "complexity": "complex",
+      "reuse": "fedoo_plasticity",
+      "text": "How do I model isotropic von Mises (J2) plasticity with hardening in fedoo (the Python FE library) - e.g. a 2D beam in plane strain undergoing plastic bending? Which constitutive law class, weak form, and nonlinear solver do I use, and how is the Newton-Raphson loop driven?",
+      "keyFacts": [
+        {
+          "fact": "fedoo.constitutivelaw.ElastoPlasticity(young_modulus, poisson_ratio, yield_stress, name='') is a J2 elasto-plastic constitutive law with isotropic hardening (local return mapping, n_statev=7, statev = [P, EP(6)]); hardening is defined via set_hardening_function(function_type, **kwargs)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py, class ElastoPlasticity, lines 10-135"
+        },
+        {
+          "fact": "ElastoPlasticity does NOT implement the plane-stress ('2Dstress') return mapping; for plane-stress models use a Simcoon plasticity law, e.g. fedoo.constitutivelaw.Simcoon(\"EPICP\", props)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py, get_elastic_matrix, ~line 105"
+        },
+        {
+          "fact": "fedoo.constitutivelaw.Simcoon(\"EPICP\", props) with props = np.array([E, nu, alpha, Re, k, m]) gives isotropic plasticity with power law hardening sigma = k*eps_p**m",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py, ~lines 31-36"
+        },
+        {
+          "fact": "Standard workflow: fd.ModelingSpace(\"2Dplane\"); mesh = fd.mesh.rectangle_mesh(nx=41, ny=21, x_min=0, x_max=L, y_min=0, y_max=h, elm_type=\"quad4\", name=\"Domain\"); wf = fd.weakform.StressEquilibrium(\"ConstitutiveLaw\", nlgeom=False); fd.Assembly.create(wf, \"Domain\", \"quad4\", name=\"Assembling\"); pb = fd.problem.NonLinear(\"Assembling\")",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py, ~lines 21-56"
+        },
+        {
+          "fact": "The incremental nonlinear solve is driven by pb.nlsolve(dt=0.05, tmax=1, update_dt=False, tol_nr=0.05, interval_output=0.05), or by a manual Newton-Raphson loop: pb.assembly.set_start(pb), pb.apply_boundary_conditions(t_fact, t_fact_old), pb.set_A(pb.assembly.get_global_matrix()), pb.set_D(pb.assembly.get_global_vector()), pb.solve(), then pb.assembly.update(pb) in sub-iterations until norm_res < tol_nr",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py, ~lines 82 and 108-170 (nlsolve defined in Code_source_fedoo/fedoo/problem/non_linear.py line 1121)"
+        },
+        {
+          "fact": "Boundary conditions: pb.bc.add(\"Dirichlet\", nodes, \"Disp\", 0) / pb.bc.add(\"Dirichlet\", nodes, \"DispY\", uimp); outputs: pb.add_output(path, \"Assembling\", [\"Disp\", \"Stress\", \"Strain\", \"Statev\", \"Wm\"], output_type=\"Node\", file_format=\"vtk\")",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py, ~lines 64-80"
+        }
+      ]
+    },
+    {
+      "id": "fedoo_weakform_mesh",
+      "corpus": "fedoo",
+      "complexity": "complex",
+      "reuse": "fedoo_weakform_mesh",
+      "text": "In fedoo (the Python FE library), how do I define the weak form of mechanical equilibrium for solids (the StressEquilibrium weak form), including geometric nonlinearity and near-incompressibility handling? And how do I create a 2D rectangular mesh with the mesh builders?",
+      "keyFacts": [
+        {
+          "fact": "fd.weakform.StressEquilibrium(constitutivelaw, incompressibility=None, convert_tangent=True, name=\"\", nlgeom=None, space=None) is the mechanical equilibrium weak form, usable for 3D solids or 2D plane assumptions (plane strain / plane stress)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, class StressEquilibrium, lines 17-95"
+        },
+        {
+          "fact": "nlgeom parameter: False = ignore geometric nonlinearities; True or 'UL' = updated Lagrangian method (mesh is updated); 'TL' = total Lagrangian method; if not defined, the problem.nlgeom parameter is used (used in NonLinearStatic / NonLinearNewmark problems)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, docstring, ~lines 38-50"
+        },
+        {
+          "fact": "The incompressibility attribute selects the method used to avoid volumetric locking of nearly incompressible materials; by default (None) the standard displacement formulation is used",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, docstring, ~line 26"
+        },
+        {
+          "fact": "The weak form creates the DOF vector \"Disp\" (DispX, DispY, and DispZ in 3D), tags second-order time evolution, and the corate attribute selects the corotational formulation (default 'log_r', other options 'log', 'jaumann', 'gn'...)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py, ~lines 100-130"
+        },
+        {
+          "fact": "fd.mesh.rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type='quad4', ndim=None, name='') creates a rectangular mesh; elm_type in {'tri3','tri6','quad4','quad8','quad9'}",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py, def rectangle_mesh, lines 24-50"
+        },
+        {
+          "fact": "Other mesh builders exist: box_mesh (3D volume mesh, simple.py line 478) and disk_mesh(radius, nr, nt, elm_type='quad4') (structured_mesh.py line 408); modeling spaces are set with fd.ModelingSpace(\"2Dplane\") or \"3D\"",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py line 478 and structured_mesh.py line 408"
+        }
+      ]
+    },
+    {
+      "id": "ansys_transient",
+      "corpus": "ansys",
+      "complexity": "complex",
+      "text": "In ANSYS Mechanical APDL, how do I set up a nonlinear full transient dynamic analysis (e.g. a structure under a fast time-varying load with large deflections)? Which analysis type command do I use, how do I control the time stepping and the transient integration, and how do I handle initial conditions and results output?",
+      "keyFacts": [
+        {
+          "fact": "ANTYPE,Antype,Status,LDSTEP,SUBSTEP,Action,--,PRELP specifies the analysis type: 'TRANS or 4' performs a transient analysis (valid for all degrees of freedom); the command default is a new static analysis (Antype defaults to STATIC if none specified)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt, command ANTYPE, lines 8356-8383"
+        },
+        {
+          "fact": "Two methods are available for transient dynamic analysis: the full method uses the full system matrices (no matrix reduction) and enables all types of nonlinearities (plasticity, large deflections, large strain, and so on); the mode-superposition method does not allow nonlinearities, requires a constant time step throughout the transient (automatic time stepping not allowed) and does not accept imposed (nonzero) displacements",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Sections 5.2, 5.2.1 Full Method and 5.2.2 Mode-Superposition Method, lines 8129-8167"
+        },
+        {
+          "fact": "TIMINT,Key,Lab turns on transient effects: Key=OFF means no transient effects (static or steady-state), Key=ON includes transient (mass or inertia) effects; Lab defaults to ALL; the command default is to include transient effects (ON) for ANTYPE,TRANS; transient initial conditions are introduced at the load step having Key=ON (zero initial velocity and acceleration assumed if no previous substeps exist)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt, command TIMINT, lines 84307-84346"
+        },
+        {
+          "fact": "Solution Controls Basic tab: select 'Large Displacement Transient' (ANTYPE/NLGEOM) when large deflections or large strains are expected; AUTOTS (time-step optimization, default ON) increases or decreases the integration time step based on the response, with upper and lower limits specified using DELTIM or NSUBST; NSUBST and DELTIM specify the integration time step (smaller value = higher accuracy)",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Section 5.3.3.2 Using the Basic Tab, lines 8318-8337"
+        },
+        {
+          "fact": "Solution Controls Transient tab: TIMINT (time-integration on/off), KBC (ramp the load change over the load step or step-apply it), ALPHAD/BETAD (mass/stiffness damping), MIDTOL (midstep criterion), TRNOPT/TINTOPT selects the time-integration method (default is the Newmark method), TINTP defines the integration parameters controlling the nature of the Newmark and HHT time-integration techniques",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Section 5.3.3.3 Using the Transient Tab (Table 5.1 + special considerations), lines 8343-8396"
+        },
+        {
+          "fact": "A transient dynamic analysis requires initial displacement, velocity and acceleration (assumed zero if not specified); nonzero initial conditions are set with the IC and ICROTATE commands (the first load steps can be solved with TIMINT,OFF then TIMINT,ON); in a full transient dynamic analysis only the last substep is written to the results file (.rst) by default - set the OUTRES frequency to write all substeps",
+          "source": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt, Section 5.3.2 Establish Initial Conditions, lines 8216-8282, and Section 5.3.3.2 OUTRES caution, lines 8338-8342"
+        }
+      ]
+    },
+    {
+      "id": "unrelated_cooking",
+      "corpus": "unrelated",
+      "complexity": "simple",
+      "reuse": "unrelated_cooking",
+      "text": "What is the Maillard reaction in cooking, at what temperature range does it occur, and how does it differ from caramelization?",
+      "keyFacts": []
+    },
+    {
+      "id": "unrelated_quantum",
+      "corpus": "unrelated",
+      "complexity": "simple",
+      "reuse": "unrelated_quantum",
+      "text": "How does quantum error correction work? What does the surface code require to protect one logical qubit against a single physical qubit error, and what code distance is needed?",
+      "keyFacts": []
+    }
+  ]
+}

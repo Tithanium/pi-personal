@@ -1,0 +1,518 @@
+{
+  "id": "ansys_fkn_contact",
+  "generatedAt": "2026-10-15T21:52:58Z",
+  "grid": [
+    {
+      "n": 1,
+      "statement": "FKN is real constant R3, the 'normal penalty stiffness factor'; the penalty method (KEYOPT(2) = 1) uses the real constants FKN and FKT for all values of KEYOPT(10), plus FTOLN and SLTO if KEYOPT(10) = 0 or 2",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2236,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 2,
+      "statement": "FKN defines a normal contact stiffness factor; the usual factor range is from 0.1 to 10.0, with a default of 1.0 (Section 3.9.4.2); a negative value for FKN defines an absolute normal contact stiffness",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3152,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 3,
+      "statement": "FKN APDL default is 1 (range 0.1-10.0, section 3.9.4.2)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3152,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 4,
+      "statement": "For FKN (and FTOLN, PINB, PZER, CZER, FKOP, FKT, SLTO, TNOP, FDMN, FDMT) the program interprets a positive value as a scaling factor and a negative value as the absolute value; contact-related settings (FTOLN, PINB, FKN, FKT, SLTO) are always averaged across all contact elements in a contact pair",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2508,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    }
+  ],
+  "dFacts": [
+    {
+      "dn": 1,
+      "statement": "FKN (real constant number 3) is defined as the 'Normal penalty stiffness factor' in the summary of real constants table of the Contact Technology Guide.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2240,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Table 3.1 FKN row (lines 2239-2241): 'Normal penalty stiffness factor' / 'FKN' / '3'; cited line 2240 is the row's Name cell. Name/No./Description cells intact (only the default cells 2242-2243 are garbled, not at issue here)."
+    },
+    {
+      "dn": 2,
+      "statement": "The real constant list states that 'FKN (p. 49) defines a normal contact stiffness factor' for contact surface elements.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2127,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Grep-confirmed: line 2127 = '• FKN (p. 49) defines a normal contact stiffness factor. [1] [2]' in section 3.9.1 Real Constants."
+    },
+    {
+      "dn": 3,
+      "statement": "In Table 3.1 (Summary of Real Constant Defaults in Different Environments), FKN has real constant number 3 and an Ansys Mechanical APDL default value of 1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2243,
+      "lineFixed": null,
+      "status": "defect",
+      "note": "Cites the garbled Table 3.1 FKN row (cited cell shows '0.1', lines 2242-2243) as evidence of the APDL default. Known PDF-conversion column-bleed artifact; the table row does not reliably state the APDL default. Authoritative default (1.0) is section 3.9.4.2, lines 3153-3155, and Table 8.2 line 10835 ('1')."
+    },
+    {
+      "dn": 4,
+      "statement": "In the same table, the Ansys Workbench default for FKN is 0.1, while the Ansys Mechanical APDL default is 1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2242,
+      "lineFixed": null,
+      "status": "defect",
+      "note": "Same garbled Table 3.1 FKN row (cited cell '0.1' at line 2242). The row is a PDF column-bleed artifact and does not support either default value; Workbench FKN defaults are stated in Table 3.1 footnote 1 (lines 2491-2492: 'FKN = 10 for bonded. For all other, FKN = 1.0')."
+    },
+    {
+      "dn": 5,
+      "statement": "Section 3.9.4.2 states: 'For certain contact problems, you may choose to use the real constant FKN to define a normal contact stiffness factor. The usual factor range is from 0.1 - 10.0, with a default of 1.0.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3154,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Verbatim quote of section 3.9.4.2 (lines 3153-3155) but the claim (range 0.1-10.0, default 1.0, section 3.9.4.2) is semantically identical to original grid fact G3."
+    },
+    {
+      "dn": 6,
+      "statement": "The default FKN value 'should work in most cases' according to section 3.9.4.2.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3155,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3154-3155: '...with a default of 1.0. The default value should work in most cases.' Not claimed by any original grid fact."
+    },
+    {
+      "dn": 7,
+      "statement": "A negative value for FKN defines an absolute normal contact stiffness rather than a scaling factor.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3156,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Supported at lines 3155-3156, but identical claim to original grid fact G2 which explicitly states 'a negative value for FKN defines an absolute normal contact stiffness'."
+    },
+    {
+      "dn": 8,
+      "statement": "For the penalty method (KEYOPT(2)=1), the spring stiffness is the contact stiffness, and the method uses real constants FKN and FKT for all values of KEYOPT(10).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3065,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3065-3067: 'The penalty method uses a contact spring... The spring stiffness is called the contact stiffness. This method uses the following real constants: FKN and FKT for all values of KEYOPT(10)...' Adds the spring-stiffness claim not present in G1, so not a pure duplicate."
+    },
+    {
+      "dn": 9,
+      "statement": "A positive value for FKN is interpreted as a scaling factor and a negative value as an absolute value; contact-related settings (FTOLN, PINB, FKN, FKT, SLTO) are always averaged across all contact elements in a contact pair.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3153,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Cited line 3153 does not contain this; the statement is section 3.9.1.1 (lines 2508-2515) and is semantically identical to original grid fact G4 (positive=scaling/negative=absolute + FTOLN, PINB, FKN, FKT, SLTO averaged across the pair)."
+    },
+    {
+      "dn": 10,
+      "statement": "The program provides default values for contact stiffnesses (FKN, FKT), allowable penetration (FTOLN), and allowable slip (SLTO); material properties of underlying elements can affect the calculation of default contact stiffnesses.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3136,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3136-3138 verbatim support; cited line exact."
+    },
+    {
+      "dn": 11,
+      "statement": "The default contact normal stiffness is affected by defined material properties, element size, and the user-defined penetration tolerance (FTOLN); the default contact normal stiffness is inversely proportional to the final penetration tolerance.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3153,
+      "lineFixed": 3176,
+      "status": "fix",
+      "note": "Cited line 3153 does not support. Part 1 at lines 3176-3178 (Note in 3.9.4.2, grep-confirmed 3176: 'The default contact normal stiffness is affected by defined material properties, element size, and the user-defined penetration tolerance (FTOLN)'); part 2 at lines 3197-3199 ('In general, the default contact normal stiffness is inversely proportional to the final penetration tolerance')."
+    },
+    {
+      "dn": 12,
+      "statement": "When KEYOPT(10) = 0 or 2, the normal contact stiffness (used for the penalty method and the augmented Lagrange method) is updated at each iteration based on the current mean stress of the underlying elements and the allowable tolerance (FTOLN).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3153,
+      "lineFixed": 3200,
+      "status": "fix",
+      "note": "Cited line 3153 does not support. Verbatim text at lines 3200-3203 (grep-confirmed continuation at 3201): 'When you use real constant FTOLN in conjunction with KEYOPT(10) = 0 or 2, the normal contact stiffness (used for the penalty method and the augmented Lagrange method) is updated at each iteration based on the current mean stress of the underlying elements and the allowable tolerance (FTOLN times the depth of the underlying elements)'"
+    },
+    {
+      "dn": 13,
+      "statement": "Generally, the contact stiffness FKN (and FKT) has units of FORCE/LENGTH3; for force-based models (CONTA175 KEYOPT(3)=0, CONTA177 KEYOPT(3)=0 or 4) the units are FORCE/LENGTH.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3287,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3287-3291: 'Generally, the contact stiffness, FKN and FKT, has units of FORCE/LENGTH3. However, for contact force-based models the contact stiffness has units FORCE/LENGTH. This applies to CONTA175 with KEYOPT(3) = 0 and CONTA177 with KEYOPT(3) = 0 or 4.' Cited line exact."
+    },
+    {
+      "dn": 14,
+      "statement": "Ansys recommends using KEYOPT(10) = 0 or 2 to allow the program to update the contact stiffness automatically, and in most cases you do not need to define the contact stiffness.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3131,
+      "lineFixed": 3149,
+      "status": "fix",
+      "note": "Cited line 3131 (higher/lower stiffness trade-off paragraph) does not support. Statement verbatim at lines 3149-3151 (grep-confirmed 3149): 'In most cases, you do not need to define the contact stiffness. In addition, Ansys recommends that you use KEYOPT(10) = 0 or 2 ... to allow the program to update the contact stiffness automatically.'"
+    },
+    {
+      "dn": 15,
+      "statement": "In general, normal contact stiffness (FKN) has very little influence on the contact results when a Lagrange multiplier method is used; you should not overwrite the default FKN in most cases.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3110,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3110-3111 verbatim (section 3.9.3.1 item); cited line exact."
+    },
+    {
+      "dn": 16,
+      "statement": "For the pressure-penetration exponential relationship, FKN can set a maximum cutoff stiffness: the actual cutoff stiffness is 1000 times the penalty stiffness input by the user or computed by the program (example: computed stiffness 42265 gives cutoff 0.42265E+08).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3385,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3380-3385: 'You can also set a maximum cutoff stiffness by inputting real constant FKN... The actual cutoff stiffness is 1000 times the penalty stiffness input by you or computed by the program. For example, ... initial contact stiffness of 42265, the cutoff contact stiffness used is 0.42265E+08.' Cited line is the example line."
+    },
+    {
+      "dn": 17,
+      "statement": "FKN can be defined as a function of primary variables (time, temperature, location, contact pressure, geometric penetration) by using tabular input (%tabname%) with R, RMORE, or RMODIF.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3157,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3157-3162: 'FKN can be defined as a function of primary variables by using tabular input (%tabname%)' listing exactly those primary variables; tabular real constants are issued via R/RMORE/RMODIF per the referenced 'Defining Real Constants in Tabular Format (p. 43)' (R/RMORE per section 3.9.1 line 2123)."
+    },
+    {
+      "dn": 18,
+      "statement": "The user subroutine USERCNPROP.F is available for defining FKN by specifying the table name %_CNPROP% as the real constant value.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 3163,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 3163-3164 verbatim; cited line exact."
+    },
+    {
+      "dn": 19,
+      "statement": "When the relaxation option is enabled (KEYOPT(11)=1 on the target element), FKN and FKT become translational and rotational relaxation coefficients rather than penalty stiffness factors.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2193,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Footnote 2 of section 3.9.1, lines 2192-2195: 'When the relaxation option ... is enabled (KEYOPT(11) = 1 on the target element) ..., FKN and FKT are translational relaxation coefficient and rotational relaxation coefficient, respectively'; cited line falls inside."
+    },
+    {
+      "dn": 20,
+      "statement": "When the contact element is used as part of a forced-distributed constraint and KEYOPT(7)=2 on the target element, FKN is used to define weighting factors in tabular format with node number as the primary variable.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2190,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Footnote 1 of section 3.9.1, lines 2189-2191, verbatim match; cited line exact."
+    },
+    {
+      "dn": 21,
+      "statement": "For node-to-node contact (CONTA178) with the penalty or augmented Lagrange method, the program provides a default normal contact stiffness FKN based on Young's modulus E and the size of the underlying elements; FKN and FKS are factors, and absolute values require negative input.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 11413,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Section 9.2.5, lines 11411-11415: 'The program provides a default normal contact stiffness FKN, which is based on Young's modulus E and the size of the underlying elements. FKN and FKS are factors. If you want to import absolute values for FKN and FKS, use negative values.' Cited line exact."
+    },
+    {
+      "dn": 22,
+      "statement": "For the shell-shell assembly penalty method with TARGE170 KEYOPT(5)=2, the contact stiffness for translational DOFs is input by real constant FKN or defaults to an internal value.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4786,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Section 3.9.14.6, lines 4783-4787: KEYOPT(5)=2 projected constraint + 'The contact stiffness for translational DOFs is input by real constant FKN, or defaults to an internal value.' Cited line exact."
+    },
+    {
+      "dn": 23,
+      "statement": "Many convergence failures in contact analyses are the result of using too large a value for contact stiffness (real constant FKN); if overpenetration occurs, a larger value of FKN is probably needed, and FKN can be changed between load steps via RMODIF.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 6433,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 6432-6438: 'Many convergence failures in contact analyses are the result of using too large a value for contact stiffness (real constant FKN)... if overpenetration occurs in your contact analysis, you probably need a larger value of FKN... by redefining it using RMODIF commands over several load steps in a restart.' Cited line inside."
+    },
+    {
+      "dn": 24,
+      "statement": "FKN, FTOLN, PINB, and FKOP can be changed and can only be changed at the point of load step boundaries (contact stiffness may be redefined between load steps).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 6795,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 6794-6796: 'Only the real constants FKN, FTOLN, PINB, and FKOP can be changed, and they can only be changed at the point of restart or at the beginning of a new load step.' 'Load step boundaries' is a fair paraphrase."
+    },
+    {
+      "dn": 25,
+      "statement": "For the traction-based model, contact stiffness FKN has units FORCE/LENGTH for the force-based model but FORCE/LENGTH3 for the traction-based model.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 7797,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 7795-7798 (CONTA177 units section): 'contact stiffness FKN has units FORCE/LENGTH for the force-based model, but FORCE/LENGTH3 for the traction-based model.' Cited line exact."
+    },
+    {
+      "dn": 26,
+      "statement": "The CNCHECK,AUTO command table lists FKN (No. 3, 'Normal penalty stiffness factor') as one of the real constants it implements, with behavior 'Cut in half if spurious contact is detected or contact searching is slow.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 16963,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Table 111 (CNCHECK,AUTO real constants), lines 16961-16967: 'Normal penalty stiffness factor' / 'FKN' / '3' / 'Cut in half if spurious contact is detected or contact searching is slow.' Cited line is the FKN cell."
+    },
+    {
+      "dn": 27,
+      "statement": "KEYOPT(3)=1 for changing the units of FKN is valid only when a penalty-based algorithm is used (KEYOPT(2)=0 or 1) and the absolute normal contact stiffness value is explicitly specified (a negative value input for real constant FKN).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 17507,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "CNKMOD 'Modifying KEYOPT(3)' section, lines 17507-17509: 'KEYOPT(3) = 1 is valid only when a penalty-based algorithm is used (KEYOPT(2) = 0 or 1) and the absolute normal contact stiffness value is explicitly specified (that is, a negative value input for real constant FKN).' Cited line exact (sentence start)."
+    },
+    {
+      "dn": 28,
+      "statement": "The GCDEF command example shows specifying contact stiffness FKN=10 at an interface by setting REALID to 14 and issuing the command R,14,,,10 (the 4th field of the R command is FKN).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 33605,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 33605-33606: 'As an example, you could specify contact stiffness (FKN) = 10 at the interface by setting REALID to 14 and issuing the command R,14,,,10.' The 4th-field mapping is exactly what the example demonstrates."
+    },
+    {
+      "dn": 29,
+      "statement": "The GCDEF example in the Contact Technology Guide defines a contact stiffness factor (FKN) of 10 at a specific contact interface via 'GCDEF,,SECT1,SECT2,,14' followed by 'R,14,,,10'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 11121,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 11121-11124: 'The following example defines a contact stiffness factor (FKN) of 10 at a specific contact interface. REALID = 14 ... GCDEF,,SECT1,SECT2,,14 / R,14,,,10'. Cited line exact."
+    },
+    {
+      "dn": 30,
+      "statement": "RMODIF,GCN,3,10 defines a contact stiffness factor (FKN) of 10 for all real constant sets previously specified by GCDEF commands.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 11133,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 11133-11135: 'the following command defines a contact stiffness factor (FKN) of 10 for all real constant sets previously specified by GCDEF commands: RMODIF,GCN,3,10'. Cited line exact."
+    },
+    {
+      "dn": 31,
+      "statement": "For general contact, Table 8.2 lists FKN (No. 3, 'Normal penalty stiffness factor') with default 1 for pair-based contact and 1 for general contact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 10837,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Table 8.2 FKN row, lines 10834-10838: '1 [1]' / '1' / 'Normal penalty stiffness factor' / 'FKN' / '3' — clean (unlike Table 3.1), shows default 1 in both columns; cited line is the FKN cell. Cross-corroborates APDL default = 1."
+    },
+    {
+      "dn": 32,
+      "statement": "The Ansys Workbench product sets FKN = 10 for bonded contact and FKN = 1.0 for all other contact behaviors (FKN = 1 for all if bonded and other contact behavior coexist).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 2491,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Table 3.1 footnote 1, lines 2491-2492: 'FKN = 10 for bonded. For all other, FKN = 1.0, but if bonded and other contact behavior exists, FKN = 1 for all.' Cited line exact."
+    },
+    {
+      "dn": 33,
+      "statement": "FKN and FKT are modified from near-zero to actual values by the program during the ramping of contact stiffness (ramping contact stiffness feature).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 4225,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Ramping contact stiffness (method 3, KEYOPT(9)=2/4), lines 4219-4226: 'The program automatically ramps the normal and tangential contact stiffness as well as the friction coefficient (that is, FKN, FKT, MU) from near-zero to actual values'; cited line is inside option (a) restatement."
+    },
+    {
+      "dn": 34,
+      "statement": "For debonding, the normal contact stiffness value is based on real constant FKN of the contact element; FKOP may be specified to decouple the gap (opening) stiffness from the penetration (closing) stiffness determined by FKN.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 13547,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Section 13.2.1.4, lines 13545-13554: 'The normal contact stiffness value is based on real constant FKN of the contact element... specify real constant FKOP ... to dictate the gap vs. pressure relationship and specify real constant FKN ... to dictate the penetration vs. pressure relationship.' Cited line exact."
+    },
+    {
+      "dn": 35,
+      "statement": "For the EMTGEN command (TRANS126 elements), the FKN argument is a contact stiffness factor used as a multiplier for a contact stiffness appropriate for bulk deformation, defaulting to 0.1 (this is a distinct FKN from the contact element real constant).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 26860,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "EMTGEN argument table, lines 26859-26862: 'FKN — Contact stiffness factor used as a multiplier for a contact stiffness appropriate for bulk deformation. Defaults to 0.1.' Cited line exact."
+    },
+    {
+      "dn": 36,
+      "statement": "The technology showcase example script sets FKN with the comment 'Define FKN for real ID 100' via the command 'rmodif,100,3,1'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+      "line": 23183,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 23183 exact: 'rmodif,100,3,1               ! Define FKN for real ID 100'."
+    },
+    {
+      "dn": 37,
+      "statement": "The example table in the Technology Showcase lists FKN as a 'Structural stiffness' property with the example value '1.0 times underlying element stiffness'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+      "line": 25397,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "CONTA174 real-constants table, lines 25396-25398 (PDF-scrambled column order): value '1.0 times underlying element stiffness' / 'FKN' / 'Structural stiffness'. Cited line is the FKN cell."
+    },
+    {
+      "dn": 38,
+      "statement": "The Technology Showcase states 'Convergence of the problem is less sensitive to the normal contact stiffness factor (FKN) when using the surface-projection-based contact method (KEYOPT(4)=3)' and that 'FKN = 1 is optimal for nonlinear analysis'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+      "line": 16636,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Section 26.7, lines 16636-16637 (first quote) and 16643-16644 ('FKN = 1 is optimal for nonlinear analysis'). Cited line exact."
+    },
+    {
+      "dn": 39,
+      "statement": "The demonstration guide similarly states convergence is less sensitive to FKN with surface-projection-based contact and that 'FKN = 1 is optimal for nonlinear analysis', with less iteration variation for smaller FKN values (0.1 to 1.0).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+      "line": 15487,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Section 28.7, lines 15487-15488 (sensitivity quote), 15492 ('For smaller values of FKN (0.1 to 1.0), the variation in cumulative iterations is less...'), 15494-15495 ('FKN = 1 is optimal for nonlinear analysis'). Cited line exact."
+    },
+    {
+      "dn": 40,
+      "statement": "Example script td-17/impact_rigid.dat sets 'rmodif,2,3,-1e15 ! Specify FKN=1e15 (do not use for keyopt(2)=3)' to define an absolute normal contact stiffness by negative input.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-17\\impact_rigid.dat",
+      "line": 57,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 57 exact: 'rmodif,2,3,-1e15                    ! Specify FKN=1e15 (do not use for keyopt(2)=3)'. Negative input = absolute normal contact stiffness per section 3.9.4.2."
+    },
+    {
+      "dn": 41,
+      "statement": "Example script td-52/SequentialEmbankmentCase1.dat uses 'RMOD,2,3,10.0 ! Increase FKN' to raise the normal penalty stiffness factor to 10 for contact real constant set 2.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-52\\SequentialEmbankmentCase1.dat",
+      "line": 25,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Bash-index-verified: line 25 = 'RMOD,2,3,10.0 ! Increase FKN' (real constant set 2 created by 'R,2' for ET 2 = CONTA172)."
+    },
+    {
+      "dn": 42,
+      "statement": "Example script td-7/cam_shaft_assembly.dat contains a commented-out line '!rmodif,3,3,1. ! FKN' showing FKN (real constant 3) set to the default factor 1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-7\\cam_shaft_assembly.dat",
+      "line": 52,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 52 exact: '!rmodif,3,3,1.            ! FKN'."
+    },
+    {
+      "dn": 43,
+      "statement": "Example script td-42/wirecrimp_fe.dat sets 'rmod,cid,3,0.1 ! FKN', lowering the normal penalty stiffness factor to 0.1 to ease convergence.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-42\\wirecrimp_fe.dat",
+      "line": 217661,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 217661 exact: 'rmod,cid,3,0.1 ! FKN' (penalty function, keyo,cid,2,1). 'To ease convergence' is the standard rationale consistent with section 3.9.4.1 guidance."
+    },
+    {
+      "dn": 44,
+      "statement": "The Advanced Analysis Guide recommends lowering the contact stiffness by a factor of 10 (real constant FKN = 0.1 for the contact elements) to help semi-implicit solutions that fail during contact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+      "line": 1705,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 1704-1705: 'For problems that include contact elements and fail during the semi-implicit solution, lowering the contact stiffness by a factor of 10 (real constant FKN = 0.1 for the contact elements) can be helpful.' Cited line exact."
+    },
+    {
+      "dn": 45,
+      "statement": "The Element Reference (TARGE169/170 KEYOPT(7)) states that for value 2, a user-defined weighting factor is used based on tabular input specified as real constant FKN.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 31280,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "KEYOPT(7) standard usage, line 31280 exact: '2 -- A user-defined weighting factor is used based on tabular input specified as real constant FKN.'"
+    },
+    {
+      "dn": 46,
+      "statement": "The Element Reference states that when relaxation is enabled (KEYOPT(11)=1), the contact element real constants FKN and FKT are translational and rotational relaxation coefficients.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Element_Reference.txt",
+      "line": 31318,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "KEYOPT(11) note, lines 31317-31319: 'When relaxation in enabled (KEYOPT(11) = 1), the following contact element real constants are used: FKN and FKT are translational and rotational relaxation coefficients.' Cited line exact."
+    },
+    {
+      "dn": 47,
+      "statement": "For the relaxation method, translational and rotational relaxation coefficients (similar to penalty stiffness for the contact penalty method) are specified through contact element real constants FKN and FKT respectively.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 12425,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Section 10.5.2 Relaxation Method, lines 12424-12426: 'You can also specify translational and rotational relaxation coefficients (similar to penalty stiffness for the contact penalty method) through contact element real constants FKN and FKT, respectively'. Cited line exact."
+    },
+    {
+      "dn": 48,
+      "statement": "In bonded contact interface damping modeling, the first bonded contact pair represents interface damping along the normal direction (FKN used as a near-zero negative value with MP,DMPR).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+      "line": 5044,
+      "lineFixed": null,
+      "status": "drop",
+      "note": "Cited lines 5044-5046 say the FIRST (normal-direction) pair uses 'FKN = a negative value, FKT = a near-zero negative value' — the near-zero value applies to FKT, not FKN. Searched tokens: 'near-zero negative value' -> found only at 5045 (FKT of first pair) and 5048 (FKN of the SECOND/tangential pair); 'The first bonded contact pair represents interface damping along the normal direction (FKN' -> 5044. The file never attributes a near-zero negative FKN to the first pair; the claim as stated is unsupported (misattribution of the second pair's setting)."
+    }
+  ],
+  "excludedFromDenominator": [
+    {
+      "dn": 3,
+      "reason": "defect",
+      "detail": "Cites garbled Table 3.1 FKN default cells (0.1/0.1, lines 2242-2243) as evidence of the APDL default = 1. Known PDF column-bleed artifact; authoritative default is section 3.9.4.2 (lines 3153-3155) and clean Table 8.2 (line 10835)."
+    },
+    {
+      "dn": 4,
+      "reason": "defect",
+      "detail": "Same garbled Table 3.1 FKN row cited for both Workbench (0.1) and APDL (1) defaults; the row's default cells are a conversion artifact (Workbench FKN defaults are actually given in footnote 1 at lines 2491-2492: 10 bonded / 1.0 other)."
+    },
+    {
+      "dn": 5,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G3: FKN range 0.1-10.0 with default 1.0 per section 3.9.4.2 (verbatim quote of lines 3153-3155)."
+    },
+    {
+      "dn": 7,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G2: negative FKN value defines an absolute normal contact stiffness."
+    },
+    {
+      "dn": 9,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G4: positive = scaling factor / negative = absolute value, and FTOLN/PINB/FKN/FKT/SLTO averaged across all contact elements in a pair (section 3.9.1.1, lines 2508-2515)."
+    },
+    {
+      "dn": 48,
+      "reason": "drop",
+      "detail": "First bonded (normal-direction) damping pair uses FKN = a negative value and FKT = a near-zero negative value (lines 5044-5046); the near-zero negative FKN belongs to the second (tangential) pair (line 5048). Statement misattributes the near-zero value to FKN of the first pair; not supported anywhere in the file."
+    }
+  ],
+  "stats": {
+    "originalCount": 4,
+    "dTotal": 48,
+    "dPass": 39,
+    "dFix": 3,
+    "dDrop": 1,
+    "dDefect": 2,
+    "dDuplicate": 3,
+    "denominator": 46
+  }
+}

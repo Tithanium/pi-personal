@@ -1,0 +1,10 @@
+[
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 17543,
+    "tokensIn": 13205,
+    "tokensOut": 169,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang); empty-injection (relevance gate or failure)"
+  }
+]

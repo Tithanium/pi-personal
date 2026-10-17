@@ -1,0 +1,215 @@
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { configFile, getRagDir } from "./store.ts";
+import { DEFAULT_TEXT_EXTS } from "./constants.ts";
+
+export interface RagConfig {
+  ragEnabled: boolean;
+  ragTopK: number;
+  ragScoreThreshold: number;
+  ragAlpha: number; // 0 = pure vector, 1 = pure BM25
+  extraExtensions: string[];   // user-added file extensions (e.g. [".cs", ".tex"])
+  excludeExtensions: string[]; // extensions to drop from the default set
+  trackedPaths: string[];      // absolute paths previously passed to /rag index
+  excludePatterns: string[];   // gitignore-style path patterns
+  // Subagent pipeline: on a genuine user prompt, the before_agent_start hook
+  // spawns the rag-query agent as a child pi process (env PI_RAG_SUBAGENT=1),
+  // which writes retrieved context to a temp file the hook injects below the
+  // user message. Hard-capped by ragSubagentHookTimeoutMs — on timeout/failure
+  // the hook injects nothing and never blocks the session.
+  ragSubagentHook: boolean;
+  ragSubagentHookTimeoutMs: number;
+  // Phase 2 — injection subprocess selection. The before_agent_start hook
+  // dispatches to the configured subprocess; all three share the SAME injection
+  // contract (<rag-context>, display:false, run.ok success gate, empty →
+  // nothing, hard overall timeout). Final A/B/C selection is decided later
+  // (most deterministic + fewest tokens); keep "A" as production default for now.
+  ragSubprocess: "A" | "B" | "C";
+  // Subprocess B variant (speed race P2-R2). The deterministic pre-fetch is
+  // shared; the child LLM step differs:
+  //   "single" — NO tools, exactly ONE LLM round; the child returns the pruned
+  //              payload as its FINAL TEXT (parent captures it, writes nothing
+  //              via a tool). Fastest; default.
+  //   "tools"  — v1: rag_expand + write, ≤2 tool-call rounds; the child writes
+  //              the payload file itself.
+  //   "none"   — ZERO LLM; payload = the deterministic candidate file as-is
+  //              (sections above ragScoreThreshold). No child spawned.
+  ragBVariant: "single" | "tools" | "none";
+  // Subprocess B "single" (selection mode, P2-R3): the child returns a KEEP
+  // list (or EMPTY) instead of reproducing kept sections verbatim — the
+  // parent assembles the payload deterministically. If the child's result is
+  // EMPTY but the top seed hybrid score clears this threshold, the top-3
+  // scored sections are kept deterministically instead ("deterministic
+  // rescue" — fixes the recurring over-prune without a second LLM round).
+  ragKeepRescueThreshold: number;
+  // Subprocess B "none" (deterministic relevance gate, P2-R3): when the max
+  // seed hybrid score is below this threshold the payload is EMPTY (no
+  // candidate is injected) — the unrelated edge is cut without an LLM.
+  ragBNoneEmptyThreshold: number;
+  // Subprocess C (deterministic fan-out + swarm): cap on the number of
+  // grep terms (prompt tokens + vector-ramified identifiers).
+  ragCFanoutMaxTerms: number;
+  // Subprocess C: per grep term, the number of top hybrid-scored chunks to
+  // structural-expand into one small numbered input file.
+  ragCFanoutTopHitsPerTerm: number;
+  // Subprocess C swarm: max number of parallel worker children
+  // (N_children = min(fileCount, ragSwarmMaxN)).
+  ragSwarmMaxN: number;
+  // P2-R4 RAW RELEVANCE SIGNAL — calibrated on the 6 smoke prompts
+  // (5 relevant + 1 unrelated). The raw vector cosine (before min-max
+  // normalization) survives the per-query normalization that makes the
+  // hybrid score non-comparable across queries.
+  //   ragRelevanceRawMin: floor on the top chunk's raw cosine.
+  //   ragRelevanceSpreadMin: floor on (topRaw - medianRaw) — a low
+  //   spread means the whole pool scores similarly (unrelated).
+  ragRelevanceRawMin: number;
+  ragRelevanceSpreadMin: number;
+  // Subprocess C swarm: per-child hard timeout (ms). On timeout the child's raw
+  // input files are copied to out/ unchanged (completeness-safe default).
+  ragSwarmChildTimeoutMs: number;
+  // P2-R5 FIX 1 — SELECTION-MODE OUTPUT CAP. The one-line-protocol children
+  // (B "single" + C swarm workers) occasionally ignore the protocol and emit
+  // hundreds of tokens (R4 outlier: 879 out → 16.5 s). The pi CLI has NO
+  // max-output-tokens flag (verified via `pi --help`); the only per-run
+  // generation option reachable from the CLI is the per-model `maxTokens`
+  // entry in models.json. So these children run under a dedicated cap-alias
+  // model (same provider, maxTokens = ragSelectionMaxOutTokens) created by
+  // ensureCappedModelAlias() in spawnRagSubagent.ts. 0 disables the cap
+  // (the first-line parse + deterministic rescue/KEEP fallback still bounds
+  // the damage).
+  ragSelectionMaxOutTokens: number;
+  // P2-R5 FIX 2 — C v4.1 GLOBAL HIT RANKING. After collecting ALL hits
+  // across all terms (deduped by (file, region), best chunk per file), keep
+  // only the top-N files ranked GLOBALLY by hybrid score. Fixes the per-term
+  // top-2 crowding-out where __init__.py/import-list chunks displaced the
+  // answering file (R4: 2/5 relevant ids came back EMPTY).
+  ragCMaxFiles: number;
+  // P2-R6 — DETERMINISTIC MULTI-QUERY PREFETCH (shared by B:single / B:none;
+  // also feeds C's term set). Three NO-LLM query variants — v1 = prompt
+  // as-is, v2 = prompt identifiers joined, v3 = top-3 vector-ramified
+  // identifiers joined — each hybridTopChunks'd, merged, deduped, ranked by
+  // score. Candidate set = the top-N STRUCTURAL REGIONS of the merged pool.
+  // This is the deterministic mirror of A's 8-query agentic diversity
+  // (measured +1–2 s from the extra embeddings).
+  ragPrefetchTopChunks: number;
+  // P2-R6 — byte cap on the B candidate payload built from the multi-query
+  // prefetch (was the hard-coded 12 KB; raised with the richer 3-variant pool).
+  ragPrefetchMaxBytes: number;
+  // P2-R7 — C v4.3 FORCE-KEEP OVERRIDE. A hit whose chunk rawCosine ≥ this
+  // threshold is KEPT regardless of the swarm worker's decision (deterministic
+  // override of the KEEP-bias worker; the override is logged in
+  // internals.forceKept). Guards the completeness-critical high-similarity
+  // hits against worker over-deletion (R6: the surviving simple.py def hit
+  // was deleted). 0 disables the override (worker decides everything).
+  // P2-R8 (v4.4): lowered 0.55 → 0.45 — the KEEP-bias md change did NOT stop
+  // over-deletion (R7: 7–8/8 hits deleted, payload ≈ the single force-kept
+  // hit); a lower threshold force-keeps more of the mid-similarity hits the
+  // worker was deleting.
+  ragCForceKeepRawMin: number;
+  // P2-R6 — C v4.2 PAYLOAD CAP. After the deterministic assembly (merge), if
+  // the payload exceeds this many bytes, keep the top-scored files (score
+  // order) until it fits — deterministic, the drop is logged. Timeout-
+  // fallback files count toward the cap (bounds the R5 276 KB / 150 KB
+  // unbounded fallback payloads).
+  ragCMaxPayloadBytes: number;
+  // P2-R8 — B PREFETCH PER-FILE CAP. The two-arm region merge caps how many
+  // structural regions of the SAME file can enter the top-N candidate set.
+  // 2 → 3: the R8 diagnosis showed same-file siblings ARE being dropped
+  // (ansys_contact: the Real-Constants region L2198-2397, which carries
+  // PZER/CZER/FKN, is the 5th Contact-Tech region and the top-2 slots are
+  // held by §3.9.3/§3.9.4 windows). Raising to 3 lets one more same-file
+  // sibling through (thickness + diversity) without flooding the candidate.
+  ragPrefetchPerFileCap: number;
+  // P2-R9 — PER-FOLDER ARM DIVERSIFICATION (shared B pre-fetch + C fan-out).
+  // Per top-level CORPUS FOLDER (first path segment below the LCA — same
+  // key as ragCCorpusFolderCap) cap on how many chunks of ONE corpus can
+  // enter a single two-arm selection (the per-pool top-8 rawCosine arm and
+  // the top-8 raw BM25 arm). R8 diagnosis: on fedoo prompts the ANSYS
+  // corpus (denser BM25 + more chunks) saturates the two-arm pools, so
+  // fedoo chunks never enter ANY arm — and the vector ramification (drawn
+  // from the pools) then feeds back the same saturation (the v3 identifiers
+  // come from the saturated v1 pool). The folder cap lets fedoo chunks
+  // enter fedoo-prompt arms even under ANSYS saturation. 0 disables.
+  ragArmFolderCap: number;
+  // P2-R8 — C CROSS-CORPUS SATURATION. Cap on the number of DISTINCT files
+  // from one top-level corpus folder (the first path segment below the
+  // longest common ancestor of all indexed files — e.g. Doc_tech_ANSYS vs
+  // Doc_tech_fedoo) that can enter the final C file selection. R7: fedoo
+  // prompts retrieved mostly ANSYS .txt files (cross-corpus saturation). A
+  // folder-based cap is corpus-generic (no hardcoded corpus names) and
+  // forces the selection to diversify across corpora. 0 disables the cap.
+  ragCCorpusFolderCap: number;
+  // P2-R8 — C SINGLE-HIT WORKER SKIP. When a C input file holds exactly ONE
+  // hit whose rawCosine ≥ this threshold, the swarm worker is skipped
+  // entirely (the hit is KEPT deterministically) — no LLM round needed for a
+  // single high-confidence hit. Saves one child spawn (latency) + tokens.
+  // 0 disables the skip (worker always runs).
+  ragCSingleHitSkipMin: number;
+  // P2-R11 — B DEFINITION-NEIGHBOR PASS. After the two-arm 12-region set,
+  // for each selected region the sibling sections (same parent chapter /
+  // top-level block) containing ≥ 2 significant prompt terms are appended
+  // (up to 3, best by spawner rawCosine) under this ADDITIONAL byte budget
+  // (separate from ragPrefetchMaxBytes). Deterministic mirror of A's
+  // "topic → definition" depth. 0 disables the pass.
+  ragDefNeighborBudget: number;
+}
+
+export function defaultConfig(): RagConfig {
+  return {
+    ragEnabled: true, ragTopK: 5, ragScoreThreshold: 0.1, ragAlpha: 0.4,
+    extraExtensions: [], excludeExtensions: [],
+    trackedPaths: [], excludePatterns: [],
+    ragSubagentHook: false, ragSubagentHookTimeoutMs: 120_000,
+    ragSubprocess: "A", ragSwarmMaxN: 6, ragSwarmChildTimeoutMs: 30_000,
+    ragBVariant: "single", ragKeepRescueThreshold: 0.3, ragBNoneEmptyThreshold: 0.25,
+    ragCFanoutMaxTerms: 8, ragCFanoutTopHitsPerTerm: 2,
+    ragRelevanceRawMin: 0.47, ragRelevanceSpreadMin: 0.03,
+    ragSelectionMaxOutTokens: 120, ragCMaxFiles: 8,
+    ragPrefetchTopChunks: 12, ragPrefetchMaxBytes: 30_720, ragCMaxPayloadBytes: 30_000,
+    ragCForceKeepRawMin: 0.45,
+    ragPrefetchPerFileCap: 3, ragArmFolderCap: 4, ragCCorpusFolderCap: 3, ragCSingleHitSkipMin: 0.5,
+    ragDefNeighborBudget: 6144,
+  };
+}
+
+export function loadConfig(): RagConfig {
+  const cfgFile = configFile(getRagDir());
+  if (!existsSync(cfgFile)) return defaultConfig();
+  try {
+    // Strip a UTF-8 BOM if present (this machine's live config.json has one
+    // — JSON.parse throws on it, and the old catch silently fell back to
+    // defaults, ignoring every live value).
+    return { ...defaultConfig(), ...JSON.parse(readFileSync(cfgFile, "utf-8").replace(/^\uFEFF/, "")) };
+  } catch { return defaultConfig(); }
+}
+
+export function saveConfig(config: RagConfig) {
+  const cfgFile = configFile(getRagDir());
+  // R5 lesson — the live config.json may carry a UTF-8 BOM. loadConfig() strips
+  // it before JSON.parse, but saveConfig() must NOT destroy it on rewrite:
+  // detect an existing BOM and re-emit it so the file header stays stable.
+  // (If the file has no BOM, none is added — preserve exactly what was there.)
+  let bom = "";
+  if (existsSync(cfgFile) && readFileSync(cfgFile, "utf-8").startsWith("\uFEFF")) bom = "\uFEFF";
+  writeFileSync(cfgFile, bom + JSON.stringify(config, null, 2));
+}
+
+/** Normalize a user-supplied extension to lowercase ".ext" form. */
+export function normalizeExt(ext: string): string {
+  const trimmed = ext.trim().toLowerCase();
+  if (!trimmed) return "";
+  return trimmed.startsWith(".") ? trimmed : `.${trimmed}`;
+}
+
+/** Build the effective extension allowlist from defaults + user config. */
+export function resolveExtensions(config: Pick<RagConfig, "extraExtensions" | "excludeExtensions">): Set<string> {
+  const set = new Set(DEFAULT_TEXT_EXTS);
+  for (const e of config.extraExtensions) {
+    const n = normalizeExt(e);
+    if (n) set.add(n);
+  }
+  for (const e of config.excludeExtensions) {
+    const n = normalizeExt(e);
+    if (n) set.delete(n);
+  }
+  return set;
+}

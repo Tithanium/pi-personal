@@ -1,0 +1,722 @@
+[
+  {
+    "statement": "The StressEquilibrium class docstring describes it as the 'Mechanical equilibrium equation for solids' for 3D or 2D plane (plane strain or plane stress) problems.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 18
+  },
+  {
+    "statement": "The StressEquilibrium docstring states that the weak form accepts geometrical nonlinearities if simcoon is installed and that nlgeom should be in {True, 'UL', 'TL'}.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 26
+  },
+  {
+    "statement": "The StressEquilibrium docstring states that for nearly incompressible materials a method to avoid volumetric locking should be selected with the incompressibility attribute.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 29
+  },
+  {
+    "statement": "The StressEquilibrium docstring states that the consistent geometric stiffness is enabled automatically for finite-strain tangent conversion and that geometric_stiffness can be set explicitly to override the default.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 31
+  },
+  {
+    "statement": "The StressEquilibrium docstring parameter 'incompressibility' states that by default (None) the standard displacement formulation is used.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 39
+  },
+  {
+    "statement": "The StressEquilibrium docstring parameter 'convert_tangent' describes converting the constitutive corotational Kirchhoff tangent to the formulation tangent (dS/dE for TL, spatial Lie for UL).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 43
+  },
+  {
+    "statement": "The StressEquilibrium docstring states that if nlgeom == 'UL' the updated Lagrangian method is used (same as True) and if nlgeom == 'TL' the total Lagrangian method is used.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 55
+  },
+  {
+    "statement": "The StressEquilibrium constructor signature is __init__(self, constitutivelaw, incompressibility=None, convert_tangent=True, name=\"\", nlgeom=None, space=None).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 64
+  },
+  {
+    "statement": "The StressEquilibrium constructor sets self.time_evolution = SECOND_ORDER so the mass term is resolved from material density at integrator compile time and inertia is absent for static analyses.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 91
+  },
+  {
+    "statement": "The self.nlgeom attribute docstring in __init__ states it should be set to False to ignore geometric nonlinearities, to True or 'UL' for the updated Lagrangian method, and to 'TL' for the total Lagrangian method.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 94
+  },
+  {
+    "statement": "The constructor default corate is self.corate = 'log_r'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 102
+  },
+  {
+    "statement": "The corate comment notes 'log_r' (default) is logarithmic strain with the exact polar frame increment DR = R1 R0^T whose tangent transport is exact in simcoon, with other options 'log' (XBM), 'jaumann', 'green_naghdi'/'gn', 'log_inc', 'log_r_inc'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 103
+  },
+  {
+    "statement": "The constructor default is self.geometric_stiffness = None (deferred default).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 113
+  },
+  {
+    "statement": "get_storage raises ValueError('StressEquilibrium requires a material density for dynamic analysis, but material ... has no density. Set it with material.set_density(rho), or attach inertia explicitly with weakform.set_inertia(density_or_weakform).')",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 129
+  },
+  {
+    "statement": "In get_weak_equation the TL branch uses eps = self.space.op_strain(assembly.sv['DispGradient']) and initial_stress = assembly.sv['PK2'].",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 138
+  },
+  {
+    "statement": "In get_weak_equation the UL/linear branch uses eps = self.space.op_strain() with the comment 'Stress = Cauchy for updated lagrangian method'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 141
+  },
+  {
+    "statement": "_get_fbar_tangent_op documents the non-symmetric term of the F-bar tangent matrix related to the variation of the volume change at the element center, referencing de Souza Neto et al, IJSS.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 202
+  },
+  {
+    "statement": "_get_fbar_tangent_op sets q = (1/3)*(H[i][0]+H[i][1]+H[i][2]) and, in UL with initial stress, subtracts (1/3)*stress noting the Lie (Truesdell) tangent treats initial-stress stiffness separately (geometric_stiffness), hence the 1/3 factor instead of 2/3.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 227
+  },
+  {
+    "statement": "_get_weak_equation_bbar documents the B-bar form eps_bar[i] = eps[i] + correction/n and that the tangent is pre-contracted into the form eps^T H eps + c (a.eps) + (b.eps) c + k c c with scale = theta/J.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 251
+  },
+  {
+    "statement": "The B-bar comment states that solid constitutive laws use a three-dimensional volumetric split including with plane strain, and in 2D plane strain the assumed B-bar strain receives one third of the volumetric correction in all three normal components.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 256
+  },
+  {
+    "statement": "initialize() calls self._initialize_nlgeom(assembly, pb), sets self.nlgeom = assembly._nlgeom, forces the corate setter, and calls self._initialize_incompressibility(assembly, pb).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 340
+  },
+  {
+    "statement": "initialize() resolves the deferred default with the comment 'The initial-stress term completes the consistent TL/UL tangent' and sets self.geometric_stiffness = bool(assembly._nlgeom and self.convert_tangent) when it is None.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 355
+  },
+  {
+    "statement": "initialize() sets assembly.sv['PK2'] = 0 when assembly._nlgeom == 'TL'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 411
+  },
+  {
+    "statement": "initialize() raises NotImplementedError('2Daxi ModelingSpace is not implemented with total lagrangian formulation. Use update lagrangian instead.') for TL with an axisymmetric space.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 414
+  },
+  {
+    "statement": "_initialize_incompressibility notes plane stress eliminates out-of-plane stress through constitutive reduction and does not use the 3D incompressibility treatments.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 424
+  },
+  {
+    "statement": "For 2Dstress, _initialize_incompressibility warns 'incompressibility={method!r} is ignored with the 2Dstress modeling space; the standard plane-stress formulation is used.'",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 431
+  },
+  {
+    "statement": "For fbar, the consistent tangent requires element-center interpolation, not-TL and not-2Daxi; otherwise a warning states the F-bar kinematic correction is kept but the standard tangent is used and convergence may be degraded.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 462
+  },
+  {
+    "statement": "For method == 'auto' with no available method, a warning states no method is available for that element type prone to volumetric locking, the standard displacement formulation is used, and quadratic elements or StressEquilibriumMixed are suggested.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 483
+  },
+  {
+    "statement": "For sri + UL, a warning states sri is a legacy small-strain method that corrects the weak-form strain operator but not the deformation gradient passed to the constitutive law, and to prefer 'mean_dilatation' or 'fbar'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 498
+  },
+  {
+    "statement": "The mean dilatation method is not implemented for 2Daxi ModelingSpace or with the total Lagrangian formulation (NotImplementedError).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 492
+  },
+  {
+    "statement": "The mean dilatation method requires assembly.n_elm_gp greater than the number of pressure values per element, else a ValueError is raised.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 505
+  },
+  {
+    "statement": "In update(), for the updated Lagrangian method the mesh is updated and elementary ops recomputed via assembly.set_disp(pb.get_disp()).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 543
+  },
+  {
+    "statement": "In update(), when nlgeom is active the weak form calls self._comp_F(assembly, displacement) and self._corate_func(self, assembly, pb), otherwise it computes the linear strain (_comp_linear_strain).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 555
+  },
+  {
+    "statement": "update_2 documents that solid constitutive laws return the 'box' tangent d(tau_hat)/dD (Kirchhoff, corotational rate) which is converted to what the configuration integrates.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 611
+  },
+  {
+    "statement": "update_2 converts the TL tangent to the material tangent dS/dE via sim.Lt_convert(..., self._convert_Lt_tag).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 625
+  },
+  {
+    "statement": "update_2 for UL performs a two-stage conversion: sim.Lt_convert to dS/dE then sim.Lt_convert(dsde, F, stress, 'DSDE_2_Dsigma_LieDD') to the Lie (Truesdell) spatial tangent, noting that using the box tangent directly leaves an O(sigma) inconsistency that destroys Newton convergence at large rotation.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 638
+  },
+  {
+    "statement": "The incompressibility property docstring lists the available methods None (default), 'auto', 'mean_dilatation' (B-bar, volume weighted projection, element-wise discontinuous pressure eliminated at element level, symmetric tangent), 'sri' (legacy small-strain B-bar for quad4/hex8) and 'fbar'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 749
+  },
+  {
+    "statement": "The incompressibility docstring states one pressure value per element is used for quad4, hex8, wed6, tri6 and tet10, and a linear pressure for quad8, quad9, hex20, wed15 and wed18, and that the number of Gauss points should be higher than the number of pressure values.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 762
+  },
+  {
+    "statement": "The incompressibility docstring states the attribute should be defined before creating the associated assembly and that incompressibility treatments are ignored with the plane-stress assumption.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 780
+  },
+  {
+    "statement": "The incompressibility setter raises ValueError(\"incompressibility should be None, 'auto', 'mean_dilatation', 'sri' or 'fbar'. Got {value!r}.\") for unsupported values.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 796
+  },
+  {
+    "statement": "The incompressibility setter installs self.assembly_options['elm_type', elm_type] = new_elm_type for each mapped element, and sets assembly_options['assume_sym'] = False for fbar.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 806
+  },
+  {
+    "statement": "The geometric_stiffness property docstring states that None selects the consistent default (enabled for finite-strain tangent conversion, disabled otherwise) and a boolean can be set explicitly to override.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 835
+  },
+  {
+    "statement": "The corate property docstring states 'log_r' (default) is the exact logarithmic strain with an EXACT simcoon tangent transport, and lists 'log' (XBM), 'jaumann' and 'green_nagdhi'/'gn' options, with no effect if nlgeom is False.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 852
+  },
+  {
+    "statement": "_MEAN_DILATATION_ELEMENTS maps each of quad4, quad8, quad9, tri6, hex8, hex20, wed6, wed15, wed18, tet10 to the element name suffixed with 'md'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 892
+  },
+  {
+    "statement": "_INCOMPRESSIBILITY_ELEMENTS maps None to {}, 'fbar' and 'sri' to quad4->quad4sri/hex8->hex8sri, and 'mean_dilatation'/'auto' to the mean-dilatation element table.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 907
+  },
+  {
+    "statement": "_check_F_validity rejects det F <= 1e-12 with InvalidKinematicStateError, stating the trial state degenerates the kinematics and is treated as a failed Newton iterate.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 1055
+  },
+  {
+    "statement": "_comp_F_mean_dilatation replaces J by its per-element volume-weighted projection theta, sets scale = theta/J and F1 *= scale ** (1/3), and stores assembly.sv['_MeanDilatation_scale'] and assembly.sv['Jbar'].",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 1093
+  },
+  {
+    "statement": "The mean-dilatation F comment states the assumed constitutive deformation gradient uses the 3D volumetric split also in plane strain, while physical kinematics keep F_zz=1.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 1102
+  },
+  {
+    "statement": "_comp_log_strain_R uses sim.objective_rate('log_R', F0, F1, dtime, False) and sim.Log_strain(F1, True, False) so the log strain is recomputed at each iteration.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 1173
+  },
+  {
+    "statement": "_BOX_TO_DSDE maps the simcoon corate box tangents to 'DsigmaDe_JaumannDD_2_DSDE', 'DsigmaDe_GreenNaghdiDD_2_DSDE' and 'DsigmaDe_2_DSDE'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 1221
+  },
+  {
+    "statement": "WeakFormBase._initialize_nlgeom uses pb.nlgeom when self.nlgeom is None, maps True to 'UL' and False to False on assembly._nlgeom, upper-cases string values, and raises ValueError(\"nlgeom should be in {'TL', 'UL', True, False}\").",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\weakform.py",
+    "line": 113
+  },
+  {
+    "statement": "The okf concept states the accepted nlgeom values are exactly {True, 'UL', 'TL'}, with None the default (small-displacement/linear kinematics), True == 'UL', and 'TL' total Lagrangian.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+    "line": 28
+  },
+  {
+    "statement": "The okf concept states nlgeom is only meaningful inside a nonlinear problem (fd.problem.NonLinear, fd.problem.NonLinearNewmark) and has no effect on a linear problem.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+    "line": 33
+  },
+  {
+    "statement": "The okf concept states the finite-strain formulation requires the external simcoon library to be installed.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+    "line": 36
+  },
+  {
+    "statement": "The okf concept states corate is a weakform attribute (StressEquilibrium.corate), not a constitutive-law attribute: setting corate on the material object is a no-op in 1.0.1 (verified 2026-10-07, plasticity/torsion_test.py).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+    "line": 38
+  },
+  {
+    "statement": "The okf concept states the consistent geometric stiffness is enabled automatically for finite-strain tangent conversion and can be overridden by setting geometric_stiffness explicitly.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+    "line": 45
+  },
+  {
+    "statement": "The okf concept reports the verified run of Exemples_fedoo/01-simple/simple_cantilever_beam_3D_model_nlgeom.py on fedoo 1.0.1 (StressEquilibrium('ElasticLaw', nlgeom=True), problem.NonLinear, pb.nlsolve(dt=0.2)) converged in 5 adaptive time steps.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+    "line": 49
+  },
+  {
+    "statement": "The NonLinear problem constructor is __init__(self, assembly, nlgeom=False, name='MainProblem').",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+    "line": 14
+  },
+  {
+    "statement": "NonLinear initializes self.nr_parameters with 'criterion': 'Force', 'tol': 5e-3, 'max_subiter': 16, 'dt_increase_niter': None, 'norm_type': 2 and flags for elastic-stiffness/adaptive strategies.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+    "line": 31
+  },
+  {
+    "statement": "The Linear problem constructor is __init__(self, assembly, time_step=None, integrator=None, name='MainProblem') and sets self.nlgeom = False.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\linear.py",
+    "line": 41
+  },
+  {
+    "statement": "fedoo.problem exports NonLinear and NonLinearNewmark from non_linear, and Linear/LinearNewmark from linear (there is no NonLinearStatic class).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 254
+  },
+  {
+    "statement": "NonLinearNewmark is a factory function with parameters beta=0.25, gamma=0.5 (geometric-nonlinearity option forwarded to NonLinear) that attaches a Newmark time integrator.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+    "line": 1377
+  },
+  {
+    "statement": "The nlsolve signature is nlsolve(dt=0.1, update_dt=True, tmax=None, t0=None, dt_min=1e-6, max_subiter=None, dt_increase_niter=None, tol_nr=None, print_info=None, save_at_exact_time=None, interval_output=None, callback=None, exec_callback_at_each_iter=None, dt_max=None).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\non_linear.py",
+    "line": 1121
+  },
+  {
+    "statement": "The problem module docstring states that with update_dt=True the time increment is shrunk by 0.25x on failure or expanded by 1.25x on quick convergence, and dt_increase_niter defaults to max_subiter // 3.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 195
+  },
+  {
+    "statement": "The problem module docstring states the three convergence criteria are Force (default), Displacement (norm of the displacement increment relative to the initial increment of the step) and Work, with tol default 5e-3 and max_subiter default 16.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 139
+  },
+  {
+    "statement": "The problem module docstring 'Handling Incompressibility' section states that for nearly incompressible materials (Poisson's ratio nu ~ 0.5) standard elements may suffer volumetric locking and that element-level incompressibility methods introduce no additional global unknowns.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 210
+  },
+  {
+    "statement": "The problem module docstring describes 'mean_dilatation' as the recommended B-bar method giving a symmetric tangent matrix, available for small strain and updated-Lagrangian analyses in 3D and 2Dplane, with geometric_stiffness=True for the consistent finite-strain tangent.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 224
+  },
+  {
+    "statement": "The problem module docstring states 'sri' is a legacy low-order B-bar method for quad4 and hex8, most appropriate for small strain, not consistent in finite strain (warning with updated Lagrangian), and that the total-Lagrangian formulation is not supported.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 233
+  },
+  {
+    "statement": "The problem module docstring states that for 'fbar' the consistent tangent matrix is nonsymmetric for quad4/hex8 in 3D or 2Dplane, while other elements, 2Daxi and total-Lagrangian analyses retain the F-bar kinematic correction with the standard tangent and a warning.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 238
+  },
+  {
+    "statement": "The problem module docstring states that in plane stress (2Dstress) incompressibility options are ignored, they require full integration and do not improve constant-strain elements such as tri3 and tet4, and one pressure value per quad4/hex8 may give checkerboard pressure oscillations.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 243
+  },
+  {
+    "statement": "The problem module docstring recommends StressEquilibriumRI for one-point integration of quad4/hex8 with hourglass control, and StressEquilibriumMixed with LBB-satisfying interpolations (CombinedElement quad8lbb example) for mixed displacement/pressure.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\problem\\__init__.py",
+    "line": 247
+  },
+  {
+    "statement": "The rendered Main documentation 'Handling Incompressibility' section states that for nearly incompressible materials (Poisson's ratio ~ 0.5) standard elements may suffer volumetric locking and Fedoo offers the listed solutions.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\problem.html",
+    "line": 508
+  },
+  {
+    "statement": "The StressEquilibriumMixed docstring describes a mixed displacement/pressure weak formulation that introduces a pressure variable to treat volumetric behavior separately from the deviatoric behavior, with the LBB condition (e.g. Q2-Q1 or P1+/P1).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_mixed.py",
+    "line": 13
+  },
+  {
+    "statement": "The StressEquilibriumMixed constructor is __init__(self, constitutivelaw, bulk_modulus=None, convert_tangent=True, name='', nlgeom=None, space=None) where bulk_modulus scales the pressure equation.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_mixed.py",
+    "line": 49
+  },
+  {
+    "statement": "The StressEquilibriumMixed constructor adds self.space.new_variable('Pressure') and defaults self.symmetrized_matrix = True.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_mixed.py",
+    "line": 66
+  },
+  {
+    "statement": "The StressEquilibriumMixed docstring states symmetrized_matrix is only used when nlgeom is False and if True the deviatoric tangent uses the symmetric projection (P:H:P).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_mixed.py",
+    "line": 42
+  },
+  {
+    "statement": "StressEquilibriumMixed raises NotImplementedError for the 2Daxi ModelingSpace with the total Lagrangian formulation of the mixed (u,p) weak form.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_mixed.py",
+    "line": 77
+  },
+  {
+    "statement": "StressEquilibriumMixed computes H as the isochoric part of the tangent from F_bar and corrects H_dev[i][j] -= (2/3)*(sigma_dev[i] + sigma_dev[j]) (derivative of J^(-1/3)).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_mixed.py",
+    "line": 113
+  },
+  {
+    "statement": "StressEquilibriumRI is a WeakFormSum combining StressEquilibrium with HourglassStiffness to control hourglass modes, to be used only with hex8 or quad4 elements, using one Gauss point by default with the Flanagan and Belytschko stabilization.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_ri.py",
+    "line": 230
+  },
+  {
+    "statement": "The StressEquilibriumRI docstring documents hourglass_stiffness default 0.01, nlgeom_hourglass default False (keeping it false generally gives accurate results including for finite strain), and an example using ElasticIsotrop(100e3, 0.3).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_ri.py",
+    "line": 245
+  },
+  {
+    "statement": "HourglassStiffness sets self.assembly_options['n_elm_gp'] = 1 and maps elm_type quad4->quad4hourglass and hex8->hex8hourglass, based on the Flanagan and Belytschko 1981 method, and is not implemented in 2Daxi.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_ri.py",
+    "line": 66
+  },
+  {
+    "statement": "HourglassStiffness computes hourglass_stiffness = 1/ndim * stiffness_coef * pwave_modulus * coef, with the p-wave modulus derived from the tangent.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium_ri.py",
+    "line": 147
+  },
+  {
+    "statement": "The ElasticIsotrop docstring describes a simple linear elastic isotropic law defined from a Young Modulus and a Poisson Ratio, to be associated with fedoo.weakform.StressEquilibrium, with constructor __init__(self, E, nu, name='').",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elastic_isotrop.py",
+    "line": 12
+  },
+  {
+    "statement": "ElasticIsotrop.get_tangent_matrix has a distinct 2Dstress branch (H[0,0]=E/(1-nu^2), H[0,1]=nu*E/(1-nu^2), H[3,3]=0.5*E/(1+nu)) versus plane strain/3D (H1 = 2*mu+lamb, H2 = lamb, H3 = mu).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elastic_isotrop.py",
+    "line": 52
+  },
+  {
+    "statement": "The ElastoPlasticity docstring describes an elasto-plastic law with isotropic hardening using a vectorized radial-return algorithm for the von Mises yield criterion, with constructor __init__(self, young_modulus, poisson_ratio, yield_stress, name='').",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+    "line": 13
+  },
+  {
+    "statement": "The ElastoPlasticity docstring states that in a geometrically nonlinear analysis it is a corotational extension on the logarithmic strain and the Cauchy stress tau/J is handed to the assembly so the response matches Simcoon's EPICP UMAT.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+    "line": 24
+  },
+  {
+    "statement": "The ElastoPlasticity docstring warns that this Python implementation is intended only for pedagogical use and to prefer fedoo.constitutivelaw.Simcoon for computational analyses.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+    "line": 39
+  },
+  {
+    "statement": "ElastoPlasticity provides set_hardening_function(function_type, **kwargs) used e.g. as set_hardening_function('power', h=..., beta=...).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\elasto_plasticity.py",
+    "line": 134
+  },
+  {
+    "statement": "The Simcoon class docstring describes constitutive laws from the simcoon library to be associated with fedoo.weakform.StressEquilibrium, with constructor __init__(self, umat_name, props, tangent_mode=1, name='').",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+    "line": 22
+  },
+  {
+    "statement": "The Simcoon isotropic UMAT list includes 'ELISO', 'EPICP' and 'NEOHC'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+    "line": 91
+  },
+  {
+    "statement": "The Simcoon docstring states a modular material uses the MODUL UMAT and in finite strain requires the log_R formulation: set weakform.corate = 'log_R' before initializing the problem.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\constitutivelaw\\simcoon_umat.py",
+    "line": 75
+  },
+  {
+    "statement": "The MechanicalUMAT docstring gives the umat callable signature umat(strain, dstrain, F0, F1, stress, DR, props, statev_start, time, dtime, wm_start, temperature, *, ndi, tangent_mode) returning (stress, statev, wm, tangent).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mechanical3d.py",
+    "line": 391
+  },
+  {
+    "statement": "The MechanicalUMAT docstring notes that in finite strain the weak form owns and updates the deformation-gradient field and MechanicalUMAT consumes it as F0 and F1, and that required_corate is checked against weakform.corate at initialization.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mechanical3d.py",
+    "line": 422
+  },
+  {
+    "statement": "The incompressibility_comparison.py example uses fd.ModelingSpace('2Dplane') with POISSON_RATIO = 0.499.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\incompressibility_comparison.py",
+    "line": 47
+  },
+  {
+    "statement": "The incompressibility_comparison.py example defines FORMULATIONS mapping Full integration->None, Mean dilatation->'mean_dilatation', F-bar->'fbar', Reduced integration->'reduced_integration'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\incompressibility_comparison.py",
+    "line": 62
+  },
+  {
+    "statement": "The incompressibility_comparison.py cook_mesh builds fd.mesh.rectangle_mesh(nx=NX, ny=NY, x_min=0.0, x_max=1.0, y_min=0.0, y_max=1.0, elm_type='quad4', name=name) and maps mesh.nodes to Cook's membrane (X=48*xi, Y=44*xi+(44-28*xi)*eta).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\incompressibility_comparison.py",
+    "line": 83
+  },
+  {
+    "statement": "The incompressibility_comparison.py example creates material = fd.constitutivelaw.ElastoPlasticity(YOUNG_MODULUS, POISSON_RATIO, YIELD_STRESS) and material.set_hardening_function('power', h=..., beta=...).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\incompressibility_comparison.py",
+    "line": 104
+  },
+  {
+    "statement": "The incompressibility_comparison.py example uses StressEquilibriumRI(material, nlgeom='UL') for reduced integration and otherwise fd.weakform.StressEquilibrium(material, nlgeom='UL', incompressibility=method).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\incompressibility_comparison.py",
+    "line": 115
+  },
+  {
+    "statement": "The incompressibility_comparison.py example solves with problem.set_nr_criterion('Displacement', err0=1.0, tol=2e-4, max_subiter=25) and problem.nlsolve(dt=0.1, tmax=1.0, update_dt=True, dt_max=0.1, print_info=0, interval_output=0.1).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\incompressibility_comparison.py",
+    "line": 130
+  },
+  {
+    "statement": "The incompressibility_comparison.py docstring states the benchmark is Cook's membrane and that plane strain with nu=0.499 makes the response nearly incompressible, with mean dilatation retaining a symmetric tangent and the consistent F-bar tangent generally nonsymmetric.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\incompressibility_comparison.py",
+    "line": 27
+  },
+  {
+    "statement": "The okf incompressibility concept gives the fedoo 1.0.1 signature fd.weakform.StressEquilibrium(constitutivelaw, incompressibility=None, convert_tangent=True, name='', nlgeom=None, space=None).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\incompressibility-methods.md",
+    "line": 19
+  },
+  {
+    "statement": "The okf incompressibility gotchas state the attribute must be defined before creating the assembly, constant-strain (tri3, tet4) and reduced-integration elements are not improved (use StressEquilibriumMixed or StressEquilibriumRI), and treatments are ignored with plane stress.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\incompressibility-methods.md",
+    "line": 55
+  },
+  {
+    "statement": "The okf incompressibility verified behaviour states incompressibility_comparison.py runs all four formulations on a quad4 Cook's membrane in plane strain with ElastoPlasticity (nu=0.499, nlgeom='UL') and that mean-dilatation and F-bar agree to four significant figures at ~2.29x the untreated tip displacement.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\incompressibility-methods.md",
+    "line": 66
+  },
+  {
+    "statement": "The neohookean_cantilever.py example uses fd.ModelingSpace('3D') with E, nu = 60e6, 0.49, mu = E/(2*(1+nu)), kappa = E/(3*(1-2*nu)).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\neohookean_cantilever.py",
+    "line": 46
+  },
+  {
+    "statement": "The neohookean_cantilever.py docstring gives the Neo-Hookean energy W = mu/2 (I1_bar - 3) + kappa (J ln J - J + 1) with mu = E/2(1+nu) and kappa = E/3(1-2nu).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\neohookean_cantilever.py",
+    "line": 15
+  },
+  {
+    "statement": "The neohookean_cantilever.py example uses material = fd.constitutivelaw.Simcoon('NEOHC', [mu, kappa], name='neohookean').",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\neohookean_cantilever.py",
+    "line": 74
+  },
+  {
+    "statement": "The neohookean_cantilever.py example uses StressEquilibriumRI(material, nlgeom='UL') for hex8 (to avoid volumetric locking at nu=0.49) and StressEquilibrium(material, nlgeom='UL') otherwise, with a RigidTie top and pb.nlsolve(dt=0.05, tmax=1.0, update_dt=True, print_info=1, interval_output=0.05).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\neohookean_cantilever.py",
+    "line": 78
+  },
+  {
+    "statement": "The tube_compression.py example uses fd.ModelingSpace('2Daxi') and mesh = fd.mesh.rectangle_mesh(5, 240, 23, 25, 0, 180) for the tube geometry.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\tube_compression.py",
+    "line": 19
+  },
+  {
+    "statement": "The tube_compression.py example uses props = np.array([E, nu, 1e-5, sigma_y, k, m]) with material = fd.constitutivelaw.Simcoon('EPICP', props) and wf = fd.weakform.StressEquilibrium(material).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\tube_compression.py",
+    "line": 41
+  },
+  {
+    "statement": "The tube_compression.py example defines NLGEOM = 'UL' and pb = fd.problem.NonLinear(assembly + contact, nlgeom=NLGEOM), with a comment stating the Updated Lagrangian method (NLGEOM='UL') is the default in fedoo (equivalent to NLGEOM=True).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\tube_compression.py",
+    "line": 63
+  },
+  {
+    "statement": "The tube_compression.py example sets pb.set_nr_criterion('Displacement', tol=1e-2, max_subiter=20, adaptive_stiffness=True).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\03-advanced\\tube_compression.py",
+    "line": 74
+  },
+  {
+    "statement": "The simple_cantilever_beam_3D_model_nlgeom.py example uses wf = fd.weakform.StressEquilibrium('ElasticLaw', nlgeom=True), pb = fd.problem.NonLinear('Assembling') and pb.nlsolve(dt=0.2).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\01-simple\\simple_cantilever_beam_3D_model_nlgeom.py",
+    "line": 29
+  },
+  {
+    "statement": "rectangle_mesh has the signature rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type='quad4', ndim=None, name='') and creates a rectangular Mesh.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 24
+  },
+  {
+    "statement": "The rectangle_mesh docstring lists elm_type options 'tri3' (3-node linear triangle), 'tri6' (6-node), 'quad4' (4-node), 'quad8' (8-node, a tester) and 'quad9' (9-node), default 'quad4'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 36
+  },
+  {
+    "statement": "rectangle_mesh uses nodes via np.meshgrid(np.linspace(x_min,x_max,nx), np.linspace(y_min,y_max,ny)).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 70
+  },
+  {
+    "statement": "rectangle_mesh forces odd node counts for quad9/tri6 with nx = int(nx // 2 * 2 + 1) (same for ny).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 68
+  },
+  {
+    "statement": "rectangle_mesh for quad8 adds mid-side nodes (crd2/crd3 stacked onto crd).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 79
+  },
+  {
+    "statement": "rectangle_mesh defines node_sets bottom/top/left/right from node indices (for quad8 the sets additionally include mid-side boundary nodes) and returns Mesh(crd, elm, elm_type, node_sets, {}, ndim, name).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 162
+  },
+  {
+    "statement": "box_mesh has the signature box_mesh(nx=11, ny=11, nz=11, x_min=0, x_max=1, y_min=0, y_max=1, z_min=0, z_max=1, elm_type='hex8', name='') creating the mesh of a box with elm_type 'hex8' or 'hex20'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 478
+  },
+  {
+    "statement": "stack(mesh1, mesh2, name='') makes the spatial stack of two mesh objects with the same element shape and does not merge coincident nodes (use find_coincident_nodes and merge_nodes).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+    "line": 10
+  },
+  {
+    "statement": "The fedoo.mesh module docstring lists Mesh Creation Functions (rectangle_mesh, box_mesh, disk_mesh, I_shape_mesh, line_mesh_1D, line_mesh, generate_cylindrical_local_frame, structured_mesh_2D) and Mesh manipulation functions (stack, extrude, thicken, extract_surface, change_elm_type, quad2tri) plus Import/Export (import_file, import_msh, import_vtk).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\__init__.py",
+    "line": 48
+  },
+  {
+    "statement": "structured_mesh_2D has the signature structured_mesh_2D(data, edge1, edge2, edge3, edge4, elm_type='quad4', method=0, ndim=None, name='') creating a 2D structured grid from 4 edges, with elm_type in {'quad4','quad9','tri3','tri6'} and method 0 = intersection of lines between opposite-edge nodes.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\structured_mesh.py",
+    "line": 7
+  },
+  {
+    "statement": "The Mesh class docstring documents nodes (numpy array of float, nodes[i] the coordinate of node i), elements (elements[i] the nodes of element i), elm_type, ndim (deduced from nodes if omitted) and register_name (default True, registers the mesh under name).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mesh.py",
+    "line": 112
+  },
+  {
+    "statement": "Mesh.find_nodes(selection_criterion, value=0, tol=1e-6, name=None) accepts 'X'/'Y'/'Z', 'XY'/'XZ'/'YZ', 'Point', 'Distance' or an arbitrary expression (e.g. '(X**2>0.2 and X<0.5) or abs(Y)>0.4'), and name stores the result in mesh.node_sets.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\mesh.py",
+    "line": 875
+  },
+  {
+    "statement": "The ModelingSpace docstring documents dimension in ['2D','3D','2Dplane' or '2Dstress'] where '2D'/'2Dplane' is general 2D with plane strain, '3D' has coordinates X,Y,Z, '2Dstress' is plane stress, '2Daxi' is axisymmetric, with example fd.ModelingSpace('2Dstress').",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\modelingspace.py",
+    "line": 16
+  },
+  {
+    "statement": "The Quick_Start workflow is: import fedoo as fd; fd.ModelingSpace('3D'); create/import the mesh (e.g. fd.mesh.box_mesh(...)); create a weakform (material = fd.constitutivelaw.ElasticIsotrop(200e3, 0.3); my_weakform = fd.weakform.StressEquilibrium(material)); my_assembly = fd.Assembly.create(my_weakform, my_mesh); pb = fd.problem.Linear('MyAssembly'); pb.set_solver('cg'); add Dirichlet BCs; pb.solve().",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Documentation_technique\\Quick_Start.rst",
+    "line": 25
+  },
+  {
+    "statement": "The Quick_Start example mesh is fd.mesh.box_mesh(nx=31, ny=21, nz=21, x_min=0, x_max=1000, y_min=0, y_max=100, z_min=0, z_max=100, elm_type='hex8').",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Documentation_technique\\Quick_Start.rst",
+    "line": 48
+  },
+  {
+    "statement": "The Quick_Start example boundary nodes are found with nodes_left = Mesh['Domain'].find_nodes('X', mesh.bounding_box.xmin, tol=1e-10) and BCs are added with pb.bc.add('Dirichlet', nodes_left, 'Disp', 0) and pb.bc.add('Dirichlet', nodes_right, 'DispY', -10).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Documentation_technique\\Quick_Start.rst",
+    "line": 132
+  },
+  {
+    "statement": "The Assembly docstring documents elm_type as 'Type of the element used for the field interpolation. This element may be different than the one used for the geometrical interpolation defined in mesh.elm_type.'",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\assembly.py",
+    "line": 37
+  },
+  {
+    "statement": "Assembly.__init__(weakform, mesh='', elm_type='', name='', **kargs) resolves elm_type from weakform.assembly_options.get('elm_type', mesh.elm_type, mesh.elm_type), so incompressibility element substitutions (quad4md, quad4sri) and n_elm_gp overrides take effect.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\assembly.py",
+    "line": 100
+  },
+  {
+    "statement": "Assembly.create(weakform, mesh='', elm_type='', name='', **kargs) is a factory that handles WeakFormSum/AssemblySum objects.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\assembly.py",
+    "line": 1789
+  },
+  {
+    "statement": "The fedoo.weakform module docstring states that differential equations are written as weak formulations and that a WeakForm does not know its domain of integration until a Mesh is introduced when creating the corresponding Assembly; its class list includes StressEquilibrium, StressEquilibriumRI, StressEquilibriumMixed, HourglassStiffness and ArtificialDamping.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\__init__.py",
+    "line": 7
+  },
+  {
+    "statement": "The okf index lists '[StressEquilibrium geometric nonlinearity](/concepts/stress-equilibrium-nlgeom.md)' and '[Incompressibility methods](/concepts/incompressibility-methods.md)' (the incompressibility option of StressEquilibrium).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\index.md",
+    "line": 31
+  },
+  {
+    "statement": "The okf log records the durable fact that set_nr_criterion DEFAULT is 'Force' in 1.0.1 and that the Force criterion fails for kinematically-driven problems so 'Displacement' should be used, and that material.corate is a no-op (corate is a weakform attribute).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+    "line": 394
+  },
+  {
+    "statement": "The CHANGELOG [1.0.0] entry adds the incompressibility attribute of StressEquilibrium (also a constructor argument) with values None (default), 'auto', 'mean_dilatation', 'sri' or 'fbar'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\CHANGELOG.md",
+    "line": 47
+  },
+  {
+    "statement": "The CHANGELOG [1.0.0] entry states that StressEquilibrium.geometric_stiffness now defaults to None, meaning enabled for finite-strain tangent conversion and disabled in small strain, with explicit True/False overriding.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\CHANGELOG.md",
+    "line": 91
+  },
+  {
+    "statement": "The CHANGELOG [1.0.0] entry states that the dedicated StressEquilibriumBbar and StressEquilibriumFbar weak forms were removed and to use StressEquilibrium(..., incompressibility='sri') and StressEquilibrium(..., incompressibility='fbar') instead.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\CHANGELOG.md",
+    "line": 102
+  },
+  {
+    "statement": "The fedoo source tree is version 1.0.1 per the CHANGELOG header '## [1.0.1] - 2026-10-01'.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\CHANGELOG.md",
+    "line": 8
+  },
+  {
+    "statement": "The lattice_beam.py example builds its mesh with fd.mesh.rectangle_mesh(n, n, x_max=100, y_max=100, ndim=ndim).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\01-simple\\lattice_beam.py",
+    "line": 26
+  },
+  {
+    "statement": "The modal_analysis.py example builds its mesh with fd.mesh.rectangle_mesh(...).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\01-simple\\modal_analysis.py",
+    "line": 36
+  },
+  {
+    "statement": "The 2DplasticBending.py example builds its mesh with fd.mesh.rectangle_mesh(...).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+    "line": 22
+  },
+  {
+    "statement": "The disk_rectangle_contact.py example builds its rectangle with mesh_rect = fd.mesh.rectangle_mesh(...) (plus disk and stack).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\02-constraints\\disk_rectangle_contact.py",
+    "line": 26
+  },
+  {
+    "statement": "The thick_cylinder_inflation_axi.py example builds its axisymmetric mesh with fd.mesh.rectangle_mesh(nx=21, ny=11, x_min=A, x_max=B, y_min=0.0, y_max=H).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\models\\axisymmetric\\thick_cylinder_inflation_axi.py",
+    "line": 32
+  },
+  {
+    "statement": "The westergaard_sinusoidal.py example builds block and plate meshes with fd.mesh.rectangle_mesh(...).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\benchmark\\westergaard_sinusoidal.py",
+    "line": 131
+  }
+]

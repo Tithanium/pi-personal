@@ -1,0 +1,23 @@
+{
+  "id": "fedoo_stresseq_nlgeom",
+  "source": "fresh-D",
+  "wallMs": 342322,
+  "tokensIn": 100636,
+  "tokensOut": 13083,
+  "capHit": false,
+  "answerBytes": 9807,
+  "factsCount": 79,
+  "verifyPassRate": 0.6709,
+  "verify": {
+    "pass": 53,
+    "fix": 26,
+    "drop": 0,
+    "notFound": 0
+  },
+  "ok": true,
+  "agentEnd": true,
+  "timedOut": false,
+  "stopReason": "stop",
+  "note": "ok; facts=79",
+  "done": true
+}

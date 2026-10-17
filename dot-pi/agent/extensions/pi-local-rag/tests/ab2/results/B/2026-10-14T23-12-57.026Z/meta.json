@@ -1,0 +1,92 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 47346,
+    "tokensIn": 14985,
+    "tokensOut": 1623,
+    "ok": true,
+    "payloadBytes": 3817,
+    "provenance": "new B run 2026-10-14T23-12-57.026Z",
+    "empty": false,
+    "note": "ok (7 candidate sections → 3729 B payload)",
+    "internals": {
+      "nChunks": 8,
+      "nSections": 7
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 14284,
+    "tokensIn": 17349,
+    "tokensOut": 540,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B run 2026-10-14T23-12-57.026Z",
+    "empty": true,
+    "note": "child pruned all sections → empty payload",
+    "internals": {
+      "nChunks": 8,
+      "nSections": 8
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 34793,
+    "tokensIn": 22857,
+    "tokensOut": 1122,
+    "ok": true,
+    "payloadBytes": 2685,
+    "provenance": "new B run 2026-10-14T23-12-57.026Z",
+    "empty": false,
+    "note": "ok (2 candidate sections → 2597 B payload)",
+    "internals": {
+      "nChunks": 8,
+      "nSections": 2
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 50612,
+    "tokensIn": 55275,
+    "tokensOut": 2217,
+    "ok": true,
+    "payloadBytes": 5793,
+    "provenance": "new B run 2026-10-14T23-12-57.026Z",
+    "empty": false,
+    "note": "ok (6 candidate sections → 5705 B payload)",
+    "internals": {
+      "nChunks": 8,
+      "nSections": 6
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 47526,
+    "tokensIn": 14978,
+    "tokensOut": 1753,
+    "ok": true,
+    "payloadBytes": 5261,
+    "provenance": "new B run 2026-10-14T23-12-57.026Z",
+    "empty": false,
+    "note": "ok (8 candidate sections → 5173 B payload)",
+    "internals": {
+      "nChunks": 8,
+      "nSections": 8
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 6987,
+    "tokensIn": 7182,
+    "tokensOut": 179,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B run 2026-10-14T23-12-57.026Z",
+    "empty": true,
+    "note": "child pruned all sections → empty payload",
+    "internals": {
+      "nChunks": 8,
+      "nSections": 1
+    }
+  }
+]

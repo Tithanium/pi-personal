@@ -1,0 +1,793 @@
+{
+  "id": "fedoo_stresseq_nlgeom",
+  "generatedAt": "2026-10-15T22:15:09Z",
+  "grid": [
+    {
+      "n": 1,
+      "statement": "fd.weakform.StressEquilibrium(constitutivelaw, incompressibility=None, convert_tangent=True, name='', nlgeom=None, space=None) is the mechanical equilibrium equation for solids, usable for a solid in 3D or using a 2D plane assumption (plane strain or plane stress)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 18,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 2,
+      "statement": "nlgeom: set to False if geometric nonlinearities are ignored; True or 'UL' activates geometric nonlinearities based on the updated Lagrangian method (update the mesh); 'TL' uses the total Lagrangian method (based on the initial mesh with initial displacement effect); if not defined, the problem.nlgeom parameter is used instead (used in the context of NonLinearStatic or NonLinearNewmark problems)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 50,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 3,
+      "statement": "The weak form accepts geometric nonlinearities only if simcoon is installed (nlgeom in {True, 'UL', 'TL'}); in that case the initial displacement is also considered and several corotational formulations may be used by setting the corate attribute (default 'log_r', other options 'log', 'jaumann', 'green_naghdi'/'gn', ...)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 25,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 4,
+      "statement": "For nearly incompressible materials, the incompressibility attribute selects a method to avoid the volumetric locking; by default (None) the standard displacement formulation is used",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 29,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    }
+  ],
+  "dFacts": [
+    {
+      "dn": 1,
+      "statement": "fd.weakform.StressEquilibrium is the mechanical equilibrium weak form for solids (3D or 2D plane stress / plane strain).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 15,
+      "lineFixed": 14,
+      "status": "duplicate-of-original",
+      "note": "same claim as G1 (mechanical equilibrium weak form for solids, 3D or 2D plane); okf md lines 14-15"
+    },
+    {
+      "dn": 2,
+      "statement": "Geometric nonlinearities of StressEquilibrium are enabled through its nlgeom argument.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 17,
+      "lineFixed": 15,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (nlgeom controls/activates geometric nonlinearities); okf md line 15"
+    },
+    {
+      "dn": 3,
+      "statement": "StressEquilibrium docstring: the weak form can be used for solids in 3D or with a 2D plane assumption (plane strain or plane stress).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 18,
+      "lineFixed": 21,
+      "status": "duplicate-of-original",
+      "note": "restates G1 (3D or 2D plane assumption); docstring lines 21-22 (cited line 18 is docstring opening)"
+    },
+    {
+      "dn": 4,
+      "statement": "StressEquilibrium docstring: it includes initial stress for nonlinear problems or if defined in the associated assembly.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 22,
+      "lineFixed": 23,
+      "status": "pass",
+      "note": "docstring lines 23-24: 'Include initial stress for non linear problems or if defined in the associated assembly.'"
+    },
+    {
+      "dn": 5,
+      "statement": "StressEquilibrium docstring: it accepts geometrical nonlinearities if simcoon is installed (nlgeom in {True, 'UL', 'TL'}); in that case the initial displacement is considered and corotational formulations are selectable via the corate attribute.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 24,
+      "lineFixed": 25,
+      "status": "duplicate-of-original",
+      "note": "restates G3 (simcoon requirement, initial displacement, corate attribute); docstring lines 25-28"
+    },
+    {
+      "dn": 6,
+      "statement": "StressEquilibrium docstring: for nearly incompressible materials a volumetric-locking avoidance method is selected via the incompressibility attribute.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 29,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "restates G4 (incompressibility avoids volumetric locking); docstring lines 29-30"
+    },
+    {
+      "dn": 7,
+      "statement": "StressEquilibrium docstring: the consistent geometric stiffness is enabled automatically for finite-strain tangent conversion and can be overridden with geometric_stiffness.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 31,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "docstring lines 31-33; matches geometric_stiffness property (None = consistent default)"
+    },
+    {
+      "dn": 8,
+      "statement": "nlgeom parameter docstring: if True, geometric nonlinearities are activated using the updated Lagrangian method; the parameter is used only in the context of NonLinearProblems such as NonLinearStatic or NonLinearNewmark.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 53,
+      "lineFixed": 51,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (True->UL; NonLinearProblems context); docstring lines 51-55"
+    },
+    {
+      "dn": 9,
+      "statement": "nlgeom parameter docstring: if nlgeom == 'UL' the updated Lagrangian method is used (same as True); if nlgeom == 'TL' the total Lagrangian method is used.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 58,
+      "lineFixed": 56,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (UL/TL semantics); docstring lines 56-57"
+    },
+    {
+      "dn": 10,
+      "statement": "nlgeom parameter docstring: if nlgeom is not defined (None), the problem.nlgeom parameter is used instead.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 61,
+      "lineFixed": 58,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (None -> problem.nlgeom); docstring line 58"
+    },
+    {
+      "dn": 11,
+      "statement": "self.nlgeom attribute docstring: set to False if geometric nonlinearities are ignored.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 99,
+      "lineFixed": 95,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (False -> ignore; G2 source covers attribute docstring); line 95"
+    },
+    {
+      "dn": 12,
+      "statement": "self.nlgeom attribute docstring: set to True or 'UL' to use the updated Lagrangian method (update the mesh).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 101,
+      "lineFixed": 96,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (True/'UL' -> UL, update mesh); lines 96-97"
+    },
+    {
+      "dn": 13,
+      "statement": "self.nlgeom attribute docstring: set to 'TL' to use the total Lagrangian method (based on the initial mesh with initial displacement effect).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 104,
+      "lineFixed": 98,
+      "status": "duplicate-of-original",
+      "note": "restates G2 ('TL' -> total Lagrangian, initial mesh + initial displacement); lines 98-99"
+    },
+    {
+      "dn": 14,
+      "statement": "convert_tangent parameter docstring: convert the constitutive corotational Kirchhoff tangent to the formulation tangent (dS/dE for TL, spatial Lie for UL); set to False only when the constitutive law already returns that final formulation-dependent tangent.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 46,
+      "lineFixed": 44,
+      "status": "pass",
+      "note": "convert_tangent parameter docstring lines 44-47"
+    },
+    {
+      "dn": 15,
+      "statement": "WeakFormBase._initialize_nlgeom: if weakform.nlgeom is None it reads nlgeom from pb.nlgeom (problem-level fallback).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\weakform.py",
+      "line": 114,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (None -> problem.nlgeom); WeakFormBase._initialize_nlgeom lines 113-115 (if self.nlgeom is None: nlgeom = pb.nlgeom)"
+    },
+    {
+      "dn": 16,
+      "statement": "WeakFormBase._initialize_nlgeom: a boolean nlgeom=True maps to assembly._nlgeom='UL', and False maps to assembly._nlgeom=False.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\weakform.py",
+      "line": 121,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "lines 119-123: isinstance(nlgeom, bool) -> 'UL' (line 121) / False (line 123); internal mapping not stated in G1-G4"
+    },
+    {
+      "dn": 17,
+      "statement": "WeakFormBase._initialize_nlgeom: a string nlgeom is upper-cased and accepted only if it is in {'UL','TL'}; otherwise it raises ValueError(\"nlgeom should be in {'TL', 'UL', True, False}\").",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\weakform.py",
+      "line": 128,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "lines 126-131: nlgeom.upper() (127), in [\"UL\",\"TL\"] check (128), raise ValueError exact message (131)"
+    },
+    {
+      "dn": 18,
+      "statement": "StressEquilibrium.get_weak_equation: when assembly._nlgeom == 'TL' the strain is evaluated from DispGradient and initial_stress is read from PK2 (second Piola-Kirchhoff) with the initial displacement effect; otherwise (UL / linear) initial_stress is read from 'Stress' (Cauchy for the UL method).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+      "line": 140,
+      "lineFixed": 137,
+      "status": "pass",
+      "note": "lines 137-144: TL branch eps=op_strain(DispGradient), initial_stress=sv['PK2'] (137-139); else branch initial_stress=sv['Stress'] '# Stress = Cauchy for updated lagrangian method' (140-144)"
+    },
+    {
+      "dn": 19,
+      "statement": "Sphinx API page for StressEquilibrium: 'Mechanical equilibrium equation for solids.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\generated\\fedoo.weakform.StressEquilibrium.html",
+      "line": 150,
+      "lineFixed": 158,
+      "status": "duplicate-of-original",
+      "note": "restates G1 (equilibrium equation for solids); html line 158"
+    },
+    {
+      "dn": 20,
+      "statement": "Sphinx API page for StressEquilibrium: 'This weak form accepts geometrical non linearities if simcoon is installed. (nlgeom should be in {True, 'UL', 'TL'}.)'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\generated\\fedoo.weakform.StressEquilibrium.html",
+      "line": 163,
+      "lineFixed": 165,
+      "status": "duplicate-of-original",
+      "note": "restates G3 (simcoon + value set); html lines 165-166"
+    },
+    {
+      "dn": 21,
+      "statement": "Sphinx API page: nlgeom parameter - 'If True, the geometrical non linearities are activate based on the updated lagrangian method. This parameters is used only in the context of NonLinearProblems such as fedoo.problem.NonLinearStatic or fedoo.problem.NonLinearNewmark.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\generated\\fedoo.weakform.StressEquilibrium.html",
+      "line": 233,
+      "lineFixed": 189,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (True->UL; NonLinearStatic/NonLinearNewmark context); cited window (218-263) empty, actual text at html line 189"
+    },
+    {
+      "dn": 22,
+      "statement": "Sphinx API page: nlgeom - 'If nlgeom == 'UL' the updated lagrangian method is used (same as True). If nlgeom == 'TL' the total lagrangian method is used. If not defined, the problem.nlgeom parameter is used instead.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\generated\\fedoo.weakform.StressEquilibrium.html",
+      "line": 236,
+      "lineFixed": 194,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (UL/TL/None semantics); cited window (221-266) empty, actual text at html lines 194-196"
+    },
+    {
+      "dn": 23,
+      "statement": "Sphinx API page: nlgeom attribute - 'Set to False if geometric non linarities are ignored. Set to True or 'UL' to use the updated lagrangian method (update the mesh). Set to 'TL' to use the total lagrangian method (base on the initial mesh with initial displacement effet).'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\generated\\fedoo.weakform.StressEquilibrium.html",
+      "line": 310,
+      "lineFixed": 286,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (attribute False/UL/TL; G2 source covers attribute docstring); cited window (295-340) empty, actual text at html line 286"
+    },
+    {
+      "dn": 24,
+      "statement": "okf concept file: 'nlgeom=None (default) — small-displacement / linear kinematics.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 31,
+      "lineFixed": 29,
+      "status": "pass",
+      "note": "okf md line 29; 'None = linear kinematics' interpretation not entailed by G1-G4 (G2 only states the problem.nlgeom fallback)"
+    },
+    {
+      "dn": 25,
+      "statement": "okf concept file: 'nlgeom=True — activate geometrical nonlinearities using the updated Lagrangian (UL) method. Equivalent to nlgeom=\"UL\".'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 33,
+      "lineFixed": 30,
+      "status": "duplicate-of-original",
+      "note": "restates G2 (True or 'UL' -> updated Lagrangian, i.e. True=='UL'); okf md lines 30-31"
+    },
+    {
+      "dn": 26,
+      "statement": "okf concept file: 'nlgeom=\"TL\" — total Lagrangian.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 36,
+      "lineFixed": 33,
+      "status": "duplicate-of-original",
+      "note": "restates G2 ('TL' -> total Lagrangian method); okf md line 33"
+    },
+    {
+      "dn": 27,
+      "statement": "okf concept file: 'The expected values are exactly {True, 'UL', 'TL'}.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 38,
+      "lineFixed": 35,
+      "status": "duplicate-of-original",
+      "note": "restates G3 (value set {True,'UL','TL'}); okf md line 35"
+    },
+    {
+      "dn": 28,
+      "statement": "okf concept file: nlgeom is only meaningful inside a nonlinear problem (fd.problem.NonLinear, fd.problem.NonLinearNewmark); it has no effect on a linear problem.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 43,
+      "lineFixed": 39,
+      "status": "pass",
+      "note": "okf md lines 39-41; adds explicit 'no effect on a linear problem' behavior beyond G2's 'used in the context of NonLinearProblems'"
+    },
+    {
+      "dn": 29,
+      "statement": "okf concept file: the finite-strain formulation requires the external simcoon library to be installed.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 46,
+      "lineFixed": 42,
+      "status": "duplicate-of-original",
+      "note": "restates G3 (simcoon required for geometric nonlinearities); okf md lines 42-43"
+    },
+    {
+      "dn": 30,
+      "statement": "okf concept file: when nlgeom is active the initial displacement is considered and corotational formulations can be selected through the corate attribute; corate is a weakform attribute (not a constitutive-law attribute).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 49,
+      "lineFixed": 44,
+      "status": "pass",
+      "note": "okf md lines 44-49; 'corate is a weakform attribute, not a constitutive-law attribute (no-op on material)' nuance goes beyond G3"
+    },
+    {
+      "dn": 31,
+      "statement": "okf concept file: the consistent geometric stiffness is enabled automatically for finite-strain tangent conversion; geometric_stiffness can be set explicitly to override.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 55,
+      "lineFixed": 50,
+      "status": "pass",
+      "note": "okf md lines 50-51"
+    },
+    {
+      "dn": 32,
+      "statement": "okf concept file (verified run): running simple_cantilever_beam_3D_model_nlgeom.py on fedoo 1.0.1 (StressEquilibrium('ElasticLaw', nlgeom=True), problem.NonLinear, pb.nlsolve(dt=0.2)) converged in 5 adaptive time steps for an imposed tip displacement DispY = -500 mm.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 60,
+      "lineFixed": 55,
+      "status": "pass",
+      "note": "okf md lines 55-59 ('converged in 5 adaptive time steps', 'DispY = -500 mm')"
+    },
+    {
+      "dn": 33,
+      "statement": "okf concepts/nonlinear-problem.md: fd.problem.NonLinear(assembly, nlgeom=False, name=\"MainProblem\") — nlgeom=False by default, and this is the FALLBACK value: a weak form whose own nlgeom is None takes its setting from problem.nlgeom.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-problem.md",
+      "line": 33,
+      "lineFixed": 28,
+      "status": "pass",
+      "note": "signature line 23; fallback semantics lines 28-30 ('nlgeom: False by default — this is the fallback value'); NonLinear default signature not in G1-G4"
+    },
+    {
+      "dn": 34,
+      "statement": "okf concepts/nonlinear-problem.md: 'A weak form that sets nlgeom explicitly keeps that value.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-problem.md",
+      "line": 37,
+      "lineFixed": 31,
+      "status": "pass",
+      "note": "nonlinear-problem.md line 31"
+    },
+    {
+      "dn": 35,
+      "statement": "okf concepts/nonlinear-problem.md: in the verified 2D recipe the example sets nlgeom=True on the weak form while the problem keeps its default nlgeom=False; the explicit weak-form value is the one in effect.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-problem.md",
+      "line": 108,
+      "lineFixed": 123,
+      "status": "pass",
+      "note": "lines 123-125; recipe shows wf nlgeom=True (line 100) and pb comment 'nlgeom default False: wf wins' (line 103)"
+    },
+    {
+      "dn": 36,
+      "statement": "okf concepts/nonlinear-problem.md: Geometric nonlinearity (nlgeom=True on the weak form) requires the external simcoon library.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-problem.md",
+      "line": 110,
+      "lineFixed": 121,
+      "status": "duplicate-of-original",
+      "note": "restates G3 (simcoon required); nonlinear-problem.md lines 121-122"
+    },
+    {
+      "dn": 37,
+      "statement": "okf concepts/nonlinear-problem.md: Elastic law + nlgeom=True is already a nonlinear (geometric-only) problem — no plasticity needed for fd.problem.NonLinear.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-problem.md",
+      "line": 111,
+      "lineFixed": 126,
+      "status": "pass",
+      "note": "lines 126-127"
+    },
+    {
+      "dn": 38,
+      "statement": "okf concepts/nonlinear-problem.md: EPICP (or ElastoPlasticity) adds material nonlinearity on top.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\nonlinear-problem.md",
+      "line": 111,
+      "lineFixed": 127,
+      "status": "pass",
+      "note": "lines 127-128"
+    },
+    {
+      "dn": 39,
+      "statement": "Exemple 2DplasticBending.py: NLGEOM = True, material = Simcoon('EPICP', [E, nu, alpha, Re, k, m]), wf = fd.weakform.StressEquilibrium('ConstitutiveLaw', nlgeom=NLGEOM), pb = fd.problem.NonLinear('Assembling').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 48,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "NLGEOM=True line 11; EPICP material under 'elif mat == 1:' lines 43-44 (props [E, nu, alpha, Re, k, m]); wf line 48 (cited exactly); pb = NonLinear('Assembling') line 73"
+    },
+    {
+      "dn": 40,
+      "statement": "Exemple 2DplasticBending.py: pb.nlsolve(dt=0.05, tmax=1, update_dt=True, tol_nr=0.05, interval_output=0.05) pour le chargement imposé, suivi d'une étape 2 de relaxation.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 120,
+      "lineFixed": 116,
+      "status": "pass",
+      "note": "nlsolve line 116; step 2 'compute residual stresses' / '# no force applied = relaxation' lines 118-130"
+    },
+    {
+      "dn": 41,
+      "statement": "Exemple simple_cantilever_beam_3D_model_nlgeom.py: fd.ModelingSpace('3D'), wf = fd.weakform.StressElasticIsotrop(200e3, 0.3, name='ElasticLaw'), wf = fd.weakform.StressEquilibrium('ElasticLaw', nlgeom=True), pb = fd.problem.NonLinear('Assembling'), pb.nlsolve(dt=0.2).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\01-simple\\simple_cantilever_beam_3D_model_nlgeom.py",
+      "line": 31,
+      "lineFixed": null,
+      "status": "drop",
+      "note": "token 'StressElasticIsotrop': 0 hits in cited file AND 0 hits in entire Doc_tech_fedoo corpus (nonexistent identifier). Line 28 is fd.constitutivelaw.ElasticIsotrop(200e3, 0.3, name='ElasticLaw') (a constitutive law, not a weak form). Other clauses verified: ModelingSpace('3D') line 10, StressEquilibrium('ElasticLaw', nlgeom=True) line 29, NonLinear('Assembling') line 35, nlsolve(dt=0.2) line 47."
+    },
+    {
+      "dn": 42,
+      "statement": "okf examples/cantilever-3d.md: le variant nlgeom (1519n/1080e hex8, DispY=-500, StressEquilibrium('ElasticLaw', nlgeom=True), NonLinear, nlsolve(dt=0.2)) est validé — 5 pas adaptatifs, max|U|=500 mm, max Sxx +18663.64/−21925.02 MPa, max vm 13054.58 MPa.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 495,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "log.md line 495 (1519n/1080e hex8, PASS, max|U| 500 mm, max Sxx +18663.64/−21925.02 MPa, max vm 13054.58 MPa); '5 adaptive steps' line 1118, 'imposed DispY=-500' line 1123 (same file)"
+    },
+    {
+      "dn": 43,
+      "statement": "okf log.md: session validant simple_cantilever_beam_3D_model_nlgeom.py (PASS, ~7.6 s, 1 figure SHA-256 2E727B9B...) et promotion du concept okf/concepts/stress-equilibrium-nlgeom.md (nlgeom accepte {True,'UL','TL'}, True=='UL', default None, uniquement en problème non linéaire, requiert simcoon).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 1121,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "session summary line 1118 (PASS, ~7.6 s, SHA-256 2E727B9B...); promotion bullet line 1121 (cited exactly)"
+    },
+    {
+      "dn": 44,
+      "statement": "okf log.md: 'okf/concepts/stress-equilibrium-nlgeom.md: new concept with exact 1.0.1 signature and nlgeom semantics.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 1125,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 1125 verbatim"
+    },
+    {
+      "dn": 45,
+      "statement": "okf log.md: 'fedoo SKILL.md: corrected the StressEquilibrium signature snippet (nlgeom default None, real parameter order)'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 1127,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 1127 (quoted prefix verbatim; line continues 'and added a dated Verified-example-corrections bullet')"
+    },
+    {
+      "dn": 46,
+      "statement": "Documentation_technique/boundary_conditions.rst: contact penalty exemple — wf = fd.weakform.StressEquilibrium(material, nlgeom=True), solid_assembly = fd.Assembly.create(wf, mesh), pb = fd.problem.NonLinear(assembly).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Documentation_technique\\boundary_conditions.rst",
+      "line": 464,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "section 'Penalty contact example' line 411; wf line 464 (code has 'nlgeom = True' spacing), solid_assembly = fd.Assembly.create(wf, mesh) line 465, pb = fd.problem.NonLinear(assembly) line 469"
+    },
+    {
+      "dn": 47,
+      "statement": "Documentation_technique/boundary_conditions.rst: IPC contact exemple — wf = fd.weakform.StressEquilibrium(material, nlgeom=True), pb = fd.problem.NonLinear(assembly), pb.nlsolve(dt=0.005, tmax=1).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Documentation_technique\\boundary_conditions.rst",
+      "line": 549,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "wf line 549 (cited exactly), NonLinear(assembly) line 553, nlsolve(dt=0.005, tmax=1) line 556"
+    },
+    {
+      "dn": 48,
+      "statement": "Documentation_technique/boundary_conditions.rst: IPC self-contact exemple — wf = fd.weakform.StressEquilibrium(material, nlgeom='UL'), pb = fd.problem.NonLinear(assembly).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Documentation_technique\\boundary_conditions.rst",
+      "line": 584,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "section 'IPC self-contact example'; wf line 584 (cited exactly, nlgeom=\"UL\"), NonLinear(assembly) line 588"
+    },
+    {
+      "dn": 49,
+      "statement": "Documentation_technique/boundary_conditions.rst: pression non linéaire — pressure = fd.constraint.Pressure(surface_mesh, value, nlgeom=True) combiné avec pb = fd.problem.NonLinear(solid_assembly, nlgeom=True).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Documentation_technique\\boundary_conditions.rst",
+      "line": 131,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Pressure line 131 (cited exactly), NonLinear(solid_assembly, nlgeom=True) line 133"
+    },
+    {
+      "dn": 50,
+      "statement": "Exemple torsion_test.py (plasticity): wf = fd.weakform.StressEquilibrium('ConstitutiveLaw', nlgeom=NLGEOM, name='wf').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\torsion_test.py",
+      "line": 59,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 59 verbatim"
+    },
+    {
+      "dn": 51,
+      "statement": "Exemple shear_test.py (plasticity): wf = fd.weakform.StressEquilibrium('ConstitutiveLaw', nlgeom=NLGEOM, incompressibility='fbar').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\shear_test.py",
+      "line": 66,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "wf call spans lines 65-66 (cited line 66 has nlgeom=NLGEOM, incompressibility=\"fbar\")"
+    },
+    {
+      "dn": 52,
+      "statement": "Exemple rotation_test.py (plasticity): wf = fd.weakform.StressEquilibrium('ConstitutiveLaw', nlgeom=NLGEOM).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\rotation_test.py",
+      "line": 59,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 59 verbatim"
+    },
+    {
+      "dn": 53,
+      "statement": "Exemple plastic_bending_3D.py: wf = fd.weakform.StressEquilibrium('constitutivelaw', nlgeom=NLGEOM, incompressibility='fbar') avec un commentaire wf2 = fd.weakform.StressEquilibriumRI('constitutivelaw', nlgeom=True).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\plastic_bending_3D.py",
+      "line": 67,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "wf lines 66-68 (cited line 67); commented RI alternative line 71. Discrepancy: comment reads '# wf = fd.weakform.StressEquilibriumRI(\"constitutivelaw\", nlgeom = True)' — variable is 'wf', not 'wf2' ('wf2': 0 hits in file). Substance verified."
+    },
+    {
+      "dn": 54,
+      "statement": "Exemple 2DplasticBending.py: variante RI en commentaire — wf = fd.weakform.StressEquilibriumRI('ConstitutiveLaw', nlgeom=NLGEOM) et wf = fd.weakform.StressEquilibriumRI('ConstitutiveLaw', 0.005, nlgeom=NLGEOM) pour quad4 à intégration réduite + contrôle d'hourglass.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 47,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "first RI comment line 47 (cited exactly); second RI ('ConstitutiveLaw', 0.005, nlgeom=NLGEOM) line 53 with 'reduced integration ... hourglass control' comments lines 51-52"
+    },
+    {
+      "dn": 55,
+      "statement": "Exemple 2DplasticBending_from_scratch.py: wf = fd.weakform.StressEquilibrium('ConstitutiveLaw', nlgeom=False) — variante linéaire géométriquement.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending_from_scratch.py",
+      "line": 40,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 40 verbatim"
+    },
+    {
+      "dn": 56,
+      "statement": "Exemple self_contact.py (contact): wf = fd.weakform.StressEquilibrium('ConstitutiveLaw', nlgeom=NLGEOM).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\self_contact.py",
+      "line": 72,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 72 verbatim"
+    },
+    {
+      "dn": 57,
+      "statement": "Exemple disk_rectangle_contact.py (contact): wf = fd.weakform.StressEquilibrium(material, nlgeom=NLGEOM).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\disk_rectangle_contact.py",
+      "line": 89,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 89 verbatim"
+    },
+    {
+      "dn": 58,
+      "statement": "Exemple contact/penalty/self_contact.py: wf = fd.weakform.StressEquilibrium(material, nlgeom='UL').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\penalty\\self_contact.py",
+      "line": 41,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 41 verbatim (nlgeom=\"UL\")"
+    },
+    {
+      "dn": 59,
+      "statement": "Exemple contact/penalty/disk_rectangle.py: wf = fd.weakform.StressEquilibrium(material, nlgeom='UL').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\penalty\\disk_rectangle.py",
+      "line": 63,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 63 verbatim (nlgeom=\"UL\")"
+    },
+    {
+      "dn": 60,
+      "statement": "Exemple contact/ogc/self_contact.py: wf = fd.weakform.StressEquilibrium(material, nlgeom='UL').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ogc\\self_contact.py",
+      "line": 43,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 43 verbatim (nlgeom=\"UL\")"
+    },
+    {
+      "dn": 61,
+      "statement": "Exemple contact/ipc/self_contact.py: wf = fd.weakform.StressEquilibrium(material, nlgeom='UL').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ipc\\self_contact.py",
+      "line": 47,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 47 verbatim (nlgeom=\"UL\")"
+    },
+    {
+      "dn": 62,
+      "statement": "Exemple contact/ipc/tube_compression_ipc.py: wf = fd.weakform.StressEquilibrium(material, nlgeom=NLGEOM) ET pb = fd.problem.NonLinear(assembly, nlgeom=NLGEOM) — double déclaration cohérente.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ipc\\tube_compression_ipc.py",
+      "line": 33,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "wf line 33 (cited exactly); pb = fd.problem.NonLinear(assembly, nlgeom=NLGEOM) line 46"
+    },
+    {
+      "dn": 63,
+      "statement": "Exemple contact/comparison/self_contact.py: deux wf (StressEquilibrium(material, nlgeom='UL') et StressEquilibrium(material2, nlgeom='UL')) pour la comparaison penalty vs IPC.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\comparison\\self_contact.py",
+      "line": 67,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "wf line 67 (cited exactly); wf2 = StressEquilibrium(material2, nlgeom=\"UL\") line 110"
+    },
+    {
+      "dn": 64,
+      "statement": "Exemple contact/comparison/ring_crush.py: wf = fd.weakform.StressEquilibrium(material, nlgeom='UL') (et wf2 avec material2).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\comparison\\ring_crush.py",
+      "line": 104,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "wf line 104 (cited exactly); wf2 = StressEquilibrium(material2, nlgeom=\"UL\") line 164"
+    },
+    {
+      "dn": 65,
+      "statement": "Exemple contact/comparison/gyroid_selfcontact.py: deux wf StressEquilibrium(nlgeom='UL') pour la comparaison.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\comparison\\gyroid_selfcontact.py",
+      "line": 84,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "wf line 84 (cited exactly); wf2 = StressEquilibrium(material2, nlgeom=\"UL\") line 159"
+    },
+    {
+      "dn": 66,
+      "statement": "Exemple contact/ogc/punch_indentation.py: wf = fd.weakform.StressEquilibrium(mat, nlgeom=True).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ogc\\punch_indentation.py",
+      "line": 168,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 168 verbatim"
+    },
+    {
+      "dn": 67,
+      "statement": "Exemple contact/ipc/punch_indentation.py: wf = fd.weakform.StressEquilibrium(mat, nlgeom=True).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ipc\\punch_indentation.py",
+      "line": 178,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 178 verbatim"
+    },
+    {
+      "dn": 68,
+      "statement": "Exemple contact/ogc/indentation_2d.py: wf = fd.weakform.StressEquilibrium(material, nlgeom=False).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ogc\\indentation_2d.py",
+      "line": 117,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 117 verbatim"
+    },
+    {
+      "dn": 69,
+      "statement": "Exemple contact/ogc/indentation_3d.py: wf = fd.weakform.StressEquilibrium(material, nlgeom=False).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ogc\\indentation_3d.py",
+      "line": 150,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 150 verbatim"
+    },
+    {
+      "dn": 70,
+      "statement": "Exemple contact/ipc/indentation_3d.py: wf = fd.weakform.StressEquilibrium(material, nlgeom=False).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ipc\\indentation_3d.py",
+      "line": 164,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 164 verbatim"
+    },
+    {
+      "dn": 71,
+      "statement": "Exemple dynamique/multi_mesh_dynamic_contact.py: solid_wf = fd.weakform.StressEquilibrium(material, nlgeom=True) (et shell PlateEquilibrium(nlgeom=True), NonLinearNewmark(nlgeom=True)).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\dynamique\\multi_mesh_dynamic_contact.py",
+      "line": 96,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "solid_wf line 96 (cited exactly); shell_wf = PlateEquilibrium(shell_section, nlgeom=True) line 87; NonLinearNewmark(..., nlgeom=True) lines 144-147"
+    },
+    {
+      "dn": 72,
+      "statement": "Exemple poromechanics/terzaghi_1d.py: PoroMechanicsSimple(skel, fluid, bulk_modulus=K_bulk, nlgeom=False, name='Poro') — le nlgeom=False est passé au niveau du weak form de poromécanique.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\poromechanics\\terzaghi_1d.py",
+      "line": 61,
+      "lineFixed": null,
+      "status": "drop",
+      "note": "token 'PoroMechanicsSimple': 0 hits in cited file. Lines 60-61 use fd.weakform.PoroMechanics(skel, fluid, bulk_modulus=K_bulk, nlgeom=False, name=\"Poro\"). PoroMechanicsSimple exists only in Exemples_fedoo/poromechanics/taylor_hood_lbb.py:125 and _archive_Code_source_fedoo_1.0.0 (wrong file/version attribution). The nlgeom=False-on-poro-weakform observation itself is correct (line 61)."
+    },
+    {
+      "dn": 73,
+      "statement": "okf log.md: 'material.corate is a no-op (corate is a weakform attribute: StressEquilibrium.corate)' — fait durable confirmé par la session torsion (mat=0 vm_max 286892.93 MPa).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 382,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 382 verbatim: 'Durable fact: material.corate is a no-op (corate is a weakform attribute: StressEquilibrium.corate)' + 'mat=0 vm_max 286892.93 MPa'"
+    },
+    {
+      "dn": 74,
+      "statement": "okf log.md: validé StressEquilibriumRI(constitutivelaw, hourglass_stiffness=0.01, convert_tangent=True, name='', nlgeom=None, nlgeom_hourglass=False, space=None) dans fedoo 1.0.1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 897,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 897 ('Confirmed in installed fedoo 1.0.1: ... StressEquilibriumRI(constitutivelaw, hourglass_stiffness=0.01, convert_tangent=True, name='', nlgeom=None, nlgeom_hourglass=False, space=None)')"
+    },
+    {
+      "dn": 75,
+      "statement": "okf log.md: 'MESH=linear (default, 5941-node hex8, StressEquilibriumRI nlgeom=UL) 25 s: max|disp| 3.2793e-02 m, max von Mises 5.2277e+06 Pa, 20 increments (dt 0.05→0.0625).'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 895,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 895 verbatim"
+    },
+    {
+      "dn": 76,
+      "statement": "okf log.md: 'MESH=quadratic (17253-node hex20, StressEquilibrium nlgeom=UL, via prior session's nhtmp_quad.py) ~4 min: max|disp| 3.2797e-02 m, max von Mises 7.4685e+06 Pa.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\log.md",
+      "line": 896,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "line 896 verbatim"
+    },
+    {
+      "dn": 77,
+      "statement": "okf index.md: 'StressEquilibrium geometric nonlinearity (nlgeom option)' — le concept couvre les valeurs True/'UL'/'TL', le default None, la restriction aux problèmes non linéaires et la dépendance à simcoon.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\index.md",
+      "line": 45,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "index.md line 45 (concept entry link, cited exactly); coverage claim verified against stress-equilibrium-nlgeom.md sections"
+    },
+    {
+      "dn": 78,
+      "statement": "okf concepts/stress-equilibrium-nlgeom.md: 'fd.weakform.StressEquilibrium(constitutivelaw, incompressibility=None, convert_tangent=True, name=\"\", nlgeom=None, space=None)' — signature exacte fedoo 1.0.1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 23,
+      "lineFixed": 21,
+      "status": "duplicate-of-original",
+      "note": "restates G1 (exact signature); signature block okf md lines 20-22 under '# Signature (fedoo 1.0.1)' (line 17); cited line 23 is the closing fence"
+    },
+    {
+      "dn": 79,
+      "statement": "okf concepts/stress-equilibrium-nlgeom.md: 'The expected values are exactly {True, 'UL', 'TL'}.' — les booléens True/False sont acceptés, False équivalent à None (pas de non-linéarité géométrique).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\concepts\\stress-equilibrium-nlgeom.md",
+      "line": 38,
+      "lineFixed": 35,
+      "status": "drop",
+      "note": "quoted sentence verified at okf md line 35, but the added gloss is unsupported by the file: token 'False' 0 hits in stress-equilibrium-nlgeom.md (file lists only None/True/UL/TL), 'équivalent' only hits 'Equivalent to nlgeom=UL' for True (line 31). Claim 'False accepté / False équivalent à None' not stated in the cited file (None -> problem.nlgeom fallback per source; False accepted per weakform.py:119-123, but not 'equivalent' to None)."
+    }
+  ],
+  "excludedFromDenominator": [
+    { "dn": 1, "reason": "duplicate-of-original", "detail": "G1 — 'mechanical equilibrium weak form for solids (3D or 2D plane)' already in G1; okf md lines 14-15" },
+    { "dn": 2, "reason": "duplicate-of-original", "detail": "G2 — 'nlgeom enables geometric nonlinearities' already in G2; okf md line 15" },
+    { "dn": 3, "reason": "duplicate-of-original", "detail": "G1 — 3D/2D-plane applicability already in G1; docstring lines 21-22" },
+    { "dn": 5, "reason": "duplicate-of-original", "detail": "G3 — simcoon + initial displacement + corate already in G3; docstring lines 25-28" },
+    { "dn": 6, "reason": "duplicate-of-original", "detail": "G4 — incompressibility/volumetric locking already in G4; docstring lines 29-30" },
+    { "dn": 8, "reason": "duplicate-of-original", "detail": "G2 — True->UL + NonLinearProblems context already in G2; lines 51-55" },
+    { "dn": 9, "reason": "duplicate-of-original", "detail": "G2 — UL/TL semantics already in G2; lines 56-57" },
+    { "dn": 10, "reason": "duplicate-of-original", "detail": "G2 — None->problem.nlgeom already in G2; line 58" },
+    { "dn": 11, "reason": "duplicate-of-original", "detail": "G2 — False->ignore already in G2 (attribute docstring in G2 source); line 95" },
+    { "dn": 12, "reason": "duplicate-of-original", "detail": "G2 — True/'UL'->UL (update mesh) already in G2; lines 96-97" },
+    { "dn": 13, "reason": "duplicate-of-original", "detail": "G2 — 'TL'->total Lagrangian already in G2; lines 98-99" },
+    { "dn": 15, "reason": "duplicate-of-original", "detail": "G2 — None->problem.nlgeom fallback already in G2; weakform.py:113-115" },
+    { "dn": 19, "reason": "duplicate-of-original", "detail": "G1 — 'Mechanical equilibrium equation for solids' already in G1; html line 158" },
+    { "dn": 20, "reason": "duplicate-of-original", "detail": "G3 — simcoon + value set already in G3; html lines 165-166" },
+    { "dn": 21, "reason": "duplicate-of-original", "detail": "G2 — 'If True ... NonLinearStatic/NonLinearNewmark' already in G2; html line 189 (cited window 218-263 empty)" },
+    { "dn": 22, "reason": "duplicate-of-original", "detail": "G2 — UL/TL/None semantics already in G2; html lines 194-196 (cited window 221-266 empty)" },
+    { "dn": 23, "reason": "duplicate-of-original", "detail": "G2 — attribute False/UL/TL already in G2; html line 286 (cited window 295-340 empty)" },
+    { "dn": 25, "reason": "duplicate-of-original", "detail": "G2 — 'True or UL' already in G2; okf md lines 30-31" },
+    { "dn": 26, "reason": "duplicate-of-original", "detail": "G2 — 'TL -> total Lagrangian' already in G2; okf md line 33" },
+    { "dn": 27, "reason": "duplicate-of-original", "detail": "G3 — value set {True,'UL','TL'} already in G3; okf md line 35" },
+    { "dn": 29, "reason": "duplicate-of-original", "detail": "G3 — simcoon requirement already in G3; okf md lines 42-43" },
+    { "dn": 36, "reason": "duplicate-of-original", "detail": "G3 — simcoon requirement already in G3; nonlinear-problem.md lines 121-122" },
+    { "dn": 41, "reason": "drop", "detail": "'StressElasticIsotrop' 0 hits in cited file and in whole corpus; file line 28 is fd.constitutivelaw.ElasticIsotrop(...)" },
+    { "dn": 72, "reason": "drop", "detail": "'PoroMechanicsSimple' 0 hits in cited file; terzaghi_1d.py:60-61 uses fd.weakform.PoroMechanics; identifier only in taylor_hood_lbb.py:125 and 1.0.0 archive" },
+    { "dn": 78, "reason": "duplicate-of-original", "detail": "G1 — exact signature already in G1; okf md lines 20-22" },
+    { "dn": 79, "reason": "drop", "detail": "quoted sentence at line 35 but gloss 'booléens True/False acceptés, False équivalent à None' unsupported: 'False' 0 hits in file" }
+  ],
+  "stats": {
+    "originalCount": 4,
+    "dTotal": 79,
+    "dPass": 53,
+    "dFix": 0,
+    "dDrop": 3,
+    "dDefect": 0,
+    "dDuplicate": 23,
+    "denominator": 57
+  }
+}

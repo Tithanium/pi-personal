@@ -1,0 +1,10 @@
+[
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 61288,
+    "tokensIn": 30902,
+    "tokensOut": 1682,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

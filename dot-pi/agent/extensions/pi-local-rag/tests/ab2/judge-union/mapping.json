@@ -1,0 +1,16 @@
+{
+  "note": "Blind label -> method mapping for the P2-R14 union-grid re-judge. Judges never see method names. Payloads: A = tests/ab2/baseline-A/<id>.md (cached phase-1 runs); B:single = results/B/single/2026-10-15T06-57-50.800Z/<id>.md; B:none = results/B/none/2026-10-15T06-58-33.100Z/<id>.md; C = results/C/2026-10-15T06-59-26.248Z/<id>.md (all R11 final builder round).",
+  "unrelated": "unrelated_cooking / unrelated_quantum not judged: 0 denominator facts, all 4 payloads 0 bytes (EMPTY verified in R11).",
+  "ids": {
+    "fedoo_rectangle_mesh":   { "X1": "A", "X2": "B:single", "X3": "B:none", "X4": "C" },
+    "fedoo_stresseq_nlgeom":  { "X1": "B:single", "X2": "B:none", "X3": "C", "X4": "A" },
+    "ansys_nlgeom_cmd":       { "X1": "B:none", "X2": "C", "X3": "A", "X4": "B:single" },
+    "ansys_fkn_contact":      { "X1": "C", "X2": "A", "X3": "B:single", "X4": "B:none" },
+    "fedoo_modelingspace":    { "X1": "A", "X2": "B:single", "X3": "B:none", "X4": "C" },
+    "ansys_large_deflection": { "X1": "B:single", "X2": "B:none", "X3": "C", "X4": "A" },
+    "ansys_contact":          { "X1": "B:none", "X2": "C", "X3": "A", "X4": "B:single" },
+    "fedoo_plasticity":       { "X1": "C", "X2": "A", "X3": "B:single", "X4": "B:none" },
+    "fedoo_weakform_mesh":    { "X1": "A", "X2": "B:single", "X3": "B:none", "X4": "C" },
+    "ansys_transient":        { "X1": "B:single", "X2": "B:none", "X3": "C", "X4": "A" }
+  }
+}

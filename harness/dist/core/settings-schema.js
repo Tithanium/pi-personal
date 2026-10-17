@@ -146,6 +146,10 @@ export const SettingsSchema = Type.Object({
         description: 'Per-model default thinking level overrides keyed by "provider/modelId".',
     })),
     transport: Type.Optional(Type.Union([Type.Literal("auto"), Type.Literal("sse"), Type.Literal("websocket"), Type.Literal("websocket-cached")], { default: SETTINGS_DEFAULTS.transport })),
+    sessionShareDestination: Type.Optional(Type.Union([Type.Literal("auto"), Type.Literal("gist"), Type.Literal("radius")], {
+        description: 'Destination used by /share. "auto" uses Radius when authenticated and otherwise creates a GitHub gist.',
+        default: SETTINGS_DEFAULTS.sessionShareDestination,
+    })),
     steeringMode: Type.Optional(Type.Union([Type.Literal("all"), Type.Literal("one-at-a-time")], {
         default: SETTINGS_DEFAULTS.steeringMode,
     })),

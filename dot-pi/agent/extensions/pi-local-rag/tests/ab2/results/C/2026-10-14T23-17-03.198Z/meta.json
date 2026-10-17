@@ -1,0 +1,104 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 30513,
+    "tokensIn": 78379,
+    "tokensOut": 2263,
+    "ok": true,
+    "payloadBytes": 79122,
+    "provenance": "new C run 2026-10-14T23-17-03.198Z",
+    "empty": false,
+    "note": "ok (18 terms → 18 files → 6 children, 5 child(ren) copied unchanged → 79032 B payload)",
+    "internals": {
+      "nTerms": 18,
+      "nFiles": 18,
+      "nChildren": 6,
+      "anyChildFallback": 5
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 30312,
+    "tokensIn": 57556,
+    "tokensOut": 3313,
+    "ok": true,
+    "payloadBytes": 75468,
+    "provenance": "new C run 2026-10-14T23-17-03.198Z",
+    "empty": false,
+    "note": "ok (18 terms → 18 files → 6 children, 4 child(ren) copied unchanged → 75378 B payload)",
+    "internals": {
+      "nTerms": 18,
+      "nFiles": 18,
+      "nChildren": 6,
+      "anyChildFallback": 4
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 30455,
+    "tokensIn": 40269,
+    "tokensOut": 2593,
+    "ok": true,
+    "payloadBytes": 44252,
+    "provenance": "new C run 2026-10-14T23-17-03.198Z",
+    "empty": false,
+    "note": "ok (18 terms → 18 files → 6 children, 2 child(ren) copied unchanged → 44162 B payload)",
+    "internals": {
+      "nTerms": 18,
+      "nFiles": 18,
+      "nChildren": 6,
+      "anyChildFallback": 2
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 30391,
+    "tokensIn": 78066,
+    "tokensOut": 2158,
+    "ok": true,
+    "payloadBytes": 82707,
+    "provenance": "new C run 2026-10-14T23-17-03.198Z",
+    "empty": false,
+    "note": "ok (18 terms → 18 files → 6 children, 4 child(ren) copied unchanged → 82617 B payload)",
+    "internals": {
+      "nTerms": 18,
+      "nFiles": 18,
+      "nChildren": 6,
+      "anyChildFallback": 4
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 30292,
+    "tokensIn": 46127,
+    "tokensOut": 2094,
+    "ok": true,
+    "payloadBytes": 59676,
+    "provenance": "new C run 2026-10-14T23-17-03.198Z",
+    "empty": false,
+    "note": "ok (18 terms → 18 files → 6 children, 3 child(ren) copied unchanged → 59586 B payload)",
+    "internals": {
+      "nTerms": 18,
+      "nFiles": 18,
+      "nChildren": 6,
+      "anyChildFallback": 3
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 30113,
+    "tokensIn": 56477,
+    "tokensOut": 3192,
+    "ok": true,
+    "payloadBytes": 268,
+    "provenance": "new C run 2026-10-14T23-17-03.198Z",
+    "empty": false,
+    "note": "ok (18 terms → 15 files → 6 children → 179 B payload)",
+    "internals": {
+      "nTerms": 18,
+      "nFiles": 15,
+      "nChildren": 6,
+      "anyChildFallback": 0
+    }
+  }
+]

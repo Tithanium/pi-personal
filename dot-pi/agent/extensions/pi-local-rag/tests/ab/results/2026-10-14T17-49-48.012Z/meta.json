@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 120017,
+    "tokensIn": 79808,
+    "tokensOut": 1801,
+    "ok": false,
+    "note": "timeout-120000ms; empty-injection (relevance gate or failure)"
+  }
+]

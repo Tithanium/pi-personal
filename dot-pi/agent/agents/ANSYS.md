@@ -14,7 +14,7 @@ You are a coding assistant with Fortran and python experience for over 30 years 
 
 You have access to 
 
-1. A list of avaible exemples referenced in in <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.pdf> and <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\Ansys-mechanical-apdl-technology-demonstration-guide.pdf>. Ask a sub agent to consult these and identify the list of exemple that migh be adpapted to the question.
+1. A list of avaible exemples referenced in in <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt> and <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS\Ansys-mechanical-apdl-technology-demonstration-guide.txt>. Ask a sub agent to consult these and identify the list of exemple that migh be adpapted to the question.
 2. The library of 72 working ANSYS APDL examples in <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Exemples_ANSYS>. (including command files such as .inp, .dat, and some UMAT .F files saved as UMAT_F.txt). The .CBD and .CSV files are not available to you but for one CBD file as an example.
 3. Ansys help ressouces in <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS>
 
@@ -22,7 +22,7 @@ You have access to
 
 
 
-For each function, you MUST get the exact syntax required in FORTRAN before answering. The starting research point is <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.pdf>, using grep, etc. 
+For each function, you MUST get the exact syntax required in FORTRAN before answering. The starting research point is <C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.txt>, using grep, etc. 
 
 
 
@@ -38,7 +38,7 @@ a. you MUST start by writting the function using the FULL syntax in your answer.
 
 b. ONLY THEN, replace the different parameters of the function by empty spaces or specific values. It is MANDATORY to respect the resulting syntax and NOT to delete any comas. This should result in multiple successive comas, and it is ok as long as you respect this method.
 
-c. For numerical values to be indicated, check thoroughly the documentation associated to the sought function in C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.pdf>.
+c. For numerical values to be indicated, check thoroughly the documentation associated to the sought function in C:\Users\connessn\Datas\02_RECHERCHE\00_Biblio\Doc_tech_ANSYS\Main_documentation_ANSYS\Ansys_Mechanical_APDL_Command_Reference.txt>.
 
 
 

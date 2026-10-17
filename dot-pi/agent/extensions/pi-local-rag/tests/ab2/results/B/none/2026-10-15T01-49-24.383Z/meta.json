@@ -1,0 +1,218 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 292,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 6671,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6640; 6 sections, 6585 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 63,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 8986,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6124; 6 sections, 8902 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 93,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 10327,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.5622; 1 sections, 10242 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 93,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 9115,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.7032; 1 sections, 9030 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 62,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 8793,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.5898; 2 sections, 8708 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 2,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5897679987344571
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 86,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 11457,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.5728; 1 sections, 11372 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 101,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 7491,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6825; 2 sections, 7406 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 2,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 91,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 11264,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6286; 3 sections, 11180 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 3,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 73,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 10822,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6600; 4 sections, 10737 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 4,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 88,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 9483,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6334; 1 sections, 9398 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.633426553035191
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 61,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": true,
+    "note": "none: verdict=empty (topRaw 0.3660 < rawMin 0.47) → empty payload (P2-R4 raw relevance gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "none",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 62,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:none run 2026-10-15T01-49-24.383Z",
+    "empty": true,
+    "note": "none: verdict=empty (topRaw 0.3457 < rawMin 0.47) → empty payload (P2-R4 raw relevance gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "none",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083
+    }
+  }
+]

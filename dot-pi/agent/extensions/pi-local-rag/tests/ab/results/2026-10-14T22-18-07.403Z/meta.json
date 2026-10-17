@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 78308,
+    "tokensIn": 40018,
+    "tokensOut": 3080,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

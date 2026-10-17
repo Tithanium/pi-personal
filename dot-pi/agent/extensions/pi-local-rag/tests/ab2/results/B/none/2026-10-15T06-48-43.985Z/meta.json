@@ -1,0 +1,79 @@
+[
+  {
+    "id": "ansys_contact",
+    "wallMs": 708,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 36703,
+    "provenance": "new B:none run 2026-10-15T06-48-43.985Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6825; 5 sections, 36617 B)",
+    "internals": {
+      "nChunks": 43,
+      "nSections": 5,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L3152-3210 (11 terms, 4653 B)",
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L4722-4742 (6 terms, 1311 B)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 371,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 34215,
+    "provenance": "new B:none run 2026-10-15T06-48-43.985Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.5728; 5 sections, 34129 B)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 5,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L3752-3807 (10 terms, 2209 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L4124-4176 (7 terms, 3060 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L2971-2976 (4 terms, 464 B)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 4697,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 20455,
+    "provenance": "new B:none run 2026-10-15T06-48-43.985Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6334; 4 sections, 20368 B)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 4,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.633426553035191,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15059-15114 (13 terms, 3743 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15233-15252 (11 terms, 1555 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L13036-13042 (7 terms, 558 B)"
+      ]
+    }
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 48803,
+    "tokensIn": 34049,
+    "tokensOut": 1461,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

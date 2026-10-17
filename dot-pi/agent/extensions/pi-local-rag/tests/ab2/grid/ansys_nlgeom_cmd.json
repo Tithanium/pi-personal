@@ -1,0 +1,393 @@
+{
+  "id": "ansys_nlgeom_cmd",
+  "generatedAt": "2026-10-15T23:40:26Z",
+  "grid": [
+    {
+      "n": 1,
+      "statement": "NLGEOM,Key 'includes large-deflection effects in a static or full transient analysis'; Key=OFF ignores large-deflection effects (a small-deflection analysis is specified) and Key=ON includes large-deflection (large rotation) effects or large strain effects, according to the element type",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 51992,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 2,
+      "statement": "Command default: large-deflection effects are ignored (NLGEOM,OFF is the default)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52009,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 3,
+      "statement": "When large-deflection effects are included (NLGEOM,ON), stress stiffening effects are also included automatically",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52011,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 4,
+      "statement": "If used during the solution (/SOLU), the command is valid only within the first load step; it is also valid in PREP7",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52016,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    }
+  ],
+  "dFacts": [
+    {
+      "dn": 1,
+      "statement": "The command is written NLGEOM,Key and is documented to 'Include large-deflection effects in a static or full transient analysis.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 51992,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Cited line 51992 verified ('NLGEOM,Key' / line 51993 'Includes large-deflection effects in a static or full transient analysis.') but claim is exactly G1."
+    },
+    {
+      "dn": 2,
+      "statement": "NLGEOM is categorized under the SOLUTION solution area as 'Nonlinear Options'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 51994,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 51994: 'SOLUTION (p.38):Nonlinear Options (p.40)'. Exact."
+    },
+    {
+      "dn": 3,
+      "statement": "The Key argument is described as the 'Large-deflection key'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 51997,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 51996-51997: 'Key' / 'Large-deflection key:'. Exact."
+    },
+    {
+      "dn": 4,
+      "statement": "NLGEOM,OFF 'Ignores large-deflection effects (that is, a small-deflection analysis is specified)' and this option is the default.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52004,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Cited lines 52004-52005 verified ('Ignores large-deflection effects ... This option is the default.') but the claim is the union of G1 (OFF clause) + G2 (default); adds no new content."
+    },
+    {
+      "dn": 5,
+      "statement": "NLGEOM,ON 'Includes large-deflection (large rotation) effects or large strain effects, according to the element type.'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52007,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Cited lines 52007-52008 verified verbatim, but claim is the ON clause of G1."
+    },
+    {
+      "dn": 6,
+      "statement": "The command default is that 'Large-deflection effects are ignored'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52010,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Lines 52009-52010 verified ('Command Default' / 'Large-deflection effects are ignored.') but claim is exactly G2."
+    },
+    {
+      "dn": 7,
+      "statement": "Large-deflection effects are categorized as either large deflection (or large rotation) or large strain, depending on the element type.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52012,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Lines 52012-52013 verified verbatim (Notes), but semantically restates the ON clause of G1 (effects categorized large deflection/rotation or large strain per element type)."
+    },
+    {
+      "dn": 8,
+      "statement": "When large-deflection effects are included (NLGEOM,ON), stress stiffening effects are also included automatically.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52015,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Line 52015 verified verbatim, but claim is word-for-word G3."
+    },
+    {
+      "dn": 9,
+      "statement": "If used during the solution (/SOLU), the NLGEOM command is valid only within the first load step.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52016,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Line 52016 verified verbatim, but claim is the first clause of G4 (verbatim)."
+    },
+    {
+      "dn": 10,
+      "statement": "In a large-deflection analysis, pressure loads behave differently than other load types.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52017,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 52017-52018 verified ('pressure loads behave differently than other load types... Load Direction in a Large-Deflection Analysis')."
+    },
+    {
+      "dn": 11,
+      "statement": "The gyroscopic matrix (that occurs due to rotational angular velocity) does not support large-deflection effects; its formulation supports small deflection only.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52019,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 52019-52021 verified verbatim (gyroscopic matrix, small deflection/linear formulation only)."
+    },
+    {
+      "dn": 12,
+      "statement": "When large-deflection effects are included in a substructure or CMS transient analysis use pass, the OUTRES command ignores DSUBres = ALL.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52023,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 52022-52023 verified verbatim."
+    },
+    {
+      "dn": 13,
+      "statement": "The NLGEOM command is also valid in the PREP7 preprocessing phase.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52024,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Line 52024 verified ('This command is also valid in PREP7.') but claim is the second clause of G4."
+    },
+    {
+      "dn": 14,
+      "statement": "NLGEOM is accessible from the GUI via Main Menu>Preprocessor>Loads>Analysis Type>Analysis Options.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52026,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 52026 verified verbatim (Menu Paths)."
+    },
+    {
+      "dn": 15,
+      "statement": "NLGEOM is accessible from the GUI via Main Menu>Solution>Analysis Type>Analysis Options and Solution>Sol'n Controls>Basic.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+      "line": 52029,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 52028-52029 verified verbatim ('Main Menu>Solution>Analysis Type>Analysis Options' / '...Sol'n Controls>Basic')."
+    },
+    {
+      "dn": 16,
+      "statement": "NLGEOM,ON is the APDL switch that enables large-deflection/large-strain (nonlinear geometry) behavior, recomputing element stiffness from the deformed configuration including geometric stiffness effects (SSAT/KG).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 11,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 11 (Overview) states exactly this (stiffness recomputed from deformed configuration, geometric stiffness SSAT/KG)."
+    },
+    {
+      "dn": 17,
+      "statement": "NLGEOM,ON is the alias form NLGEOM,1 in APDL and the two are used interchangeably.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 11,
+      "lineFixed": 36,
+      "status": "fix",
+      "note": "Cited line 11 gives only the alias ('NLGEOM,ON (alias NLGEOM,1)'); the 'used interchangeably' clause is supported at line 36 ('both occur in the sources and are used interchangeably')."
+    },
+    {
+      "dn": 18,
+      "statement": "NLGEOM,ON is required wherever rotations, slenderness effects, buckling margins or large strain matter.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 11,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 11: 'so it is required wherever rotations, slenderness effects, buckling margins or large strain matter'. Exact."
+    },
+    {
+      "dn": 19,
+      "statement": "Verified spellings of the command are NLGEOM,ON, nlgeom,on and alias NLGEOM,1, seen across sample_usr.dat, threaded_connection.dat, extrusion.dat, wirecrimp.dat, springcoil.dat, stent.dat, buckling.dat, cylinderflat.dat, Hot_Rolling_Model.dat and SequentialEmbankmentCase1/Case2.dat.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 35,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 35 (Notes, 'Commands verified') lists exactly these spellings and all ten .dat files."
+    },
+    {
+      "dn": 20,
+      "statement": "NLGEOM,ON is turned on in the verified tutorials for every large-deformation case under static, transient, soil (ANTYPE,SOIL) and forming analyses, alongside large-strain material models and contact.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 11,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 11: 'turned on for every large-deformation case reviewed, under static, transient, soil (ANTYPE,SOIL) and forming analyses, and it accompanies large-strain material models ... and contact'."
+    },
+    {
+      "dn": 21,
+      "statement": "NLGEOM is used with the buckling example (td-21) for buckling and post-buckling of a ring-stiffened cylinder, with nlgeom,on annotated 'Large deflection is activated'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 21,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 21 (td-21 bullet) verified verbatim."
+    },
+    {
+      "dn": 22,
+      "statement": "NLGEOM,ON is used with the hot-rolling example (td-27) for 3D rezoning, annotated 'Turn on nonlinear geometry effects'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 23,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 23 (td-27 bullet) verified verbatim."
+    },
+    {
+      "dn": 23,
+      "statement": "NLGEOM,ON is used with the sequential embankment (soil) example (td-52) under ANTYPE,SOIL/geostatic, annotated 'LARGE DEFORMATION TURNED ON'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\large-displacement-nlgeom.md",
+      "line": 24,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 24 (td-52 bullet) verified verbatim (ANTYPE,SOIL, geostatic; Case1/Case2)."
+    },
+    {
+      "dn": 24,
+      "statement": "The buckling Load-control example script issues NLGEOM,1 within the /SOL (SOLUTION) phase before NSUBST and AUTOTS.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\models_examples\\buckling_manuel_Load_control.txt",
+      "line": 46,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 46 = 'NLGEOM,1', preceded by '/SOL' (line 45) and followed by 'NSUBST,10000,0,0' (line 47) and 'AUTOTS,1' (line 48)."
+    },
+    {
+      "dn": 25,
+      "statement": "A Technology Showcase example script issues 'NLGEOM, ON   ! Activate large deflection' in the SOLUTION phase after NROPT,UNSYM for a static solve.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+      "line": 3374,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 3374 = 'NLGEOM, ON                ! Activate large deflection', inside the 'Static Solution' block (ANTYPE,STATIC line 3370, NROPT,UNSYM line 3372)."
+    },
+    {
+      "dn": 26,
+      "statement": "The Basic Analysis Guide shows NLGEOM,ON in an example structural transient input listing (ANTYPE,TRANS; TRNOPT,FULL; NLGEOM,ON).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+      "line": 855,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: lines 853-855 = 'ANTYPE,TRANS' / 'TRNOPT,FULL' / 'NLGEOM,ON' under 'An example input listing for a structural transient analysis' (line 851)."
+    },
+    {
+      "dn": 27,
+      "statement": "The Basic Analysis Guide notes that in a large-deformation analysis (NLGEOM,ON) the element coordinate system is first rotated by the computed rotations.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+      "line": 7861,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 7861 = 'In a large-deformation analysis (NLGEOM,ON), the element coordinate system is first rotated by the' + line 7862 'amount of rigid body rotation of the element'. 'Computed rotations' paraphrases 'rigid body rotation'."
+    },
+    {
+      "dn": 28,
+      "statement": "The Basic Analysis Guide notes that when large rotations (NLGEOM,ON) are used, a static analysis with inertia relief is not exactly valid.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+      "line": 2656,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 2656 = 'In the case of large rotations (NLGEOM,ON), a static analysis with inertia relief is not exactly' + 'equivalent to a free body linear transient analysis'. 'Not exactly valid' is a loose paraphrase of 'not exactly equivalent'; caveat supported."
+    },
+    {
+      "dn": 29,
+      "statement": "The Advanced Analysis Guide requires 'Static analysis with geometric nonlinearity (NLGEOM,ON)' for the 2D-to-3D analysis support.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+      "line": 528,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 528 = 'Static analysis with geometric nonlinearity (NLGEOM,ON).' under '2D-to-3D Analysis > Requirements' table."
+    },
+    {
+      "dn": 30,
+      "statement": "For element birth and death, unless large-deformation effects are activated (NLGEOM,ON), some element types are reactivated in their originally specified geometric configuration.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+      "line": 7087,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: lines 7087-7088 verbatim ('Unless large-deformation effects are activated (NLGEOM,ON), some element types will be reactivated in their originally specified geometric configuration.')."
+    },
+    {
+      "dn": 31,
+      "statement": "For a structural analysis employing element birth and death, the guide instructs to activate large-deflection effects (NLGEOM,ON) in the first load step.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+      "line": 7149,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 7149 = 'For a structural analysis, activate large-deflection effects (NLGEOM,ON).' under section 8.4.2.1 'Define the First Load Step'."
+    },
+    {
+      "dn": 32,
+      "statement": "The Advanced Analysis Guide sample first-load-step input includes 'NLGEOM,ON  ! Turns large-deflection effects on' followed by NROPT,FULL.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+      "line": 7175,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 7175 = 'NLGEOM,ON          ! Turns large-deflection effects on' in section 8.4.2.1.1 'Sample Input for First Load Step', followed by 'NROPT,FULL' (line 7176)."
+    },
+    {
+      "dn": 33,
+      "statement": "A transient analysis example in the Advanced Analysis Guide uses geometric nonlinearity activated via NLGEOM,ON.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+      "line": 4291,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "grep-confirmed: line 4291 = 'transient analysis (NLGEOM,ON).' (lines 4288-4291: rotating-structure inertia effects 'automatically included in a nonlinear transient analysis (NLGEOM,ON)'). Chapter 5 intro prose, not a script block; 'example' is loose but the core claim (transient analysis with geometric nonlinearity via NLGEOM,ON) is supported at the cited line."
+    }
+  ],
+  "excludedFromDenominator": [
+    {
+      "dn": 1,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G1 (NLGEOM,Key syntax + 'includes large-deflection effects in a static or full transient analysis' description); cited region verified at lines 51992-51993."
+    },
+    {
+      "dn": 4,
+      "reason": "duplicate-of-original",
+      "detail": "Union of G1 (OFF: 'ignores large-deflection effects, small-deflection analysis') and G2 (OFF is the default); no new content; cited region verified at lines 52004-52005."
+    },
+    {
+      "dn": 5,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as the ON clause of G1; cited region verified verbatim at lines 52007-52008."
+    },
+    {
+      "dn": 6,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G2 (command default: large-deflection effects ignored); cited region verified at lines 52009-52010."
+    },
+    {
+      "dn": 7,
+      "reason": "duplicate-of-original",
+      "detail": "Restates the ON clause of G1 (categorization into large deflection/rotation vs large strain per element type); cited region verified at lines 52012-52013."
+    },
+    {
+      "dn": 8,
+      "reason": "duplicate-of-original",
+      "detail": "Word-for-word G3 (stress stiffening included automatically); cited region verified at line 52015."
+    },
+    {
+      "dn": 9,
+      "reason": "duplicate-of-original",
+      "detail": "First clause of G4 (valid only within the first load step under /SOLU); cited region verified at line 52016."
+    },
+    {
+      "dn": 13,
+      "reason": "duplicate-of-original",
+      "detail": "Second clause of G4 (also valid in PREP7); cited region verified at line 52024."
+    }
+  ],
+  "stats": {
+    "originalCount": 4,
+    "dTotal": 33,
+    "dPass": 24,
+    "dFix": 1,
+    "dDrop": 0,
+    "dDefect": 0,
+    "dDuplicate": 8,
+    "denominator": 29
+  }
+}

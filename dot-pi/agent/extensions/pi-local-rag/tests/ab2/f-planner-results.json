@@ -1,0 +1,140 @@
+{
+  "model": "alan-ragcap/qwen-3.8-27b",
+  "top": 10,
+  "piCli": "C:\\Users\\connessn\\AppData\\Roaming\\npm\\node_modules\\@earendil-works\\pi-coding-agent\\dist\\bundle\\cli.js",
+  "questions": {
+    "ansys_nlgeom_cmd": {
+      "question": "What does the NLGEOM,ON command do in ANSYS Mechanical APDL?",
+      "label": "NLGEOM command definition (Command_Reference: 'NLGEOM,Key' + 'Includes large-deflection effects in a static or full transient')",
+      "planner": {
+        "ok": true,
+        "wallMs": 3237,
+        "tokensIn": 676,
+        "tokensOut": 48,
+        "stopReason": "stop",
+        "model": "qwen-3.8-27b"
+      },
+      "variants": [
+        "NLGEOM ON command ANSYS APDL",
+        "NLGEOM option geometric nonlinearity",
+        "NLGEOM command Mechanical APDL reference",
+        "geometric nonlinearity NLGEOM APDL",
+        "NLGEOM large deflection ANSYS"
+      ],
+      "perVariant": [
+        {
+          "q": "NLGEOM ON command ANSYS APDL",
+          "words": 5,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "Ansys_Mechanical_APDL_Command_Reference.txt L4547-4596 | Ansys_Mechanical_APDL_Command_Reference.txt L38208-38257 | Ansys_Mechanical_APDL_Command_Reference.txt L80711-80760"
+        },
+        {
+          "q": "NLGEOM option geometric nonlinearity",
+          "words": 4,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "fedoo.weakform.ExternalPressure.nlgeom.html L1-18 | fedoo.weakform.BeamEquilibrium.nlgeom.html L1-18 | fedoo.weakform.InterfaceForce.html L1-50"
+        },
+        {
+          "q": "NLGEOM command Mechanical APDL reference",
+          "words": 5,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "Ansys_Mechanical_APDL_Command_Reference.txt L4547-4596 | ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt L7015-7064 | Ansys_Mechanical_APDL_Command_Reference.txt L80711-80760"
+        },
+        {
+          "q": "geometric nonlinearity NLGEOM APDL",
+          "words": 4,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "ANSYS_Mechanical_APDL_Element_Reference.txt L61204-61245 | fedoo.weakform.InterfaceForce.html L1-50 | fedoo.weakform.BeamEquilibrium.nlgeom.html L1-18"
+        },
+        {
+          "q": "NLGEOM large deflection ANSYS",
+          "words": 4,
+          "nHits": 10,
+          "hit": true,
+          "hitRank": 1,
+          "top3": "Ansys_Mechanical_APDL_Command_Reference.txt L51992-52034 | ANSYS_Mechanical_APDL_Nonlinear_Adaptivity_Analysis_Guide.txt L3535-3584 | ANSYS_Mechanical_APDL_Element_Reference.txt L66576-66625"
+        }
+      ],
+      "anyHit": true,
+      "hitVariant": {
+        "q": "NLGEOM large deflection ANSYS",
+        "words": 4,
+        "nHits": 10,
+        "hit": true,
+        "hitRank": 1,
+        "top3": "Ansys_Mechanical_APDL_Command_Reference.txt L51992-52034 | ANSYS_Mechanical_APDL_Nonlinear_Adaptivity_Analysis_Guide.txt L3535-3584 | ANSYS_Mechanical_APDL_Element_Reference.txt L66576-66625"
+      }
+    },
+    "fedoo_plasticity": {
+      "question": "How do I model isotropic von Mises (J2) plasticity with hardening in fedoo (the Python FE library) - e.g. a 2D beam in plane strain undergoing plastic bending? Which constitutive law class, weak form, and nonlinear solver do I use, and how is the Newton-Raphson loop driven?",
+      "label": "the 2DplasticBending_from_scratch.py example file (nlsolve @ L93)",
+      "planner": {
+        "ok": true,
+        "wallMs": 3192,
+        "tokensIn": 729,
+        "tokensOut": 46,
+        "stopReason": "stop",
+        "model": "qwen-3.8-27b"
+      },
+      "variants": [
+        "von Mises J2 plasticity hardening constitutive",
+        "isotropic plasticity material model fedoo",
+        "elasto-plastic von Mises weak form",
+        "Newton-Raphson nonlinear solver iteration loop",
+        "plane strain plastic bending example"
+      ],
+      "perVariant": [
+        {
+          "q": "von Mises J2 plasticity hardening constitutive",
+          "words": 6,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "ANSYS_Mechanical_APDL_Theory_Reference.txt L4211-4249 | fedoo.constitutivelaw.ElastoPlasticity.hardening_function.html L15-15 | ANSYS_Mechanical_APDL_Material_Reference.txt L28210-28239"
+        },
+        {
+          "q": "isotropic plasticity material model fedoo",
+          "words": 5,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "ANSYS_Mechanical_APDL_Material_Reference.txt L2324-2373 | ANSYS_Mechanical_APDL_Material_Reference.txt L24865-24914 | ANSYS_Mechanical_APDL_Material_Reference.txt L24715-24764"
+        },
+        {
+          "q": "elasto-plastic von Mises weak form",
+          "words": 5,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt L12127-12176 | ANSYS_Mechanical_APDL_Material_Reference.txt L26784-26833 | ANSYS_Mechanical_APDL_Material_Reference.txt L24565-24614"
+        },
+        {
+          "q": "Newton-Raphson nonlinear solver iteration loop",
+          "words": 5,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "fedoo.problem.NonLinear.nr_parameters.html L1-16 | fedoo.problem.NonLinear.to_start.html L17-17 | __init__.py L293-334"
+        },
+        {
+          "q": "plane strain plastic bending example",
+          "words": 5,
+          "nHits": 10,
+          "hit": false,
+          "hitRank": null,
+          "top3": "ANSYS_Mechanical_APDL_Element_Reference.txt L58076-58125 | ANSYS_Mechanical_APDL_Element_Reference.txt L60787-60836 | ANSYS_Mechanical_APDL_Element_Reference.txt L91074-91123"
+        }
+      ],
+      "anyHit": false,
+      "hitVariant": null
+    }
+  }
+}

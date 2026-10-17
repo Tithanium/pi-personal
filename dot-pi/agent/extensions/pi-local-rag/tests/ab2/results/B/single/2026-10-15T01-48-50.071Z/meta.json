@@ -1,0 +1,242 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 1718,
+    "tokensIn": 2204,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 2139,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "ok (single selection: 1/6 candidate sections kept → 2053 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 5158,
+    "tokensIn": 4009,
+    "tokensOut": 120,
+    "ok": true,
+    "payloadBytes": 3062,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=weak, topRaw=0.6124 ≥ rawMin=0.47) → top-3 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 1500,
+    "tokensIn": 2863,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 10329,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=strong, topRaw=0.5622 ≥ rawMin=0.47) → top-1 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 1907,
+    "tokensIn": 2854,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 9117,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "ok (single selection: 1/1 candidate sections kept → 9030 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 1490,
+    "tokensIn": 2641,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 6071,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "ok (single selection: 1/2 candidate sections kept → 5984 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 2,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5897679987344571,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 1612,
+    "tokensIn": 3084,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 11459,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=weak, topRaw=0.5728 ≥ rawMin=0.47) → top-1 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 3192,
+    "tokensIn": 2337,
+    "tokensOut": 120,
+    "ok": true,
+    "payloadBytes": 7492,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=strong, topRaw=0.6825 ≥ rawMin=0.47) → top-2 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 2,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 1903,
+    "tokensIn": 3385,
+    "tokensOut": 11,
+    "ok": true,
+    "payloadBytes": 3670,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "ok (single selection: 2/3 candidate sections kept → 3584 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 3,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 3286,
+    "tokensIn": 3342,
+    "tokensOut": 120,
+    "ok": true,
+    "payloadBytes": 8248,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=weak, topRaw=0.6600 ≥ rawMin=0.47) → top-3 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 4,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 1644,
+    "tokensIn": 3415,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 9485,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=weak, topRaw=0.6334 ≥ rawMin=0.47) → top-1 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.633426553035191,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 1313,
+    "tokensIn": 188,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": true,
+    "note": "single: child selected EMPTY (verdict=empty, topRaw=0.3660) → empty payload",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 1637,
+    "tokensIn": 1749,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-15T01-48-50.071Z",
+    "empty": true,
+    "note": "single: child selected EMPTY (verdict=empty, topRaw=0.3457) → empty payload",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  }
+]

@@ -1,6 +1,7 @@
 /** Runtime defaults shared by settings accessors and the published JSON Schema. */
 export declare const SETTINGS_DEFAULTS: {
     readonly transport: "auto";
+    readonly sessionShareDestination: "auto";
     readonly steeringMode: "one-at-a-time";
     readonly followUpMode: "one-at-a-time";
     readonly compaction: {

@@ -130,8 +130,9 @@ export interface AgentSessionConfig {
     /** Initial active built-in tool names. Default: [read, bash, edit, write] */
     initialActiveToolNames?: string[];
     /**
-     * Whether the initial tools come from the `defaultTools` setting. When true, reload activates
-     * tools newly added to the setting. Tools removed from it stay active.
+     * Whether the initial tools come from the `defaultTools` setting. When true, a resumed session
+     * replaces them with the loadout its transcript records, with `defaultToolModifiers` applied, and
+     * reload activates tools newly added to the setting. Tools removed from it stay active.
      */
     usesDefaultTools?: boolean;
     /**
@@ -515,6 +516,7 @@ export declare class AgentSession {
      * Restore the active tool loadout declared by the session transcript, if it declares one.
      * Tools reachable only from other tools are never declared, but they do not depend on the active
      * set, so the transcript's declarations are the whole loadout.
+     * @param modifiers `+name`/`-name` entries applied to the restored loadout.
      */
     private _restoreToolsFromTranscript;
     /**

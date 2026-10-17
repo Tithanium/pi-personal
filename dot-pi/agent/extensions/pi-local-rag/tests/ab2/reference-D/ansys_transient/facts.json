@@ -1,0 +1,472 @@
+[
+  {
+    "statement": "The ANTYPE command selects transient analysis with the value TRANS (or 4), which is valid for all degrees of freedom.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 8380
+  },
+  {
+    "statement": "ANTYPE also supports a RESTART status to resume a previous full or mode-superposition transient analysis from a given load step and substep.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 8394
+  },
+  {
+    "statement": "TRNOPT specifies transient analysis options, with Method = FULL (full method, the default) or MSUP (mode superposition).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84849
+  },
+  {
+    "statement": "TRNOPT's TINTOPT field selects the time-integration method: NMK or 0 for Newmark (default) and HHT or 1 for the HHT algorithm, which is valid only for the full transient method.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84878
+  },
+  {
+    "statement": "TRNOPT is valid only within the first load step when used in SOLUTION; transient integration parameters are set separately with the TINTP command.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84915
+  },
+  {
+    "statement": "TINTP defines transient integration parameters, with GAMMA being the amplitude decay factor (default 0.005) used only when ALPHA, DELTA, ALPHAF and ALPHAM are blank.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84415
+  },
+  {
+    "statement": "TINTP can take application labels IMPA, HISP, MOSP, LOSP or QUAS in the GAMMA field, in which case the program automatically sets GAMMA and solver settings for the intended application.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84417
+  },
+  {
+    "statement": "For a full structural transient analysis one may choose between Newmark and HHT time integration (via TRNOPT); if GAMMA is input and the other parameters are blank, the program computes them, and the parameter relationships must be satisfied for unconditional stability and second-order accuracy.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84472
+  },
+  {
+    "statement": "TIMINT turns transient (mass/inertia) effects on or off for a load step, with the command default being ON (include transient effects) in an ANTYPE,TRANS analysis.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84307
+  },
+  {
+    "statement": "In a full transient analysis, TIMINT=ON is where transient initial conditions are introduced, and they are determined from the previous two substeps, with zero initial velocity and acceleration assumed if no previous substeps exist.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84341
+  },
+  {
+    "statement": "The TIME command sets the time at the end of a load step and, for full transient analyses, a time must be specified for each load step that is greater than the time at the end of the prior load step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 84274
+  },
+  {
+    "statement": "DELTIM specifies the time step sizes for the current load step, where DTIME is the time step size (or the starting substep if AUTOTS is on) and DTMIN and DTMAX are the minimum and maximum time steps when automatic time stepping is used.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 22060
+  },
+  {
+    "statement": "The AUTOTS command enables or disables automatic time stepping, which is on by default, and when ON both time step prediction and time step bisection are used.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 9996
+  },
+  {
+    "statement": "NSUBST specifies the number of substeps for a load step, where NSBSTP is the first substep size (if AUTOTS is on) and NSBMX and NSBMN set the maximum and minimum number of substeps under automatic time stepping.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 54697
+  },
+  {
+    "statement": "KBC specifies ramped (KEY=0) or stepped (KEY=1) loading within a load step, and the loading is step-applied by default for transient analysis with transient effects included (ANTYPE,TRANS and TIMINT,ON).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 42256
+  },
+  {
+    "statement": "The IC command specifies initial conditions (initial values of DOFs) at nodes, and is valid in static and transient analyses; in a transient analysis the initial value is specified at the beginning of the first load step, i.e. at time = 0.0.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 40554
+  },
+  {
+    "statement": "For structural static and transient analyses, the IC command supports translational/rotational velocity initial conditions via VELX..DMGZ labels, and for structural transient analysis translational/rotational acceleration initial conditions via ACCX..DMGZ labels.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 40520
+  },
+  {
+    "statement": "ICROTATE specifies initial velocity at nodes as a sum of rotation about an axis and translation, is valid only for static and full-method transient analysis (TIMINT,ON with TRNOPT,FULL), and saves the velocities in the database as if the IC command had been used.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 40699
+  },
+  {
+    "statement": "NLGEOM includes large-deflection (large rotation) or large-strain effects in a static or full transient analysis, and when active it also automatically includes stress stiffening effects.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 51992
+  },
+  {
+    "statement": "OUTRES controls solution-result data written to the database and results file, with items including NSOL, RSOL, V (nodal velocity, transient only), A (nodal acceleration, transient only) and ESOL subitems such as STRS, EPPL and VENG.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 56596
+  },
+  {
+    "statement": "The OUTRES Freq field controls when solution items are written: LAST (last substep of each load step, the default), every nth substep, or up to n equally spaced solutions.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 56722
+  },
+  {
+    "statement": "OUTPR controls solution items printed to the output file, the frequency of printout, and the set of nodes or elements to which the specification applies (in static, full transient, or full harmonic analyses).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 56524
+  },
+  {
+    "statement": "ALPHAD defines the mass matrix multiplier for viscous (Rayleigh) damping, used to form the damping matrix C = alpha*M, and the value is additive with any MP,ALPD material damping.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 6126
+  },
+  {
+    "statement": "BETAD defines the stiffness matrix multiplier for viscous (Rayleigh) damping, used to form the damping matrix C = beta*K.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 10474
+  },
+  {
+    "statement": "MIDTOL sets midstep residual criterion values for structural transient analyses, where TOLERB is the midstep residual tolerance (default 100 times the CNVTOL TOLER) and AUTOTS bisection uses it to predict the time step size.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 47948
+  },
+  {
+    "statement": "PRED activates a DOF predictor (linear, quadratic, or auto) for the first equilibrium iteration of each substep in a nonlinear analysis.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 63008
+  },
+  {
+    "statement": "STABILIZE activates nonlinear stabilization (an artificial dashpot at each node) for unstable structures, controlled by an energy-dissipation ratio (ENERGY) or a damping factor (DAMPING).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 79352
+  },
+  {
+    "statement": "LSWRITE writes load and load step option data to a load step file (Jobname.Sn) for later use, while LSSOLVE reads and solves the load step files sequentially.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 46399
+  },
+  {
+    "statement": "LUMPM specifies a lumped mass matrix formulation, recommended for some 'skinny' structures to improve results and reduce run time and memory.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 46664
+  },
+  {
+    "statement": "The procedure for a full transient dynamic analysis consists of: build the model, establish initial conditions, set solution controls, set additional solution options, apply the loads, save the load configuration for each load step, save a backup copy of the database, start the transient solution, exit the solution processor, and review the results.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8180
+  },
+  {
+    "statement": "When building a model for a full transient dynamic analysis, both Young's modulus (EX) and density (DENS) must be defined, and both linear and nonlinear elements can be used.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8199
+  },
+  {
+    "statement": "For wave propagation effects in a full transient analysis, the mesh should have at least 20 elements per wavelength along the direction of the wave.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8213
+  },
+  {
+    "statement": "A transient dynamic analysis requires two sets of initial conditions (initial displacement, initial velocity, and initial acceleration) because the equations being solved are of second order; if no special action is taken, all three are assumed to be zero.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8235
+  },
+  {
+    "statement": "Nonzero initial conditions in a full transient analysis can be set with the IC and ICROTATE commands.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8252
+  },
+  {
+    "statement": "To establish both a nonzero initial displacement and a nonzero initial velocity, the guide shows applying the displacement with TIMINT,OFF, a small TIME interval giving the desired velocity (e.g. D,ALL,UY,1.0 with TIME,.4 for a velocity of 2.5), SOLVE, then DDELE,ALL,UY and TIMINT,ON.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8276
+  },
+  {
+    "statement": "For a new full transient analysis in the Solution Controls Basic tab, select Small Displacement Transient to ignore large deformation effects, or Large Displacement Transient if large deflections or large strains are expected.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8319
+  },
+  {
+    "statement": "AUTOTS (time-step optimization) increases or decreases the integration time step based on the response of the structure, and the DELTIM/NSUBST limits restrict its range; the default is ON.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8324
+  },
+  {
+    "statement": "NSUBST and DELTIM are load step options that specify the integration time step for a transient analysis, and the smaller the time step the higher the accuracy of the solution.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8332
+  },
+  {
+    "statement": "By default, only the last substep (time-point) is written to the results file (Jobname.rst) in a full transient dynamic analysis; to write all substeps, set the OUTRES Frequency accordingly.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8340
+  },
+  {
+    "statement": "TIMINT is a dynamic load step option that must be turned on for inertia and damping effects to be included in the analysis; otherwise a static solution is performed.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8384
+  },
+  {
+    "statement": "TRNOPT (TINTOPT) specifies the time-integration method used in a full transient analysis, with the default being the Newmark method, and TINTP specifies the transient integration parameters that control the Newmark and HHT techniques.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8391
+  },
+  {
+    "statement": "Arc-length options on the Advanced NL tab cannot be used in a full transient analysis.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8403
+  },
+  {
+    "statement": "For a full transient analysis, damping can additionally be specified with material-dependent alpha and beta damping (MP,ALPD, MP,BETD), element damping (COMBIN14), and LUMPM can be used to specify a lumped mass matrix formulation.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8454
+  },
+  {
+    "statement": "It is recommended to use acceleration input (tabular array parameter on D,,ACC or ACEL) to define support motion in a transient analysis, because displacement input implies a discontinuity in acceleration and can show numerical noise that GAMMA on TINTP can mitigate.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8462
+  },
+  {
+    "statement": "In a full transient analysis, each load step is defined by specifying TIME (time at the end of the load step), the load values, KBC (stepped or ramped), then LSWRITE; this is repeated for each corner of the load-versus-time curve.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8509
+  },
+  {
+    "statement": "The transient solution for multiple load steps is started with the LSSOLVE command (or GUI Main Menu> Solution> Solve> From LS Files).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8527
+  },
+  {
+    "statement": "Results of a full transient analysis can be reviewed with POST26 (time-history postprocessor, results at specific points as functions of time) or POST1 (general postprocessor, results over the entire model at specific time points).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8550
+  },
+  {
+    "statement": "In POST26, transient variables are defined with NSOL (nodal primary data), ESOL (element solution data), RFORCE (reaction force data) and SOLU (time step size, iteration count, response frequency), and are reviewed with PLVAR and PRVAR/EXTREM.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8561
+  },
+  {
+    "statement": "In POST1 for a transient analysis, the SET command identifies the data set by load step and substep numbers or by time to read in the desired set of results.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8588
+  },
+  {
+    "statement": "The guide's full transient example command stream uses ANTYPE,TRANS, TRNOPT,FULL, ALPHAD/BETAD damping, KBC, TIME, AUTOTS,ON, DELTIM, OUTRES, LSWRITE per load step, then SAVE and LSSOLVE,1,2.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8603
+  },
+  {
+    "statement": "In a nonlinear transient analysis, the same transient analysis type and options are specified as for a nonlinear static analysis (ANTYPE, NLGEOM), and time must be greater than zero; KBC must be specified for stepped or ramped loads.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14475
+  },
+  {
+    "statement": "In a nonlinear transient analysis, time-integration effects (TIMINT) are ON by default, and creep, viscoelasticity, viscoplasticity or swelling require the time-integration effects to be turned off (a static analysis).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14493
+  },
+  {
+    "statement": "In a nonlinear transient analysis, BETAD (stiffness damping) should be used with care because the stiffness may change drastically.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14485
+  },
+  {
+    "statement": "The nonlinear transient analysis example uses ANTYPE,TRANS (TRNOPT,FULL by default), an initial-condition load step written with LSWRITE, NLGEOM,ON, TIME/DELTIM/AUTOTS,ON, ALPHAD, TIMINT,ON, CNVTOL, NCNV, PRED,ON and OUTRES,ALL,ALL, then LSSOLVE.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14523
+  },
+  {
+    "statement": "Prestress effects can be included in a full transient dynamic analysis by applying the prestressing loads in a preliminary static load step with TIMINT,OFF (and NLGEOM,ON for large deformation), then turning TIMINT,ON for all subsequent load steps.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9119
+  },
+  {
+    "statement": "If initial conditions (IC) are to be defined, the static prestress solution should be performed as a separate solution; the IC command is valid only in the first load step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9142
+  },
+  {
+    "statement": "For the Newmark time-integration scheme, using approximately twenty points per cycle of the highest frequency of interest gives a reasonably accurate solution, i.e. the integration time step ITS = 1/(20f).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9170
+  },
+  {
+    "statement": "Stepped loads require a small integration time step at the time of the step change; ITS values as small as 1/180f may be needed to follow stepped loads.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9213
+  },
+  {
+    "statement": "For contact (impact) problems, the time step should resolve the contact frequency with at least thirty points per cycle (N = 30) to minimize energy loss; for the mode-superposition method N must be at least 7 for stability.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9231
+  },
+  {
+    "statement": "Exceedingly small time steps, especially when establishing initial conditions, can cause numerical difficulties; time steps smaller than 1e-10 on a unit time scale could cause problems.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9258
+  },
+  {
+    "statement": "Automatic time stepping (AUTOTS) adjusts the integration time step during solution based on the response frequency and nonlinearities, and for nonlinear problems it can increment loads appropriately and retreat to the previous converged solution (bisection) if convergence is not obtained.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9272
+  },
+  {
+    "statement": "TINTP,IMPA (impact) sets GAMMA = 0 for no numerical dissipation, TINTP,HISP (high speed) sets GAMMA = 0.005 for small numerical dissipation, TINTP,MOSP (moderate speed) sets GAMMA = 0.1, and TINTP,LOSP (low speed) sets GAMMA = 0.414 with high numerical dissipation.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9291
+  },
+  {
+    "statement": "TINTP,QUAS (quasi-static) uses backward Euler time-integration with high numerical dissipation, ramps loads by default (KBC,0), ignores the mid-step convergence check (overriding MIDTOL), and is recommended for buckling-dominated or snap-through problems.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 9327
+  },
+  {
+    "statement": "The transient analysis solution method (ANTYPE,TRANS) solves structural and other second-order systems with Newmark, HHT (TINTOPT = HHT on TRNOPT), or backward Euler (TINTP,QUAS) time integration methods.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 32417
+  },
+  {
+    "statement": "In nonlinear structural dynamics, any time integration operator may be used in association with the Newton-Raphson iterative algorithm, and both the Newmark method and the generalized HHT- method are incorporated in the program.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 32633
+  },
+  {
+    "statement": "The Newmark family of methods is unconditionally stable when the integration parameters satisfy the amplitude decay factor conditions, and the program provides it via input of the amplitude decay factor GAMMA on the TINTP command.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 32543
+  },
+  {
+    "statement": "The generalized HHT method is second-order accurate and unconditionally stable and allows control of the amount of numerical damping; the amplitude decay factor is recommended to be set at alpha = 0.1 to damp spurious high modes without affecting lower modes.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 32611
+  },
+  {
+    "statement": "In a full transient analysis, enforced acceleration, enforced velocity, and enforced displacement are input with the D command (e.g. D,,ACC, D,,VEL).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 32144
+  },
+  {
+    "statement": "The td-12 full transient example sets antype,trans with kbc,1 (stepped BC's) and trnopt,full,,,,,hht (HHT time integration method).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-12\\Full_Transient_Analysis1.dat",
+    "line": 24
+  },
+  {
+    "statement": "The td-12 full transient example uses tintp,0.0, autots,on, deltim,0.005,0.0005,0.005,off (initial, min, max time steps), and time,14.99 as the simulation end time.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-12\\Full_Transient_Analysis1.dat",
+    "line": 30
+  },
+  {
+    "statement": "The td-12 full transient example applies the fast time-varying acceleration input as a tabular load with acel,%SupportAcel%, where SupportAcel is a 1499-row table keyed on time.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-12\\Full_Transient_Analysis1.dat",
+    "line": 49
+  },
+  {
+    "statement": "The td-12 full transient example specifies Rayleigh damping with alphad,0.303921 and betad,0.000185.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-12\\Full_Transient_Analysis1.dat",
+    "line": 43
+  },
+  {
+    "statement": "The td-12 full transient example controls results output with outres,all,none followed by outres,all,all (write all solution items at every substep).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-12\\Full_Transient_Analysis1.dat",
+    "line": 38
+  },
+  {
+    "statement": "The td-12 example defines the acceleration time history as a TABLE array parameter: *dim,SupportAcel,table,1499,,,time with values filled per row.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-12\\1D_time_history.dat",
+    "line": 6
+  },
+  {
+    "statement": "The td-12 postprocessing uses /post26 with rforce,2,139,f,x,FX1 type commands to define reaction force variables and *get,...,extrem,vmax/vmin to extract absolute extreme values.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-12\\Full_Transient_Analysis1.dat",
+    "line": 76
+  },
+  {
+    "statement": "The td-17 impact example uses antype,trans with nlgeom,on (large deflection) and trnopt,full, , , , ,HHT for the full method with the HHT algorithm.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-17\\impact_elastic.dat",
+    "line": 60
+  },
+  {
+    "statement": "The td-17 impact example sets the initial velocity of the bar with ic,all,uz,,-227 applied to the solid nodes as the initial condition for the transient analysis.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-17\\impact_elastic.dat",
+    "line": 52
+  },
+  {
+    "statement": "The td-17 impact example controls time stepping with time,0.28e-4 (end time) and nsub,100,10000,100 (initial, max, min number of substeps), and numerical damping with tintp,0.1.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-17\\impact_elastic.dat",
+    "line": 64
+  },
+  {
+    "statement": "The td-17 impact example selectively writes results with outres,all,none, outres,nsol,all, outres,v,all and outres,a,all (nodal solution, velocities and accelerations at all substeps).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-17\\impact_elastic.dat",
+    "line": 66
+  },
+  {
+    "statement": "The td-17 impact example postprocesses in /post26 with nsol (displacement and velocity), enersol KENE/SENE for kinetic and strain energy, and prvar/plvar to list and plot them versus time.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-17\\impact_elastic.dat",
+    "line": 88
+  },
+  {
+    "statement": "The td-17 rigid impact example writes all solution data for all substeps with outres,all,all.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-17\\impact_rigid.dat",
+    "line": 97
+  },
+  {
+    "statement": "The Technology Showcase digger-arm example performs nonlinear transient analyses with antype,4 (transient), nlgeom,on (large-deformation), trnopt,full,,,,,hht (HHT), tintp,0.1 (numerical damping), timint,on, and outres,all,all.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 10361
+  },
+  {
+    "statement": "The digger-arm example uses fixed time-stepping with autots,off and deltim,0.1,0.1,0.1, and solves three 10-second load steps with repeated TIME and SOLVE commands (time,10. / solve / time,20. / solve / time,30. / solve).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 10365
+  },
+  {
+    "statement": "The tire (HSFLD242) example performs a nonlinear transient analysis using HHT with antype,trans, nlgeom,on, trnopt,full, , , , ,HHT and tintp,0.15 as the amplitude decay factor, with transient effects included only in the last load step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 14881
+  },
+  {
+    "statement": "The metal bar impact study in the Technology Showcase compares TRNOPT,FULL,,,,,NMK with TINTP,0.0 (no damping), TRNOPT,FULL,,,,,NMK with TINTP,0.1, and TRNOPT,FULL,,,,,HHT with TINTP,0.1 for rigid, elastic and elastoplastic impact scenarios.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 11131
+  },
+  {
+    "statement": "The bar impact study sets TIME,0.1e-4 with NSUBST,100,10000,100 so the minimum 100 substeps ensure a smooth response and the maximum 10000 substeps allow automatic time-stepping to cut back the increment to satisfy the impact constraints.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 11146
+  },
+  {
+    "statement": "The post-buckling (ring-stiffened cylinder) example restarts a diverged run with antype,,restart,1,10 and activates nonlinear stabilization with stabilize,constant,energy,0.000143.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 11907
+  },
+  {
+    "statement": "The FSW example turns off structural dynamic effects with timint,off,struc (structural transients not important for frictional heat generation) while using kbc,0 ramped loading, nropt,unsym and deltim-based automatic time stepping.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 16569
+  },
+  {
+    "statement": "The Advanced Analysis Guide describes automatic transition between static and transient solutions (SOLOPTION, STOT/TTOS/TTOT) where a failing implicit static solution transitions to a transient, e.g. quasi-static (TINTP,QUAS), simulation.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+    "line": 1817
+  },
+  {
+    "statement": "The cone crush local example (cone_ecrase.txt) uses NLGEOM,1 with NSUBST,100,0,0, AUTOTS,1, TIME,1 and OUTRES,ALL,1 in a /SOLU block (nonlinear large-deformation run).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\models_examples\\mwe_run_cone_ecrase\\cone_ecrase.txt",
+    "line": 242
+  },
+  {
+    "statement": "The Basic Analysis Guide documents three methods for solving multiple load steps (multiple SOLVE, load step file method with LSWRITE/LSSOLVE, and array parameter method with *DO loops using TIME and table parameters).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 5448
+  },
+  {
+    "statement": "The array parameter method example uses a *DO loop over TIME from TM_START to TM_END in TM_INCR steps, applying time-varying loads F(...,FORCE(TM)) and SF(...,PRESSURE(TM)) and issuing SOLVE at each step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 5551
+  },
+  {
+    "statement": "The multiframe restart example sets up restart files with rescontrol,,all,1,5 and resumes with antyp,,rest,1,3 (restart at load step 1, substep 3) or antype,,rest,1,3,endstep.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 5643
+  },
+  {
+    "statement": "The OKF note on td-12 confirms the full transient setup: antype,trans with kbc,1, trnopt,full,,,,,hht, deltim,0.005,0.0005,0.005,off, time,14.99, solve, then /post26 with a 1499-row TABLE acceleration input.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\okf\\topics\\multi-step-loading.md",
+    "line": 15
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 1724,
+    "tokensIn": 89,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 3062,
+    "provenance": "new B:single run 2026-10-15T01-42-36.833Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=weak, topRaw=0.6124 ≥ rawMin=0.47) → top-3 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  }
+]

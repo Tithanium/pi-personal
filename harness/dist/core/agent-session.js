@@ -211,8 +211,8 @@ export class AgentSession {
             activeToolNames: this._initialActiveToolNames,
             includeAllExtensionTools: true,
         });
-        if (this._initialActiveToolNames === undefined)
-            this._restoreToolsFromTranscript();
+        if (this._usesDefaultTools)
+            this._restoreToolsFromTranscript(this._defaultToolModifiers);
     }
     get modelRuntime() {
         return this._modelRuntime;
@@ -1369,13 +1369,14 @@ export class AgentSession {
      * Restore the active tool loadout declared by the session transcript, if it declares one.
      * Tools reachable only from other tools are never declared, but they do not depend on the active
      * set, so the transcript's declarations are the whole loadout.
+     * @param modifiers `+name`/`-name` entries applied to the restored loadout.
      */
-    _restoreToolsFromTranscript() {
+    _restoreToolsFromTranscript(modifiers = []) {
         this._pendingToolNames.clear();
         const current = getCurrentSystemMessage(this.sessionManager.buildSessionContext().messages);
         if (!current)
             return;
-        const names = (current.toolsAdded ?? []).map((tool) => tool.name);
+        const names = applyToolModifiers((current.toolsAdded ?? []).map((tool) => tool.name), modifiers);
         this._pendingToolNames = new Set(names.filter((name) => this._isAllowedTool(name)));
         this._setActiveTools(names);
     }

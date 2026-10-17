@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 216590,
+    "tokensIn": 83927,
+    "tokensOut": 5514,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

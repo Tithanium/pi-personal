@@ -1,0 +1,285 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 526,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 24869,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6640; 9 sections, 24784 B)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 9,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885,
+      "nVariants": 3,
+      "shellSkipped": 2,
+      "defNeighbors": 0
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 199,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 9531,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6124; 2 sections, 9446 B)",
+    "internals": {
+      "nChunks": 39,
+      "nSections": 2,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "nVariants": 3,
+      "shellSkipped": 11,
+      "defNeighbors": 1,
+      "defNeighborList": [
+        "#1->implicit_dynamic.py L272-421 (3 terms, 5572 B)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 356,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 32635,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.5622; 5 sections, 32549 B)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 5,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->Ansys_Mechanical_APDL_Command_Reference.txt L1160-1309 (4 terms, 5298 B)",
+        "#1->Ansys_Mechanical_APDL_Command_Reference.txt L4511-4521 (2 terms, 402 B)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 368,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 29032,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.7032; 5 sections, 28946 B)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 5,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L3152-3210 (6 terms, 4653 B)",
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L2767-2780 (4 terms, 1095 B)"
+      ]
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 2425,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 25237,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.5898; 8 sections, 25151 B)",
+    "internals": {
+      "nChunks": 46,
+      "nSections": 8,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5897679987344571,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "defNeighbors": 0
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 388,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 34215,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.5728; 5 sections, 34129 B)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 5,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L3752-3807 (10 terms, 2209 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L4124-4176 (7 terms, 3060 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L2971-2976 (4 terms, 464 B)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 355,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 36703,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6825; 5 sections, 36617 B)",
+    "internals": {
+      "nChunks": 43,
+      "nSections": 5,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L3152-3210 (11 terms, 4653 B)",
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L4722-4742 (6 terms, 1311 B)"
+      ]
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 372,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 30561,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6286; 11 sections, 30474 B)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 11,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Material_Reference.txt L27325-27358 (8 terms, 1270 B)",
+        "#1->ANSYS_Mechanical_APDL_Material_Reference.txt L26796-26813 (8 terms, 839 B)",
+        "#1->ANSYS_Mechanical_APDL_Material_Reference.txt L27393-27415 (8 terms, 850 B)"
+      ]
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 204,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 28939,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=weak, topRaw=0.6600; 11 sections, 28853 B)",
+    "internals": {
+      "nChunks": 39,
+      "nSections": 11,
+      "variant": "none",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657,
+      "nVariants": 3,
+      "shellSkipped": 4,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->stress_equilibrium.py L985-1019 (3 terms, 1410 B)",
+        "#2->stress_equilibrium.py L950-984 (3 terms, 1410 B)",
+        "#6->incompressibility_comparison.py L100-187 (3 terms, 2759 B)"
+      ]
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 4729,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 20455,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": false,
+    "note": "none: candidate as-is (verdict=strong, topRaw=0.6334; 4 sections, 20368 B)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 4,
+      "variant": "none",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.633426553035191,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15059-15114 (13 terms, 3743 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15233-15252 (11 terms, 1555 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L13036-13042 (7 terms, 558 B)"
+      ]
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 147,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": true,
+    "note": "none: verdict=empty (topRaw 0.3660 < rawMin 0.47) → empty payload, no child (P2-R6 multi-query pre-fetch gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "none",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076,
+      "nVariants": 1
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 134,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:none run 2026-10-15T06-58-33.100Z",
+    "empty": true,
+    "note": "none: verdict=empty (topRaw 0.3457 < rawMin 0.47) → empty payload, no child (P2-R6 multi-query pre-fetch gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "none",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083,
+      "nVariants": 1
+    }
+  }
+]

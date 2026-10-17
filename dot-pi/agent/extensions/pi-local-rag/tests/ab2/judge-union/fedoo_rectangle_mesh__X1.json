@@ -1,0 +1,41 @@
+{
+  "id": "fedoo_rectangle_mesh",
+  "label": "X1",
+  "denomTotal": 27,
+  "results": [
+    { "n": "G1", "hit": true },
+    { "n": "G2", "hit": false },
+    { "n": "G3", "hit": true },
+    { "n": "G4", "hit": false },
+    { "n": "D3", "hit": true },
+    { "n": "D4", "hit": true },
+    { "n": "D5", "hit": false },
+    { "n": "D6", "hit": false },
+    { "n": "D7", "hit": false },
+    { "n": "D10", "hit": false },
+    { "n": "D11", "hit": false },
+    { "n": "D12", "hit": false },
+    { "n": "D13", "hit": false },
+    { "n": "D14", "hit": false },
+    { "n": "D15", "hit": false },
+    { "n": "D16", "hit": false },
+    { "n": "D17", "hit": false },
+    { "n": "D18", "hit": false },
+    { "n": "D19", "hit": false },
+    { "n": "D20", "hit": false },
+    { "n": "D21", "hit": false },
+    { "n": "D22", "hit": false },
+    { "n": "D23", "hit": false },
+    { "n": "D24", "hit": false },
+    { "n": "D25", "hit": false },
+    { "n": "D26", "hit": false },
+    { "n": "D27", "hit": true }
+  ],
+  "fpr": {
+    "totalBytes": 2247,
+    "offTopicBytes": 285,
+    "fprPct": 12.7,
+    "notes": "Payload is mostly on-topic (answers the exact-call question). Off-topic: (1) ~bytes 13-75: RAG boilerplate header '[pi-local-rag] RAG subagent: 5 sources, 48803 ms retrieval.' — meta noise; (2) ~bytes 1359-1434 and 1506-1548: test_thicken.py scaffolding 'def test_thicken_planar_surface_about_midsurface(...)' and 'solid = fd.mesh.thicken(surface, 0.2)' — about surface thickening, not rectangle mesh construction; (3) ~bytes 1900-2055: autosummary bullet naming other mesh generators (box_mesh, disk_mesh, hole_plate_mesh) — cross-function nav noise."
+  },
+  "empty": false
+}

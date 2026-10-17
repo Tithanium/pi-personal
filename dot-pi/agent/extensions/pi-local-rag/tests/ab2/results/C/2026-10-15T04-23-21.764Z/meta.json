@@ -1,0 +1,125 @@
+[
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 6064,
+    "tokensIn": 9217,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 12542,
+    "provenance": "new C run 2026-10-15T04-23-21.764Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 3 hits deleted, 2 force-kept [002:H01(raw 0.497), 003:H01(raw 0.464)] → 12454 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 6,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 3,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "fanoutTerms": [
+        "model",
+        "isotropic",
+        "von",
+        "Mises",
+        "plasticity",
+        "hardening",
+        "fedoo",
+        "Python"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 7,
+      "corpusFolders": [
+        "Doc_tech_fedoo=3",
+        "Doc_tech_ANSYS=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/constraint/periodic_bc.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Material_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.constitutivelaw.ElastoPlasticity.hardening_function_derivative.html",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/td-61/springcoil.dat"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 1,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "002:H01(raw 0.497)",
+        "003:H01(raw 0.464)"
+      ]
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 3422,
+    "tokensIn": 11910,
+    "tokensOut": 48,
+    "ok": true,
+    "payloadBytes": 17367,
+    "provenance": "new C run 2026-10-15T04-23-21.764Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 4 hits deleted, 3 force-kept [002:H01(raw 0.497), 002:H02(raw 0.472), 003:H01(raw 0.497)] → 17280 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 6,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 4,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657,
+      "fanoutTerms": [
+        "fedoo",
+        "Python",
+        "library",
+        "define",
+        "weak",
+        "mechanical",
+        "equilibrium",
+        "solids"
+      ],
+      "corpusLca": "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio",
+      "corpusSkips": 1,
+      "corpusFolders": [
+        "Doc_tech_fedoo=3",
+        "Doc_tech_ANSYS=3"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/constraint/periodic_bc.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/weakform/stress_equilibrium_ri.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "workerSkipped": 1,
+      "anyChildFallback": 0,
+      "forceKept": [
+        "002:H01(raw 0.497)",
+        "002:H02(raw 0.472)",
+        "003:H01(raw 0.497)"
+      ]
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 147,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T04-23-21.764Z",
+    "empty": true,
+    "note": "EARLY EMPTY: verdict=empty (topRaw 0.3660 < rawMin 0.47) → no fan-out, no swarm",
+    "internals": {
+      "nTerms": 0,
+      "nFiles": 0,
+      "nChildren": 0,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076
+    }
+  }
+]

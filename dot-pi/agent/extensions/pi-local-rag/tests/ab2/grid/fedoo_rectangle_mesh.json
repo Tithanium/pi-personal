@@ -1,0 +1,319 @@
+{
+  "id": "fedoo_rectangle_mesh",
+  "generatedAt": "2026-10-15T23:48:43+02:00",
+  "grid": [
+    {
+      "n": 1,
+      "statement": "fd.mesh.rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type='quad4', ndim=None, name='') creates a rectangular Mesh; nx, ny are the numbers of nodes in the x and y axes (default 11) and x_min/x_max/y_min/y_max the boundary of the rectangle (default 0, 1, 0, 1)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 24,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 2,
+      "statement": "elm_type accepts 'tri3', 'tri6', 'quad4', 'quad8', 'quad9' (default 'quad4'); for 'quad9' and 'tri6' the function forces nx and ny to odd values (nx = nx // 2 * 2 + 1, same for ny)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 44,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 3,
+      "statement": "The function returns the generated geometry as a fedoo Mesh object (class fedoo.core.mesh.Mesh)",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 53,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    },
+    {
+      "n": 4,
+      "statement": "Related mesh builders in the same module: line_mesh (1D line mesh, def at line 330), box_mesh (3D volume mesh, def at line 478), grid_mesh_cylindric and line_mesh_cylindric (cylindrical), as listed in the docstring 'See Also'",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 58,
+      "lineFixed": null,
+      "source": "original",
+      "note": null
+    }
+  ],
+  "dFacts": [
+    {
+      "dn": 1,
+      "statement": "The function rectangle_mesh is defined in fedoo/mesh/simple.py with signature rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type=\"quad4\", ndim=None, name=\"\") and its docstring says \"Create a rectangular Mesh\".",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 24,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Citation itself is accurate (def at line 24, 'Create a rectangular Mesh' at line 36), but the claim (exact signature + creates a rectangular Mesh) is semantically identical to G1, which states the same signature from the same file."
+    },
+    {
+      "dn": 2,
+      "statement": "In the source docstring, nx and ny are \"Numbers of nodes in the x and y axes (default = 11)\", i.e. node counts, not element counts.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 41,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Line 41 is exact, but the claim (nx/ny are node counts, default 11) is verbatim contained in G1's second clause."
+    },
+    {
+      "dn": 3,
+      "statement": "The elm_type parameter accepts {'tri3', 'quad4', 'quad8', 'quad9'} with default 'quad4', described as 'The type of the element generated (default=\\'quad4\\')'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 44,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 44 is exact: \"elm_type : {'tri3', 'quad4', 'quad8', 'quad9'}\" with the quoted description on line 45. Note the same region shows 'tri6' in the bullet list (line 48) and handled in code (line 67), so D3's set is the docstring's type annotation, not the full accepted set; not a duplicate of G2 since G2 includes tri6 and the odd-node forcing."
+    },
+    {
+      "dn": 4,
+      "statement": "The source docstring documents element types including \"'quad4' -- 4 node quadrangular mesh\".",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 49,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 49 is exact: \"* 'quad4' -- 4 node quadrangular mesh\"."
+    },
+    {
+      "dn": 5,
+      "statement": "The function returns a Mesh built as Mesh(crd, elm, elm_type, node_sets, {}, ndim, name).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 200,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 200 is exact: \"return Mesh(crd, elm, elm_type, node_sets, {}, ndim, name)\"."
+    },
+    {
+      "dn": 6,
+      "statement": "The mesh nodes are generated by np.meshgrid of np.linspace(x_min, x_max, nx) and np.linspace(y_min, y_max, ny), so the rectangle spans [x_min, x_max] × [y_min, y_max].",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 70,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 70 is exact: \"X, Y = np.meshgrid(np.linspace(x_min, x_max, nx), np.linspace(y_min, y_max, ny))\"."
+    },
+    {
+      "dn": 7,
+      "statement": "The function also creates node sets named 'bottom', 'top', 'left', 'right' for the four sides of the rectangle (used for boundary conditions).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\mesh\\simple.py",
+      "line": 176,
+      "lineFixed": 162,
+      "status": "pass",
+      "note": "Cited window (161-206) supports the claim; line 176 itself is inside the quad8-branch node-set construction (left_nodes list). Primary named node_sets dict {\"bottom\",\"top\",\"left\",\"right\"} is at lines 162-166 (non-quad8) with the quad8 variant at 193-198."
+    },
+    {
+      "dn": 8,
+      "statement": "The official Sphinx API reference lists the signature rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type='quad4', ndim=None, name='') and states it \"Create[s] a rectangular Mesh\" returning a Mesh.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\generated\\fedoo.mesh.rectangle_mesh.html",
+      "line": 131,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Citation accurate (signature dt at line 131, 'Create a rectangular Mesh' at 132, Return type Mesh at ~157), but the asserted proposition (this signature, creates a rectangular Mesh, returns Mesh) is already fully asserted by G1 (signature + creates rectangular Mesh) and G3 (returns a fedoo Mesh object); the different source file does not change the claim."
+    },
+    {
+      "dn": 9,
+      "statement": "The API reference page describes nx as 'int — Numbers of nodes in the x and y axes (default = 11)'.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\generated\\fedoo.mesh.rectangle_mesh.html",
+      "line": 136,
+      "lineFixed": null,
+      "status": "duplicate-of-original",
+      "note": "Line 136 is exact, but the underlying proposition (nx = numbers of nodes in the x axis, default 11) is verbatim contained in G1."
+    },
+    {
+      "dn": 10,
+      "statement": "The mesh guide page (Main_documentation_fedoo/mesh.html) lists rectangle_mesh in the fedoo.mesh generator table as \"rectangle_mesh([nx, ny, x_min, x_max, ...])\".",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Main_documentation_fedoo\\mesh.html",
+      "line": 203,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 203 is exact: the autosummary table row \"rectangle_mesh([nx, ny, x_min, x_max, ...])\" with description 'Create a rectangular Mesh'. Not covered by any original fact (G4 covers See-Also builders in the source, not the guide table)."
+    },
+    {
+      "dn": 11,
+      "statement": "The OKF documentation guide states the verified fedoo 1.0.1 signature: rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type=\"quad4\", ndim=None, name=\"\"); nx/ny are node counts; elm_type in tri3/tri6/quad4/quad8/quad9.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\documentation\\mesh.md",
+      "line": 42,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 42 is exact: OKF table row with 'signature (1.0.1)', full parameter list, 'nx/ny are **node counts**', 'elm_type in tri3/tri6/quad4/quad8/quad9 (verified 2026-10-14)'. Distinct document-level claim; no original fact cites okf/mesh.md."
+    },
+    {
+      "dn": 12,
+      "statement": "The OKF guide gives a verified size check: rectangle_mesh(5, 240, 23, 25, 0, 180) → 1200 nodes / 956 quad4 / 3824 Gauss points on fedoo 1.0.1.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\documentation\\mesh.md",
+      "line": 125,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 124-126 state exactly this: 'get_volume (verified on fedoo 1.0.1: rectangle_mesh(5, 240, 23, 25, 0, 180) → 1200 nodes / 956 quad4 / 3824 Gauss points)'."
+    },
+    {
+      "dn": 13,
+      "statement": "The simplest exact call, used in the fedoo post-processing docstring example, is: mesh = fd.mesh.rectangle_mesh() (default 11×11 quad4 unit square).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\post_processing\\__init__.py",
+      "line": 159,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 159 is exact: \"mesh = fd.mesh.rectangle_mesh()\" inside the 'very_simple_problem' docstring example; the 11x11 quad4 unit-square default follows from the signature defaults verified in simple.py lines 24-34."
+    },
+    {
+      "dn": 14,
+      "statement": "The docs/user_problems.rst guide shows the same minimal call mesh = fd.mesh.rectangle_mesh() followed by pb.bc.add('Dirichlet', 'left', ...) and ('right', ...), illustrating the default node sets.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\docs\\user_problems.rst",
+      "line": 46,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 46 exact (mesh call); Dirichlet adds on 'left'/'right' at lines 50-51 within the cited window. Not covered by any original fact."
+    },
+    {
+      "dn": 15,
+      "statement": "The boundary_conditions docs show a full keyword call: mesh_rect = fd.mesh.rectangle_mesh(nx=11, ny=21, x_min=0, x_max=1, y_min=0, y_max=1, elm_type='quad4', name='Domain').",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\docs\\boundary_conditions.rst",
+      "line": 427,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 427-430 are exact: the keyword call with nx=11, ny=21, bounds 0..1, elm_type='quad4', name='Domain'."
+    },
+    {
+      "dn": 16,
+      "statement": "The 01-simple example poison_eq.py builds the Poisson-equation domain with the default call mesh = fd.mesh.rectangle_mesh().",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\01-simple\\poison_eq.py",
+      "line": 30,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 30 is exact: \"mesh = fd.mesh.rectangle_mesh()\" under 'Define the integration domain (mesh)'."
+    },
+    {
+      "dn": 17,
+      "statement": "The 02-constraints example rigid_tie.py builds its mesh with the default call mesh = fd.mesh.rectangle_mesh().",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\02-constraints\\rigid_tie.py",
+      "line": 18,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 18 is exact: \"mesh = fd.mesh.rectangle_mesh()\"."
+    },
+    {
+      "dn": 18,
+      "statement": "The 01-simple modal_analysis.py example builds a 3D (ndim=3) quad4 rectangle: fd.mesh.rectangle_mesh(nx=15, ny=15, x_min=0.0, x_max=length, y_min=0.0, y_max=length, elm_type=\"quad4\", ndim=3).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\01-simple\\modal_analysis.py",
+      "line": 36,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 36-45 are exact, including ndim=3 and length=1.0 defined at line 34."
+    },
+    {
+      "dn": 19,
+      "statement": "The plasticity example 2DplasticBending.py builds its beam with fd.mesh.rectangle_mesh(nx=41, ny=21, x_min=0, x_max=L, y_min=0, y_max=h, elm_type=\"quad4\", ...).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\plasticity\\2DplasticBending.py",
+      "line": 22,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 22-31 are exact: nx=41, ny=21, x_max=L(16), y_max=h(2), elm_type=\"quad4\", name=\"Domain\"."
+    },
+    {
+      "dn": 20,
+      "statement": "The 02-constraints example disk_rectangle_contact.py builds the rectangle with fd.mesh.rectangle_mesh(nx=11, ny=21, x_min=0, x_max=L, y_min=0, y_max=h, elm_type=\"quad4\", name=\"Domain\").",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\02-constraints\\disk_rectangle_contact.py",
+      "line": 26,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 26-28 are exact with L=1, h=1 (lines 19-20)."
+    },
+    {
+      "dn": 21,
+      "statement": "The contact penalty example disk_rectangle.py builds its rectangle mesh with fd.mesh.rectangle_mesh( at line 24.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\penalty\\disk_rectangle.py",
+      "line": 24,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 24 is exact: \"mesh_rect = fd.mesh.rectangle_mesh(\" (call spans 24-32 with nx=11, ny=21, unit bounds, quad4)."
+    },
+    {
+      "dn": 22,
+      "statement": "The tube compression IPC example uses a positional argument call: mesh = fd.mesh.rectangle_mesh(5, 240, 23, 25, 0, 180) (5×240 nodes, x∈[23,25], y∈[0,180]).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\ipc\\tube_compression_ipc.py",
+      "line": 22,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 22 is exact: \"mesh = fd.mesh.rectangle_mesh(5, 240, 23, 25, 0, 180)\"."
+    },
+    {
+      "dn": 23,
+      "statement": "The adaptive example hessian_recovery.py shows a triangular variant: mesh = fd.mesh.rectangle_mesh(nx=51, ny=51, elm_type=\"tri3\").",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\adaptive\\hessian_recovery.py",
+      "line": 20,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 20 is exact."
+    },
+    {
+      "dn": 24,
+      "statement": "The lattice_beam example uses fd.mesh.rectangle_mesh(n, n, x_max=100, y_max=100, ndim=ndim) passed to fd.mesh.extract_edges to build a lattice.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\01-simple\\lattice_beam.py",
+      "line": 26,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Lines 25-27 are exact: mesh = fd.mesh.extract_edges(fd.mesh.rectangle_mesh(n, n, x_max=100, y_max=100, ndim=ndim))."
+    },
+    {
+      "dn": 25,
+      "statement": "The Hertz axisymmetric benchmark uses fd.mesh.rectangle_mesh( for both the substrate (line 82) and indenter (line 98) meshes.",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Exemples_fedoo\\contact\\benchmark\\hertz_axisymmetric.py",
+      "line": 82,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Both lines exact: mesh_sub at line 82 ('Substrate' comment at 81) and mesh_ind at line 98 ('Indenter' comment at 97), both quad4."
+    },
+    {
+      "dn": 26,
+      "statement": "The docs/user_problems.rst example applies Dirichlet BCs on the default node sets: problem.bc.add(\"Dirichlet\", \"left\", \"U\", 0) and problem.bc.add(\"Dirichlet\", \"right\", \"U\", 1).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\docs\\user_problems.rst",
+      "line": 50,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 50 exact (left), line 51 exact (right), within the cited window."
+    },
+    {
+      "dn": 27,
+      "statement": "The fedoo test suite calls it with ndim for 3D problems, e.g. mesh=fd.mesh.rectangle_mesh(2, 2, elm_type=\"quad4\", ndim=3).",
+      "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_elasto_plasticity.py",
+      "line": 38,
+      "lineFixed": null,
+      "status": "pass",
+      "note": "Line 38 is exact: \"mesh=fd.mesh.rectangle_mesh(2, 2, elm_type=\\\"quad4\\\", ndim=3),\"."
+    }
+  ],
+  "excludedFromDenominator": [
+    {
+      "dn": 1,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G1: identical signature rectangle_mesh(nx=11, ny=11, x_min=0, x_max=1, y_min=0, y_max=1, elm_type='quad4', ndim=None, name='') + 'creates a rectangular Mesh', same source file (simple.py def at line 24 verified, docstring line 36)."
+    },
+    {
+      "dn": 2,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G1's second clause: 'nx, ny are the numbers of nodes in the x and y axes (default 11)'; simple.py line 41 verified verbatim."
+    },
+    {
+      "dn": 8,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G1 (+G3): signature + 'Create a rectangular Mesh' + returns Mesh. HTML lines 131/132/~157 verified, but the proposition is already fully in the original grid; only the evidence file differs."
+    },
+    {
+      "dn": 9,
+      "reason": "duplicate-of-original",
+      "detail": "Same claim as G1's nx clause: nx = 'Numbers of nodes in the x and y axes (default = 11)'; HTML line 136 verified verbatim, but G1 already asserts it."
+    }
+  ],
+  "stats": {
+    "originalCount": 4,
+    "dTotal": 27,
+    "dPass": 23,
+    "dFix": 0,
+    "dDrop": 0,
+    "dDefect": 0,
+    "dDuplicate": 4,
+    "denominator": 27
+  }
+}

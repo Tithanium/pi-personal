@@ -4,9 +4,8 @@
  * Index local files → chunk → embed → store → retrieve → inject into LLM context.
  * Uses Transformers.js (ONNX) for local embeddings — zero cloud dependency.
  *
- * Storage is per-cwd: walk up from the working directory looking for a `.pi/rag/`
- * project store; fall back to `~/.pi/rag/` as the global default. The first
- * `/rag index` in a directory with no parent store creates one at cwd.
+ * Storage is global: the store always lives at `~/.pi/rag/` (override with
+ * `$PI_RAG_DIR`). No per-cwd or project-local stores are ever created.
  *
  * Index builds are build-aside + atomic-swap (see build.ts): a new database is
  * written to a secondary file whose name does not exist yet
@@ -26,6 +25,9 @@
  * /rag clear            → clear index
  * /rag exclude <pat>    → add gitignore-style pattern (use -<pat> to remove; omit arg to list)
  * /rag on|off           → toggle auto-injection
+ * /rag model [assign]   → get/set the D child model (bare = POP the model list; 'session' clears)
+ * /rag effort [level]   → pick/set the D child thinking level (bare = POP the child model's levels)
+ * /rag subagent [name]  → get/set the persistent subagent profile (okf-only|all-grep|grep5)
  * /rag ext list         → list active file extensions
  * /rag ext add <.ext>   → add an extra extension (e.g. .cs, .tex)
  * /rag ext remove <.ext>→ remove an extension from the active set
@@ -48,22 +50,36 @@
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import type { AutocompleteItem } from "@earendil-works/pi-tui";
 import { Type } from "typebox";
-import { existsSync, statSync } from "node:fs";
-import { resolve, extname, basename, relative, join, dirname } from "node:path";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { resolve, isAbsolute, extname, basename, relative, join, dirname } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import ignore from "ignore";
 
 import { RST, B, D, GREEN, CYAN } from "./constants.ts";
-import { getRagDir, GLOBAL_RAG_DIR } from "./store.ts";
-import { loadConfig, saveConfig, normalizeExt, resolveExtensions, type RagConfig } from "./config.ts";
+import { RAG_STATUS_KEY, RAG_BUILD_STATUS_KEY, buildRagStatusText } from "./ragFooter.ts";
+import { getRagDir, GLOBAL_RAG_DIR, configFile } from "./store.ts";
+import { loadConfig, saveConfig, normalizeExt, resolveExtensions, RAG_PROFILES, normalizeRagProfile, resolveProfileChoice, buildProfileStatusRow, effectiveFrom, buildSubprocessStatusTag, type RagConfig } from "./config.ts";
 import { openDb, loadIndex, getIndexStats } from "./db.ts";
 import { collectFiles, collectFromTrackedAsync, isExcludedByConfig, fileHashAsync, normalizePath } from "./chunking.ts";
 import { hybridSearch } from "./search.ts";
 import { isIndexStale } from "./indexing.ts";
+import { isRagSubagentProcess, buildRagInjectionText } from "./spawnRagSubagent.ts";
+import {
+  runSubprocessD, resolveReasoning, reasoningContext, effortContext,
+  availableModelRefs, resolveDModelDetail, resolveModelAssignment, modelSourceText,
+  registryUnavailable, buildModelCompletionItems, buildDModelStatusRow, RAG_HELP_EFFORT_FOOTER,
+  buildModelSelectOptions, parseModelPick, buildEffortSelectOptions,
+  buildEffortSelectTitle, shouldPinModelPick, noModelMatchLine,
+  matchModelReference,
+} from "./subprocessD.ts";
+import { runSubprocessOkfOnly } from "./subprocessOkf.ts";
+import { registerSubagentFrameRenderer, appendSubagentFrame } from "./subagentFrame.ts";
+import { runSmokeSubagent } from "./subprocessSmoke.ts";
 import {
   buildAndSwapIndex, withBuildLock, isBuildActive, buildKind, cleanupOrphanedSecondaries,
 } from "./build.ts";
+import { structuralRegion, STRUCTURAL_BLOCK_CAP } from "./structural.ts";
 
 // Re-export the public surface so existing consumers of `pi-local-rag` keep
 // working (tests, downstream code that imports from the package root).
@@ -134,11 +150,22 @@ function runPdfToTxt(absPath: string, notify?: (msg: string, level?: string) => 
 }
 
 export default function (pi: ExtensionAPI) {
-  // Throttle stale-index checks to once per hour so we don't repeatedly stat
-  // the filesystem on every agent turn (matches the upstream fork's
-  // lastStaleCheckMs pattern from kallewoof@849e485).
-  let lastStaleCheckMs = 0;
-  const STALE_CHECK_INTERVAL_MS = 60 * 60 * 1000;
+  // `getArgumentCompletions` receives ONLY the argument text — pi's
+  // RegisteredCommand type passes NO ctx (`dist/core/extensions/types.d.ts`
+  // `getArgumentCompletions?: (argumentPrefix: string) => …`). Capture the
+  // live session ExtensionContext (same file:225 `modelRegistry: ModelRegistry`)
+  // so `/rag model ` completions can enumerate the SAME registry /model uses.
+  let completionCtx: ExtensionContext | undefined;
+  pi.on("session_start", (_event, ctx) => { completionCtx = ctx; });
+
+  // Classical-subagent RESULT frames (display-only entries, Ctrl+O + wrap —
+  // see subagentFrame.ts). Registered for every process; frames are only
+  // appended by the main session's hook runner.
+  registerSubagentFrameRenderer(pi);
+  // Tool/hook gating (net effect of the pipeline design):
+  //   child (env PI_RAG_SUBAGENT=1) → sees ONLY the retrieval tools, never the hook
+  //   main session (env unset)      → sees rag_index + the hook, zero retrieval tools
+  const isSubagentProcess = isRagSubagentProcess();
 
   // Remove secondary DB files orphaned by a build whose process died before
   // (or during) the final swap. The live reference file is only ever touched
@@ -147,73 +174,271 @@ export default function (pi: ExtensionAPI) {
     cleanupOrphanedSecondaries(getRagDir());
   } catch { /* best effort */ }
 
-  // ── Auto-inject RAG context before every agent turn ──
-  // Staleness is only DETECTED here — the refresh itself runs detached
-  // (startStaleRefresh) so this hook never blocks the agent turn: the harness
-  // stays responsive while the background build runs, and the fresh index is
-  // swapped in atomically when the build completes.
-  pi.on("before_agent_start", async (event, ctx) => {
-    const config = loadConfig();
-    if (!config.ragEnabled) return;
+  if (!isSubagentProcess) {
+    // Throttle stale-index checks to once per hour so we don't repeatedly stat
+    // the filesystem on every agent turn (matches the upstream fork's
+    // lastStaleCheckMs pattern from kallewoof@849e485).
+    let lastStaleCheckMs = 0;
+    const STALE_CHECK_INTERVAL_MS = 60 * 60 * 1000;
 
-    const database = openDb();
-    let staleTriggered = false;
-    let injected: { message: { customType: string; content: string; display: boolean } } | undefined;
-    try {
-      const stats = getIndexStats(database);
-      if (stats.totalChunks === 0) return;
+    // ── before_agent_start hook (MAIN SESSION ONLY) ──
+    // The RAG subprocess dispatch runs only when ALL of these hold:
+    //   (a) config.ragEnabled === true (the /rag on|off master switch) AND
+    //       config.ragSubagentHookBlocking === true (the dispatch gate — off
+    //       = nothing injected, only the stale-index detection runs);
+    //   (b) env PI_RAG_SUBAGENT unset — double guard against recursion (the
+    //       hook is not even registered in a child process; this is depth).
+    //   (c) a genuine USER prompt: event.messageType === "user".
+    //       (SDK: before_agent_start fires once per RUN start — from a user
+    //       message, or an idle custom message with triggerTurn. Tool-result
+    //       continuation turns never fire it; "custom" runs are skipped.)
+    pi.on("before_agent_start", async (event, ctx) => {
+      completionCtx = ctx; // keep the completion ctx fresh (used by /rag model autocomplete)
+      const config = loadConfig();
+      // fix-round finding 6 — ONE guarded footer writer for every hook outcome
+      // below: a footer UI failure must never break the turn.
+      const setStatusSafe = (text: string | undefined): void => { try { ctx.ui.setStatus(RAG_STATUS_KEY, text); } catch { /* footer must never break a turn */ } };
+      const prompt = event.messageType === "user" ? event.prompt : undefined;
+      if (!prompt) return; // not a genuine user prompt — never trigger on these
 
-      const indexMeta = { chunks: [], files: {}, lastBuild: stats.lastBuild, embeddingModel: stats.embeddingModel };
-      const now = Date.now();
-      if (isIndexStale(indexMeta) && now - lastStaleCheckMs > STALE_CHECK_INTERVAL_MS) {
-        lastStaleCheckMs = now;
-        staleTriggered = true;
+      // ── MASTER SWITCH: ragEnabled gates ALL auto-injection ──
+      // /rag off → ragEnabled=false → skip BOTH the subprocess dispatch below
+      // AND the stale-index detection at the end of this hook.
+      // ragEnabled defaults to true in config.ts. The footer status below
+      // ALWAYS carries the state; the stderr line is PRINT-MODE ONLY (stderr =
+      // non-TUI fallback — fix-round finding 2).
+      if (!config.ragEnabled) {
+        setStatusSafe("RAG — auto-injection off"); // fix-round finding 3: disabled-branch footer line (source-pinned)
+        if (ctx.mode === "print") process.stderr.write(`\r\x1b[2Krag hook: injection disabled (ragEnabled=false)\n`);
+        return;
       }
 
-      const results = await hybridSearch(event.prompt, indexMeta, config.ragTopK, config.ragAlpha, database);
-      const relevant = results.filter(r => r.hybrid >= config.ragScoreThreshold);
-      if (relevant.length) {
-        const context = relevant.map(r =>
-          `### ${basename(r.chunk.file)} (lines ${r.chunk.lineStart}-${r.chunk.lineEnd})\n` +
-          `\`\`\`\n${r.chunk.content.slice(0, 600)}\n\`\`\``
-        ).join("\n\n");
-
-        // Inject as a message after the user's prompt rather than appending to
-        // the system prompt. The system prompt is stable across a session and
-        // benefits from the provider's KV cache; mutating it every turn with
-        // new RAG hits invalidates that cache and adds latency. A trailing
-        // message also keeps the retrieved chunks near the user's question,
-        // which models attend to more reliably than text buried at the top of
-        // a long system prompt.
-        injected = {
-          message: {
-            customType: "rag",
-            content:
-              `[pi-local-rag] Automatic RAG lookup triggered by the user's message above.\n` +
-              `Retrieved ${relevant.length} chunk${relevant.length === 1 ? "" : "s"} via hybrid search (BM25 + vector). ` +
-              `These are search hits, not statements from the user.\n\n` +
-              context,
-            display: false,
-          },
-        };
+      // ── PROFILE → effective dispatch (goal v3 PART 5, task 5 STEP 2;
+      // critic finding 1: computed BEFORE the blocking gate) ──
+      // Precedence (documented): ragProfile "okf-only" WINS over the
+      // ragSubprocess config and runs the OKF-only child (subprocessOkf.ts)
+      // — strict OKF-only, NO fallthrough to D or any other resource. Every
+      // other profile (all-grep, grep5) keeps whatever ragSubprocess holds
+      // (default "D" — the thorough corpus researcher);
+      // grep5's divergence is prompt-side only and NOT a separate pipeline
+      // (task 5 scope). effectiveFrom() is the SHARED reader the /rag status
+      // row renders too (config.ts), so the widget never claims a different
+      // subprocess than this hook would spawn.
+      const dispatch = effectiveFrom(config);
+      if (dispatch.fellBack) {
+        process.stderr.write(`\r\x1b[2K[rag] stored ragProfile "${config.ragProfile}" invalid — using "${dispatch.profile}"\n`);
       }
-    } finally {
-      database.close();
-    }
-
-    // Kick off the non-blocking background refresh only AFTER the live DB
-    // handle is closed, so the final atomic swap never fights our own
-    // connection for the reference file.
-    if (staleTriggered) {
-      const task = startStaleRefresh(config, ctx);
-      if (task && process.env.PI_RAG_BG_WAIT) {
-        // Test/CI knob: wait for the background build to finish and swap in
-        // before the turn continues. Never used in normal operation.
-        await task;
+      // Back-compat note (goal v3 PART 4 step 3): a stored legacy A/B/C/EF
+      // value is normalized to "D" by normalizeRagSubprocess (config.ts) —
+      // exactly ONE stderr note here, the dispatch below never sees a
+      // removed branch.
+      if (dispatch.subFellBack) {
+        process.stderr.write(`\r\x1b[2K[rag] stored ragSubprocess "${dispatch.subStored}" no longer supported — using "${dispatch.sub}" (removed in PART 4 step 3)\n`);
       }
-    }
-    return injected;
-  });
+      // okf-only must never be SILENTLY false (critic finding 1): with the
+      // blocking gate off, the dispatch block below cannot run, so the void
+      // edge must be announced (the legacy inline path was removed in goal
+      // v3 PART 4 step 3 — NO other resource could answer either way).
+      // Log one line and take the void edge: return with NOTHING injected.
+      if (dispatch.effective === "Okf" && config.ragSubagentHookBlocking !== true) {
+        setStatusSafe(buildRagStatusText({ kind: "inactive", reason: "okf-only profile inactive (ragSubagentHookBlocking=false) — nothing injected" }));
+        return;
+      }
+
+      // Critic fix-round finding 1: with the blocking gate off and a NON-Okf
+      // profile (the Okf profile has already taken its no-injection edge
+      // above), the DEFAULT config (ragSubagentHookBlocking=false, profile
+      // all-grep) reached NO footer write at all → stale/wrong footer and an
+      // invisible "does not inject". Announce the outcome under the reserved
+      // "rag" key here. Control is NOT interrupted: it falls through to the
+      // stale-index detection below (only staleness runs, the gate stays
+      // skipped, the hook completes as before).
+      if (config.ragSubagentHookBlocking !== true) {
+        setStatusSafe(buildRagStatusText({ kind: "inactive", reason: "auto-injection gate off (ragSubagentHookBlocking=false) — nothing injected" }));
+      }
+
+      // ── RAG subprocess dispatch (OPT-IN, via ragSubagentHookBlocking) ──
+      // The subprocess dispatch is OPT-IN: it only runs when
+      // ragSubagentHookBlocking === true. By default (false) this block is
+      // skipped, NOTHING is injected and only the stale-index detection at
+      // the end of this hook runs (the legacy inline auto-injection path was
+      // removed in goal v3 PART 4 step 3). When enabled, on timeout / failure
+      // / empty output it injects NOTHING and logs (hard cap:
+      // ragSubagentHookTimeoutMs); the code inside remains reachable. (The
+      // okf-only exclusion above this block owns ITS edge separately.)
+      if (config.ragSubagentHookBlocking === true && !process.env.PI_RAG_SUBAGENT) {
+        let subagentInj: { message: { customType: string; content: string; display: boolean } } | undefined;
+        // Dispatch to the configured injection subprocess. Every arm shares
+        // the SAME injection contract: <rag-context> wrapper, display:
+        // false, a run.ok success gate, empty → inject nothing, and a hard
+        // overall timeout (ragSubagentHookTimeoutMs). Live dispatch surface:
+        // D (production), S (smoke), Okf (profile okf-only) — A/B/C/EF were
+        // removed in goal v3 PART 4 step 3 (legacy stored values normalize
+        // to D — normalizeRagSubprocess in config.ts).
+        // sub/effective both come from the shared effectiveFrom() read above
+        // (critic finding 4: one source with the /rag status row; the "D"
+        // default lives in normalizeRagSubprocess).
+        const effective = dispatch.effective;
+        const sub = effective;
+        const runLabel = effective === "Okf" ? "Okf" : sub;
+        try {
+          // Definite-assignment assertion: profile resolution + the
+          // normalizeRagSubprocess back-compat map restrict every reachable
+          // dispatch to Okf/D/S below, so `run` IS assigned on every
+          // surviving path (A/B/C/EF were removed in PART 4 step 3). Even a
+          // hypothetical miss would throw inside this try → caught, logged as
+          // FAILED, void edge — never a session crash.
+          let run!: {
+            ok: boolean; timedOut: boolean; content: string | null;
+            wallMs: number; tokensIn: number; tokensOut: number; note?: string;
+          };
+          if (effective === "Okf") {
+            // OKF-ONLY profile — the strict knowledge-bundle child: the PARENT
+            // only discovers the okf/ bundles under trackedPaths, picks the
+            // dominant (optionally secondary) bundle by DETERMINISTIC
+            // affinity and hands the whole funnel to the CHILD (the child
+            // does the reading); payload = its final message with the
+            // freshness header as line 1. No bundle / nothing topically
+            // relevant → degraded { ok: false } WITHOUT spawning — the
+            // UNRELATED edge, nothing injected (subprocessOkf.ts D3).
+            const r = await runSubprocessOkfOnly({
+              prompt,
+              ctx,
+              trackedPaths: config.trackedPaths,
+              timeoutMs: config.ragSubagentHookTimeoutMs,
+              thinkingLevel: config.ragThinkingLevel,
+              ragModel: config.ragModel,
+              appendFrame: (frame) => appendSubagentFrame(pi, frame),
+            });
+            run = {
+              ok: r.ok,
+              timedOut: false,
+              content: r.content,
+              wallMs: r.wallMs,
+              tokensIn: r.tokensIn,
+              tokensOut: r.tokensOut,
+              note: r.note,
+            };
+          } else if (sub === "D") {
+            // PRODUCTION (goal PART 4 step 3): the thorough corpus researcher.
+            // Visible classical-subagent panel + escape gate included (shared
+            // runner in subprocessSmoke.ts); its final message IS the injection
+            // payload, "UNRELATED" = the empty-payload edge.
+            // thinking level: config.ragThinkingLevel (`/rag effort [level]`,
+            // default "high") — absent/null config values fall back to
+            // D_THINKING_LEVEL inside runSubprocessD. Model order is handled
+            // there too (opts.model > ragModel if valid > ctx.model > D_MODEL;
+            // an unavailable stored ragModel logs one stderr line and falls
+            // back to the session model — resolveDModel).
+            const r = await runSubprocessD({
+              prompt,
+              ctx,
+              trackedPaths: config.trackedPaths,
+              timeoutMs: config.ragSubagentHookTimeoutMs,
+              thinkingLevel: config.ragThinkingLevel,
+              ragModel: config.ragModel,
+              appendFrame: (frame) => appendSubagentFrame(pi, frame),
+            });
+            run = {
+              ok: r.ok,
+              timedOut: false,
+              content: r.content,
+              wallMs: r.wallMs,
+              tokensIn: r.tokensIn,
+              tokensOut: r.tokensOut,
+              note: r.note,
+            };
+          } else if (sub === "S") {
+            // SMOKE (in-service step 1–2, the GATE): the classical-subagent
+            // validation path — live subagent panel in the harness +
+            // escape-cancels-subagent-only semantics (subprocessSmoke.ts).
+            const r = await runSmokeSubagent({
+              prompt,
+              ctx,
+              timeoutMs: Math.min(config.ragSubagentHookTimeoutMs, 30_000),
+              appendFrame: (frame) => appendSubagentFrame(pi, frame),
+            });
+            run = {
+              ok: r.ok,
+              timedOut: false,
+              content: r.content,
+              wallMs: r.wallMs,
+              tokensIn: r.tokensIn,
+              tokensOut: r.tokensOut,
+              note: r.note,
+            };
+          }
+          // Gate injection on a CLEAN run + non-empty content (buildRagInjectionText
+          // returns undefined for null/empty → inject nothing).
+          const injectionText = run.ok ? buildRagInjectionText(run.content, run.wallMs) : undefined;
+          if (injectionText) {
+            // display:false — the visible artifact of a run is the
+            // classical-subagent FRAME entry (expandable/wrappable, appended by
+            // the runner); the <rag-context> message itself is only delivered
+            // to the MODEL, not echoed raw into the transcript.
+            subagentInj = { message: { customType: "rag", content: injectionText, display: false } };
+            setStatusSafe(buildRagStatusText({ kind: "injected", label: runLabel, ms: run.wallMs, tokensIn: run.tokensIn, tokensOut: run.tokensOut }));
+          } else {
+            const why = run.timedOut
+              ? `timeout after ${config.ragSubagentHookTimeoutMs} ms`
+              : run.note
+                ? run.note
+                : (run.ok ? "empty payload (nothing to inject)" : "run not ok");
+            setStatusSafe(buildRagStatusText({ kind: "nothing", label: runLabel, ms: run.wallMs, why }));
+          }
+        } catch (err) {
+          // Never block / never crash the session — log and move on.
+          const msg = err instanceof Error ? err.message : String(err);
+          setStatusSafe(buildRagStatusText({ kind: "failed", label: runLabel, message: msg }));
+        }
+        if (subagentInj) return subagentInj;
+        // SMOKE, D and the OKF-ONLY profile OWN the whole hook: on a clean
+        // run the injection above is the subagent's answer; after an
+        // escape/void/timeout the conversation resumes with NOTHING injected
+        // (for okf-only that emptiness is the D3 contract: NO other resource
+        // runs).
+        if (sub === "S" || sub === "D" || effective === "Okf") return;
+        // Every remaining dispatch arm (D/S/Okf) is covered by this fence:
+        // nothing falls through — the legacy inline path was removed in
+        // PART 4 step 2 and process A in step 3; only the stale-index
+        // detection below remains after the closing brace.
+      }
+
+      // ── Stale-index detection (the legacy inline auto-injection path was
+      // removed — goal v3 PART 4 step 2) ──
+      // Staleness is only DETECTED here — the refresh itself runs detached
+      // (startStaleRefresh) so this hook never blocks the agent turn: the
+      // harness stays responsive while the background build runs, and the
+      // fresh index is swapped in atomically when the build completes.
+      const database = openDb();
+      let staleTriggered = false;
+      try {
+        const stats = getIndexStats(database);
+        if (stats.totalChunks === 0) return;
+
+        const indexMeta = { chunks: [], files: {}, lastBuild: stats.lastBuild, embeddingModel: stats.embeddingModel };
+        const now = Date.now();
+        if (isIndexStale(indexMeta) && now - lastStaleCheckMs > STALE_CHECK_INTERVAL_MS) {
+          lastStaleCheckMs = now;
+          staleTriggered = true;
+        }
+      } finally {
+        database.close();
+      }
+
+      // Kick off the non-blocking background refresh only AFTER the live DB
+      // handle is closed, so the final atomic swap never fights our own
+      // connection for the reference file.
+      if (staleTriggered) {
+        const task = startStaleRefresh(config, ctx);
+        if (task && process.env.PI_RAG_BG_WAIT) {
+          // Test/CI knob: wait for the background build to finish and swap in
+          // before the turn continues. Never used in normal operation.
+          await task;
+        }
+      }
+    });
+  } // end !isSubagentProcess (hook registered for the main session only)
 
   // ── Background stale-index refresh (non-blocking) ──
   // When the index is stale, this kicks off a DETACHED build: it reindexes
@@ -261,9 +486,9 @@ export default function (pi: ExtensionAPI) {
           paths: files,
           copyExisting: true,
           progress: {
-            onFile: (cur, tot, name) => safeStatus("rag", `■ [bg refresh] chunking ${cur}/${tot} · ${name}`),
-            onEmbed: (done, tot) => safeStatus("rag", `■ [bg refresh] embedding ${done}/${tot} chunks`),
-            onSave: () => safeStatus("rag", "■ [bg refresh] swapping in new index…"),
+            onFile: (cur, tot, name) => safeStatus(RAG_BUILD_STATUS_KEY, `■ [bg refresh] chunking ${cur}/${tot} · ${name}`),
+            onEmbed: (done, tot) => safeStatus(RAG_BUILD_STATUS_KEY, `■ [bg refresh] embedding ${done}/${tot} chunks`),
+            onSave: () => safeStatus(RAG_BUILD_STATUS_KEY, "■ [bg refresh] swapping in new index…"),
           },
         });
         const secs = ((Date.now() - t0) / 1000).toFixed(1);
@@ -274,7 +499,7 @@ export default function (pi: ExtensionAPI) {
         process.stderr.write(`\r\x1b[2K[rag] BACKGROUND REFRESH FAILED — store: ${getRagDir()} · previous index left untouched · error: ${msg}\n`);
         notify(`[rag] Background refresh FAILED — previous index left untouched. Error: ${msg}`, "error");
       } finally {
-        safeStatus(undefined);
+        safeStatus(RAG_BUILD_STATUS_KEY, undefined);
       }
     });
 
@@ -285,6 +510,7 @@ export default function (pi: ExtensionAPI) {
 
   // ── /rag command ──
   const RAG_SUBCOMMANDS: { value: string; label: string; description: string }[] = [
+    { value: "subagent",  label: "subagent",  description: "Get/set the persistent subagent profile (okf-only, all-grep, grep5; bare pops the choice list)" },
     { value: "index",    label: "index",    description: "Index a file or directory" },
     { value: "search",   label: "search",   description: "Search the index" },
     { value: "find",     label: "find",     description: "List indexed files matching a glob" },
@@ -296,12 +522,43 @@ export default function (pi: ExtensionAPI) {
     { value: "ext",      label: "ext",      description: "Manage indexable file-extension allowlist" },
     { value: "on",       label: "on",       description: "Enable auto-injection" },
     { value: "off",      label: "off",      description: "Disable auto-injection" },
+    { value: "effort",    label: "effort",    description: "Pick the D child thinking level — bare pops ONLY the levels the CHILD model supports" },
+    { value: "model",     label: "model",     description: "Get/set the D child model (exact provider/id from pi's /model registry; bare pops the list, 'session' clears)" },
     { value: "help",     label: "help",     description: "Show all /rag commands" },
   ];
 
   pi.registerCommand("rag", {
-    description: "pi-local-rag: /rag index|search|find|status|rebuild [--force]|refresh|clear|exclude|on|off|ext",
+    description: "pi-local-rag: /rag subagent|effort|model|index|search|find|status|rebuild [--force]|refresh|clear|exclude|on|off|ext",
     getArgumentCompletions: (prefix: string): AutocompleteItem[] | null => {
+      // pi passes the WHOLE argument text ("model alan/q…") as `prefix` and
+      // the returned item.value replaces it — so value = full argument.
+      if (prefix.startsWith("model ")) {
+        // value = FULL argument ("model provider/id") — pi replaces the whole
+        // argument text with it; builder extracted + asserted in run-rag-commands.mjs.
+        return buildModelCompletionItems(prefix.slice("model ".length), availableModelRefs(completionCtx));
+      }
+      if (prefix.startsWith("effort ")) {
+        // WAVE 4: value completions are DYNAMIC — the levels THE CHILD model
+        // supports (effortContext = the same ragModel > session > D_MODEL
+        // resolution the two popup paths use), never a static list. Same
+        // full-argument replacement contract as model/subagent above, which
+        // stay exactly as they were.
+        const space = prefix.indexOf(" ");
+        const head = prefix.slice(0, space);
+        const query = prefix.slice(space + 1).trim().toLowerCase();
+        const effort = effortContext(completionCtx, loadConfig().ragModel || "");
+        const items = effort.supported
+          .filter((lvl) => lvl.startsWith(query))
+          .map((lvl) => ({ value: `${head} ${lvl}`, label: lvl, description: `D child · ${effort.modelId}` }));
+        return items.length > 0 ? items : null;
+      }
+      if (prefix.startsWith("subagent ")) {
+        const query = prefix.slice("subagent ".length).toLowerCase();
+        const items = RAG_PROFILES
+          .filter((p) => p.name.startsWith(query))
+          .map((p) => ({ value: `subagent ${p.name}`, label: p.name, description: p.label }));
+        return items.length > 0 ? items : null;
+      }
       const filtered = RAG_SUBCOMMANDS
         .filter((s) => s.value.startsWith(prefix))
         .map((s) => ({ value: s.value, label: s.label, description: s.description }));
@@ -311,12 +568,24 @@ export default function (pi: ExtensionAPI) {
       const parts = (args || "").trim().split(/\s+/);
       const cmd = parts[0] || "status";
 
+      // ONE composer for the save-failure notice (WAVE-4 critic NIT): every
+      // `/rag` try/catch around saveConfig routes through here, so the exact
+      // output line (`/rag <sub>` + the NOT-persisted marker + err + config
+      // path) exists ONCE in this file. `sub` is the /rag subcommand name —
+      // the rendered text is IDENTICAL to the per-site blocks it replaced.
+      // Machine rule preserved:
+      // a config WRITE must never fail silently.
+      const notifyNotPersisted = (sub: string, err: unknown): void => {
+        ctx.ui.notify(
+          `[rag] /rag ${sub} NOT persisted — ${err instanceof Error ? err.message : String(err)} (config: ${configFile(getRagDir())})`,
+          "error",
+        );
+      };
+
       // ── index ──
       if (cmd === "index") {
         const path = parts[1] || ".";
         if (!existsSync(path)) { ctx.ui.notify(`Path not found: ${path}`, "error"); return; }
-        // Anchor a project-local store at cwd if there isn't one in scope yet.
-        getRagDir({ createIfMissing: true });
         const config = loadConfig();
         const absPath = resolve(path);
         if (!config.trackedPaths.includes(absPath)) {
@@ -346,7 +615,7 @@ export default function (pi: ExtensionAPI) {
               onFile(current, total, filename, skipped) {
                 const pct = Math.round((current / total) * 100);
                 const bar = progressBar(current, total);
-                ctx.ui.setStatus("rag", `■ Indexing ${pct}% │ ${current}/${total} files │ ${skipped} unchanged`);
+                ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Indexing ${pct}% │ ${current}/${total} files │ ${skipped} unchanged`);
             ctx.ui.setWidget("rag", [
               `${B}${CYAN}Indexing${RST}  ${bar}  ${GREEN}${pct}%${RST}`,
               `${D}file:    ${RST}${filename}`,
@@ -354,16 +623,16 @@ export default function (pi: ExtensionAPI) {
             ]);
           },
           onChunk(ci, total, filename) {
-            ctx.ui.setStatus("rag", `■ Embedding ${filename} — chunk ${ci}/${total}`);
+            ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Embedding ${filename} — chunk ${ci}/${total}`);
           },
               onSave() {
-                ctx.ui.setStatus("rag", `■ Saving index — swapping in new database...`);
+                ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Saving index — swapping in new database...`);
               },
             },
           }),
         );
 
-        ctx.ui.setStatus("rag", undefined);
+        ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, undefined);
         ctx.ui.setWidget("rag", undefined);
 
         const secs = (result.durationMs / 1000).toFixed(1);
@@ -412,6 +681,239 @@ export default function (pi: ExtensionAPI) {
         return;
       }
 
+      // ── effort: D-child thinking level via PICKER (`/rag effort [level]`) ──
+      // WAVE 4 (user revision — reinstates task 2): bare → ctx.ui.select listing
+      // ONLY the levels supported by THE MODEL THE CHILD WILL RUN (effortContext:
+      // ragModel > session > D_MODEL — NOT the session model when an override is
+      // set), stored level FIRST so Enter keeps it (the dialog has no preselect),
+      // title names the child model + stored level. supported EMPTY (no model
+      // resolved / broken registry) → ERROR notify, NEVER an empty popup.
+      // Pick or arg → the pure resolveReasoning reducer (subprocessD.ts) — so
+      // `/rag effort` edits config.ragThinkingLevel; persistence re-reads the
+      // config AFTER the await (lost-update rule) + saveConfig try/catch
+      // ("NOT persisted" on failure). Cancel (undefined) → silent, no change.
+      // Dispatched HERE — before the end-of-dispatch unknown-subcommand error.
+      if (cmd === "effort") {
+        const cfg = loadConfig();
+        const stored = cfg.ragThinkingLevel || "high";
+        const effort = effortContext(ctx, cfg.ragModel || "");
+        let choice = parts[1];
+        if (!parts[1]) {
+          if (!effort.supported.length) {
+            ctx.ui.notify(
+              `[rag] /rag effort: no thinking levels available for ${effort.modelId} (${effort.sourceNote ?? "unknown model"}) — fix the model with /rag model <ref>, or set the level explicitly with /rag effort <level>`,
+              "error",
+            );
+            return;
+          }
+          const chosen = await ctx.ui.select(
+            // Truthful title (WAVE-4 critic MINOR 1): "— Enter keeps it" ONLY
+            // when the stored level was hoisted to entry 0 (= it IS offered);
+            // otherwise Enter would CHANGE the level and the title says so.
+            buildEffortSelectTitle(effort.modelId, stored, effort.supported),
+            buildEffortSelectOptions(effort.supported, stored),
+          );
+          if (chosen === undefined) return; // cancelled — no change
+          choice = chosen;
+        }
+        const outcome = resolveReasoning(choice, effort.supported, stored, effort.modelId);
+        if (outcome.kind === "error") { ctx.ui.notify(outcome.line, "error"); return; }
+        if (outcome.kind === "show") { ctx.ui.notify(outcome.line, "info"); return; }
+        // Re-read AFTER the dialog (the picker can take seconds) — set ONLY
+        // ragThinkingLevel on the FRESH object.
+        const fresh = loadConfig();
+        // NIT 3 (mirrors the /rag model unchanged guard): picking the level the
+        // config ALREADY holds (case-insensitive, vs the FRESH value) must not
+        // write — info notify only, no saveConfig.
+        const freshStored = fresh.ragThinkingLevel || stored;
+        if (outcome.level.toLowerCase() === freshStored.toLowerCase()) {
+          ctx.ui.notify(`rag effort unchanged: ${outcome.level}`, "info");
+          return;
+        }
+        fresh.ragThinkingLevel = outcome.level;
+        try {
+          saveConfig(fresh);
+        } catch (err) {
+          // Machine rule: a config WRITE must never fail silently.
+          notifyNotPersisted("effort", err);
+          return;
+        }
+        ctx.ui.notify(outcome.line, "info");
+        return;
+      }
+
+      // ── model: D-child model assignment (`/rag model [assignment]`) ──
+      // bare (WAVE 4) → a POPUP of the registry — "exactly like pi /model":
+      // SAME source (availableModelRefs = modelRuntime.getAvailable()),
+      // rendered through ctx.ui.select because ModelSelectorComponent is an
+      // internal TUI component extensions do not get (no preselect → entry 0
+      // = current effective + marker, entry 1 = THE clear entry, rest sorted
+      // provider/id asc — buildModelSelectOptions). A BROKEN registry errors
+      // BEFORE the popup; on pick the label is re-validated with
+      // matchModelReference (never trusted blindly), config RE-READ AFTER the
+      // await (lost-update rule), ONLY ragModel written, saveConfig in the
+      // try/catch that notifies "NOT persisted"; cancel → silent, no change.
+      // with arg → matched against THE SAME registry source pi's /model uses
+      // (ctx.modelRegistry.getAvailable(), findExactModelReferenceMatch
+      // semantics), then persisted as config.ragModel — rejected input errors
+      // with close candidates and saves NOTHING (no silent fallback);
+      // 'session' / 'default' clears the assignment.
+      if (cmd === "model") {
+        const cfg = loadConfig();
+        const detail = resolveDModelDetail({ ctx, ragModel: cfg.ragModel });
+        if (!parts[1]) {
+          const regErr = registryUnavailable(ctx);
+          if (regErr) {
+            ctx.ui.notify(
+              `[rag] /rag model — model registry UNAVAILABLE (${regErr}) — cannot show the model list (fix the registry; /rag model session clears the stored assignment)`,
+              "error",
+            );
+            return;
+          }
+          const refs = availableModelRefs(ctx);
+          const chosen = await ctx.ui.select(
+            `RAG model — current: ${detail.model} (${modelSourceText(detail.source)})${detail.fallbackNote ? ` — ${detail.fallbackNote}` : ""} — Enter keeps it`,
+            buildModelSelectOptions(detail.model, refs),
+          );
+          if (chosen === undefined) return; // cancelled — no change
+          const picked = parseModelPick(chosen);
+          // Re-read AFTER the await (lost-update rule) — set ONLY ragModel on
+          // the FRESH object; the write can never fail silently.
+          const fresh = loadConfig();
+          const was = fresh.ragModel || "(none)";
+          if (picked.kind === "clear") {
+            if (!fresh.ragModel) { ctx.ui.notify("rag model unchanged: no assignment (session model)", "info"); return; }
+            fresh.ragModel = "";
+            try {
+              saveConfig(fresh);
+            } catch (err) {
+              notifyNotPersisted("model", err);
+              return;
+            }
+            ctx.ui.notify(`[rag] ragModel cleared (was ${was}) — next D run uses the session model`, "info");
+            return;
+          }
+          const refsNow = availableModelRefs(ctx);
+          const match = matchModelReference(picked.ref, refsNow); // never trust the label blindly
+          if (!match) {
+            // The ONE shared no-match line (WAVE-4 critic NIT 2) — same string
+            // the with-arg reducer composes, so the texts cannot drift.
+            ctx.ui.notify(noModelMatchLine(picked.ref, refsNow), "error");
+            return;
+          }
+          const ref = `${match.provider}/${match.id}`;
+          // BLOCKER (WAVE-4 critic): bare pick of entry 0 = the EFFECTIVE model
+          // while NO assignment is stored (the fresh-config default) must be
+          // answered "unchanged" and write NOTHING — the old
+          // `was = … || "(none)"` compare could never match "(none)", so Enter
+          // silently pinned the effective model into config.ragModel. Effective
+          // model re-derived from the FRESH config (lost-update rule); the
+          // guard sits BEFORE the write.
+          const effectiveNow = resolveDModelDetail({ ctx, ragModel: fresh.ragModel }).model;
+          if (shouldPinModelPick(fresh.ragModel, ref, effectiveNow)) {
+            ctx.ui.notify("rag model unchanged: no assignment (session model applies)", "info");
+            return;
+          }
+          if (was.toLowerCase() === ref.toLowerCase()) {
+            const now = resolveDModelDetail({ ctx, ragModel: fresh.ragModel });
+            ctx.ui.notify(`rag model unchanged: ${ref} (source: ${modelSourceText(now.source)})`, "info");
+            return;
+          }
+          fresh.ragModel = ref;
+          try {
+            saveConfig(fresh);
+          } catch (err) {
+            notifyNotPersisted("model", err);
+            return;
+          }
+          ctx.ui.notify(`[rag] ragModel → ${ref} (was ${was}) — applies from the next D run`, "info");
+          return;
+        }
+        const outcome = resolveModelAssignment(parts[1], availableModelRefs(ctx), {
+          assigned: cfg.ragModel || undefined,
+          effective: detail.model,
+          source: modelSourceText(detail.source),
+          // registryUnavailable probe: a BROKEN registry (getAvailable threw /
+          // getError() set) must say so in the error line instead of implying
+          // "(registry empty)" — non-throwing distinguishable outcome.
+        }, registryUnavailable(ctx));
+        if (outcome.kind === "error") { ctx.ui.notify(outcome.line, "error"); return; }
+        if (outcome.kind === "show") {
+          ctx.ui.notify(detail.fallbackNote ? `${outcome.line} — ${detail.fallbackNote}` : outcome.line, "info");
+          return;
+        }
+        cfg.ragModel = outcome.kind === "clear" ? "" : outcome.ref;
+        try {
+          saveConfig(cfg);
+        } catch (err) {
+          // Machine rule: a config WRITE must never fail silently.
+          notifyNotPersisted("model", err);
+          return;
+        }
+        ctx.ui.notify(outcome.line, "info");
+        return;
+      }
+
+      // ── subagent: persistent dispatch profile (`/rag subagent [name]`) ──
+      // no arg → interactive ctx.ui.select (ExtensionUIContext.select IS on
+      // the command surface; no preselect option exists in
+      // ExtensionUIDialogOptions, so the CURRENT profile is listed FIRST —
+      // the selector opens on entry 0 = Enter keeps it) — the pick persists;
+      // with arg → validated case-insensitively against the three names,
+      // unknown → error listing them (no silent fallback).
+      if (cmd === "subagent") {
+        const cfg = loadConfig();
+        const stored = normalizeRagProfile(cfg.ragProfile);
+        if (stored.fellBack) {
+          // Invalid STORED value at read time → automatic fallback + one warn line.
+          ctx.ui.notify(`[rag] stored ragProfile "${cfg.ragProfile}" invalid — falling back to "${stored.profile}"`, "warning");
+        }
+        if (!parts[1]) {
+          const current = RAG_PROFILES.find((p) => p.name === stored.profile) ?? RAG_PROFILES[1];
+          const ordered = [
+            current,
+            ...RAG_PROFILES.filter((p) => p.name !== current.name),
+          ];
+          const chosen = await ctx.ui.select(
+            `RAG subagent profile (current: ${current.name} — Enter keeps it)`,
+            ordered.map((p) => p.label),
+          );
+          if (chosen === undefined) return; // cancelled — no change
+          const picked = RAG_PROFILES.find((p) => p.label === chosen);
+          const outcome = resolveProfileChoice(picked?.name ?? chosen, stored.profile);
+          if (outcome.kind === "error") { ctx.ui.notify(outcome.line, "error"); return; }
+          if (outcome.kind === "show" || outcome.profile === stored.profile) {
+            ctx.ui.notify(`subagent profile unchanged: ${stored.profile}`, "info");
+            return;
+          }
+          // Re-read AFTER the dialog — ctx.ui.select can take seconds, so the
+          // pre-dialog `cfg` snapshot must NOT be written back (it would revert
+          // every change made meanwhile). Set ONLY ragProfile on the FRESH object.
+          const fresh = loadConfig();
+          fresh.ragProfile = outcome.profile;
+          try {
+            saveConfig(fresh);
+          } catch (err) {
+            notifyNotPersisted("subagent", err);
+            return;
+          }
+          ctx.ui.notify(outcome.line, "info");
+          return;
+        }
+        const outcome = resolveProfileChoice(parts[1], stored.profile);
+        if (outcome.kind === "error") { ctx.ui.notify(outcome.line, "error"); return; }
+        if (outcome.kind === "show") { ctx.ui.notify(outcome.line, "info"); return; }
+        cfg.ragProfile = outcome.profile;
+        try {
+          saveConfig(cfg);
+        } catch (err) {
+          notifyNotPersisted("subagent", err);
+          return;
+        }
+        ctx.ui.notify(outcome.line, "info");
+        return;
+      }
+
       // ── rebuild ──
       if (cmd === "rebuild") {
         // Parse --force flag from any position after "rebuild".
@@ -435,9 +937,9 @@ export default function (pi: ExtensionAPI) {
 
           // Detect what actually changed WITHOUT the expensive extraction pass.
           // fileHashAsync computes the same hash extractText stores, in seconds.
-          ctx.ui.setStatus("rag", "■ Rebuilding — scanning files");
+          ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, "■ Rebuilding — scanning files");
           const hashes = await fileHashAsync(trackedFiles, (done, total) => {
-            ctx.ui.setStatus("rag", `■ Rebuilding — scanning files ${done}/${total}  ${elapsed()}`);
+            ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Rebuilding — scanning files ${done}/${total}  ${elapsed()}`);
           });
 
           const presentInIndex = new Set<string>();
@@ -465,12 +967,12 @@ export default function (pi: ExtensionAPI) {
           const dirty = force ? [...new Set(trackedFiles)] : [...new Set([...changedFiles, ...newFiles])];
 
           if (!trackedFiles.length && !indexed.size) {
-            ctx.ui.setStatus("rag", undefined);
+            ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, undefined);
             ctx.ui.notify("No files to rebuild. Run /rag index <path> first.", "warning");
             return;
           }
 
-          ctx.ui.setStatus("rag", undefined);
+          ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, undefined);
           ctx.ui.notify(`Rebuilding: ${dirty.length} to re-embed · ${trackedFiles.length - dirty.length} unchanged kept · ${droppedFiles.length} pruned${force ? " (FORCED full re-embed)" : ""}`, "info");
           if (dirty.length > 200) ctx.ui.notify(`⚠️  Re-embedding ${dirty.length} files — this can take several minutes and stays near 0% CPU while it reads from disk. The index stays intact for files already processed.`, "warning");
 
@@ -503,7 +1005,7 @@ export default function (pi: ExtensionAPI) {
                 onFile(current, total, filename, skipped) {
                   const pct = Math.round((current / total) * 100);
                   const bar = progressBar(current, total);
-                  ctx.ui.setStatus("rag", `■ [chunking] ${pct}% │ ${current}/${total} │ ${skipped} skipped │ ${elapsed()}`);
+                  ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ [chunking] ${pct}% │ ${current}/${total} │ ${skipped} skipped │ ${elapsed()}`);
                   ctx.ui.setWidget("rag", [
                     `${B}${CYAN}Rebuilding${RST}  ${bar}  ${GREEN}${pct}%${RST}`,
                     `${D}file:    ${RST}${filename}`,
@@ -513,23 +1015,23 @@ export default function (pi: ExtensionAPI) {
                 onEmbed(done, total) {
                   const pct = Math.round((done / total) * 100);
                   const bar = progressBar(done, total);
-                  ctx.ui.setStatus("rag", `■ [embedding] ${pct}% │ ${done}/${total} chunks │ ${elapsed()}`);
+                  ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ [embedding] ${pct}% │ ${done}/${total} chunks │ ${elapsed()}`);
                   ctx.ui.setWidget("rag", [
                     `${B}${CYAN}Embedding${RST}  ${bar}  ${GREEN}${pct}%${RST}`,
                     `${D}chunks:  ${RST}${done}/${total}`,
                   ]);
                 },
                 onChunk(ci, total, filename) {
-                  ctx.ui.setStatus("rag", `■ Embedding ${filename} — chunk ${ci}/${total}`);
+                  ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Embedding ${filename} — chunk ${ci}/${total}`);
                 },
                 onSave() {
-                  ctx.ui.setStatus("rag", `■ Saving index — swapping in new database...`);
+                  ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Saving index — swapping in new database...`);
                 },
               },
             }),
           );
 
-          ctx.ui.setStatus("rag", undefined);
+          ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, undefined);
           ctx.ui.setWidget("rag", undefined);
 
           const secs = (result.durationMs / 1000).toFixed(1);
@@ -546,12 +1048,12 @@ export default function (pi: ExtensionAPI) {
         const index = loadIndex();
         // Walking tracked paths can stall the event loop on large trees —
         // use the async variant + yield up-front.
-        ctx.ui.setStatus("rag", "■ Refreshing — scanning files");
+        ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, "■ Refreshing — scanning files");
         const files = config.trackedPaths.length
           ? await collectFromTrackedAsync(config)
           : Object.keys(index.files).filter(f => existsSync(f));
         if (!files.length) {
-          ctx.ui.setStatus("rag", undefined);
+          ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, undefined);
           ctx.ui.notify("No tracked files to refresh. Run /rag index <path> first.", "warning");
           return;
         }
@@ -572,7 +1074,7 @@ export default function (pi: ExtensionAPI) {
               onFile(current, total, filename, skipped) {
                 const pct = Math.round((current / total) * 100);
                 const bar = progressBar(current, total);
-                ctx.ui.setStatus("rag", `■ Refreshing ${pct}% │ ${current}/${total} │ ${skipped} unchanged`);
+                ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Refreshing ${pct}% │ ${current}/${total} │ ${skipped} unchanged`);
                 ctx.ui.setWidget("rag", [
                   `${B}${CYAN}Refreshing${RST}  ${bar}  ${GREEN}${pct}%${RST}`,
                   `${D}file:    ${RST}${filename}`,
@@ -580,16 +1082,16 @@ export default function (pi: ExtensionAPI) {
                 ]);
               },
               onChunk(ci, total, filename) {
-                ctx.ui.setStatus("rag", `■ Embedding ${filename} — chunk ${ci}/${total}`);
+                ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Embedding ${filename} — chunk ${ci}/${total}`);
               },
               onSave() {
-                ctx.ui.setStatus("rag", `■ Saving index — swapping in new database...`);
+                ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, `■ Saving index — swapping in new database...`);
               },
             },
           }),
         );
 
-        ctx.ui.setStatus("rag", undefined);
+        ctx.ui.setStatus(RAG_BUILD_STATUS_KEY, undefined);
         ctx.ui.setWidget("rag", undefined);
 
         const secs = (result.durationMs / 1000).toFixed(1);
@@ -754,6 +1256,7 @@ export default function (pi: ExtensionAPI) {
       if (cmd === "help") {
         const pad = (s: string, n: number) => s + " ".repeat(Math.max(0, n - s.length));
         const cmds: [string, string][] = [
+          ["/rag subagent [name]",    "Get/set the profile (okf-only, all-grep, grep5) — bare pops the choice list"],
           ["/rag index <path>",       "Index a file or directory (builds in a secondary DB, swaps in atomically)"],
           ["/rag search <query>",     "Hybrid BM25 + vector search over the index"],
           ["/rag find <glob>",        "List indexed files matching a glob (e.g. *.ts, src/*)"],
@@ -765,6 +1268,8 @@ export default function (pi: ExtensionAPI) {
           ["/rag ext list|add|remove|reset", "Manage the indexable file-extension allowlist"],
           ["/rag on",                 "Enable automatic RAG injection before each agent turn"],
           ["/rag off",                "Disable automatic RAG injection"],
+          ["/rag effort [level]",     "Pick the D child thinking level — bare pops ONLY the levels the child model supports"],
+          ["/rag model [ref]",        "Get/set the D child model ('session' clears) — bare pops pi's model list"],
           ["/rag help",               "Show this help"],
         ];
         const COL = 36;
@@ -773,13 +1278,38 @@ export default function (pi: ExtensionAPI) {
         for (const [usage, desc] of cmds) {
           lines.push("  " + th.fg("success", pad(usage, COL)) + "  " + th.fg("dim", desc));
         }
+        lines.push("", "  " + th.fg("dim", RAG_HELP_EFFORT_FOOTER));
         ctx.ui.setWidget("rag-help", lines);
+        return;
+      } else if (cmd !== "status") {
+        // Unknown subcommand must NOT silently render the status widget
+        // (`/rag nonsense` — an unknown subcommand — used to show status,
+        // ignoring its args). Status stays reachable via plain `/rag` /
+        // `/rag status` only.
+        ctx.ui.notify(`unknown /rag subcommand "${cmd}" — see /rag help`, "error");
         return;
       }
 
       // ── status (default) ──
       const index = loadIndex();
       const config = loadConfig();
+      // Profile + model rows: read-time fallback/validation of the stored values.
+      const profile = normalizeRagProfile(config.ragProfile);
+      const profileMeta = RAG_PROFILES.find((p) => p.name === profile.profile);
+      if (profile.fellBack) {
+        ctx.ui.notify(`[rag] stored ragProfile "${config.ragProfile}" invalid — showing "${profile.profile}" (run /rag subagent to fix)`, "warning");
+      }
+      const dModel = resolveDModelDetail({ ctx, ragModel: config.ragModel });
+      // Truthful subprocess row (goal v3 PART 5, task 5 + critic findings 1
+      // and 4): ONE shared reader — buildSubprocessStatusTag → effectiveFrom
+      // is the same composition the hook dispatches on, so a hand-edited
+      // `"ragSubprocess": null` cannot show status `null` vs hook "D" (the
+      // normalizeRagSubprocess default); the
+      // profile override is re-shown whenever it changed the value, and
+      // "(hook inactive)" is appended whenever ragSubagentHookBlocking is off
+      // — the whole dispatch block sits behind that gate, so the widget never
+      // prints a subprocess as active when the hook would not run it.
+      const subTag = buildSubprocessStatusTag(config);
       const fileCount = Object.keys(index.files).length;
       const totalTokens = index.chunks.reduce((sum, c) => sum + c.tokens, 0);
       const embeddedCount = countEmbeddedVectors();
@@ -804,7 +1334,9 @@ export default function (pi: ExtensionAPI) {
         "",
         "  " + label("RAG injection:")  +
           (config.ragEnabled ? th.fg("success", "enabled") : th.fg("warning", "disabled")) +
-          th.fg("dim", `  topK=${config.ragTopK}  threshold=${config.ragScoreThreshold}  alpha=${config.ragAlpha}`),
+          th.fg("dim", `  ${subTag}  timeout=${config.ragSubagentHookTimeoutMs}ms  topK=${config.ragTopK}  threshold=${config.ragScoreThreshold}  alpha=${config.ragAlpha}`),
+        buildProfileStatusRow(th, profile, config.ragProfile, profileMeta?.label),
+        buildDModelStatusRow(th, dModel, config.ragModel),
       ];
 
       if (fileCount) {
@@ -834,89 +1366,273 @@ export default function (pi: ExtensionAPI) {
     },
   });
 
-  // ── Tools ──
+  // ── Tools (gated: main session vs rag-query child) ──
+  if (!isSubagentProcess) {
+    // Main session: manual indexing stays a feature — rag_index is the ONLY
+    // rag tool the main session sees (retrieval tools are child-only).
+    pi.registerTool({
+      name: "rag_index",
+      label: "RAG index",
+      description: "Index a file or directory into the local pi-local-rag pipeline. Chunks text files (including PDF and DOCX), generates embeddings, stores for hybrid BM25+vector search.",
+      parameters: Type.Object({
+        path: Type.String({ description: "File or directory path to index" }),
+      }),
+      execute: async (_toolCallId, params) => {
+        if (!existsSync(params.path)) return { content: [{ type: "text" as const, text: `Path not found: ${params.path}` }], details: undefined };
+        const config = loadConfig();
+        const absPath = resolve(params.path);
+        if (!config.trackedPaths.includes(absPath)) {
+          config.trackedPaths.push(absPath);
+          saveConfig(config);
+        }
+        // Convert PDFs → TXT before indexing.
+        runPdfToTxt(absPath);
+        const files = collectFiles(absPath, undefined, config.excludePatterns);
+        if (!files.length) return { content: [{ type: "text" as const, text: `No indexable files found in: ${params.path}` }], details: undefined };
+        // Build-aside + atomic swap: the index is written to a secondary
+        // database file first; `rag.db` is replaced only when the build is done
+        // (the previous reference file is deleted).
+        const result = await withBuildLock("index", () =>
+          buildAndSwapIndex({ paths: files, copyExisting: true, progress: {} }),
+        );
+        process.stderr.write(`\n`);
+        return { content: [{ type: "text" as const, text: `Indexed ${result.indexed} files (${result.chunks} chunks, embeddings generated). ${result.skipped} unchanged. ${(result.durationMs / 1000).toFixed(1)}s — built in a secondary database and swapped in atomically.` }], details: undefined };
+      },
+    });
+  } else {
+    // Rag-query child (env PI_RAG_SUBAGENT=1): retrieval tools only. The hook
+    // is never registered here — no recursion.
 
-  pi.registerTool({
-    name: "rag_index",
-    label: "RAG index",
-    description: "Index a file or directory into the local pi-local-rag pipeline. Chunks text files (including PDF and DOCX), generates embeddings, stores for hybrid BM25+vector search.",
-    parameters: Type.Object({
-      path: Type.String({ description: "File or directory path to index" }),
-    }),
-    execute: async (_toolCallId, params) => {
-      if (!existsSync(params.path)) return { content: [{ type: "text" as const, text: `Path not found: ${params.path}` }], details: undefined };
-      // Anchor a project-local store at cwd if there isn't one in scope yet.
-      getRagDir({ createIfMissing: true });
-      const config = loadConfig();
-      const absPath = resolve(params.path);
-      if (!config.trackedPaths.includes(absPath)) {
-        config.trackedPaths.push(absPath);
-        saveConfig(config);
+    // Deterministic retrieval budget (per child process): the wall-time cap
+    // cannot be left to the model's self-pacing — it keeps searching past the
+    // point where the mandatory write still fits. Two separate budgets (query
+    // / expand) bound the rag_query/rag_expand tools this child window
+    // registers and force the final write once both are spent (created for
+    // the phase-1 rag-query agent — agents/rag-query.md was removed with
+    // process A in goal v3 PART 4 step 3; the budgets stay for any child
+    // that exposes these tools).
+    let queryCalls = 0;
+    let expandCalls = 0;
+    const MAX_QUERY_CALLS = 8;
+    const MAX_EXPAND_CALLS = 8;
+    const budgetExhausted = (kind: "QUERY" | "EXPAND", max: number) => ({
+      content: [{ type: "text" as const, text: `${kind} BUDGET EXHAUSTED (${max}/${max}) — ${kind.toLowerCase()}ing is no longer possible. Run the coverage self-check silently: if every prompt sub-ask has supporting material, issue the \`write\` call NOW; otherwise spend the remaining ${kind === "QUERY" ? "rag_expand" : "rag_query"} calls only on the missing sub-asks, then write.` }],
+      details: undefined,
+    });
+
+    // The child is a narrow orchestrator over deterministic tools — default
+    // reasoning only burns the 120 s budget (verified on the ALAN endpoint:
+    // chat_template_kwargs.enable_thinking=false ⇒ 0 reasoning tokens and
+    // ~10x lower latency; the TOP-LEVEL enable_thinking field is ignored by
+    // the endpoint). EXCEPTION — a child that EXPLICITLY requested reasoning
+    // this turn (pi sends top-level enable_thinking=true iff the model entry
+    // declares `reasoning: true` AND the spawn passed --thinking, e.g. the
+    // METHOD-D researcher): pin the template-level switch ON instead, so its
+    // thinking blocks stream into the live panel. Unrequested children keep
+    // the proven suppression unchanged.
+    pi.on("before_provider_request", (event) => {
+      const payload = event.payload as Record<string, unknown> | undefined;
+      if (payload && typeof payload === "object" && !Array.isArray(payload)) {
+        const ctk = (payload.chat_template_kwargs ?? {}) as Record<string, unknown>;
+        payload.chat_template_kwargs = payload.enable_thinking === true
+          ? { ...ctk, enable_thinking: true }
+          : { ...ctk, enable_thinking: false };
       }
-      // Convert PDFs → TXT before indexing.
-      runPdfToTxt(absPath);
-      const files = collectFiles(absPath, undefined, config.excludePatterns);
-      if (!files.length) return { content: [{ type: "text" as const, text: `No indexable files found in: ${params.path}` }], details: undefined };
-      // Build-aside + atomic swap: the index is written to a secondary
-      // database file first; `rag.db` is replaced only when the build is done
-      // (the previous reference file is deleted).
-      const result = await withBuildLock("index", () =>
-        buildAndSwapIndex({ paths: files, copyExisting: true, progress: {} }),
-      );
-      process.stderr.write(`\n`);
-      return { content: [{ type: "text" as const, text: `Indexed ${result.indexed} files (${result.chunks} chunks, embeddings generated). ${result.skipped} unchanged. ${(result.durationMs / 1000).toFixed(1)}s — built in a secondary database and swapped in atomically.` }], details: undefined };
-    },
-  });
+      return event.payload;
+    });
 
-  pi.registerTool({
-    name: "rag_query",
-    label: "RAG query",
-    description: "Search the local pi-local-rag index using hybrid BM25+vector search. Returns relevant chunks with file paths, line numbers, and relevance scores.",
-    parameters: Type.Object({
-      query: Type.String({ description: "Search query" }),
-      limit: Type.Optional(Type.Number({ description: "Max results (default 10)" })),
-    }),
-    execute: async (_toolCallId, params) => {
-      const index = loadIndex();
-      if (!index.chunks.length) return { content: [{ type: "text" as const, text: "pi-local-rag index is empty. Run rag_index first." }], details: undefined };
-      const config = loadConfig();
-      const results = await hybridSearch(params.query, index, params.limit ?? 10, config.ragAlpha);
-      if (!results.length) return { content: [{ type: "text" as const, text: `No results for: ${params.query}` }], details: undefined };
-      const text = JSON.stringify(results.map(r => ({
-        file: r.chunk.file,
-        lines: `${r.chunk.lineStart}-${r.chunk.lineEnd}`,
-        tokens: r.chunk.tokens,
-        scores: { bm25: r.bm25.toFixed(3), vector: r.vector.toFixed(3), hybrid: r.hybrid.toFixed(3) },
-        preview: r.chunk.content.slice(0, 300),
-      })), null, 2);
-      return { content: [{ type: "text" as const, text }], details: undefined };
-    },
-  });
+    pi.registerTool({
+      name: "rag_query",
+      label: "RAG query",
+      description: "Search the local pi-local-rag index using hybrid BM25+vector search. Returns relevant chunks with file paths, line numbers, and relevance scores.",
+      parameters: Type.Object({
+        query: Type.String({ description: "Search query" }),
+        limit: Type.Optional(Type.Number({ description: "Max results (default 10)" })),
+      }),
+      execute: async (_toolCallId, params) => {
+        if (++queryCalls > MAX_QUERY_CALLS) return budgetExhausted("QUERY", MAX_QUERY_CALLS);
+        const index = loadIndex();
+        if (!index.chunks.length) return { content: [{ type: "text" as const, text: "pi-local-rag index is empty. Run rag_index first." }], details: undefined };
+        const config = loadConfig();
+        const results = await hybridSearch(params.query, index, params.limit ?? 10, config.ragAlpha);
+        if (!results.length) return { content: [{ type: "text" as const, text: `No results for: ${params.query}` }], details: undefined };
+        const text = JSON.stringify(results.map(r => ({
+          file: r.chunk.file,
+          lines: `${r.chunk.lineStart}-${r.chunk.lineEnd}`,
+          tokens: r.chunk.tokens,
+          scores: { bm25: r.bm25.toFixed(3), vector: r.vector.toFixed(3), hybrid: r.hybrid.toFixed(3) },
+          preview: r.chunk.content.slice(0, 300),
+        })), null, 2);
+        return { content: [{ type: "text" as const, text }], details: undefined };
+      },
+    });
 
-  pi.registerTool({
-    name: "rag_status",
-    label: "RAG status",
-    description: "Show pi-local-rag index statistics: file count, chunk count, vector coverage, embedding model, RAG config.",
-    parameters: Type.Object({}),
-    execute: async (_toolCallId) => {
-      const index = loadIndex();
-      const config = loadConfig();
-      const embeddedCount = countEmbeddedVectors();
-      const text = JSON.stringify({
-        files: Object.keys(index.files).length,
-        chunks: index.chunks.length,
-        vectorsEmbedded: embeddedCount,
-        vectorCoverage: index.chunks.length ? `${Math.round(embeddedCount / index.chunks.length * 100)}%` : "0%",
-        embeddingModel: index.embeddingModel ?? "none",
-        totalTokens: index.chunks.reduce((s, c) => s + c.tokens, 0),
-        lastBuild: index.lastBuild || "never",
-        buildActive: isBuildActive(),
-        buildKind: buildKind() ?? null,
-        ragConfig: config,
-        storagePath: getRagDir(),
-        storageScope: getRagDir() === GLOBAL_RAG_DIR() ? "global" : "project",
-      }, null, 2);
-      return { content: [{ type: "text" as const, text }], details: undefined };
-    },
-  });
+    pi.registerTool({
+      name: "rag_status",
+      label: "RAG status",
+      description: "Show pi-local-rag index statistics: file count, chunk count, vector coverage, embedding model, RAG config.",
+      parameters: Type.Object({}),
+      execute: async (_toolCallId) => {
+        const index = loadIndex();
+        const config = loadConfig();
+        const embeddedCount = countEmbeddedVectors();
+        const text = JSON.stringify({
+          files: Object.keys(index.files).length,
+          chunks: index.chunks.length,
+          vectorsEmbedded: embeddedCount,
+          vectorCoverage: index.chunks.length ? `${Math.round(embeddedCount / index.chunks.length * 100)}%` : "0%",
+          embeddingModel: index.embeddingModel ?? "none",
+          totalTokens: index.chunks.reduce((s, c) => s + c.tokens, 0),
+          lastBuild: index.lastBuild || "never",
+          buildActive: isBuildActive(),
+          buildKind: buildKind() ?? null,
+          ragConfig: config,
+          storagePath: getRagDir(),
+          storageScope: getRagDir() === GLOBAL_RAG_DIR() ? "global" : "project",
+        }, null, 2);
+        return { content: [{ type: "text" as const, text }], details: undefined };
+      },
+    });
+
+    pi.registerTool({
+      name: "rag_corpus",
+      label: "RAG corpus",
+      description: "Describe what is indexed in the local pi-local-rag index (deterministic database read, no guessing). No args: compact overview — folder distribution + document titles. With terms=[...]: every indexed path containing any term (case-insensitive substring). Call this FIRST to decide whether the corpus can answer the request.",
+      parameters: Type.Object({
+        terms: Type.Optional(Type.Array(Type.String(), { description: "Keywords (1-8) to filter indexed paths by (case-insensitive substring); omit for the corpus overview" })),
+      }),
+      execute: async (_toolCallId, params) => {
+        const index = loadIndex();
+        const paths = Object.keys(index.files);
+        if (!paths.length) return { content: [{ type: "text" as const, text: "Index is empty — no files indexed." }], details: undefined };
+
+        // ── Filtered mode: every indexed path matching any term ──
+        if (params.terms && params.terms.length) {
+          const terms = params.terms.map((t) => t.trim().toLowerCase()).filter((t) => t.length >= 2).slice(0, 8);
+          if (!terms.length) return { content: [{ type: "text" as const, text: "Provide at least one term with 2+ characters." }], details: undefined };
+          const matched = paths.filter((p) => {
+            const lp = p.toLowerCase();
+            return terms.some((t) => lp.includes(t));
+          }).sort();
+          const MAX = 50;
+          const shown = matched.slice(0, MAX);
+          const more = matched.length - shown.length;
+          return { content: [{ type: "text" as const, text: `${matched.length} indexed file(s) matching [${terms.join(", ")}]:\n${shown.join("\n")}${more > 0 ? `\n… and ${more} more` : ""}` }], details: undefined };
+        }
+
+        // ── Overview mode: folder distribution + document titles ──
+        const folderCount = new Map<string, number>();
+        for (const p of paths) {
+          // Last two directory components — the most discriminative folder key.
+          const parts = p.split("/").filter(Boolean);
+          const dir = parts.length > 1 ? parts.slice(-2).join("/") : "(root)";
+          folderCount.set(dir, (folderCount.get(dir) ?? 0) + 1);
+        }
+        const folders = [...folderCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 40);
+        const docExts = new Set([".md", ".txt", ".rst", ".html", ".htm", ".mdx"]);
+        const docTitles: string[] = [];
+        const seen = new Set<string>();
+        for (const p of paths.sort()) {
+          const base = p.split("/").pop() ?? p;
+          if (docExts.has(extname(base).toLowerCase()) && !seen.has(base)) {
+            seen.add(base);
+            docTitles.push(base);
+            if (docTitles.length >= 80) break;
+          }
+        }
+        const text =
+          `${paths.length} indexed files.\n` +
+          `Folders with the most indexed files (last two path components):\n` +
+          folders.map(([d, n]) => `  ${n}\t${d}`).join("\n") +
+          (folderCount.size > folders.length ? `\n  … and ${folderCount.size - folders.length} other folders` : "") +
+          `\nDocument titles (first ${docTitles.length} of ${seen.size} distinct):\n` +
+          docTitles.map((t) => `  ${t}`).join("\n");
+        return { content: [{ type: "text" as const, text }], details: undefined };
+      },
+    });
+
+    pi.registerTool({
+      name: "rag_expand",
+      label: "RAG expand",
+      description: "Fetch surrounding context deterministically straight from an indexed file on disk. Give a file plus a line range (lines=[start,end], 1-based inclusive) and/or a keyword (term, first match becomes the anchor) and it returns that region with context — one cheap call for big context. STRUCTURAL: when the anchor falls inside a code function/class (or the file is a short example script) or inside a documentation section, the WHOLE enclosing block/section is returned (capped at 200 lines) — anchor with term=<an exact identifier/command/option name> and one call yields the complete function, signature or section, never a window cut mid-signature. Returns lines as 'N: text'. Capped at 400 lines / 20 KB.",
+      parameters: Type.Object({
+        file: Type.String({ description: "Absolute path of the file (from rag_query results)" }),
+        lines: Type.Optional(Type.Array(Type.Number(), { description: "[startLine, endLine], 1-based inclusive" })),
+        term: Type.Optional(Type.String({ description: "Keyword to locate first (case-sensitive substring); the match line becomes the anchor" })),
+        context: Type.Optional(Type.Number({ description: "Context lines to add around the range/anchor (default 25, max 150)" })),
+      }),
+      execute: async (_toolCallId, params, _signal, _onUpdate, ctx) => {
+        if (++expandCalls > MAX_EXPAND_CALLS) return budgetExhausted("EXPAND", MAX_EXPAND_CALLS);
+        // Path hygiene: strip a leading "@", resolve relative paths against cwd.
+        const p = params.file.trim().replace(/^@/, "");
+        const abs = isAbsolute(p) ? p : resolve(ctx.cwd, p);
+        if (!existsSync(abs)) return { content: [{ type: "text" as const, text: `File not found: ${abs}` }], details: undefined };
+        let raw: string;
+        try {
+          raw = readFileSync(abs, "utf-8");
+        } catch (err) {
+          return { content: [{ type: "text" as const, text: `Read failed for ${abs}: ${err instanceof Error ? err.message : String(err)}` }], details: undefined };
+        }
+        const allLines = raw.split(/\r?\n/);
+        const n = allLines.length;
+        const ctxLines = Math.max(0, Math.min(150, Math.round(params.context ?? 25)));
+
+        let start = 1, end = 1;
+        let anchorNote = "";
+        if (params.lines && params.lines.length === 2) {
+          start = Math.max(1, Math.min(n, Math.round(params.lines[0])));
+          end = Math.max(start, Math.min(n, Math.round(params.lines[1])));
+        } else if (params.term) {
+          const term = params.term;
+          const idx = allLines.findIndex((l) => l.includes(term));
+          if (idx < 0) return { content: [{ type: "text" as const, text: `Term not found in ${abs}: "${term}"` }], details: undefined };
+          start = end = idx + 1;
+          anchorNote = ` (anchor: term "${term}" at line ${idx + 1})`;
+        } else {
+          return { content: [{ type: "text" as const, text: "Provide 'lines' ([startLine, endLine], 1-based inclusive) and/or 'term' (keyword to locate first)." }], details: undefined };
+        }
+
+        // Structural expansion: when the anchor sits inside a code block or a
+        // documentation section, return the WHOLE enclosing block/section
+        // (capped) instead of a padded window — one call yields a full
+        // function/signature/section. Applied only when the requested range
+        // is small enough to be fully contained in the structural region.
+        let structuralKind = "";
+        const ext = extname(abs).toLowerCase();
+        if (end - start + 1 <= STRUCTURAL_BLOCK_CAP) {
+          const region = structuralRegion(allLines, ext, start);
+          if (region && region.start <= start && end <= region.end) {
+            start = region.start;
+            end = region.end;
+            structuralKind = region.kind;
+          }
+        }
+
+        // Expand around the anchor, then cap to a window centered on it.
+        // A structural region is already complete — no extra context padding.
+        const MAX_LINES = 400;
+        const pad = structuralKind ? 0 : ctxLines;
+        let s = Math.max(1, start - pad);
+        let e = Math.min(n, end + pad);
+        if (structuralKind) anchorNote += ` [structural: ${structuralKind}]`;
+        if (e - s + 1 > MAX_LINES) {
+          const center = Math.round((start + end) / 2);
+          s = Math.max(1, center - Math.floor(MAX_LINES / 2));
+          e = Math.min(n, s + MAX_LINES - 1);
+        }
+        let region = allLines.slice(s - 1, e).map((l, i) => `${s + i}: ${l}`);
+        const header = `${abs} lines ${s}-${e}${anchorNote}\n`;
+        const MAX_BYTES = 20 * 1024;
+        let text = header + region.join("\n");
+        while (region.length > 1 && Buffer.byteLength(text, "utf-8") > MAX_BYTES) {
+          region.pop();
+          text = header + region.join("\n");
+        }
+        if (Buffer.byteLength(text, "utf-8") > MAX_BYTES) {
+          text += `\n[Output truncated to ${MAX_BYTES / 1024} KB — narrow the range]`;
+        }
+        return { content: [{ type: "text" as const, text }], details: undefined };
+      },
+    });
+  }
 }

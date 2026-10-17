@@ -11,7 +11,7 @@ included) into the local git repo `C:\Users\connessn\pi-personal` and push it to
 
 Follow the steps IN ORDER. Do not skip the verification gates — they are the whole
 safety net. If any HARD gate fails, STOP, report exactly what failed, and do NOT
-commit or push. The `bash` tool on this machine runs PowerShell — run every code
+commit or push. The `bash` tool on this machine runs powershell — run every code
 block below with the `bash` tool.
 
 ## Fixed paths

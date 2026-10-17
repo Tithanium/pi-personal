@@ -1,0 +1,98 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 283,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 3800,
+    "provenance": "new B:none run 2026-10-14T23-55-12.857Z",
+    "empty": false,
+    "note": "none: candidate as-is (6 sections, 3714 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 59,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 1917,
+    "provenance": "new B:none run 2026-10-14T23-55-12.857Z",
+    "empty": false,
+    "note": "none: candidate as-is (6 sections, 1832 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 91,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 10327,
+    "provenance": "new B:none run 2026-10-14T23-55-12.857Z",
+    "empty": false,
+    "note": "none: candidate as-is (1 sections, 10242 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 82,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 10023,
+    "provenance": "new B:none run 2026-10-14T23-55-12.857Z",
+    "empty": false,
+    "note": "none: candidate as-is (4 sections, 9938 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 4,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 58,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 12115,
+    "provenance": "new B:none run 2026-10-14T23-55-12.857Z",
+    "empty": false,
+    "note": "none: candidate as-is (6 sections, 12030 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 117,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 11905,
+    "provenance": "new B:none run 2026-10-14T23-55-12.857Z",
+    "empty": false,
+    "note": "none: candidate as-is (1 sections, 11819 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none"
+    }
+  }
+]

@@ -1,0 +1,362 @@
+{
+    "id":  "fedoo_plasticity",
+    "label":  "X1",
+    "denomTotal":  87,
+    "results":  [
+                    {
+                        "n":  "G1",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "G2",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "G3",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "G4",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "G5",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "G6",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D1",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D2",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D3",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D4",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D5",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D6",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D8",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D9",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D10",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D11",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D12",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D15",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D16",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D17",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D18",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D19",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D20",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D21",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D22",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D23",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D24",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D25",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D26",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D27",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D28",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D29",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D30",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D31",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D32",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D33",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D34",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D35",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D36",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D37",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D38",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D39",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D40",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D41",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D42",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D43",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D44",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D45",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D46",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D47",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D48",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D49",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D50",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D51",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D52",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D53",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D54",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D55",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D56",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D57",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D58",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D59",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D60",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D61",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D62",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D63",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D64",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D65",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D66",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D67",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D68",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D69",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D70",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D71",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D72",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D73",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D74",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D75",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D76",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D77",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D78",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D79",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D80",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D81",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D82",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D83",
+                        "hit":  false
+                    },
+                    {
+                        "n":  "D84",
+                        "hit":  false
+                    }
+                ],
+    "fpr":  {
+                "totalBytes":  6197,
+                "offTopicBytes":  5994,
+                "fprPct":  96.7,
+                "notes":  "3 chunks, none carrying a denominator fact. Worst offenders: (1) periodic_bc.py PeriodicBC.initialize code+docstring, ~bytes 212-4926 (~4.7KB, MPC/periodic-BC constraint code, fully unrelated to plasticity); (2) ElastoPlasticity.hardening_function_derivative.html head, ~bytes 4927-6197 (DOCTYPE/meta/CSS boilerplate, page body absent; only the \u003ctitle\u003e line names the class, states no claim, says \u0027Fedoo 1.0.0\u0027); (3) 03-advanced/README.rst \u0027Advanced problems\u0027 intro, ~bytes 74-211 (nav/index noise). Header/rag-context wrapper also boilerplate. No ElastoPlasticity signature, no Simcoon/EPICP props, no 2DplasticBending workflow, no NR/nlsolve details, no OKF verified numbers present."
+            },
+    "empty":  false
+}

@@ -1,0 +1,67 @@
+[
+  {
+    "statement": "The ANSYS technology demonstration guide describes the load-step decision as being based on a trial-and-error correction process.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 11920
+  },
+  {
+    "statement": "The ANSYS technology showcase example problems guide contains the same passage that the decision is based on a trial-and-error correction process.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+    "line": 14249
+  },
+  {
+    "statement": "[KSP] is the spin softening matrix due to the rotation of the structure in the ANSYS Advanced Analysis Guide.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+    "line": 4310
+  },
+  {
+    "statement": "The EEXTRUDE command documentation shows the topological mapping of 2D elements in the ANSYS Advanced Analysis Guide.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+    "line": 571
+  },
+  {
+    "statement": "The ANSYS Theory Reference discusses the Topological Method for meshing.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30429
+  },
+  {
+    "statement": "The ANSYS Performance Guide discusses exposing more than 128 logical processors.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Performance_Guide.txt",
+    "line": 1451
+  },
+  {
+    "statement": "The ANSYS Basic Analysis Guide discusses using residual vectors in a modal analysis to improve the accuracy for mode-superposition.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 2647
+  },
+  {
+    "statement": "The fedoo stress_equilibrium weakform documents the \"log\" option as exact logarithmic strain with XBM logarithmic spin.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\weakform\\stress_equilibrium.py",
+    "line": 862
+  },
+  {
+    "statement": "The fedoo test for axi Simcoon structural checks that the spin tensor has zero entries in the hoop row/column.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\tests\\test_axi_simcoon_structural.py",
+    "line": 79
+  },
+  {
+    "statement": "The fedoo viewer creates a Qt spin box widget via self.iter_spin = QSpinBox().",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\util\\viewer.py",
+    "line": 541
+  },
+  {
+    "statement": "The fedoo core problem code builds a NaN mask using np.logical_not(np.isnan(col)).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\Code_source_fedoo\\fedoo\\core\\problem.py",
+    "line": 553
+  },
+  {
+    "statement": "The okf lattice-beam example note points to the resource ../../Exemples_fedoo/01-simple/lattice_beam.py.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\lattice-beam.md",
+    "line": 5
+  },
+  {
+    "statement": "The okf FE2 note describes FE2 micro–macro homogenization with an octet-lattice RVE.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_fedoo\\okf\\examples\\FE2.md",
+    "line": 37
+  }
+]

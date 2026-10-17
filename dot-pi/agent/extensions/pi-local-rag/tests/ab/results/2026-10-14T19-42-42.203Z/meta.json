@@ -1,0 +1,10 @@
+[
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 327267,
+    "tokensIn": 51007,
+    "tokensOut": 3718,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

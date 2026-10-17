@@ -26,6 +26,27 @@ export function str(value) {
         return "";
     return null;
 }
+function parseLineNumber(value) {
+    if (typeof value === "string" && value.trim() !== "")
+        value = Number(value);
+    return typeof value === "number" && Number.isFinite(value) ? value : undefined;
+}
+/** Format finite numbers or numeric strings as a read line range, omitting malformed ranges. */
+export function formatReadLineRange(offset, limit) {
+    // Strict schemas represent omitted optional arguments as null.
+    if (offset == null && limit == null)
+        return "";
+    const start = offset == null ? 1 : parseLineNumber(offset);
+    if (start === undefined)
+        return "";
+    if (limit == null)
+        return `:${start}`;
+    const count = parseLineNumber(limit);
+    if (count === undefined)
+        return "";
+    const end = start + count - 1;
+    return `:${start}${end ? `-${end}` : ""}`;
+}
 export function replaceTabs(text) {
     return text.replace(/\t/g, "   ");
 }

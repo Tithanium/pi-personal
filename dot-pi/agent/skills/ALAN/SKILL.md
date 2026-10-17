@@ -1,212 +1,313 @@
 ---
 name: alan
-description: Operates the ALAN (UGA) OpenAI-compatible model service from pi — deterministic capability probe, model selection, and pi provider wiring. Use when choosing an ALAN model, writing or restoring the alan provider config in models.json/settings.json, running the /ALAN_connector command, or recovering pi config after a bad write. Covers the probe recipe (endpoints, alias lists, fallbacks), the pi wiring schema, connector subcommands, and the BACKUP-IF-PI-BREAKS rollback procedure.
+description: Operates the ALAN (UGA) OpenAI-compatible model service from pi — the single-file /ALAN_connector extension (probe + model picker + pi provider wiring + hot-apply), the verified Alan gateway API surface, and the model-creation path (Open WebUI POST /api/v1/models/create). Use when choosing or connecting an ALAN model, running /ALAN_connector, adding a new model to Alan, writing or restoring the alan provider config in models.json/settings.json, or recovering pi config after a bad write.
 ---
 
-# ALAN (UGA) service — probe, pi wiring, connector, rollback
+# ALAN (UGA) service — connector, gateway surface, model creation, rollback
 
-Ground truth lives in the ALAN toolkit folder:
+## Ground truth
+
+**Active implementation** = one self-contained TypeScript extension:
+`C:\Users\connessn\.pi\agent\extensions\ALAN_connector\index.ts` (~25.6 KB).
+It is a **single file**. No powershell scripts, no `probe_result.json`, no `config.ps1`, no
+external log files. It may create exactly one local secret at runtime:
+`api_config.json` **next to `index.ts`** (inside the same `ALAN_connector/` folder).
+
+**Reference / legacy** (the TS code is derived from these; they are NOT executed by the
+command today) = the ALAN toolkit folder:
 `C:\Users\connessn\Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN`
-- `PROBE_RECIPE.md` — full deterministic probe recipe (extracted from the original launch scripts)
+- `PROBE_RECIPE.md` — original deterministic probe recipe (the TS `fetchModels`/`extractModels` mirror it)
 - `PI_PROVIDER_WIRING.md` — pi custom-provider schema, verbatim from the pi docs
-- `alan_probe.ps1` — deterministic probe (writes `probe_result.json`, never prints the API key)
-- `alan_config_writer.ps1` — surgical pi-config writer (`-DryRun`, `-Restore`, backup `.bak_yyyyMMdd_HHmmss`)
-- `config.ps1` + `config.local.ps1` — `$baseUrl`, `$apiKey` (placeholder overridden in `config.local.ps1`), `$preferredModelIds`
-- logs: `alan_connector_probe.log` and `alan_config_writer.log` (same folder as the scripts)
+- `alan_probe.ps1`, `alan_config_writer.ps1` — the legacy powershell probe + config writer
+  (`alan_config_writer.ps1 -Restore` is still a valid restore path, see §5)
+- `config.ps1` + `config.local.ps1` — legacy `$baseUrl`/`$apiKey`/`$preferredModelIds` source
 
-Never print, log, or commit the API key (it lives in `config.local.ps1`, travels inside
-`probe_result.json` → `models.json`, and is git-ignored: `.gitignore` lists
-`config.local.ps1`, `probe_result.json`, `*.bak_*`).
+Never print, log, or commit the API key. It lives in `api_config.json` (extension folder),
+travels into `~/.pi/agent/models.json`, and the key value must never appear in any log,
+widget line, or TUI output.
 
 ---
 
-## 1. Probing the Alan service to choose a model (deterministic recipe)
+## 1. The /ALAN_connector command (single-file TypeScript)
 
-Authoritative source: `PROBE_RECIPE.md` (line numbers map to `launch_Harness_old.ps1` + `config.ps1`).
+Folder: `~/.pi/agent/extensions/ALAN_connector/` (name is **`ALAN_connector`**, uppercase `ALAN`,
+underscore — NOT `alan-connector`). Auto-discovered (`*/index.ts`); apply with `/reload` or a pi restart.
 
-### 1.1 Endpoints and auth
+### 1.1 Invocation
 
-| Thing | Value |
-|---|---|
-| Base URL | `https://alan.univ-grenoble-alpes.fr/api` (config.ps1) |
-| List call | `GET {baseUrl}/models`, `Authorization: Bearer <apiKey>`, timeout 20 s — fatal on HTTP error / empty list |
-| Per-model detail | `GET {baseUrl}/models/{id}`, timeout 10 s — **does NOT exist on Alan** (returns the Open WebUI HTML SPA with HTTP 200); any failure or non-JSON body is a non-fatal warning that must never abort |
-| Key source | `$apiKey` PowerShell variable (config.ps1 placeholder → overridden by `config.local.ps1`), not an env var; placeholder or blank key = probe runs without the Authorization header (list may be public) |
+`/ALAN_connector [<apiKey>]`
 
-### 1.2 Response path and fields
+The ONLY accepted argument is an optional API key (a single token that does not start with `-`).
+Any other argument or a flag throws: `no arguments accepted — /ALAN_connector [<apiKey>]`.
 
-List location priority: `resp.data` → `resp.models` → the body itself is the array.
-Empty/unusable list (no entries, or first entry lacks an `id`) → hard error + raw JSON dump to the log.
+> There are NO subcommands. The historical `--list`, `--model <id|N>`, `--dry-run`,
+> `--restore`, `--help` are **gone** in the current single-file implementation. Do not
+> document or "restore" them.
 
-Per entry, the probe reads `id` and `name`, plus limits via alias lists (first non-empty hit):
-- contextWindow aliases: `context_length`, `context_window`, `contextWindow`, `max_context_length`, `n_ctx`, `max_model_len`, `max_position_embeddings` — **the real Alan field is `max_model_len`** (e.g. 262144 for `ARES/Qwen3.8-27B`, 128000 for `ARES/DeepSeek-V4-Flash-0731`)
-- maxTokens aliases: `max_tokens`, `max_completion_tokens`, `max_output_tokens`, `maxTokens`, `max_new_tokens` — **never found on Alan today** → fallback `32768`
-- sub-objects searched when a top-level field is missing: `meta`, `info`, `model_info`, `params`, `parameters`
-- non-numeric limit from the server → fallback `32768` with a WARN line
+### 1.2 API-key resolution (first hit wins)
 
-### 1.3 Selection order (forced → config match → favorite → first)
+1. `<apiKey>` passed as the command argument
+2. `ALAN_API_KEY` environment variable
+3. `api_config.json` next to `index.ts` (the stored key)
+4. existing `providers.alan.apiKey` already in `~/.pi/agent/models.json`
+5. interactive prompt (`ctx.ui.input`, TUI only)
 
-1. `--model <id|N>` force: exact match by `id` OR display `name`, OR the `[N]` index shown by `--list` (0-based, server order) → validate. Not found / out-of-bounds → WARN, fall through.
-2. `$modelId` from config (exact match by `id` OR `name`).
-3. First entry of `$preferredModelIds` that exists on the server (favorites; missing favorite = WARN only).
-4. First model of the server list.
-Selections are matched case-sensitively; a config *name* such as `ARES\Qwen3.8-27B` also matches.
+A key that came from (1) or (5) is **persisted to `api_config.json`** so later runs need no key.
+If the probe is rejected with 401/403 and the key was not user-supplied, the command re-prompts
+for a new key (TUI) and retries once.
 
-### 1.4 Log conventions and fatal paths
+Base URL: `ALAN_BASE_URL` env var, else the built-in default
+`https://alan.univ-grenoble-alpes.fr/api` (trailing slashes stripped).
 
-- Session header `===== Session yyyy-MM-dd HH:mm:ss =====`, then `[yyyy-MM-dd HH:mm:ss] [LEVEL] message`, LEVEL ∈ `INFO | OK | WARN | ERROR` (OK green, WARN yellow, ERROR red; `-FileOnly` for JSON dumps).
-- `RESULTAT contextWindow = <v> (source: serveur | config.ps1, rien trouve sur le serveur)` and the same for maxTokens; missing fields also log the entry's available top-level property names + a full JSON dump (file-only).
-- Fatal (exit 1): missing config.ps1; GET /models throws; GET /models returns no usable list; probe_result.json unwritable.
-- Non-fatal: GET /models/{id} failure; missing limits (fallback 32768); missing favorite; unreadable existing models.json/settings.json (previous content treated as absent, other providers not recovered).
-- `alan_probe.ps1` resolves its config by dot-sourcing `config.ps1` (which dot-sources `config.local.ps1` last, so `config.local.ps1` overrides everything) and writes the probe contract to `probe_result.json`: `{ baseUrl, api:"openai-completions", apiKeyPresent, apiKey?(consumed only by the config-writer, never printed), models:[{id,name,contextWindow,maxTokens}], selectedModelId, probedAt, raw }`.
+### 1.3 Probe (pure Node `fetch`, no shell)
 
-Hand-run (PowerShell, equivalent to the script):
+- Call: `GET {baseUrl}/models`, `Authorization: Bearer <key>` (header only if a key is present),
+  20 s `AbortController` timeout. Non-2xx → throws `Alan API request failed with HTTP <status>`.
+- Response list extraction: `resp.data` → `resp.models` → the body itself if it is an array.
+  Empty / no entry with a non-blank string `id` → hard error.
+- Per model:
+  - `id` (string), `name` (optional string)
+  - `contextWindow` — first positive int among aliases `context_length, context_window,
+    contextWindow, max_context_length, n_ctx, max_model_len, max_position_embeddings`,
+    else the same search inside sub-objects `meta, info, model_info, params, parameters, openai`,
+    else **32768**. **The real Alan field is `max_model_len`** (e.g. 262144 for Qwen3.8-27B).
+  - `maxTokens` — first positive int among `max_tokens, max_completion_tokens, max_output_tokens,
+    maxTokens, max_new_tokens` (+ same sub-objects), else **32768**. **Never found on Alan today**
+    → the 32768 fallback is what actually gets written.
 
-```powershell
-$headers = @{ Authorization = "Bearer $apiKey" }          # $apiKey from config.local.ps1
-$resp    = Invoke-RestMethod -Uri "https://alan.univ-grenoble-alpes.fr/api/models" -Headers $headers -TimeoutSec 20
-$list    = if ($resp.data) { $resp.data } elseif ($resp.models) { $resp.models } else { $resp }
-$entry   = $list | Where-Object { $_.id -eq "ARES/Qwen3.8-27B" } | Select-Object -First 1
-$ctx     = $entry.max_model_len      # observed: 262144 (Qwen3.8-27B) / 128000 (DeepSeek-V4-Flash-0731)
-$maxTok  = 32768                     # maxTokens is unobtainable on Alan -> keep the 32768 fallback
+### 1.4 Model selection
+
+- TUI (`ctx.hasUI` and more than one model): a `ctx.ui.custom` picker, 10 visible rows,
+  `↑/↓` navigate, `Enter` select, `Esc` cancel (cancel = "nothing written", no error).
+  Label per row: `<name>  (<id>) (<Nk>)` or `<id> (<Nk>)` when name==id.
+- Headless, or exactly one model: selects index 0.
+
+### 1.5 Config write (merge, backup, verify)
+
+Agent-dir resolution: `OBSERVATION_ONLY_DIR` → `PI_CODING_AGENT_DIR` →
+`$USERPROFILE\.pi\agent` → `$HOME\.pi\agent` (throws if all unset).
+
+Into `~/.pi/agent/models.json` (merge — other providers preserved byte-for-byte):
+```json
+"providers": { "alan": {
+  "baseUrl": "<baseUrl>", "api": "openai-completions", "apiKey": "<key>",
+  "models": [ { "id": "...", "name": "<display>", "contextWindow": N, "maxTokens": N } ]
+}}
 ```
+- `name` is `displayModelName`: `<name>  (<id>) (<Nk>)` (or `<id> (<Nk>)` when name==id);
+  any pre-existing `(<Nk>)` suffix is stripped first (idempotent). **The `(Nk)` is display-only**;
+  `contextWindow` (tokens) is the source of truth.
+- The previous `alan` provider object is shallow-copied then its `baseUrl/api/apiKey/models`
+  keys are deleted and re-set (other unknown `alan` keys survive).
+
+Into `~/.pi/agent/settings.json` (merge — all other keys preserved):
+```json
+{ "defaultProvider": "alan", "defaultModel": "<selectedId>" }
+```
+
+Safety sequence: pre-write validation (non-empty list, every `contextWindow`/`maxTokens` > 0)
+→ **backup** `models.json` + `settings.json` to `.bak_yyyyMMdd_HHmmss` → write both →
+**post-write verification** (re-parse both, check `alan.baseUrl/api/models[selected]` and
+`defaultProvider/defaultModel`) → on any failure, restore the just-taken backups and throw.
+
+Backup rule: a backup is taken only if the file exists AND is not already byte-identical to the
+latest `.bak_*` (avoids stacking redundant backups). A file with no prior state gets no backup,
+and restore removes it in that case.
+
+### 1.6 Hot-apply + output
+
+- Hot-apply: `ctx.modelRegistry.refresh()` → `registry.find("alan", <selectedId>)` →
+  `pi.setModel(live)`. On success the live session switches immediately (no restart).
+  Any exception here is non-fatal — the config is already written; `/model` can select it.
+- Output: TUI → one line via `ctx.ui.setWidget("ALAN_connector", [line], {placement:"belowEditor"})`
+  (rendered **under the editor**, never in the message area):
+  - applied:  `[ALAN_connector] ALAN active: <id> — no restart needed`
+  - not applied: `[ALAN_connector] ALAN config written: <id> — open /model to select`
+- Headless → the same line via `console.log`. There is no external log file.
+- Errors always `throw new Error(...)` (they surface as extension errors), and name what failed.
+
+### 1.7 Live state snapshot (2026-10-14)
+
+`~/.pi/agent/models.json` → `providers.alan.baseUrl=https://alan.univ-grenoble-alpes.fr/api`,
+`api=openai-completions`, 15 models written; `settings.json` `defaultModel=qwen-3.8-27b`.
 
 ---
 
 ## 2. How the ALAN provider is wired in pi
 
-Authoritative source: `PI_PROVIDER_WIRING.md` (pi docs v0.85.x). Route A = config-only via `~/.pi/agent/models.json` (recommended for OpenAI-compatible endpoints) — no code, reloaded on every `/model` open.
+Authoritative source: `PI_PROVIDER_WIRING.md` (pi docs). Route A = config-only via
+`~/.pi/agent/models.json` (recommended for OpenAI-compatible endpoints) — no code, reloaded on
+every `/model` open.
 
-### 2.1 models.json
+Rules that matter (models.md):
+- The key under `providers` is the provider id (`alan`) used by `--provider alan`,
+  `defaultProvider`, and `provider/modelId` strings.
+- `baseUrl` + `api` are load-time requirements for a non-built-in provider. `apiKey` is NOT
+  required to load — it only gates availability in `/model` / `--list-models` (no auth → models
+  load but stay hidden from the picker).
+- `api` selects the streaming dialect; Alan is `openai-completions` (OpenAI Chat Completions) —
+  the most compatible flavor for vLLM / Open WebUI-style proxies.
+- No network validation at load: pi never probes `{baseUrl}` at startup and never auto-fetches
+  `/v1/models`; the connection is exercised only on the first real request.
+- **Schema-perfect JSON is mandatory**: an unreadable/ill-formed `models.json` or `settings.json`
+  drops the file (providers not recovered, only a warning). The connector therefore validates its
+  output by re-parsing before and after writing and restores backups on any failure.
+- Per-model defaults when omitted: `name`→`id`, `reasoning`→false, `input`→["text"],
+  `contextWindow`→128000, `maxTokens`→16384, `cost`→zeros. The connector always writes explicit
+  `id/name/contextWindow/maxTokens`.
+- Model references are by `id` (may contain slashes); there is NO `aliases` field.
 
+`settings.json` — only `defaultProvider` and `defaultModel` are touched; everything else
+(`packages`, `theme`, `defaultTools`, …) is preserved by the merge-write.
+
+Launch wiring: pi's config dir resolves as `PI_CODING_AGENT_DIR` → `$env:USERPROFILE\.pi\agent`.
+Without the env var set, pi silently ignores written files. The Observation_only harness points
+`OBSERVATION_ONLY_DIR` at its own mirror, and the connector resolves that **first**.
+
+---
+
+## 3. Alan gateway — verified API surface (2026-10-14)
+
+Origin `https://alan.univ-grenoble-alpes.fr`; the pi `baseUrl` is the origin + `/api`.
+The public endpoint is a **curated gateway** in front of Open WebUI — it exposes inference and
+model listing only. What was probed (with the API key, `curl`/Node `fetch`):
+
+| Request | Result | Meaning |
+|---|---|---|
+| `GET /health` | `200 {"status":true}` | liveness, no auth |
+| `GET /api/models` | `200` JSON list | **what the connector uses** |
+| `GET /api/v1/models` | `200` JSON list | same list, `/v1` spelling |
+| `POST /api/chat/completions` | `200` completion | inference works with the key |
+| `GET /api/v1/pipelines` | `401` "no permission" | route exists; this key is **not** admin |
+| `POST /api/v1/models` / `/api/v1/models/` | `405` Method Not Allowed | **creation blocked** (see §4) |
+| `POST /api/v1/models/{id}` | `405` | creation/update blocked |
+| `POST /api/v1/pipelines/` | `405` | function creation blocked |
+| `GET /api/v1/config`, `/v1/config`, `/v1/models`, `/api/v1/models/{id}`, `/api/v1/pipelines`, `/api/v1/users`, `/api/v1/profile`, `/api/v1/version`, `/api/v1/functions` | `200` but **Open WebUI HTML SPA** | NOT JSON — per-model detail and admin routes are **not exposed** on the curated gateway |
+
+Consequences:
+- There is **no per-model detail endpoint** on Alan (a `GET {baseUrl}/models/{id}` returns the
+  HTML SPA with HTTP 200). The connector therefore never calls it; all limits come from the list.
+- The curated gateway allows **GET list + POST inference** and nothing else. Any POST that is not
+  chat completion returns 405, unconditionally (browser-like `Origin`/`Referer`/`sec-*` headers do
+  not change this — verified).
+- `max_model_len` is the only real context field; there is no `max_tokens` in the list.
+
+---
+
+## 4. Creating a new model on Alan (the working process)
+
+The public gateway **cannot** create models (`POST /api/v1/models…` → 405, verified 2026-10-14).
+The normal working path is **Alan's Open WebUI web interface** (admin login), which calls the
+Open WebUI backend create endpoint. If you have access to the **full (non-curated) Open WebUI API
+root** (admin context / internal network), the same thing can be done directly by the API.
+
+### 4.1 The real endpoint + schema (current `open_webui` source)
+
+`POST {fullApiBase}/api/v1/models/create`  (admin or `workspace.models` permission)
+
+Body is a `ModelForm` (`open_webui/models/models.py`):
 ```json
 {
-  "providers": {
-    "alan": {
-      "baseUrl": "https://alan.univ-grenoble-alpes.fr/api",
-      "api": "openai-completions",
-      "apiKey": "<key>",
-      "models": [
-        { "id": "<modelId>", "name": "ARES Qwen3.8-27B (Alan UGA)", "contextWindow": 262144, "maxTokens": 32768 }
-      ]
-    }
-  }
+  "id": "<model id: ^\\S+$, non-empty, ≤256 chars, no whitespace>",
+  "name": "<display name>",
+  "base_model_id": "<an existing model id, e.g. gpt-oss-120b>",
+  "meta":   { },
+  "params": { },
+  "access_grants": [],
+  "is_active": true,
+  "commit_message": "optional"
 }
 ```
+- `id` must match `^\S+$`, be non-empty, ≤ 256 chars, contain no whitespace (`is_valid_model_id`).
+  A model cannot have itself as `base_model_id`.
+- **Permissions:** `admin` role, OR the `workspace.models` permission. A **non-admin MUST set
+  `base_model_id`** (derivative models only) and may not reuse another user's preset id.
+- `{fullApiBase}` is the full Open WebUI API root (the origin, e.g.
+  `https://alan.univ-grenoble-alpes.fr`), reachable only where the admin API is exposed — NOT the
+  curated `/api` gateway the pi provider uses.
 
-Rules that matter (models.md tables):
-- The key under `providers` is the provider id (`alan`) used by `--provider alan`, `defaultProvider`, and `provider/modelId` strings.
-- `baseUrl` + `api` are load-time requirements for a non-built-in provider; `apiKey` is NOT required to load — it only gates availability in `/model` and `--list-models` (no auth → models load but stay hidden from the picker, and `/model` availability checks never execute shell commands).
-- `api` selects the streaming dialect; Alan is `openai-completions` (OpenAI Chat Completions). `openai-completions` is the most compatible flavor for vLLM/Open WebUI-style proxies.
-- `apiKey` also supports env interpolation (`$ALAN_API_KEY`) and `!command`; but the reference implementation writes the raw key inline (dsh-style `apiKeyEnv` does NOT apply to pi).
-- No network validation at load: pi never probes `{baseUrl}` at startup for `models.json` providers and never auto-fetches `/v1/models` — the connection is exercised only on the first real request.
-- **Schema-perfect JSON is mandatory**: unreadable/ill-formed models.json or settings.json drops the file (providers not recovered, only a warning). The writer therefore validates its output by re-parsing before and after writing and restores backups on any failure.
-- Per-model defaults when omitted: `name`→`id`, `reasoning`→false, `input`→["text"], `contextWindow`→128000, `maxTokens`→16384, `cost`→zeros. The writer always writes explicit `id/name/contextWindow/maxTokens`.
-- Model references are by `id` (may contain slashes, e.g. `ARES/Qwen3.8-27B`); there is NO `aliases` field in the model schema.
-
-### 2.2 settings.json
-
-Only two keys are touched (everything else — `packages`, `theme`, `defaultTools`, … — is preserved byte-exact by the writer):
-
-```json
-{ "defaultProvider": "alan", "defaultModel": "<modelId>" }
+Direct call (only where the full API is reachable and you hold an admin key):
+```powershell
+curl.exe -X POST "https://alan.univ-grenoble-alpes.fr/api/v1/models/create" `
+  -H "Authorization: Bearer <admin-key>" -H "Content-Type: application/json" `
+  --data @model.json
 ```
 
-### 2.3 Launch wiring
+### 4.2 Observed example
 
-- pi's config dir resolves as `PI_CODING_AGENT_DIR` → `$env:USERPROFILE\.pi\agent`.
-- The reference launch sets `PI_CODING_AGENT_DIR` before launching `pi`. Without it, pi silently ignores written files.
-- The model `name` written is the config string (`"ARES Qwen3.8-27B (Alan UGA)"`), which intentionally differs from the server name (`"ARES/Qwen3.8-27B"`) — do not "correct" it.
+`albator` (base_model_id `gpt-oss-120b`, `preset:true`, owned_by `openai`) is the product of such a
+create — a derivative model an admin added, which then appears in `GET /api/models` and becomes
+selectable by `/ALAN_connector`.
+
+### 4.3 Honest current state
+
+From this machine only the **curated public gateway** is reachable (creation = 405). To actually
+add a model to Alan you must either (a) use the **Alan web UI with an admin account**, or (b) reach
+the **full internal Open WebUI API** and call `/api/v1/models/create`. After any model is created
+by either path, re-run `/ALAN_connector` to probe the fresh list and wire/pick it.
 
 ---
 
-## 3. The /ALAN_connector pi command
+## 5. BACKUP-IF-PI-BREAKS procedure
 
-Extension: **folder** `C:\Users\connessn\.pi\agent\extensions\alan-connector\` (`index.ts` + `alan_probe.ps1` + `alan_config_writer.ps1` + `config.ps1` + `config.local.ps1`; auto-discovered, apply with `/reload` or a pi restart). **Layout rule: the command references files ONLY inside this extension folder** — the ALAN toolkit copy at `Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN` is no longer used (probe_result.json, alan_connector_probe.log, alan_config_writer.log and the new connector log `alan_connector.log` all live in the extension folder). **Output rule: every trace of a run goes to `alan_connector.log`** in that folder; in TUI mode the session only shows a single bracketed comment line `[alan-connector] …` rendered **under the editor** via `ctx.ui.setWidget(placement:"belowEditor")` — never inside the message/prompt area (console.log / notify both land there); headless modes get it via console.log. Plus thrown errors. It is stand-alone deterministic (pure HTTP probe + file ops via the two local scripts), never requires an LLM connection, never touches skills/agents/extensions/auth.json, never prints the API key and never writes it to any log (relayed output is redacted). `probe_result.json` and `config.local.ps1` contain the API key → git-ignored by `extensions/alan-connector/.gitignore`. Errors always name the script paths involved.
+### 5.1 What the connector backs up
 
-| Invocation | Behavior |
-|---|---|
-| `/ALAN_connector` | Probe (default selection) + real write: backup first, write models.json + settings.json (merge semantics, byte-preserving other keys), print selected model, backup SHA-256 hashes, summary, **then HOT-APPLIES to the running session: `ctx.modelRegistry.refresh()` + `pi.setModel()` (verified fix for "must restart pi")** — the live catalog reloads at runtime (pi only re-reads models.json on `/model` open) and the current session switches to the picked model immediately |
-| `/ALAN_connector --list` | Dry probe only: shows the models to choose from, nothing written |
-| `/ALAN_connector --model <id|N>` | Force that model (exact id, display name, or the `[N]` index from `--list`, 0-based) for probe + write; `--model <N>` / `--model=<id>` also accepted |
-| `/ALAN_connector --dry-run` | Probe + `alan_config_writer.ps1 -DryRun`: validation + textual diff, NO write, NO backup |
-| `/ALAN_connector --restore` | Restore the latest `.bak_yyyyMMdd_HHmmss` pair, SHA-256-verify each restored file equals its backup, error if no backup exists, touch nothing else |
-| `/ALAN_connector --help` | Usage + script paths |
+Every real write of `/ALAN_connector` creates `models.json.bak_yyyyMMdd_HHmmss` +
+`settings.json.bak_yyyyMMdd_HHmmss` in the resolved pi agent dir **before** writing (skipped only
+when byte-identical to the latest). The connector touches NOTHING else — skills, agents,
+extensions, `auth.json`, sessions are out of scope.
 
-Backup naming: `~/.pi/agent/models.json.bak_yyyyMMdd_HHmmss` and `~/.pi/agent/settings.json.bak_yyyyMMdd_HHmmss` (created before ANY write; backups are never deleted). Restore semantics: a backed-up file is copied back and verified; a file with no backup in the latest timestamp is removed if it exists (it did not exist before that write).
+### 5.2 Restore config after a bad write
 
-Direct script usage (equivalent, same contracts — the scripts live in the extension folder, not the ALAN toolkit folder):
+The connector has **no `--restore` flag** (removed in the single-file rewrite). Two valid restores:
 
 ```powershell
-pwsh .\alan_probe.ps1                  # or: .\alan_probe.ps1 --model ARES/Qwen3.8-27B
-pwsh .\alan_config_writer.ps1          # real write (backup first)
-pwsh .\alan_config_writer.ps1 -DryRun  # validate + diff, nothing written
-pwsh .\alan_config_writer.ps1 -Restore # restore latest backup pair, verify hashes
-```
-
----
-
-## 4. BACKUP-IF-PI-BREAKS procedure
-
-### 4.1 What the connector backs up
-
-Every real write of `/ALAN_connector` (or the writer script) creates a timestamped pair
-`models.json.bak_yyyyMMdd_HHmmss` + `settings.json.bak_yyyyMMdd_HHmmss` in `~/.pi/agent/` BEFORE writing.
-The connector touches NOTHING else — skills, agents, extensions, auth.json, sessions are out of scope.
-
-### 4.2 Restore config after a bad write
-
-```powershell
+# (A) Legacy toolkit writer — restores the latest .bak pair, verifies by SHA-256, errors if none
 pwsh C:\Users\connessn\Datas\02_RECHERCHE\11_all_AI\00_Harnesses_launch_ALAN\alan_config_writer.ps1 -Restore
-# or inside pi: /ALAN_connector --restore
+
+# (B) Manual — copy the newest backup pair over the live files
+$dir = Join-Path $env:USERPROFILE ".pi\agent"
+Copy-Item "$dir\models.json.bak_<newest>"   "$dir\models.json"   -Force
+Copy-Item "$dir\settings.json.bak_<newest>" "$dir\settings.json" -Force
 ```
 
-The writer: finds the newest `.bak_yyyyMMdd_HHmmss` timestamp, copies each backup over the live file,
-prints `SHA256 backup` vs `SHA256 restored` per file, and fails (exit 1) on any hash MISMATCH.
-Verify hash-identical manually with:
-
+Both target the same agent dir (the writer resolves `OBSERVATION_ONLY_DIR` → `PI_CODING_AGENT_DIR`
+→ `$USERPROFILE\.pi\agent`). The writer prints `SHA256 backup` vs `SHA256 restored` per file and
+exits 1 on any mismatch; a file with no backup in that timestamp is removed (it did not exist
+before that write) to restore the prior state exactly. Verify manually with:
 ```powershell
-Get-FileHash C:\Users\connessn\.pi\agent\models.json, C:\Users\connessn\.pi\agent\models.json.bak_* -Algorithm SHA256
+Get-FileHash "$env:USERPROFILE\.pi\agent\models.json", "$env:USERPROFILE\.pi\agent\models.json.bak_*" -Algorithm SHA256
 ```
 
-If a file had no backup in that timestamp (it did not exist before that write) it is removed — the
-pre-write state is restored exactly. The file `PI_PROVIDER_WIRING.md` and the writer's own
-post-write verification (re-parse + other-provider diff) are the evidence a write was clean.
+### 5.3 Full pi-installation backup (roll back a broken pi version)
 
-### 4.3 Full pi-installation backup (roll back a broken pi version)
-
-The connector only ever covers models.json/settings.json. To roll back a broken **pi version**, keep a
-full snapshot:
-
+The connector only ever covers `models.json`/`settings.json`. To roll back a broken **pi version**,
+keep a full snapshot:
 ```powershell
-# 1. Copy the whole pi user dir (config, skills, agents, extensions, packages, sessions, trust)
 $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
-Copy-Item -Recurse -Force "$env:USERPROFILE\.pi"          "$env:USERPROFILE\.pi.backup_$stamp"
-
-# 2. Record the installed npm packages (rollback = pi install the pinned versions again)
+Copy-Item -Recurse -Force "$env:USERPROFILE\.pi" "$env:USERPROFILE\.pi.backup_$stamp"
 npm ls -g --json > "$env:USERPROFILE\.pi.backup_$stamp\npm-global-list.json"
-
-# 3. Reinstall the exact previous version from that list, e.g.
-#    npm install -g @earendil-works/pi-coding-agent@<previous-version>
+# rollback: npm install -g @earendil-works/pi-coding-agent@<previous-version>
 ```
-
-Rollback order after a broken `pi update`: (1) `pi update --self` back to the known-good release, or
-`npm install -g <package>@<version>` from the snapshot's npm list; (2) restore `~/.pi` from the
-snapshot if config was also damaged; (3) verify `pi -v` and `pi --list-models` before working.
-Do not forget `auth.json` lives in `~/.pi/agent/` — it is covered by the `~/.pi` copy and is NOT covered
-by the connector's backup pair.
+Rollback order after a broken `pi update`: (1) reinstall the known-good version from the snapshot's
+npm list; (2) restore `~/.pi` from the snapshot if config was also damaged; (3) verify `pi -v` and
+`pi --list-models`. `auth.json` lives in `~/.pi/agent/` — covered by the `~/.pi` copy, NOT by the
+connector's backup pair.
 
 ---
 
-## 4b. Model names carry the max context size in k (2026-09-29)
+## 6. Verification checklist after any connect/write
 
-`alan_config_writer.ps1` appends the probed `contextWindow` as `(Nk)` to every model `name` written into `models.json` (ids are never touched; the suffix is re-derived from the fresh probe each run, and any previous `(Nk)` suffix is stripped first — idempotent). Display examples: `albator (32k)`, `ARES/qwen-3.6-35b-instruct  (qwen-3.6-35b-instruct) (256k)`, `ARES/alan-transcript (0.4k)`. `contextWindow` in tokens stays the source of truth; the `(Nk)` in `name` is display-only. The probe (`alan_probe.ps1`), `probe_result.json` and the picker in `index.ts` still use the raw probe names — only the written `models.json` names carry the suffix.
-
-## 5. Verification checklist after any connect/write
-
-- [ ] `~/.pi/agent/models.json` parses, `providers.alan.baseUrl`/`api`/`apiKey`/`models[]` present, other providers untouched
-- [ ] `~/.pi/agent/settings.json` parses, `defaultProvider=alan`, `defaultModel=<selected>`, other keys value-identical
-- [ ] Backup pair exists: `models.json.bak_yyyyMMdd_HHmmss` + `settings.json.bak_yyyyMMdd_HHmmss`
-- [ ] `pi --list-models` (or `/model`) shows the alan models after `/reload` — the file reloads on every `/model` open
-- [ ] Hot-apply happened (current session uses ALAN without restart): the connector ends with `ctx.modelRegistry.refresh()` + `pi.setModel()`, logged as `hot-apply: session switched to alan/<id>` in `alan_connector.log`; a `hot-apply failed/warning` line means config is still written (open `/model` to select) — a pi restart is only a fallback
-- [ ] Model id with slashes: reference it exactly as in models.json, e.g. `pi --model ARES/Qwen3.8-27B -p "…"`; full form `alan/ARES/Qwen3.8-27B` also resolves (provider id prefix)
+- [ ] `~/.pi/agent/models.json` parses; `providers.alan.baseUrl`/`api`/`apiKey`/`models[]` present;
+      other providers untouched
+- [ ] `~/.pi/agent/settings.json` parses; `defaultProvider=alan`, `defaultModel=<selected>`;
+      other keys value-identical
+- [ ] A `.bak_yyyyMMdd_HHmmss` pair exists for the timestamp (unless it was byte-identical to the
+      latest and skipped)
+- [ ] `pi --list-models` (or `/model`) shows the alan models after `/reload` — the file reloads on
+      every `/model` open
+- [ ] Hot-apply happened (no restart): the session switched to the picked model; if it did not,
+      open `/model` to select — a pi restart is only a fallback
+- [ ] Model id with slashes: reference it exactly as in `models.json`, e.g.
+      `pi --model ARES/Qwen3.8-27B -p "…"`; full form `alan/ARES/Qwen3.8-27B` also resolves
+- [ ] No API key leaked into any log, widget line, or TUI output

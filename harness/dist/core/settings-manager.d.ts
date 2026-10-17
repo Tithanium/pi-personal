@@ -1,8 +1,8 @@
 import type { ThinkingLevel } from "@earendil-works/pi-agent-core";
 import type { Model } from "@earendil-works/pi-ai";
 import type { ScrollViewScrollbar, TerminalCapabilities, WheelScrollLines } from "@earendil-works/pi-tui";
-import type { CacheWarmingMode, DefaultProjectTrust, FullscreenExitOutput, MermaidRenderingMode, PackageSource, QuietStartup, Settings, ThinkingBudgetsSettings, TransportSetting, TuiMode, WarningSettings } from "./settings-schema.ts";
-export type { BranchSummarySettings, CacheWarmingMode, CodemodeMode, CodemodeSettings, CompactionModelOverride, CompactionSettings, DefaultProjectTrust, FullscreenExitOutput, ImageSettings, MarkdownSettings, MermaidRenderingMode, PackageSource, ProviderRetrySettings, QuietStartup, RetrySettings, Settings, TerminalSettings, ThinkingBudgetsSettings, TransportSetting, TuiMode, WarningSettings, } from "./settings-schema.ts";
+import type { CacheWarmingMode, DefaultProjectTrust, FullscreenExitOutput, MermaidRenderingMode, PackageSource, QuietStartup, SessionShareDestination, Settings, ThinkingBudgetsSettings, TransportSetting, TuiMode, WarningSettings } from "./settings-schema.ts";
+export type { BranchSummarySettings, CacheWarmingMode, CodemodeMode, CodemodeSettings, CompactionModelOverride, CompactionSettings, DefaultProjectTrust, FullscreenExitOutput, ImageSettings, MarkdownSettings, MermaidRenderingMode, PackageSource, ProviderRetrySettings, QuietStartup, RetrySettings, SessionShareDestination, Settings, TerminalSettings, ThinkingBudgetsSettings, TransportSetting, TuiMode, WarningSettings, } from "./settings-schema.ts";
 /** Cache-warming profile. "idle" also warms between agent runs. */
 export declare const CACHE_WARMING_MODES: readonly ["off", "streaming", "idle"];
 /** Tools enabled at startup when `defaultTools` does not change them. */
@@ -119,6 +119,8 @@ export declare class SettingsManager {
     removeModelThinkingLevel(provider: string, modelId: string): void;
     getTransport(): TransportSetting;
     setTransport(transport: TransportSetting): void;
+    getSessionShareDestination(): SessionShareDestination;
+    setSessionShareDestination(destination: SessionShareDestination): void;
     getCompactionEnabled(): boolean;
     setCompactionEnabled(enabled: boolean): void;
     private getCompactionTokenSetting;

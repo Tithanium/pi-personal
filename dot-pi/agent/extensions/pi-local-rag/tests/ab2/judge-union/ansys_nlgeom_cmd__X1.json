@@ -1,0 +1,43 @@
+{
+  "id": "ansys_nlgeom_cmd",
+  "label": "X1",
+  "denomTotal": 29,
+  "results": [
+    { "n": "G1", "hit": false },
+    { "n": "G2", "hit": false },
+    { "n": "G3", "hit": false },
+    { "n": "G4", "hit": false },
+    { "n": "D2", "hit": false },
+    { "n": "D3", "hit": false },
+    { "n": "D10", "hit": false },
+    { "n": "D11", "hit": false },
+    { "n": "D12", "hit": false },
+    { "n": "D14", "hit": false },
+    { "n": "D15", "hit": false },
+    { "n": "D16", "hit": false },
+    { "n": "D17", "hit": false },
+    { "n": "D18", "hit": false },
+    { "n": "D19", "hit": false },
+    { "n": "D20", "hit": false },
+    { "n": "D21", "hit": false },
+    { "n": "D22", "hit": false },
+    { "n": "D23", "hit": false },
+    { "n": "D24", "hit": false },
+    { "n": "D25", "hit": false },
+    { "n": "D26", "hit": false },
+    { "n": "D27", "hit": false },
+    { "n": "D28", "hit": false },
+    { "n": "D29", "hit": false },
+    { "n": "D30", "hit": false },
+    { "n": "D31", "hit": false },
+    { "n": "D32", "hit": false },
+    { "n": "D33", "hit": false }
+  ],
+  "fpr": {
+    "totalBytes": 32635,
+    "offTopicBytes": 32635,
+    "fprPct": 100.0,
+    "notes": "Payload contains 5 chunks, all from Ansys_Mechanical_APDL_Command_Reference.txt, none covering the NLGEOM command (documented ~lines 51992-52029). Zero occurrences of 'NLGEOM', 'large-deflection', 'large rotation', 'large strain' or 'stress stiffening' in the payload. Every chunk is unrelated: /MAP mapping processor + command-dictionary SAMPLECMD boilerplate + ~CAT5IN (chunk 001); /GFORMAT, /GLINE, /GMARKER, GMATRIX, GMFACE, *GO, /GO, /GOLIST (chunk 002); DESOL/DETAB + /DEVICE (chunk 003); GRAPHICS command-grouping tables (chunk 004); AUX15/IGES table (chunk 005). The lone 'This command is also valid in PREP7.' sentence refers to the SAMPLECMD example (automatic time stepping), not NLGEOM, so G4 stays MISS."
+  },
+  "empty": false
+}

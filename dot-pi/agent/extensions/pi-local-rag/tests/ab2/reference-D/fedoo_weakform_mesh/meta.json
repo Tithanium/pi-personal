@@ -1,0 +1,24 @@
+{
+  "id": "fedoo_weakform_mesh",
+  "source": "reused-phase1",
+  "wallMs": 900050,
+  "tokensIn": 170252,
+  "tokensOut": 24987,
+  "wallIsCap": true,
+  "capHit": false,
+  "answerBytes": 41755,
+  "factsCount": 144,
+  "verifyPassRate": 0.5972,
+  "verify": {
+    "pass": 86,
+    "fix": 57,
+    "drop": 1,
+    "notFound": 0
+  },
+  "extractionWallMs": 763915,
+  "extractionTokensIn": 203349,
+  "extractionTokensOut": 23862,
+  "extractionOk": true,
+  "note": "answer copied from baseline-A; extraction ok (144 facts; extractedJson=true)",
+  "done": true
+}

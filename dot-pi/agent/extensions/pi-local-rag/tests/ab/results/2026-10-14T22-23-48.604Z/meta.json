@@ -1,0 +1,10 @@
+[
+  {
+    "id": "ansys_transient",
+    "wallMs": 340163,
+    "tokensIn": 124806,
+    "tokensOut": 10423,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

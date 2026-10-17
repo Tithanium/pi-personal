@@ -295,6 +295,13 @@ export class SettingsSelectorComponent extends Container {
                 values: ["sse", "websocket", "websocket-cached", "auto"],
             },
             {
+                id: "share-destination",
+                label: "Session share destination",
+                description: "Where to upload sessions with /share (auto prefers Radius when authenticated, otherwise GitHub Gist)",
+                currentValue: config.sessionShareDestination,
+                values: ["auto", "gist", "radius"],
+            },
+            {
                 id: "http-idle-timeout",
                 label: "HTTP idle timeout",
                 description: "Maximum idle gap while waiting for HTTP headers or body chunks. Disable for local models that pause longer than five minutes.",
@@ -653,6 +660,9 @@ export class SettingsSelectorComponent extends Container {
                     break;
                 case "transport":
                     callbacks.onTransportChange(newValue);
+                    break;
+                case "share-destination":
+                    callbacks.onSessionShareDestinationChange(newValue);
                     break;
                 case "http-idle-timeout": {
                     const choice = HTTP_IDLE_TIMEOUT_CHOICES.find((item) => item.label === newValue);

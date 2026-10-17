@@ -1,0 +1,24 @@
+{
+  "id": "fedoo_plasticity",
+  "source": "reused-phase1",
+  "wallMs": 628957,
+  "tokensIn": 211725,
+  "tokensOut": 23236,
+  "wallIsCap": false,
+  "capHit": false,
+  "answerBytes": 52719,
+  "factsCount": 84,
+  "verifyPassRate": 0.6667,
+  "verify": {
+    "pass": 56,
+    "fix": 27,
+    "drop": 1,
+    "notFound": 0
+  },
+  "extractionWallMs": 376102,
+  "extractionTokensIn": 273372,
+  "extractionTokensOut": 13504,
+  "extractionOk": true,
+  "note": "answer copied from baseline-A; extraction ok (84 facts; extractedJson=true)",
+  "done": true
+}

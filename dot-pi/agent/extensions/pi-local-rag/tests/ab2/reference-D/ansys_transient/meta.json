@@ -1,0 +1,23 @@
+{
+  "id": "ansys_transient",
+  "source": "fresh-D",
+  "wallMs": 1333777,
+  "tokensIn": 544756,
+  "tokensOut": 42169,
+  "capHit": false,
+  "answerBytes": 8022,
+  "factsCount": 94,
+  "verifyPassRate": 0.6702,
+  "verify": {
+    "pass": 63,
+    "fix": 29,
+    "drop": 2,
+    "notFound": 0
+  },
+  "ok": true,
+  "agentEnd": true,
+  "timedOut": false,
+  "stopReason": "stop",
+  "note": "ok; facts=94",
+  "done": true
+}

@@ -1,0 +1,466 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 3329,
+    "tokensIn": 3274,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 2517,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 4 hits deleted → 2430 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 7,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 4,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885,
+      "fanoutTerms": [
+        "rectangular",
+        "mesh",
+        "fedoo",
+        "rectangle_mesh",
+        "hole_plate_mesh",
+        "disk_mesh",
+        "hollow_disk_mesh",
+        "structured_mesh"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/mesh/structured_mesh.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/mesh/__init__.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Theory_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Modeling_and_Meshing_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/mesh/simple.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 2874,
+    "tokensIn": 3020,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 3792,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 3 hits deleted → 3705 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 6,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 3,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "fanoutTerms": [
+        "StressEquilibrium",
+        "weak",
+        "nlgeom",
+        "parameter",
+        "StressEquilibriumMixed",
+        "StressEquilibriumRI",
+        "get_weak_equation",
+        "stress_equilibrium"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.weakform.StressEquilibrium.incompressibility.html",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/weakform/inertia.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/weakform/stress_equilibrium_mixed.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/weakform/stress_equilibrium_ri.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/simple_cantilever_beam_3D_model_nlgeom.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 3260,
+    "tokensIn": 11769,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 9710,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 5 hits deleted → 9622 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 7,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 5,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "fanoutTerms": [
+        "NLGEOM",
+        "command",
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "GUI",
+        "SESSION",
+        "PREP7"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/01-simple/simple_cantilever_beam_3D_model_nlgeom.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 5324,
+    "tokensIn": 7719,
+    "tokensOut": 30,
+    "ok": true,
+    "payloadBytes": 9118,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 1 fallback, 4 hits deleted, payload cap 30000 B dropped [005.md] → 9030 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 4,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "fanoutTerms": [
+        "FKN",
+        "real",
+        "constant",
+        "penalty",
+        "contact",
+        "ANSYS",
+        "Mechanical",
+        "APDL"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/td-27/Hot_Rolling_Model.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/contact/penalty/disk_rectangle.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 1,
+      "capDropped": [
+        "005.md"
+      ],
+      "payloadCapBytes": 30000
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 5297,
+    "tokensIn": 6592,
+    "tokensOut": 30,
+    "ok": true,
+    "payloadBytes": 29740,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 1 fallback, 5 hits deleted, payload cap 30000 B dropped [005.md (truncated)] → 29652 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 7,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 5,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5897679987344571,
+      "fanoutTerms": [
+        "ModelingSpace",
+        "plane",
+        "problems",
+        "fedoo",
+        "ANSYS",
+        "APDL",
+        "hex8",
+        "associated_assembly_sum"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/td-27/Hot_Rolling_Model.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/core/assembly_sum.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/examples/03-advanced/README.rst"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 1,
+      "capDropped": [
+        "005.md (truncated)"
+      ],
+      "payloadCapBytes": 30000
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 3421,
+    "tokensIn": 6958,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": true,
+    "note": "all hits deleted (6 children over 6 files, 6 hits deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 6,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "fanoutTerms": [
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "nonlinear",
+        "large",
+        "deflection",
+        "static",
+        "structural"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Theory_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 5481,
+    "tokensIn": 8365,
+    "tokensOut": 30,
+    "ok": true,
+    "payloadBytes": 29764,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 1 fallback, 1 hits deleted, payload cap 30000 B dropped [006.md] → 29676 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 1,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "fanoutTerms": [
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "surface",
+        "contact",
+        "between",
+        "two",
+        "bodies"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Theory_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/td-27/Hot_Rolling_Model.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/constitutivelaw/__init__.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 1,
+      "capDropped": [
+        "006.md"
+      ],
+      "payloadCapBytes": 30000
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 5167,
+    "tokensIn": 3472,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": true,
+    "note": "all hits deleted (6 children over 6 files, 6 hits deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "fanoutTerms": [
+        "model",
+        "isotropic",
+        "von",
+        "Mises",
+        "plasticity",
+        "hardening",
+        "fedoo",
+        "Python"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Material_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/constraint/periodic_bc.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.constitutivelaw.ElastoPlasticity.hardening_function_derivative.html",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/constitutivelaw/simcoon_umat.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Modeling_and_Meshing_Guide.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 3204,
+    "tokensIn": 6254,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 486,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 5 hits deleted → 398 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 7,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 5,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657,
+      "fanoutTerms": [
+        "fedoo",
+        "Python",
+        "library",
+        "define",
+        "weak",
+        "mechanical",
+        "equilibrium",
+        "solids"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/weakform/stress_equilibrium_ri.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/constraint/periodic_bc.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/pyproject.toml",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 5272,
+    "tokensIn": 8346,
+    "tokensOut": 30,
+    "ok": true,
+    "payloadBytes": 7361,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 1 fallback, 5 hits deleted → 7273 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 5,
+      "relevanceVerdict": "strong",
+      "topRaw": 0.633426553035191,
+      "fanoutTerms": [
+        "ANSYS",
+        "Mechanical",
+        "APDL",
+        "nonlinear",
+        "full",
+        "transient",
+        "dynamic",
+        "analysis"
+      ],
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/td-27/Hot_Rolling_Model.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/constitutivelaw/shell.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/tests/test_transient_prediction_tangent.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 1
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 143,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": true,
+    "note": "EARLY EMPTY: verdict=empty (topRaw 0.3660 < rawMin 0.47) → no fan-out, no swarm",
+    "internals": {
+      "nTerms": 0,
+      "nFiles": 0,
+      "nChildren": 0,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 135,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T02-57-05.428Z",
+    "empty": true,
+    "note": "EARLY EMPTY: verdict=empty (topRaw 0.3457 < rawMin 0.47) → no fan-out, no swarm",
+    "internals": {
+      "nTerms": 0,
+      "nFiles": 0,
+      "nChildren": 0,
+      "nTimeouts": 0,
+      "nDeleted": 0,
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083
+    }
+  }
+]

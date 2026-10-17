@@ -1,0 +1,41 @@
+{
+  "id": "fedoo_rectangle_mesh",
+  "label": "X4",
+  "denomTotal": 27,
+  "results": [
+    { "n": "G1", "hit": false },
+    { "n": "G2", "hit": false },
+    { "n": "G3", "hit": false },
+    { "n": "G4", "hit": false },
+    { "n": "D3", "hit": false },
+    { "n": "D4", "hit": false },
+    { "n": "D5", "hit": false },
+    { "n": "D6", "hit": false },
+    { "n": "D7", "hit": false },
+    { "n": "D10", "hit": false },
+    { "n": "D11", "hit": false },
+    { "n": "D12", "hit": false },
+    { "n": "D13", "hit": false },
+    { "n": "D14", "hit": false },
+    { "n": "D15", "hit": false },
+    { "n": "D16", "hit": false },
+    { "n": "D17", "hit": false },
+    { "n": "D18", "hit": false },
+    { "n": "D19", "hit": false },
+    { "n": "D20", "hit": false },
+    { "n": "D21", "hit": false },
+    { "n": "D22", "hit": false },
+    { "n": "D23", "hit": false },
+    { "n": "D24", "hit": false },
+    { "n": "D25", "hit": false },
+    { "n": "D26", "hit": false },
+    { "n": "D27", "hit": false }
+  ],
+  "fpr": {
+    "totalBytes": 4740,
+    "offTopicBytes": 4640,
+    "fprPct": 97.9,
+    "notes": "Payload contains no rectangle_mesh signature, default values, elm_type option list, or any concrete call example; it never answers the 'exact function call' question. Worst offenders: (1) bytes ~73-1986: disk_mesh body + hollow_disk_mesh docstring from structured_mesh.py (archived 1.0.0) - a different mesh builder, its elm_type set and 'Returns: Mesh' text do not carry rectangle_mesh claims. (2) bytes ~2655-4740: fedoo/mesh/__init__.py autosummary index + import block - nav/index noise that only names rectangle_mesh among other builders without signature or call. (3) bytes ~1987-2416: raw code fragment from structured_mesh.py (301-311), irrelevant call arguments."
+  },
+  "empty": false
+}

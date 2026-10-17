@@ -1,0 +1,3 @@
+# Keep injection artifacts (.md) + meta.json; exclude raw JSONL debug streams
+# from dev runs (they stay on disk for local analysis).
+*.raw.jsonl

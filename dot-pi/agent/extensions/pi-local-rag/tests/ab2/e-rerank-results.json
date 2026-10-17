@@ -1,0 +1,138 @@
+{
+  "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "config": {
+    "perFileCap": 3,
+    "armFolderCap": 4,
+    "alpha": 0.4,
+    "rawMin": 0.47,
+    "spreadMin": 0.03,
+    "scoreThreshold": 0.1,
+    "topRegionsRequested": 30
+  },
+  "note": "two-arm pool yields ≤12 distinct regions for these prompts (per-file cap 3 + armSize 8); that IS B's candidate set",
+  "ids": {
+    "ansys_large_deflection": {
+      "prompt": "In ANSYS Mechanical APDL, how do I set up a nonlinear large-deflection static structural analysis (e.g. a thin plate or a long slender bar in bending)? Which solution control commands should I set for robust convergence - automatic time stepping, line search, Newton-Raphson option, convergence criteria?",
+      "prefetchMs": 749,
+      "verdict": "weak",
+      "topRaw": 0.5728,
+      "nArmPool": 21,
+      "nCandidates": 12,
+      "shellSkipped": 0,
+      "rerankMs": 594,
+      "avgPerPairMs": 49.5,
+      "maxPerPairMs": 68,
+      "token": {
+        "name": "LNSRCH",
+        "inB12": true,
+        "tokenRegions": [
+          {
+            "bRank": 2,
+            "ceRank": 2,
+            "file": "ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+            "range": "L14850-15096",
+            "ce": 0.655
+          }
+        ],
+        "bestCeRank": 2,
+        "nTokenRegions": 1,
+        "keyFile": "ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+        "keyFileInCandidates": true,
+        "keyNote": "keyFacts cite SAG Table 2.3 Nonlinear Tab Options (LNSRCH/NEQIT/PRED/CNVTOL, L1656-1704) + §2.2.3.2 NROPT"
+      },
+      "bTop12": [
+        "1.ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L3135-3334 (score=0.60)",
+        "2.ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L14850-15096 (score=0.59)",
+        "3.ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L12692-12984 (score=0.60)",
+        "4.ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L2198-2397 (score=0.57)",
+        "5.Ansys_Mechanical_APDL_Substructuring_Analysis_Guide.txt L3199-3398 (score=0.54)",
+        "6.ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt L3342-3392 (score=0.52)",
+        "7.ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt L27119-27318 (score=0.38)",
+        "8.actuator_beam_input.dat L97-120 (score=0.75)",
+        "9.README.md L1-200 (score=0.32)",
+        "10.Ansys-mechanical-apdl-technology-demonstration-guide.txt L20868-21067 (score=0.31)",
+        "11.ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L11279-11478 (score=0.31)",
+        "12.ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt L32702-32901 (score=0.32)"
+      ],
+      "ceTop12": [
+        "1.ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt L3342-3392 (ce=0.928)",
+        "2.ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L14850-15096 (ce=0.655)",
+        "3.README.md L1-200 (ce=0.286)",
+        "4.ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L2198-2397 (ce=0.184)",
+        "5.ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt L27119-27318 (ce=0.035)",
+        "6.ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L3135-3334 (ce=0.033)",
+        "7.ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L12692-12984 (ce=0.003)",
+        "8.Ansys_Mechanical_APDL_Substructuring_Analysis_Guide.txt L3199-3398 (ce=0.002)",
+        "9.Ansys-mechanical-apdl-technology-demonstration-guide.txt L20868-21067 (ce=0.001)",
+        "10.ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L11279-11478 (ce=0.001)",
+        "11.actuator_beam_input.dat L97-120 (ce=0.000)",
+        "12.ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt L32702-32901 (ce=0.000)"
+      ]
+    },
+    "fedoo_plasticity": {
+      "prompt": "How do I model isotropic von Mises (J2) plasticity with hardening in fedoo (the Python FE library) - e.g. a 2D beam in plane strain undergoing plastic bending? Which constitutive law class, weak form, and nonlinear solver do I use, and how is the Newton-Raphson loop driven?",
+      "prefetchMs": 519,
+      "verdict": "weak",
+      "topRaw": 0.6286,
+      "nArmPool": 20,
+      "nCandidates": 12,
+      "shellSkipped": 0,
+      "rerankMs": 506,
+      "avgPerPairMs": 42.17,
+      "maxPerPairMs": 51,
+      "token": {
+        "name": "nlsolve",
+        "inB12": true,
+        "tokenRegions": [
+          {
+            "bRank": 9,
+            "ceRank": 5,
+            "file": "spring.py",
+            "range": "L1-192",
+            "ce": 0.208
+          },
+          {
+            "bRank": 10,
+            "ceRank": 6,
+            "file": "spring.py",
+            "range": "L1-192",
+            "ce": 0.208
+          }
+        ],
+        "bestCeRank": 5,
+        "nTokenRegions": 2,
+        "keyFile": "2DplasticBending_from_scratch.py",
+        "keyFileInCandidates": false,
+        "keyNote": "keyFacts cite the 2DplasticBending_from_scratch.py example (nlsolve @ L93, pb.nlsolve(...) drive)"
+      },
+      "bTop12": [
+        "1.ANSYS_Mechanical_APDL_Material_Reference.txt L24365-24964 (score=0.64)",
+        "2.ANSYS_Mechanical_APDL_Theory_Reference.txt L4460-4484 (score=0.59)",
+        "3.ANSYS_Mechanical_APDL_Material_Reference.txt L2783-2896 (score=0.46)",
+        "4.elasto_plasticity.py L1-43 (score=0.58)",
+        "5.ANSYS_Mechanical_APDL_Theory_Reference.txt L4892-4913 (score=0.43)",
+        "6.ANSYS_Mechanical_APDL_Material_Reference.txt L3234-3275 (score=0.43)",
+        "7.elasto_plasticity.py L1-43 (score=0.56)",
+        "8.ANSYS_Mechanical_APDL_Theory_Reference.txt L4178-4296 (score=0.55)",
+        "9.spring.py L1-192 (score=0.51)",
+        "10.spring.py L1-192 (score=0.51)",
+        "11.ANSYS_Mechanical_APDL_Element_Reference.txt L93728-93927 (score=0.39)",
+        "12.ANSYS_Mechanical_APDL_Element_Reference.txt L41631-41830 (score=0.40)"
+      ],
+      "ceTop12": [
+        "1.elasto_plasticity.py L1-43 (ce=0.993)",
+        "2.elasto_plasticity.py L1-43 (ce=0.993)",
+        "3.ANSYS_Mechanical_APDL_Material_Reference.txt L3234-3275 (ce=0.647)",
+        "4.ANSYS_Mechanical_APDL_Theory_Reference.txt L4178-4296 (ce=0.567)",
+        "5.spring.py L1-192 (ce=0.208)",
+        "6.spring.py L1-192 (ce=0.208)",
+        "7.ANSYS_Mechanical_APDL_Theory_Reference.txt L4460-4484 (ce=0.074)",
+        "8.ANSYS_Mechanical_APDL_Material_Reference.txt L2783-2896 (ce=0.041)",
+        "9.ANSYS_Mechanical_APDL_Theory_Reference.txt L4892-4913 (ce=0.001)",
+        "10.ANSYS_Mechanical_APDL_Element_Reference.txt L41631-41830 (ce=0.000)",
+        "11.ANSYS_Mechanical_APDL_Element_Reference.txt L93728-93927 (ce=0.000)",
+        "12.ANSYS_Mechanical_APDL_Material_Reference.txt L24365-24964 (ce=0.000)"
+      ]
+    }
+  }
+}

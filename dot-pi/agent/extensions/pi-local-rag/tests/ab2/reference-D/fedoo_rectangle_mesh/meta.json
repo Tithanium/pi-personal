@@ -1,0 +1,23 @@
+{
+  "id": "fedoo_rectangle_mesh",
+  "source": "fresh-D",
+  "wallMs": 311290,
+  "tokensIn": 93454,
+  "tokensOut": 7568,
+  "capHit": false,
+  "answerBytes": 3822,
+  "factsCount": 27,
+  "verifyPassRate": 0.4815,
+  "verify": {
+    "pass": 13,
+    "fix": 14,
+    "drop": 0,
+    "notFound": 0
+  },
+  "ok": true,
+  "agentEnd": true,
+  "timedOut": false,
+  "stopReason": "stop",
+  "note": "ok; facts=27",
+  "done": true
+}

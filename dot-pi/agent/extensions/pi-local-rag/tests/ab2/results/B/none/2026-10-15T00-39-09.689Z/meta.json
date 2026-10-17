@@ -1,0 +1,98 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 296,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 7558,
+    "provenance": "new B:none run 2026-10-15T00-39-09.689Z",
+    "empty": false,
+    "note": "none: candidate as-is (top seed 0.478 ≥ 0.25; 6 sections, 7473 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 61,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 8986,
+    "provenance": "new B:none run 2026-10-15T00-39-09.689Z",
+    "empty": false,
+    "note": "none: candidate as-is (top seed 0.418 ≥ 0.25; 6 sections, 8902 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 93,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 10327,
+    "provenance": "new B:none run 2026-10-15T00-39-09.689Z",
+    "empty": false,
+    "note": "none: candidate as-is (top seed 0.600 ≥ 0.25; 1 sections, 10242 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 94,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 9115,
+    "provenance": "new B:none run 2026-10-15T00-39-09.689Z",
+    "empty": false,
+    "note": "none: candidate as-is (top seed 0.600 ≥ 0.25; 1 sections, 9030 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 55,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 11212,
+    "provenance": "new B:none run 2026-10-15T00-39-09.689Z",
+    "empty": false,
+    "note": "none: candidate as-is (top seed 0.600 ≥ 0.25; 4 sections, 11128 B)",
+    "internals": {
+      "nChunks": 5,
+      "nSections": 4,
+      "variant": "none"
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 115,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 11905,
+    "provenance": "new B:none run 2026-10-15T00-39-09.689Z",
+    "empty": false,
+    "note": "none: candidate as-is (top seed 0.600 ≥ 0.25; 1 sections, 11819 B)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "none"
+    }
+  }
+]

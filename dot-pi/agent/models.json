@@ -1,6 +1,10 @@
 {
   "providers": {
     "alan": {
+      "compat": {
+        "thinkingFormat": "qwen",
+        "supportsReasoningEffort": false
+      },
       "baseUrl": "https://alan.univ-grenoble-alpes.fr/api",
       "api": "openai-completions",
       "apiKey": "sk-REMPLACEZ_PAR_VOTRE_CLE",
@@ -50,6 +54,7 @@
         {
           "id": "qwen-3.8-27b",
           "name": "ARES/qwen-3.8-27b  (qwen-3.8-27b) (256k)",
+          "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 32768
         },
@@ -88,6 +93,28 @@
           "name": "ARES/mistral-small-4-119b  (mistral-small-4-119b) (125k)",
           "contextWindow": 128000,
           "maxTokens": 32768
+        },
+        {
+          "id": "mimo-v26-flash-mopd",
+          "name": "mimo-v26-flash-mopd (256k)",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        }
+      ]
+    },
+    "alan-ragcap": {
+      "baseUrl": "https://alan.univ-grenoble-alpes.fr/api",
+      "api": "openai-completions",
+      "apiKey": "sk-REMPLACEZ_PAR_VOTRE_CLE",
+      "models": [
+        {
+          "id": "qwen-3.8-27b",
+          "name": "ARES/qwen-3.8-27b  (qwen-3.8-27b) (256k) (ragcap: max 64 out tokens)",
+          "contextWindow": 262144,
+          "maxTokens": 64,
+          "samplingParams": {
+            "max_tokens": 64
+          }
         }
       ]
     }

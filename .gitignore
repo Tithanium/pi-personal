@@ -10,3 +10,9 @@ scratch/
 config.local.ps1
 probe_result.json
 api_config.json
+
+# Windows artifact: directory literally named '....' (trailing dots break git file access on Win32)
+dot-pi/agent/extensions/..../
+
+# stale local RAG index backups (cache litter, never commit)
+rag.stale-*/

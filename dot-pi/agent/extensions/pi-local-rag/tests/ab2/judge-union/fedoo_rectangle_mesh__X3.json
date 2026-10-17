@@ -1,0 +1,41 @@
+{
+  "id": "fedoo_rectangle_mesh",
+  "label": "X3",
+  "denomTotal": 27,
+  "results": [
+    { "n": "G1", "hit": false },
+    { "n": "G2", "hit": false },
+    { "n": "G3", "hit": false },
+    { "n": "G4", "hit": false },
+    { "n": "D3", "hit": false },
+    { "n": "D4", "hit": false },
+    { "n": "D5", "hit": false },
+    { "n": "D6", "hit": false },
+    { "n": "D7", "hit": false },
+    { "n": "D10", "hit": false },
+    { "n": "D11", "hit": false },
+    { "n": "D12", "hit": false },
+    { "n": "D13", "hit": false },
+    { "n": "D14", "hit": false },
+    { "n": "D15", "hit": false },
+    { "n": "D16", "hit": false },
+    { "n": "D17", "hit": false },
+    { "n": "D18", "hit": false },
+    { "n": "D19", "hit": false },
+    { "n": "D20", "hit": false },
+    { "n": "D21", "hit": false },
+    { "n": "D22", "hit": false },
+    { "n": "D23", "hit": false },
+    { "n": "D24", "hit": false },
+    { "n": "D25", "hit": false },
+    { "n": "D26", "hit": false },
+    { "n": "D27", "hit": false }
+  ],
+  "fpr": {
+    "totalBytes": 24869,
+    "offTopicBytes": 24869,
+    "fprPct": 100.0,
+    "notes": "Every one of the 9 chunks fails to answer 'give the exact function call': no chunk contains the rectangle_mesh signature, any parameter/default, or a single rectangle_mesh(...) call. 001/002 are bare autosummary module indexes (nav noise, archived 1.0.0 dup), 003/006 are hole_plate_mesh ellipse fragments, 004/005/007 are 3x 'Simple examples to start' README boilerplate dups, 008/009 are a 248-line IPC disk-indentation contact example (gmsh + disk_mesh, never calls rectangle_mesh) plus its archived duplicate. Worst offenders: 009 (~9306 B, final third: full archived duplicate of the unrelated indentation_2d.py contact example), 008 (~9279 B: same unrelated 248-line IPC contact example, primary copy), 002 (~2066 B: archived 1.0.0 duplicate of the mesh module index)."
+  },
+  "empty": false
+}

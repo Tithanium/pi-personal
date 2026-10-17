@@ -1,0 +1,23 @@
+{
+  "id": "ansys_fkn_contact",
+  "source": "fresh-D",
+  "wallMs": 854727,
+  "tokensIn": 219226,
+  "tokensOut": 15274,
+  "capHit": false,
+  "answerBytes": 6793,
+  "factsCount": 48,
+  "verifyPassRate": 0.7083,
+  "verify": {
+    "pass": 34,
+    "fix": 14,
+    "drop": 0,
+    "notFound": 0
+  },
+  "ok": true,
+  "agentEnd": true,
+  "timedOut": false,
+  "stopReason": "stop",
+  "note": "ok; facts=48",
+  "done": true
+}

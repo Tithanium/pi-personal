@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 355588,
+    "tokensIn": 104211,
+    "tokensOut": 9797,
+    "ok": true,
+    "note": "resolved-at-agent_end (child killed to dodge shutdown hang)"
+  }
+]

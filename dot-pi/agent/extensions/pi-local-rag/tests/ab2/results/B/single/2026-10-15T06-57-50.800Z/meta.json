@@ -1,0 +1,305 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 2841,
+    "tokensIn": 7978,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 2139,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 1/9 candidate sections kept → 2053 B payload)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 9,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885,
+      "nVariants": 3,
+      "shellSkipped": 2,
+      "defNeighbors": 0,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 5540,
+    "tokensIn": 2811,
+    "tokensOut": 117,
+    "ok": true,
+    "payloadBytes": 9532,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=weak, topRaw=0.6124 ≥ rawMin=0.47) → top-2 sections kept",
+    "internals": {
+      "nChunks": 39,
+      "nSections": 2,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "nVariants": 3,
+      "shellSkipped": 11,
+      "defNeighbors": 1,
+      "defNeighborList": [
+        "#1->implicit_dynamic.py L272-421 (3 terms, 5572 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 2433,
+    "tokensIn": 10281,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 26571,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; verdict=strong, topRaw=0.5622 ≥ rawMin=0.47) → top-3 sections kept",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 5,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5621975627436768,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->Ansys_Mechanical_APDL_Command_Reference.txt L1160-1309 (4 terms, 5298 B)",
+        "#1->Ansys_Mechanical_APDL_Command_Reference.txt L4511-4521 (2 terms, 402 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 2680,
+    "tokensIn": 8420,
+    "tokensOut": 11,
+    "ok": true,
+    "payloadBytes": 15159,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 2/5 candidate sections kept → 15072 B payload)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 5,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.703187282855323,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L3152-3210 (6 terms, 4653 B)",
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L2767-2780 (4 terms, 1095 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 4438,
+    "tokensIn": 7372,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 2078,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 1/8 candidate sections kept → 1992 B payload)",
+    "internals": {
+      "nChunks": 46,
+      "nSections": 8,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.5897679987344571,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "defNeighbors": 0,
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "ansys_large_deflection",
+    "wallMs": 3409,
+    "tokensIn": 8571,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 14428,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 1/5 candidate sections kept → 14342 B payload)",
+    "internals": {
+      "nChunks": 45,
+      "nSections": 5,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.5727730903460895,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L3752-3807 (10 terms, 2209 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L4124-4176 (7 terms, 3060 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L2971-2976 (4 terms, 464 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "ansys_contact",
+    "wallMs": 2578,
+    "tokensIn": 9289,
+    "tokensOut": 15,
+    "ok": true,
+    "payloadBytes": 21030,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 3/5 candidate sections kept → 20943 B payload)",
+    "internals": {
+      "nChunks": 43,
+      "nSections": 5,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.6825223801392823,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 2,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L3152-3210 (11 terms, 4653 B)",
+        "#1->ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt L4722-4742 (6 terms, 1311 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_plasticity",
+    "wallMs": 2579,
+    "tokensIn": 10711,
+    "tokensOut": 11,
+    "ok": true,
+    "payloadBytes": 4778,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 2/11 candidate sections kept → 4692 B payload)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 11,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6285984329570056,
+      "nVariants": 3,
+      "shellSkipped": 0,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Material_Reference.txt L27325-27358 (8 terms, 1270 B)",
+        "#1->ANSYS_Mechanical_APDL_Material_Reference.txt L26796-26813 (8 terms, 839 B)",
+        "#1->ANSYS_Mechanical_APDL_Material_Reference.txt L27393-27415 (8 terms, 850 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_weakform_mesh",
+    "wallMs": 2472,
+    "tokensIn": 7487,
+    "tokensOut": 11,
+    "ok": true,
+    "payloadBytes": 4444,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 2/11 candidate sections kept → 4358 B payload)",
+    "internals": {
+      "nChunks": 39,
+      "nSections": 11,
+      "variant": "single",
+      "relevanceVerdict": "weak",
+      "topRaw": 0.659955552761657,
+      "nVariants": 3,
+      "shellSkipped": 4,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->stress_equilibrium.py L985-1019 (3 terms, 1410 B)",
+        "#2->stress_equilibrium.py L950-984 (3 terms, 1410 B)",
+        "#6->incompressibility_comparison.py L100-187 (3 terms, 2759 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "ansys_transient",
+    "wallMs": 6633,
+    "tokensIn": 5163,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 14023,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": false,
+    "note": "ok (single selection: 1/4 candidate sections kept → 13936 B payload)",
+    "internals": {
+      "nChunks": 44,
+      "nSections": 4,
+      "variant": "single",
+      "relevanceVerdict": "strong",
+      "topRaw": 0.633426553035191,
+      "nVariants": 3,
+      "shellSkipped": 1,
+      "defNeighbors": 3,
+      "defNeighborList": [
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15059-15114 (13 terms, 3743 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L15233-15252 (11 terms, 1555 B)",
+        "#1->ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt L13036-13042 (7 terms, 558 B)"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "rescue": false
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 144,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": true,
+    "note": "single: verdict=empty (topRaw 0.3660 < rawMin 0.47) → empty payload, no child (P2-R6 multi-query pre-fetch gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "single",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.36600556966902076,
+      "nVariants": 1
+    }
+  },
+  {
+    "id": "unrelated_quantum",
+    "wallMs": 134,
+    "tokensIn": 0,
+    "tokensOut": 0,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:single run 2026-10-15T06-57-50.800Z",
+    "empty": true,
+    "note": "single: verdict=empty (topRaw 0.3457 < rawMin 0.47) → empty payload, no child (P2-R6 multi-query pre-fetch gate)",
+    "internals": {
+      "nChunks": 0,
+      "nSections": 0,
+      "variant": "single",
+      "relevanceVerdict": "empty",
+      "topRaw": 0.34568348780246083,
+      "nVariants": 1
+    }
+  }
+]

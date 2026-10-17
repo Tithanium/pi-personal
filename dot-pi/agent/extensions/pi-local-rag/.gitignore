@@ -1,0 +1,10 @@
+# pi-local-rag local ignores (repo root is ~/.pi/agent; global .gitignore covers sessions/, models*.json, npm/, logs)
+
+# Large model cache — re-downloadable via research/download-reranker.mjs (87 MB)
+research/cache/
+
+# Raw LLM streams from D runs — evidence kept on disk, artifacts (facts.json/answer.md/meta.json) committed
+tests/ab2/reference-D/**/*.jsonl
+
+# Invalidated partial hook capture (provenance unknown, superseded by 2026-10-15T14-09-32Z-off-flag.jsonl)
+tests/ab/hook-e2e/2026-10-15T12-07-19Z-off-flag.*

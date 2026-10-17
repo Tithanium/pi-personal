@@ -1,0 +1,607 @@
+[
+  {
+    "statement": "NLGEOM,OFF ignores large-deflection effects (a small-deflection analysis is specified); this option is the default.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 52005
+  },
+  {
+    "statement": "NLGEOM,ON includes large-deflection (large rotation) effects or large strain effects, according to the element type.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 52008
+  },
+  {
+    "statement": "When large-deflection effects are included (NLGEOM,ON), stress stiffening effects are also included automatically, and the command is valid only within the first load step during the solution.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 52015
+  },
+  {
+    "statement": "In a large-deflection analysis, pressure loads behave differently than other load types.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 52017
+  },
+  {
+    "statement": "AUTOTS,OFF means do not use automatic time stepping; AUTOTS,ON means use automatic time stepping (default).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 9988
+  },
+  {
+    "statement": "AUTOTS Command Default: automatic time stepping is on by default.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 9996
+  },
+  {
+    "statement": "AUTOTS,ON uses both time step prediction and time step bisection.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 9998
+  },
+  {
+    "statement": "Automatic time stepping (AUTOTS), line search (LNSRCH), and the DOF predictor (PRED) cannot be used with the arc-length method (ARCLEN, ARCTRM); if used, the program disables these settings.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 10007
+  },
+  {
+    "statement": "LNSRCH activates a line search to be used with Newton-Raphson; LNSRCH,ON suppresses adaptive descent unless explicitly requested on NROPT, and having both on at the same time is not recommended.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 45414
+  },
+  {
+    "statement": "LNSRCH,AUTO has the program automatically switch line searching ON and OFF between substeps of a load step as needed (recommended).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 45425
+  },
+  {
+    "statement": "LNSRCH LSTOL is the line search convergence tolerance (default = 0.5); LStrun default is OFF meaning no truncation.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 45433
+  },
+  {
+    "statement": "LNSRCH Command Default: line search off, unless contact elements are present.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 45439
+  },
+  {
+    "statement": "NROPT,AUTO lets the program choose the option (default); NROPT,FULL uses full Newton-Raphson.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 53389
+  },
+  {
+    "statement": "NROPT,MODI uses modified Newton-Raphson; NROPT,INIT uses the previously computed (initial-stiffness) matrix.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 53399
+  },
+  {
+    "statement": "NROPT,UNSYM uses full Newton-Raphson with unsymmetric matrices of elements where the unsymmetric option exists.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 53402
+  },
+  {
+    "statement": "NROPT adaptive descent: ON uses adaptive descent (default if frictional contact exists; explicit ON valid only if Option=FULL); OFF does not use adaptive descent (default in all other cases).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 53409
+  },
+  {
+    "statement": "NROPT,MODI and NROPT,INIT are only applicable with the sparse solver (EQSLV,SPARSE); thermal analyses always use full Newton-Raphson.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 53431
+  },
+  {
+    "statement": "NEQIT specifies the maximum number of equilibrium iterations for nonlinear analyses.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 51241
+  },
+  {
+    "statement": "NEQIT Command Default: the maximum number of equilibrium iterations per substep is set between 15 and 26, depending on the physics of the problem.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 51254
+  },
+  {
+    "statement": "CNVTOL sets convergence values for nonlinear analyses.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 17608
+  },
+  {
+    "statement": "CNVTOL force convergence labels include F (Forces), M (Moments), DVOL (Volume), HDSP (Hydrostatic Pressure), ENGY (Energy Error); displacement labels include U (Displacements), ROT (Rotations), JOINT, COMP.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 17616
+  },
+  {
+    "statement": "CNVTOL VALUE defaults to the maximum of a program-calculated reference or MINREF; if VALUE is negative, the convergence criterion for that label is removed.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 17709
+  },
+  {
+    "statement": "CNVTOL default TOLER when CNVTOL issued with Lab but no TOLER: 0.05 (5%) for displacement (U), 0.05 for energy error (ENGY), 0.005 (0.5%) for all other labels.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 17719
+  },
+  {
+    "statement": "If CNVTOL is not issued, TOLER defaults are 0.005 (0.5%) for force (F) and moment (M), 1.0E-4 (0.01%) for volume (DVOL), 0.05 (5%) for displacement (U).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 17726
+  },
+  {
+    "statement": "CNVTOL NORM: 0 = Infinite norm (default for Lab=U); 1 = L1 norm; 2 = L2 norm (check SRSS value, default except Lab=U); 3 = Infinite norm based on current displacement increment (Lab=U only).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 17745
+  },
+  {
+    "statement": "CNVTOL MINREF default is the maximum of 0.01 or the internally calculated minimum reference value for force (F), moment (M).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 17762
+  },
+  {
+    "statement": "CUTCONTROL controls time-step cutback during a nonlinear solution.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 19446
+  },
+  {
+    "statement": "CUTCONTROL PLSLIMIT is the maximum equivalent plastic strain allowed within a time-step; default Value = 0.15 (15 percent).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 19508
+  },
+  {
+    "statement": "CUTCONTROL CUTBACKFACTOR default is 0.5 (if Value not specified), and it is valid only when automatic time stepping is on (AUTOTS,ON).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 19466
+  },
+  {
+    "statement": "CUTCONTROL ROTLIMIT default Value = 1.0 x 10^7 for the maximum rotation DOF increment.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 19537
+  },
+  {
+    "statement": "DELTIM specifies the time step sizes for the current load step; DTIME is the time step size, and with AUTOTS it is the starting time substep.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 22056
+  },
+  {
+    "statement": "NSUBST specifies the number of substeps to be taken this load step; NSBSTP with AUTOTS defines the size of the first substep.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 54698
+  },
+  {
+    "statement": "NSUBST NSBMX is the maximum number of substeps (minimum time step size) and NSBMN is the minimum number of substeps (maximum time step size) if automatic time stepping is used.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 54705
+  },
+  {
+    "statement": "NSUBST Carry = ON uses the final time step from the previous load step as the starting time step (if automatic time stepping is used).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 54717
+  },
+  {
+    "statement": "It is recommended that all fields of NSUBST be specified, and changing the number of substeps upon restarting an analysis during a load step is not recommended.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 54727
+  },
+  {
+    "statement": "PRED activates a predictor in a nonlinear analysis; PRED,AUTO (default) has the program use a predictor but automatically switch prediction off within certain exceptions.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 63009
+  },
+  {
+    "statement": "PRED,LINERAR (or ON) uses the linear predictor on all substeps after the first; PRED,QUADRATIC uses the quadratic predictor on all substeps after the second.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 63018
+  },
+  {
+    "statement": "NCNV KSTOP: 0 = do not terminate the analysis if the solution fails to converge; 1 = terminate the analysis and program execution (default); 2 = terminate the analysis but not program execution.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 51115
+  },
+  {
+    "statement": "NCNV DLIM terminates program execution if the largest nodal DOF solution value exceeds the limit, defaulting to 1.0E6 (except MAG/A); ITLIM defaults to infinity.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 51128
+  },
+  {
+    "statement": "STABILIZE activates stabilization for all elements that support nonlinear stabilization; Key OFF is default, CONSTANT keeps the energy-dissipation ratio/damping factor constant, REDUCE reduces it linearly to zero at the end of the load step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 79353
+  },
+  {
+    "statement": "STABILIZE Method ENERGY (default) uses the energy-dissipation ratio as the control; DAMPING uses the damping factor as the control.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 79369
+  },
+  {
+    "statement": "STABILIZE FORCELIMIT is the stabilization force limit coefficient, 0 < FORCELIMIT < 1, default value 0.2.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 79385
+  },
+  {
+    "statement": "ARCLEN activates the arc-length method; MAXARC default = 25, MINARC default = 1/1000.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 8823
+  },
+  {
+    "statement": "The initial arc-length load factor is given by Initial Load Factor = TIME / NSBSTP.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 8838
+  },
+  {
+    "statement": "The arc-length method ignores AUTOTS and PRED, and also ignores STABILIZE and LNSRCH.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 8852
+  },
+  {
+    "statement": "OUTPR controls the solution printout; Freq prints the solution for this item every Freqth (and the last) substep, ALL prints every substep, LAST prints only the last substep.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 56505
+  },
+  {
+    "statement": "OUTRES controls the solution-result data written to the database.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 56597
+  },
+  {
+    "statement": "RESCONTROL controls file writing for multiframe restarts; DEFINE specifies how often .xnnn restart files are written for a load step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\Ansys_Mechanical_APDL_Command_Reference.txt",
+    "line": 68168
+  },
+  {
+    "statement": "The procedure for a nonlinear static analysis includes Building the Model, Setting Solution Controls, Applying Loads, Solving the Analysis, Reviewing the Results, Terminating and Restarting, and uses traditional forward solving but can also be applied to inverse solving.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13823
+  },
+  {
+    "statement": "When setting ANTYPE and NLGEOM, select Large Displacement Static if you expect large deflections (long slender bar under bending) or large strains (metal-forming problem).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 1616
+  },
+  {
+    "statement": "When setting ANTYPE and NLGEOM in a nonlinear static analysis, choose Large Displacement Static for a new analysis; you cannot change this setting after the first load step (after the first SOLVE command).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13847
+  },
+  {
+    "statement": "The NSUBST and DELTIM commands achieve the same effect (starting, minimum, and maximum step size) by reciprocal means; if automatic time-stepping is off (AUTOTS), the starting substep size is used throughout the load step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13855
+  },
+  {
+    "statement": "The OUTRES command controls data on the results file (Jobname.rst); by default only the last substep is written in a nonlinear analysis.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13859
+  },
+  {
+    "statement": "Automatic solution control activates the sparse direct solver (EQSLV,SPARSE) for most cases, and it is recommended for beam/shell structures and ill-conditioned problems with insufficient displacement constraints.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13871
+  },
+  {
+    "statement": "Automatic solution control enables automatic time-stepping (AUTOTS,ON), predicting the next time-step size based on number of equilibrium iterations, nonlinear element status change predictions, plastic strain increment, and creep strain increment.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13892
+  },
+  {
+    "statement": "The automatic solution convergence check uses the L2-norm of force (and moment) with TOLER equal to 0.5%, and in most cases an infinite norm check on displacement with TOLER 5% is also used as a double-check.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13911
+  },
+  {
+    "statement": "By default, the program checks force convergence by comparing the SRSS of the force imbalances against VALUE*TOLER, where VALUE defaults to the SRSS of applied loads or MINREF (which defaults to 0.01), whichever is greater.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13918
+  },
+  {
+    "statement": "You should continue to use the default value of VALUE, changing convergence criteria by adjusting TOLER not VALUE, and ensure the default MINREF = 0.01 makes sense.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13928
+  },
+  {
+    "statement": "The infinite norm repeats the single-DOF check at each DOF; the L1 norm compares against the sum of absolute values; the L2 norm uses SRSS; normally convergence in one norm implies convergence in the others.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13937
+  },
+  {
+    "statement": "Automatic solution control sets NEQIT to between 15 and 26 iterations; if convergence is not satisfied within this number and auto time-stepping is on, the program attempts to bisect, or terminates/moves on according to NCNV.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13944
+  },
+  {
+    "statement": "Automatic solution control activates a predictor (PRED,ON); the linear extrapolation is based on the previous time step's accumulated displacement increment, the quadratic on the previous two, and quadratic predicts better for rotational DOFs (ROTX, ROTY, ROTZ).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13963
+  },
+  {
+    "statement": "Automatic solution control toggles line search on and off as needed: LNSRCH is toggled on for most contact problems and off for most non-contact problems.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13979
+  },
+  {
+    "statement": "The line search multiplies the calculated displacement increment by a scale factor between 0 and 1 when stiffening is detected; it is an alternative to adaptive descent (NROPT), and activating both simultaneously is not recommended.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13983
+  },
+  {
+    "statement": "When an imposed displacement exists, a run cannot converge until at least one iteration has a line search value of 1, and the program does not impose the full displacement until then.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13991
+  },
+  {
+    "statement": "CUTCONTROL provides finer control over bisections and cutback in time-step size; by default for Lab=PLSLIMIT, Value is set to 15 percent.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13998
+  },
+  {
+    "statement": "Automatic solution control uses the FULL Newton-Raphson option (NROPT) with adaptive descent off if a nonlinearity is present, but turns adaptive descent on automatically for node-to-node/node-to-surface contact with friction.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14024
+  },
+  {
+    "statement": "NROPT,FULL updates the stiffness matrix at every equilibrium iteration; with adaptive descent on, the program discards divergent iterations and restarts using a weighted combination of secant and tangent matrices.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14036
+  },
+  {
+    "statement": "NROPT,MODI updates the tangent stiffness matrix at each substep and is not applicable to large-deformation analyses; NROPT,INIT uses the initial stiffness matrix and is also not applicable to large-deformation analyses.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14049
+  },
+  {
+    "statement": "You should first try NROPT,FULL, then try NROPT,UNSYM if you experience convergence difficulties; a multistatus element is updated at the iteration in which it changes status irrespective of the Newton-Raphson option.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14070
+  },
+  {
+    "statement": "To account for buckling/bifurcation behavior, the program includes stress stiffness in all geometrically nonlinear analyses (NLGEOM,ON).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14020
+  },
+  {
+    "statement": "Bisection provides a means of automatically recovering from a convergence failure by cutting a time-step size in half when equilibrium iterations fail to converge and restarting from the last converged substep.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 12984
+  },
+  {
+    "statement": "In a large-deflection analysis, nodal coordinate system orientations are not updated and calculated displacements are output in the original directions; pressure loads always act normal to the deflected element surface.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13003
+  },
+  {
+    "statement": "Large-strain analyses account for stiffness changes from changes in an element's shape and orientation; NLGEOM,ON activates large-strain effects and the procedure places no theoretical limit on total rotation or strain.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13046
+  },
+  {
+    "statement": "The total load should be broken into smaller steps because strain increments must be restricted to maintain accuracy in the large-strain procedure.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13050
+  },
+  {
+    "statement": "In large-strain solutions, all stress-strain input and results are in terms of true stress and true (or logarithmic) strain.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13056
+  },
+  {
+    "statement": "Large Deflections with Small Strain is available in all beam and most shell elements; issue NLGEOM,ON to activate large-deflection effects for small-strain analysis element types that support this feature.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13065
+  },
+  {
+    "statement": "For most elements, initial stiffness effects are automatically included when large-deformation effects are activated (NLGEOM,ON).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 13092
+  },
+  {
+    "statement": "A structure can become unstable when a load reaches its buckling value or when nonlinear material becomes unstable; it is more common in slender structures, and the instability could be global (snap-through of a plate) or local (failure of a stiffener).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14609
+  },
+  {
+    "statement": "Nonlinear stabilization (p. 303) is a tool for dealing with local instabilities as well as global instability and can be used with nearly any other nonlinear technique (such as line search and automatic time-stepping) but not with the arc-length method.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14616
+  },
+  {
+    "statement": "The arc-length method (p. 308) can simulate the negative slope portion of a load-vs-displacement curve.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14620
+  },
+  {
+    "statement": "The energy dissipation ratio should be between 0 and 1; use a smaller value for local instability and a larger value for global instability, a smaller value for solid elements and a larger value for shell, beam, and link elements.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14687
+  },
+  {
+    "statement": "It is more efficient and accurate in most cases to activate stabilization in a multiframe restart, restarting from the next-to-last converged substep.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14826
+  },
+  {
+    "statement": "If the stabilization energy is much less than the potential energy (for example, within a 1.0 percent tolerance), the result should be acceptable.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14803
+  },
+  {
+    "statement": "The arc-length method (ARCLEN and ARCTRM) is restricted to static analyses with proportional (ramped) loads only; do not use LNSRCH, PRED, adaptive descent (NROPT,,,ON), automatic time-stepping (AUTOTS, DELTIM), or TIMINT when it is active.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14869
+  },
+  {
+    "statement": "When the arc-length method is active, do not base convergence on displacement (CNVTOL,U); instead use the force criteria (CNVTOL,F).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14878
+  },
+  {
+    "statement": "If an arc-length solution fails to converge within NEQIT, the program automatically bisects and continues; you can freely switch from Newton-Raphson to arc-length at the start of any load step, but switching from arc-length to Newton-Raphson requires terminating and restarting with ARCLEN,OFF.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14883
+  },
+  {
+    "statement": "Place an upper limit on the time-step size (DELTIM or NSUBST), especially for complicated models, to ensure all modes and behaviors of interest are accurately included.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 15194
+  },
+  {
+    "statement": "Line search (LNSRCH) is useful for enhancing convergence but expensive (especially with plasticity); consider it for force-loaded structures, 'flimsy' structures with increasing stiffness (such as a fishing pole), and oscillatory convergence patterns.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 15219
+  },
+  {
+    "statement": "The nonlinear stabilization method can be used to solve both locally and globally unstable problems and to overcome convergence for general problems.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 15226
+  },
+  {
+    "statement": "The Graphical Solution Tracking (GST) feature displays the computed convergence norms and criteria while the solution is in process; by default GST is ON for interactive sessions and OFF for batch runs, controlled by the /GST command.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 15185
+  },
+  {
+    "statement": "Issue the NLDIAG,NRRE command to write Newton-Raphson residuals from equilibrium iterations to a file (Jobname.nrxxx), which can be contour-plotted via PLNSOL,NRRE.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 15119
+  },
+  {
+    "statement": "The NLDIAG,EFLG command identifies elements that violate nonlinear criteria and records them in a file (Jobname.ndxxx).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 15148
+  },
+  {
+    "statement": "In POST1, only one substep can be read in at a time, and the results from that substep should have been written to Jobname.rst.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14188
+  },
+  {
+    "statement": "Verify from the output file whether the analysis converged at all load steps; if not, you probably do not want to postprocess the results other than to determine why convergence failed.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 14202
+  },
+  {
+    "statement": "The nonlinear example (8.14) activates geometric nonlinearity with nlgeom,on and monitors displacement (monitor,1,ntop,uy) and reaction force (monitor,2,nright,fy) with outres,all,all.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 15712
+  },
+  {
+    "statement": "The NLHIST command enables you to monitor results of interest in real time during solution, with data written to Jobname.nlh.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 8423
+  },
+  {
+    "statement": "Use the Newton-Raphson option (NROPT) only in a nonlinear analysis; it specifies how often the tangent matrix is updated during solution.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+    "line": 1718
+  },
+  {
+    "statement": "In the TIME option, time acts as a tracking parameter in rate-independent analyses; if TIME is not issued, the program uses the default time value of 1.0 for the first load step and 1.0 + previous time for other load steps.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 3408
+  },
+  {
+    "statement": "For a nonlinear or transient analysis, specify the number of substeps within a load step via the DELTIM and NSUBST commands; by default the program uses one substep per load step.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 3416
+  },
+  {
+    "statement": "In automatic time stepping, the program calculates an optimum time step at the end of each substep based on the response of the structure to the applied loads; in a nonlinear static analysis AUTOTS determines the size of load increments between substeps.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 3421
+  },
+  {
+    "statement": "KBC,0 indicates ramped loads and KBC,1 indicates stepped loads; the default depends on the discipline and type of analysis.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 3427
+  },
+  {
+    "statement": "Table 3.14 lists NEQIT (maximum number of equilibrium iterations per substep), CNVTOL (convergence tolerances), and NCNV (options for terminating analyses) for nonlinear analyses.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+    "line": 3582
+  },
+  {
+    "statement": "Convergence is assumed when the residual (out-of-balance) is less than a tolerance times a reference value and/or the DOF increment is less than a tolerance times a reference value; the default is out-of-balance convergence checking only.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30053
+  },
+  {
+    "statement": "The default out-of-balance reference value Rref is ||{Fa}||; for DOFs with imposed displacement constraints, the default Rref is {Fnr} at those DOFs.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30079
+  },
+  {
+    "statement": "There are three available norms (CNVTOL NORM): infinite norm, L1 norm, and L2 norm (SRSS); the default is to use the L2 norm.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30066
+  },
+  {
+    "statement": "The default reference value uref is calculated using the historic infinity norm of incremental displacement.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30105
+  },
+  {
+    "statement": "Adaptive descent is used by default for plasticity, contact, stress stiffness with large strain, and nonlinear magnetics unless the line search or arc-length options are on; it is only available with full Newton-Raphson, which is also the default for plasticity, contact, and large strain nonlinearities.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30222
+  },
+  {
+    "statement": "The line search option (LNSRCH) improves a Newton-Raphson solution by scaling the solution vector by a line search parameter s where 0.05 < s < 1.0.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30228
+  },
+  {
+    "statement": "s (the line search parameter) is automatically determined by minimizing the energy of the system using an iterative scheme based on regula falsi; LSTOL defaults to 0.5; if go > 0.0 no iterations are performed and s is set to 1.0; s is not allowed below 0.05.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Theory_Reference.txt",
+    "line": 30235
+  },
+  {
+    "statement": "The td-21 example uses SHELL281 (et,1,281) for a ring-stiffened cylinder with 2024-T3 Aluminum alloy and external pressure.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-21\\buckling.dat",
+    "line": 17
+  },
+  {
+    "statement": "The td-21 buckling.dat static analysis uses antype,static, nlgeom,on, pred,on, time,1, nsubst,100,10000,10, rescontrol,define,all,1, outres,all,all, and ncnv,2 (do not terminate the program if the solution diverges).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-21\\buckling.dat",
+    "line": 145
+  },
+  {
+    "statement": "The td-21 example first performs a linear buckling analysis (pstres,on, antype,buckle, lanbopt,,,BCS), then adds imperfections as a tenth of each mode shape (upgeom,0.1,1,i,buckling,rst), then restarts with stabilization (antype,,restart,1,10, stabilize,constant,energy,0.00012).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\td-21\\buckling.dat",
+    "line": 164
+  },
+  {
+    "statement": "The Delamination of a Stiffened Composite Panel example (Ch. 5) performs a static analysis with large deflection effects (NLGEOM) and a constant stabilization energy dissipation ratio of 0.1 (STABILIZE) to achieve convergence.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+    "line": 5762
+  },
+  {
+    "statement": "The delamination example shows the level of stabilization energy (STEN) is low compared to the total strain energy (SENE).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+    "line": 5767
+  },
+  {
+    "statement": "The wind turbine blade example (Ch. 23) demonstrates using beam elements to simulate the behavior of a slender composite structure such as a wind turbine blade.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+    "line": 15460
+  },
+  {
+    "statement": "For slender composite structures, use current-technology beam elements (such as BEAM188), verify slenderness ratio and material orientation, use the meshed beam-section subtype (SECTYPE,,BEAM,MESH) and/or tapered-beam section (SECTYPE,,TAPER), select higher-order interpolation in BEAM188 if nonuniform deformation is expected, and use the nonaveraged results file format.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\ANSYS_Mechanical_APDL_Technology_Showcase_Example_Problems.txt",
+    "line": 15706
+  },
+  {
+    "statement": "The Bolt Thread Simulation example (Ch. 39) sets the analysis type to static (antype,static) and includes geometric nonlinearity (nlgeom,on).",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Exemples_ANSYS\\Ansys-mechanical-apdl-technology-demonstration-guide.txt",
+    "line": 20350
+  },
+  {
+    "statement": "Use the SOLOPTION command to activate the automatic transition from a static to a transient solution (SOLOPTION, Option, Type, Value), with STOT/TTOS options.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+    "line": 1835
+  },
+  {
+    "statement": "The SOLOPTION example involves snap-through of a slender beam under pressure where a static solution has difficulty converging; only two SOLOPTION commands (soloption and soloption,ttos,time,0.1) are needed beyond typical input.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+    "line": 1851
+  },
+  {
+    "statement": "When using SOLOPTION (mass matrix and algorithmic damping), it is important to define density for all materials; the default backward Euler time integration (SOLOPTION,STOT,,QUASI) is recommended.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+    "line": 1936
+  },
+  {
+    "statement": "During the transient solution phase, monitor the kinetic energy to potential energy ratio; the kinetic and damping energies should be a very small percentage (<1%) of the potential energy to achieve an accurate solution.",
+    "file": "C:\\Users\\connessn\\Datas\\02_RECHERCHE\\00_Biblio\\Doc_tech_ANSYS\\Main_documentation_ANSYS\\ANSYS_Mechanical_APDL_Advanced_Analysis_Guide.txt",
+    "line": 1940
+  }
+]

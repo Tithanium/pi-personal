@@ -1,0 +1,98 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 43915,
+    "tokensIn": 11669,
+    "tokensOut": 1817,
+    "ok": true,
+    "payloadBytes": 2026,
+    "provenance": "new B:tools run 2026-10-14T23-55-24.760Z",
+    "empty": false,
+    "note": "ok (tools: 6 candidate sections → 1938 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "tools"
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 57033,
+    "tokensIn": 6007,
+    "tokensOut": 2290,
+    "ok": false,
+    "payloadBytes": 0,
+    "provenance": "new B:tools run 2026-10-14T23-55-24.760Z",
+    "empty": false,
+    "note": "child timeout 56941ms",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "tools"
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 21095,
+    "tokensIn": 13397,
+    "tokensOut": 845,
+    "ok": true,
+    "payloadBytes": 466,
+    "provenance": "new B:tools run 2026-10-14T23-55-24.760Z",
+    "empty": false,
+    "note": "ok (tools: 1 candidate sections → 378 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "tools"
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 19895,
+    "tokensIn": 22502,
+    "tokensOut": 682,
+    "ok": true,
+    "payloadBytes": 1007,
+    "provenance": "new B:tools run 2026-10-14T23-55-24.760Z",
+    "empty": false,
+    "note": "ok (tools: 4 candidate sections → 919 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 4,
+      "variant": "tools"
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 20780,
+    "tokensIn": 10994,
+    "tokensOut": 1080,
+    "ok": true,
+    "payloadBytes": 3208,
+    "provenance": "new B:tools run 2026-10-14T23-55-24.760Z",
+    "empty": false,
+    "note": "ok (tools: 6 candidate sections → 3120 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "tools"
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 6726,
+    "tokensIn": 7128,
+    "tokensOut": 260,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new B:tools run 2026-10-14T23-55-24.760Z",
+    "empty": true,
+    "note": "single: child pruned the whole candidate set → empty payload",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "tools"
+    }
+  }
+]

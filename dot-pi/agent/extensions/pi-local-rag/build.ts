@@ -163,7 +163,7 @@ export async function withBuildLock<T>(newKind: string, fn: () => Promise<T>): P
  * live database is never touched by a failed build.
  */
 export async function buildAndSwapIndex(opts: BuildOptions): Promise<BuildResult> {
-  const ragDir = getRagDir({ createIfMissing: true });
+  const ragDir = getRagDir();
   const livePath = dbFile(ragDir);
   const secondary = freshSecondaryPath(ragDir);
   const startedAt = Date.now();

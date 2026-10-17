@@ -1,12 +1,17 @@
 {
   "defaultProvider": "alan",
-  "defaultModel": "qwen-3.8-27b",
-  "lastChangelogVersion": "1.2.0",
+  "defaultModel": "mimo-v26-flash-mopd",
+  "defaultThinkingLevel": "high",
+  "modelThinkingLevels": {
+    "alan/qwen-3.8-27b": "xhigh"
+  },
+  "lastChangelogVersion": "1.3.0",
   "theme": "dark",
   "packages": [
     "npm:pi-okf",
     "npm:pi-tps-live@1.0.1",
-    "npm:pi-observational-memory"
+    "npm:pi-observational-memory",
+    "npm:@nehlis/pi-effort"
   ],
   "fullscreenWheelScrollLines": 1,
   "defaultTools": [
@@ -18,6 +23,6 @@
   ],
   "enableSkillCommands": true,
   "extensions": [
-    "-extensions/pi-local-rag/index.ts"
+    "extensions/pi-local-rag/index.ts"
   ]
 }

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 5426,
+    "tokensIn": 8091,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 1884,
+    "provenance": "new C run 2026-10-15T01-43-01.978Z",
+    "empty": false,
+    "note": "ok (8 terms → 6 files → 6 children, 5 hits deleted → 1797 B payload)",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 5,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.612412916001631,
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.weakform.PlateDrillingPenalty.generalized_strain_operator.html",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/Ansys_Mechanical_APDL_Command_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Main_documentation_fedoo/generated/fedoo.weakform.StressEquilibrium.incompressibility.html",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Basic_Analysis_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/_archive_Code_source_fedoo_1.0.0/fedoo/weakform/stress_equilibrium_mixed.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/weakform/stress_equilibrium_mixed.py",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/fedoo/weakform/stress_equilibrium_ri.py"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  },
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 5488,
+    "tokensIn": 9795,
+    "tokensOut": 36,
+    "ok": true,
+    "payloadBytes": 0,
+    "provenance": "new C run 2026-10-15T01-43-01.978Z",
+    "empty": true,
+    "note": "all hits deleted (6 children over 6 files, 6 hits deleted) → empty payload",
+    "internals": {
+      "nTerms": 8,
+      "nFiles": 8,
+      "nChildren": 6,
+      "nTimeouts": 0,
+      "nDeleted": 6,
+      "relevanceVerdict": "weak",
+      "topRaw": 0.6639867343936885,
+      "survivingFiles": [
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Contact_Technology_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Theory_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Exemples_fedoo/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Structural_Analysis_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Element_Reference.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_fedoo/Code_source_fedoo/examples/03-advanced/README.rst",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Main_documentation_ANSYS/ANSYS_Mechanical_APDL_Modeling_and_Meshing_Guide.txt",
+        "C:/Users/connessn/Datas/02_RECHERCHE/00_Biblio/Doc_tech_ANSYS/Exemples_ANSYS/td-36/czm2d.dat"
+      ],
+      "cappedModel": "alan-ragcap/qwen-3.8-27b",
+      "anyChildFallback": 0
+    }
+  }
+]

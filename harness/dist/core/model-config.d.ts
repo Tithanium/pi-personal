@@ -139,6 +139,7 @@ declare const ModelDefinitionSchema: Type.TObject<{
         supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
         supportsToolSearch: Type.TOptional<Type.TBoolean>;
         supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+        supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
         supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
     } & {
         supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -174,10 +175,11 @@ declare const ModelDefinitionSchema: Type.TObject<{
         supportsStrictMode: Type.TOptional<Type.TBoolean>;
     } & {
         supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-    }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+    }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
         supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
         supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
         sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+        supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
         supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
         supportsStrictMode: Type.TOptional<Type.TBoolean>;
         supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;
@@ -320,6 +322,7 @@ declare const ModelOverrideSchema: Type.TObject<{
         supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
         supportsToolSearch: Type.TOptional<Type.TBoolean>;
         supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+        supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
         supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
     } & {
         supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -355,10 +358,11 @@ declare const ModelOverrideSchema: Type.TObject<{
         supportsStrictMode: Type.TOptional<Type.TBoolean>;
     } & {
         supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-    }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+    }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
         supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
         supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
         sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+        supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
         supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
         supportsStrictMode: Type.TOptional<Type.TBoolean>;
         supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;
@@ -452,6 +456,7 @@ declare const ProviderConfigSchema: Type.TObject<{
         supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
         supportsToolSearch: Type.TOptional<Type.TBoolean>;
         supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+        supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
         supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
     } & {
         supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -487,10 +492,11 @@ declare const ProviderConfigSchema: Type.TObject<{
         supportsStrictMode: Type.TOptional<Type.TBoolean>;
     } & {
         supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-    }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+    }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
         supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
         supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
         sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+        supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
         supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
         supportsStrictMode: Type.TOptional<Type.TBoolean>;
         supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;
@@ -636,6 +642,7 @@ declare const ProviderConfigSchema: Type.TObject<{
             supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
             supportsToolSearch: Type.TOptional<Type.TBoolean>;
             supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+            supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
             supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
         } & {
             supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -671,10 +678,11 @@ declare const ProviderConfigSchema: Type.TObject<{
             supportsStrictMode: Type.TOptional<Type.TBoolean>;
         } & {
             supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-        }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+        }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
             supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
             supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
             sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+            supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
             supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
             supportsStrictMode: Type.TOptional<Type.TBoolean>;
             supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;
@@ -817,6 +825,7 @@ declare const ProviderConfigSchema: Type.TObject<{
             supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
             supportsToolSearch: Type.TOptional<Type.TBoolean>;
             supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+            supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
             supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
         } & {
             supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -852,10 +861,11 @@ declare const ProviderConfigSchema: Type.TObject<{
             supportsStrictMode: Type.TOptional<Type.TBoolean>;
         } & {
             supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-        }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+        }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
             supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
             supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
             sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+            supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
             supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
             supportsStrictMode: Type.TOptional<Type.TBoolean>;
             supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;
@@ -951,6 +961,7 @@ export declare const ModelsConfigSchema: Type.TObject<{
             supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
             supportsToolSearch: Type.TOptional<Type.TBoolean>;
             supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+            supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
             supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
         } & {
             supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -986,10 +997,11 @@ export declare const ModelsConfigSchema: Type.TObject<{
             supportsStrictMode: Type.TOptional<Type.TBoolean>;
         } & {
             supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-        }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+        }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
             supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
             supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
             sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+            supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
             supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
             supportsStrictMode: Type.TOptional<Type.TBoolean>;
             supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;
@@ -1135,6 +1147,7 @@ export declare const ModelsConfigSchema: Type.TObject<{
                 supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
                 supportsToolSearch: Type.TOptional<Type.TBoolean>;
                 supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+                supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
                 supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
             } & {
                 supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -1170,10 +1183,11 @@ export declare const ModelsConfigSchema: Type.TObject<{
                 supportsStrictMode: Type.TOptional<Type.TBoolean>;
             } & {
                 supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-            }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+            }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
                 supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
                 supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
                 sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+                supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
                 supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
                 supportsStrictMode: Type.TOptional<Type.TBoolean>;
                 supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;
@@ -1316,6 +1330,7 @@ export declare const ModelsConfigSchema: Type.TObject<{
                 supportsAdditionalTools: Type.TOptional<Type.TBoolean>;
                 supportsToolSearch: Type.TOptional<Type.TBoolean>;
                 supportsExplicitPromptCacheMode: Type.TOptional<Type.TBoolean>;
+                supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
                 supportsMaxOutputTokens: Type.TOptional<Type.TBoolean>;
             } & {
                 supportsEagerToolInputStreaming: Type.TOptional<Type.TBoolean>;
@@ -1351,10 +1366,11 @@ export declare const ModelsConfigSchema: Type.TObject<{
                 supportsStrictMode: Type.TOptional<Type.TBoolean>;
             } & {
                 supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
-            }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
+            }, "sendSessionAffinityHeaders" | "sessionAffinityFormat" | "supportsDeveloperRole" | "supportsLongCacheRetention" | "supportsMidConvoEffort" | "supportsMidConvoSystemMessages" | "supportsOpenAIGrammarTools" | "supportsStrictMode"> & {
                 supportsDeveloperRole: Type.TOptional<Type.TBoolean>;
                 supportsMidConvoSystemMessages: Type.TOptional<Type.TBoolean>;
                 sessionAffinityFormat: Type.TOptional<Type.TUnion<[Type.TLiteral<"openai">, Type.TLiteral<"openai-nosession">, Type.TLiteral<"openrouter">]>>;
+                supportsMidConvoEffort: Type.TOptional<Type.TBoolean>;
                 supportsLongCacheRetention: Type.TOptional<Type.TBoolean>;
                 supportsStrictMode: Type.TOptional<Type.TBoolean>;
                 supportsOpenAIGrammarTools: Type.TOptional<Type.TBoolean>;

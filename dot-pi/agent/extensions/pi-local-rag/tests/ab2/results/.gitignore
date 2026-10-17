@@ -1,0 +1,2 @@
+# raw child diagnostics (large; the .md payloads + meta.json are the evidence)
+*.jsonl

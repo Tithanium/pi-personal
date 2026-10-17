@@ -1,0 +1,104 @@
+[
+  {
+    "id": "fedoo_rectangle_mesh",
+    "wallMs": 2039,
+    "tokensIn": 2650,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 2154,
+    "provenance": "new B:single run 2026-10-15T00-38-53.290Z",
+    "empty": false,
+    "note": "ok (single selection: 1/6 candidate sections kept → 2068 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_stresseq_nlgeom",
+    "wallMs": 1559,
+    "tokensIn": 3225,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 3062,
+    "provenance": "new B:single run 2026-10-15T00-38-53.290Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; top seed 0.418 ≥ 0.3) → top-3 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 6,
+      "variant": "single",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_nlgeom_cmd",
+    "wallMs": 2380,
+    "tokensIn": 511,
+    "tokensOut": 71,
+    "ok": true,
+    "payloadBytes": 10329,
+    "provenance": "new B:single run 2026-10-15T00-38-53.290Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; top seed 0.600 ≥ 0.3) → top-1 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "rescue": true
+    }
+  },
+  {
+    "id": "ansys_fkn_contact",
+    "wallMs": 1440,
+    "tokensIn": 502,
+    "tokensOut": 7,
+    "ok": true,
+    "payloadBytes": 9117,
+    "provenance": "new B:single run 2026-10-15T00-38-53.290Z",
+    "empty": false,
+    "note": "ok (single selection: 1/1 candidate sections kept → 9030 B payload)",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "rescue": false
+    }
+  },
+  {
+    "id": "fedoo_modelingspace",
+    "wallMs": 1399,
+    "tokensIn": 162,
+    "tokensOut": 11,
+    "ok": true,
+    "payloadBytes": 8078,
+    "provenance": "new B:single run 2026-10-15T00-38-53.290Z",
+    "empty": false,
+    "note": "ok (single selection: 2/4 candidate sections kept → 7992 B payload)",
+    "internals": {
+      "nChunks": 5,
+      "nSections": 4,
+      "variant": "single",
+      "rescue": false
+    }
+  },
+  {
+    "id": "unrelated_cooking",
+    "wallMs": 1342,
+    "tokensIn": 188,
+    "tokensOut": 2,
+    "ok": true,
+    "payloadBytes": 11906,
+    "provenance": "new B:single run 2026-10-15T00-38-53.290Z",
+    "empty": false,
+    "note": "deterministic rescue (child → EMPTY; top seed 0.600 ≥ 0.3) → top-1 sections kept",
+    "internals": {
+      "nChunks": 6,
+      "nSections": 1,
+      "variant": "single",
+      "rescue": true
+    }
+  }
+]
